@@ -155,3 +155,4 @@ tests/cpp-empty-test/proj.tizen/res/
 tests/cpp-tests/proj.tizen/res/
 tests/lua-empty-test/project/proj.tizen/res/
 tests/lua-tests/project/proj.tizen/res/
+src/App/proj.win32/ChessGameApp.vcxproj.filters

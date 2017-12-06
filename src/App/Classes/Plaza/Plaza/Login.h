@@ -15,8 +15,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
-
-class Login : public Layer
+class Login
 {
 public:
 	Login();
