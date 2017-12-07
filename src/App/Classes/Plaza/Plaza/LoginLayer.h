@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		Login.h
+ * file: 		LoginLayer.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/12/06 23:27:36
@@ -32,13 +32,16 @@ typedef struct stLoginServerInfo
 	char szAddress[256];		// ·þÎñÆ÷µØÖ·
 }ST_LOGIN_SERVER_INFO, *PST_LOGIN_SERVER_INFO;
 
-class Login : 
-	public ESLayer, 
+class LoginLayer :
+	public cocos2d::Layer,
 	public cocos2d::ui::EditBoxDelegate//,
 	//public cocos2d::extension::TableViewDataSource,
 	//public cocos2d::extension::TableViewDelegate
 {
 public:
+	//Login();
+	~LoginLayer();
+
 	static cocos2d::Scene* createScene();
 
 	//CREATE_FUNC(Login);
@@ -65,9 +68,6 @@ public:
 	virtual void editBoxEditingDidBegin(cocos2d::ui::EditBox* pEditBox);
 
 	virtual void editBoxEditingDidEnd(cocos2d::ui::EditBox* pEditBox);
-
-	//Login();
-	~Login();
 
 	void initLogin();
 	void loadLoading();

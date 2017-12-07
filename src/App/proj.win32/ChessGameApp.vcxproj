@@ -151,7 +151,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Layer\GameCreateLayer.cpp" />
     <ClCompile Include="..\Classes\Layer\HallLayer.cpp" />
     <ClCompile Include="..\Classes\Layer\SettingLayer.cpp" />
-    <ClCompile Include="..\Classes\Plaza\Plaza\Login.cpp" />
+    <ClCompile Include="..\Classes\Plaza\Plaza\LoginLayer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +162,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Layer\GameCreateLayer.h" />
     <ClInclude Include="..\Classes\Layer\HallLayer.h" />
     <ClInclude Include="..\Classes\Layer\SettingLayer.h" />
-    <ClInclude Include="..\Classes\Plaza\Plaza\Login.h" />
+    <ClInclude Include="..\Classes\Plaza\Plaza\LoginLayer.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

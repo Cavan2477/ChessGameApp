@@ -22,11 +22,11 @@
     <ClCompile Include="..\Classes\Layer\SettingLayer.cpp">
       <Filter>src\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Plaza\Plaza\Login.cpp">
-      <Filter>src\Plaza\Plaza</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Plaza\LoginLayer.cpp">
+      <Filter>src\Plaza\Plaza</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,11 +51,11 @@
     <ClInclude Include="..\Classes\Layer\SettingLayer.h">
       <Filter>src\Layer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Plaza\Plaza\Login.h">
-      <Filter>src\Plaza\Plaza</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Plaza\LoginLayer.h">
+      <Filter>src\Plaza\Plaza</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
