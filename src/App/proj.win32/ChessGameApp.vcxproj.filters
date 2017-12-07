@@ -1,30 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\Classes\BaseUI\Layer\ESLayer.cpp" />
-    <ClCompile Include="..\Classes\Common\Global.cpp" />
-    <ClCompile Include="..\Classes\Common\GlobalConst.cpp" />
-    <ClCompile Include="..\Classes\Layer\GameCreateLayer.cpp" />
-    <ClCompile Include="..\Classes\Layer\HallLayer.cpp" />
-    <ClCompile Include="..\Classes\Layer\SettingLayer.cpp" />
-    <ClCompile Include="..\Classes\Plaza\Plaza\Login.cpp" />
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BaseUI\Layer\ESLayer.cpp">
+      <Filter>src\BaseUI\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Common\Global.cpp">
+      <Filter>src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Common\GlobalConst.cpp">
+      <Filter>src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Layer\GameCreateLayer.cpp">
+      <Filter>src\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Layer\HallLayer.cpp">
+      <Filter>src\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Layer\SettingLayer.cpp">
+      <Filter>src\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Plaza\Login.cpp">
+      <Filter>src\Plaza\Plaza</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\BaseUI\Layer\ESLayer.h" />
-    <ClInclude Include="..\Classes\Common\Global.h" />
-    <ClInclude Include="..\Classes\Common\GlobalConst.h" />
-    <ClInclude Include="..\Classes\Layer\GameCreateLayer.h" />
-    <ClInclude Include="..\Classes\Layer\HallLayer.h" />
-    <ClInclude Include="..\Classes\Layer\SettingLayer.h" />
-    <ClInclude Include="..\Classes\Plaza\Plaza\Login.h" />
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BaseUI\Layer\ESLayer.h">
+      <Filter>src\BaseUI\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\Global.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\GlobalConst.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layer\GameCreateLayer.h">
+      <Filter>src\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layer\HallLayer.h">
+      <Filter>src\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layer\SettingLayer.h">
+      <Filter>src\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Plaza\Login.h">
+      <Filter>src\Plaza\Plaza</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
@@ -45,6 +73,18 @@
     </Filter>
     <Filter Include="src\BaseUI\Layer">
       <UniqueIdentifier>{7ec7589d-e67b-40a0-9f15-6aad3f8557c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common">
+      <UniqueIdentifier>{a986279e-a597-43ee-b0df-9204c81bc148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Layer">
+      <UniqueIdentifier>{454078c2-1b4e-479d-a7e2-372d1718ca39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza">
+      <UniqueIdentifier>{6fceacb7-2f0a-4646-95de-cf43faa22da5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza\Plaza">
+      <UniqueIdentifier>{a684b068-068e-4907-b16c-88a0c6d4c9f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
