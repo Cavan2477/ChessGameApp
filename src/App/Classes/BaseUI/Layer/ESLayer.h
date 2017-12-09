@@ -17,28 +17,43 @@
 #include "cocos2d.h"
 #include "../../Common/Global.h"
 
-// Layer Information
-class LayerInfo
-{
-public:
-	cocos2d::String		pngBg;
-};
+USING_NS_CC;
 
-// MenuItem Information
-class MenuItemInfo
+using namespace std;
+
+// They will be adjust to the plist/config file
+#define RESOLUTION_WIDTH	1024
+#define RESOLUTION_HEIGHT	768
+
+#define SCREEN_DISTANCE_X	10
+#define SCREEN_DISTANCE_Y	10
+
+// menu item information structure
+typedef struct stMenuItemInfo
 {
-public:
-	cocos2d::String		pngBg;
-};
+	// scale png to adapter to screen position type enum
+	enum EnumPosType
+	{
+		
+	};
+
+	char	szPNGMenuItem[MAX_PATH];		// menu item image 
+	char	szPNGNormal[MAX_PATH];			// normal status
+	char	szPNGSelect[MAX_PATH];			// selected status
+	int		nX;								// x
+	int		nY;								// y
+
+	ccMenuCallback ccMenuCallbackFunc;		// menu item callback function
+}ST_MENU_ITEM_INFO, *PST_MENU_ITEM_INFO;
 
 class ESLayer
 {
 public:
-	// Initialize layer
-	static bool initLayer(cocos2d::Layer* pLayer, LayerInfo* pLayerInfo);
+	// Initialize layer background
+	static bool initLayerBg(cocos2d::Layer* pLayer, IN const string& strPngBg);
 
-	// Initialize menuitem
-	static bool initMenuItem(cocos2d::Layer* pLayer, MenuItemInfo* pMenuItemInfo);
+	// Initialize menu item
+	static bool initMenuItem(cocos2d::Layer* pLayer, IN stMenuItemInfo* pstMenuItemInfo);
 };
 #endif // __ESScene_h__
 

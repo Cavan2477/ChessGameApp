@@ -36,15 +36,11 @@ Scene* GameCreateLayer::createScene()
 //************************************************************************
 bool GameCreateLayer::init()
 {
-	LayerInfo layerInfo;
-
-	layerInfo.pngBg = PNG_GAME_CREATE_BG;
-
 	if (!Layer::init())
 		return false;
 
 	// 1.set scene information
-	if (!ESLayer::initLayer(this, &layerInfo))
+	if (!ESLayer::initLayerBg(this, PNG_GAME_CREATE_BG))
 		return false;
 
 	// 2.set menu item

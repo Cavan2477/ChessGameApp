@@ -16,15 +16,6 @@
 
 #include "cocos2d.h"
 
-//-----------------------------------------------------------------------------------
-// They will be adjust to the plist/config file
-extern int const RESOLUTION_WIDTH;
-extern int const RESOLUTION_HEIGHT;
-
-extern int const SCREEN_DISTANCE_X;
-extern int const SCREEN_DISTANCE_Y;
-//-----------------------------------------------------------------------------------
-
 extern std::string const PNG_HALL_BG;
 extern std::string const PNG_GAME_PLAY_BG;
 extern std::string const PNG_GAME_CREATE_BG;

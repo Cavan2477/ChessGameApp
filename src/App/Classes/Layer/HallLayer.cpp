@@ -46,19 +46,19 @@ Scene* HallLayer::createScene()
 //************************************************************************
 bool HallLayer::init()
 {
-	LayerInfo layerInfo;
-
-	layerInfo.pngBg = PNG_HALL_BG;
-
 	if (!Layer::init())
 		return false;
 
 	// 1.set scene information
-	if (!ESLayer::initLayer(this, &layerInfo))
+	if (!ESLayer::initLayerBg(this, PNG_HALL_BG))
 		return false;
 
 	// 2.set menu item
-	CCSpriteFrame* pSpriteFrameSettingUp = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(PNG_SETTING_UP);
+	if (!initMenuItem())
+		return false;
+
+	/*CCSpriteFrame* pSpriteFrameSettingUp = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(PNG_SETTING_UP);
+
 	CCSprite* pSpriteSettingUp = Sprite::create(PNG_SETTING_UP);
 	CCSprite* pSpriteSettingDown = Sprite::create(PNG_SETTING_DOWN);
 
@@ -70,7 +70,7 @@ bool HallLayer::init()
 	int nPngSettingX = SIZE_SCREEN.width - sizePngSettingUp.width - SCREEN_DISTANCE_X;
 	int nPngSettingY = SCREEN_DISTANCE_Y;
 
-	MenuItemSprite* pMenuItemSprite = MenuItemSprite::create(pSpriteSettingDown, pSpriteSettingDown, CC_CALLBACK_1(HallLayer::menuItemSettingCallback, this));
+	MenuItemSprite* pMenuItemSprite = MenuItemSprite::create(pSpriteSettingUp, pSpriteSettingDown, CC_CALLBACK_1(HallLayer::menuItemSettingCallback, this));
 
 	// 2.1 scale png to adapter to screen size and position
 	// todo 2017/07/22 to be continue 
@@ -83,9 +83,35 @@ bool HallLayer::init()
 	pMenu->setPosition(Vec2::ZERO);
 
 	// 5.add menu
-	this->addChild(pMenu);
+	this->addChild(pMenu);*/
 
 	return true;
+}
+
+//************************************************************************
+// 	Function:	initialize menu item
+//	Privilege:	
+//	Create:		2017/07/24
+//	Author:		Cavan.Liu
+//	Parameter:	
+//	Return:		void
+//************************************************************************
+bool HallLayer::initMenuItem()
+{
+	ST_MENU_ITEM_INFO stMenuItemInfo = {0};
+
+	sprintf_s(stMenuItemInfo.szPNGMenuItem, sizeof(stMenuItemInfo.szPNGMenuItem), PNG_SETTING_UP.c_str());
+	sprintf_s(stMenuItemInfo.szPNGNormal, sizeof(stMenuItemInfo.szPNGNormal), PNG_SETTING_UP.c_str());
+	sprintf_s(stMenuItemInfo.szPNGSelect, sizeof(stMenuItemInfo.szPNGSelect), PNG_SETTING_DOWN.c_str());
+
+	stMenuItemInfo.nX = 200;
+	stMenuItemInfo.nY = 200;
+
+	//typedef void (*pMenuItemSettingCallback)(cocos2d::Ref *);
+
+	//stMenuItemInfo.ccMenuCallbackFunc = pMenuItemSettingCallback;
+
+	return ESLayer::initMenuItem(this, &stMenuItemInfo);
 }
 
 //************************************************************************
@@ -98,7 +124,7 @@ bool HallLayer::init()
 //************************************************************************
 void HallLayer::menuItemSettingCallback(cocos2d::Ref * pSender)
 {
-	log("HallLayer::menuItemSettingCallback(cocos2d::Ref * pSender)");
+	log("进入设置页面 HallLayer::menuItemSettingCallback(cocos2d::Ref * pSender)");
 
 	auto createSceneSettingLayer = SettingLayer::createScene();
 

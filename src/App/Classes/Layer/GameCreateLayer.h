@@ -43,7 +43,6 @@ public:
 protected:
 
 private:
-	LayerInfo	m_layerInfo;				// Layer information
 
 };
 

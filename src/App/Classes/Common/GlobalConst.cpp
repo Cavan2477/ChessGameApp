@@ -11,15 +11,6 @@
 
 #include "GlobalConst.h"
 
-//-----------------------------------------------------------------------------------
-// They will be adjust to the plist/config file
-int const RESOLUTION_WIDTH = 1024;
-int const RESOLUTION_HEIGHT = 768;
-
-int const SCREEN_DISTANCE_X = 10;
-int const SCREEN_DISTANCE_Y = 10;
-//-----------------------------------------------------------------------------------
-
 std::string const PNG_HALL_BG			= "hall_bg.png";
 std::string const PNG_GAME_PLAY_BG		= "game_play_bg.png";
 std::string const PNG_GAME_CREATE_BG	= "game_create_bg.png";

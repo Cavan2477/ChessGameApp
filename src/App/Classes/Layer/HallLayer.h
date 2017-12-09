@@ -28,7 +28,10 @@ public:
 	// init
 	virtual bool init();
 
-	// menu item
+	// initialize menu item 
+	bool initMenuItem();
+
+	// menu item callback function
 	void menuItemSettingCallback(cocos2d::Ref * pSender);
 
 	CREATE_FUNC(HallLayer);
@@ -43,7 +46,7 @@ public:
 protected:
 
 private:
-	LayerInfo	m_layerInfo;				// Layer information
+	
 };
 
 #endif // __HallLayer_h__

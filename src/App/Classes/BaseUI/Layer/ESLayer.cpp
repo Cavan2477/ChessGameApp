@@ -18,13 +18,13 @@ USING_NS_CC;
 //	Privilege:	public
 //	Create:		2017/07/14
 //	Author:		Cavan.Liu
-//	Parameter:	Layer*		pLayer
-//				LayerInfo*	pSceneInfo
+//	Parameter:	Layer*				pLayer
+//				IN const string&	strPngBg
 //	Return:		bool
 //************************************************************************
-bool ESLayer::initLayer(Layer* pLayer, LayerInfo* pLayerInfo)
+bool ESLayer::initLayerBg(Layer* pLayer, IN const string& strPngBg)
 {
-	if (NULL == pLayer || NULL == pLayerInfo)
+	if (NULL == pLayer || strPngBg.empty())
 		return false;
 
 	// 1.init scene
@@ -39,7 +39,7 @@ bool ESLayer::initLayer(Layer* pLayer, LayerInfo* pLayerInfo)
 	SIZE_SCREEN = winSize;
 
 	// 3.set background
-	Sprite* pSpriteBg = Sprite::create(pLayerInfo->pngBg.getCString());
+	Sprite* pSpriteBg = Sprite::create(strPngBg);
 
 	if (NULL == pSpriteBg)
 	{
@@ -65,19 +65,48 @@ bool ESLayer::initLayer(Layer* pLayer, LayerInfo* pLayerInfo)
 }
 
 //************************************************************************
-// 	Function:	initMenuItem
+// 	Function:	初始化菜单项
 //	Privilege:	
 //	Create:		2017/07/24
 //	Author:		Cavan.Liu
-//	Parameter:	
-//	Return:		
+//	Parameter:	cocos2d::Layer* pLayer
+//				IN stMenuItemInfo* pstMenuItemInfo
+//	Return:		bool
 //************************************************************************
-bool ESLayer::initMenuItem(cocos2d::Layer* pLayer, MenuItemInfo* pMenuItemInfo)
+bool ESLayer::initMenuItem(cocos2d::Layer* pLayer, IN stMenuItemInfo* pstMenuItemInfo)
 {
-	if (NULL == pLayer || NULL == pMenuItemInfo)
+	if (NULL == pLayer || NULL == pstMenuItemInfo)
 		return false;
 
+	// 1.set menu item
+	CCSpriteFrame* pSpriteFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(pstMenuItemInfo->szPNGMenuItem);
 
+	CCSprite* pSpriteNormal = Sprite::create(pstMenuItemInfo->szPNGNormal);
+	CCSprite* pSpriteSelect = Sprite::create(pstMenuItemInfo->szPNGSelect);
+
+	auto sizePngNormal = pSpriteNormal->getTextureRect().size;
+
+	pSpriteNormal->setScaleX(RESOLUTION_WIDTH/sizePngNormal.width);
+	pSpriteNormal->setScaleY(RESOLUTION_HEIGHT/sizePngNormal.height);
+
+	// todo 2017/12/8 to be continue
+	//int nPngNormalX = SIZE_SCREEN.width - sizePngNormal.width - SCREEN_DISTANCE_X;
+	//int nPngNormalY = SCREEN_DISTANCE_Y;
+
+	MenuItemSprite* pMenuItemSprite = MenuItemSprite::create(pSpriteNormal, pSpriteSelect, CC_CALLBACK_1(pstMenuItemInfo->ccMenuCallbackFunc, pLayer));
+
+	// 2.scale png to adapter to screen size and position
+	// 2017/12/9 to be continue
+	pMenuItemSprite->setPosition(Director::getInstance()->convertToGL(Vec2(pstMenuItemInfo->nX, pstMenuItemInfo->nY)));
+
+	// 3.create menu item
+	Menu* pMenu = Menu::create(pMenuItemSprite, NULL);
+
+	// 4.set menu position
+	pMenu->setPosition(Vec2::ZERO);
+
+	// 5.add menu
+	pLayer->addChild(pMenu);
 
 	return true;
 }

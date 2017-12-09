@@ -28,15 +28,11 @@ Scene* SettingLayer::createScene()
 //************************************************************************
 bool SettingLayer::init()
 {
-	LayerInfo layerInfo;
-
-	layerInfo.pngBg = PNG_SETTING_BG;
-
 	if (!Layer::init())
 		return false;
 
 	// 1.set scene information
-	if (!ESLayer::initLayer(this, &layerInfo))
+	if (!ESLayer::initLayerBg(this, PNG_SETTING_BG))
 		return false;
 
 	// 2.
