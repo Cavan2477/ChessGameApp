@@ -25,5 +25,9 @@ extern std::string const PNG_SETTING_BG;
 extern std::string const PNG_SETTING_DOWN;
 extern std::string const PNG_SETTING_UP;
 
+// help png	  
+extern std::string const PNG_HELP_DOWN;
+extern std::string const PNG_HELP_UP;
+
 #endif // __GlobalConst_h__
 

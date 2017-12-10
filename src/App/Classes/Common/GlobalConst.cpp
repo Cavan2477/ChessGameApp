@@ -19,3 +19,7 @@ std::string const PNG_SETTING_BG		= "setting_bg.png";
 // setting png
 std::string const PNG_SETTING_DOWN		= "setting/setting_down.png";
 std::string const PNG_SETTING_UP		= "setting/setting_up.png";
+
+// help png
+std::string const PNG_HELP_DOWN			= "setting/help_down.png";
+std::string const PNG_HELP_UP			= "setting/help_up.png";

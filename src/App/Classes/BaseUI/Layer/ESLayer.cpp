@@ -73,7 +73,7 @@ bool ESLayer::initLayerBg(Layer* pLayer, IN const string& strPngBg)
 //				IN stMenuItemInfo* pstMenuItemInfo
 //	Return:		bool
 //************************************************************************
-bool ESLayer::initMenuItem(cocos2d::Layer* pLayer, IN stMenuItemInfo* pstMenuItemInfo)
+bool ESLayer::initMenuItem(cocos2d::Layer* pLayer, IN stMenuItemInfo* pstMenuItemInfo, IN const cocos2d::ccMenuCallback& menuCallback)
 {
 	if (NULL == pLayer || NULL == pstMenuItemInfo)
 		return false;
@@ -93,7 +93,7 @@ bool ESLayer::initMenuItem(cocos2d::Layer* pLayer, IN stMenuItemInfo* pstMenuIte
 	//int nPngNormalX = SIZE_SCREEN.width - sizePngNormal.width - SCREEN_DISTANCE_X;
 	//int nPngNormalY = SCREEN_DISTANCE_Y;
 
-	MenuItemSprite* pMenuItemSprite = MenuItemSprite::create(pSpriteNormal, pSpriteSelect, CC_CALLBACK_1(pstMenuItemInfo->ccMenuCallbackFunc, pLayer));
+	MenuItemSprite* pMenuItemSprite = MenuItemSprite::create(pSpriteNormal, pSpriteSelect, menuCallback);
 
 	// 2.scale png to adapter to screen size and position
 	// 2017/12/9 to be continue

@@ -43,7 +43,7 @@ typedef struct stMenuItemInfo
 	int		nX;								// x
 	int		nY;								// y
 
-	ccMenuCallback ccMenuCallbackFunc;		// menu item callback function
+	//ccMenuCallback ccMenuCallbackFunc;		// menu item callback function
 }ST_MENU_ITEM_INFO, *PST_MENU_ITEM_INFO;
 
 class ESLayer
@@ -53,7 +53,7 @@ public:
 	static bool initLayerBg(cocos2d::Layer* pLayer, IN const string& strPngBg);
 
 	// Initialize menu item
-	static bool initMenuItem(cocos2d::Layer* pLayer, IN stMenuItemInfo* pstMenuItemInfo);
+	static bool initMenuItem(cocos2d::Layer* pLayer, IN stMenuItemInfo* pstMenuItemInfo, IN const cocos2d::ccMenuCallback& menuCallback);
 };
 #endif // __ESScene_h__
 
