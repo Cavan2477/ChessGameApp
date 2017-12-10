@@ -18,16 +18,32 @@ USING_NS_CC_EXT;
 
 LoginLayer::~LoginLayer()
 {
-
+	//DebugLog("Login Release");
 }
 
-cocos2d::Scene* LoginLayer::createScene()
+Scene* LoginLayer::createScene()
 {
+	string strPublicRes = "public_res/public_res.plist";
+
+	if (nullptr != INSTANCE(Director)->getTextureCache()->getTextureForKey(strPublicRes))
+	{
+		INSTANCE(SpriteFrameCache)->removeSpriteFramesFromFile(strPublicRes);
+		INSTANCE(Director)->getTextureCache()->removeTextureForKey(strPublicRes);
+	}
+
+	INSTANCE(Director)->getTextureCache()->removeUnusedTextures();
+	INSTANCE(SpriteFrameCache)->removeUnusedSpriteFrames();
+
+	FileUtils::getInstance()->setSearchPaths(std::vector<std::string>());
+
 	// 'scene' is an autorelease object
 	auto scene = Scene::create();
 
 	// 'layer' is an autorelease object
 	auto layer = LoginLayer::create();
+
+	// ×÷ÓÃ£¿
+	layer->setTag(10);
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -36,8 +52,21 @@ cocos2d::Scene* LoginLayer::createScene()
 	return scene;
 }
 
+//************************************************************************
+// 	Function:	init
+//	Privilege:	
+//	Create:		2017/12/10
+//	Author:		Cavan.Liu
+//	Parameter:	
+//	Return:		bool
+//************************************************************************
 bool LoginLayer::init()
 {
+	if (!Layer::init())
+		return false;
+
+	m_bSelectSave = false;
+
 	return true;
 }
 

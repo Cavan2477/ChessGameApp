@@ -57,6 +57,9 @@
     <ClInclude Include="..\Classes\Plaza\Plaza\LoginLayer.h">
       <Filter>src\Plaza\Plaza</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Utils\Singleton.h">
+      <Filter>src\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
@@ -85,6 +88,9 @@
     </Filter>
     <Filter Include="src\Plaza\Plaza">
       <UniqueIdentifier>{a684b068-068e-4907-b16c-88a0c6d4c9f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utils">
+      <UniqueIdentifier>{b0e0cbd7-553f-4c92-a8d1-e8c5e76bffea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

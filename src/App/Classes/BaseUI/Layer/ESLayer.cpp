@@ -31,10 +31,8 @@ bool ESLayer::initLayerBg(Layer* pLayer, IN const string& strPngBg)
 	/*if (!Scene::init())
 		return false;*/
 
-	Director* pDirectorInstance = Director::getInstance();
-
 	// 2.get visible size
-	Size winSize = pDirectorInstance->getWinSize();
+	Size winSize = Director::getInstance()->getWinSize();
 
 	SIZE_SCREEN = winSize;
 
@@ -65,7 +63,7 @@ bool ESLayer::initLayerBg(Layer* pLayer, IN const string& strPngBg)
 }
 
 //************************************************************************
-// 	Function:	初始化菜单项
+// 	Function:	初始化菜单项(使用该函数时，菜单项加载资源成功但未显示，点击后显示，原因未知，指针问题？)
 //	Privilege:	
 //	Create:		2017/07/24
 //	Author:		Cavan.Liu
@@ -90,14 +88,14 @@ bool ESLayer::initMenuItem(cocos2d::Layer* pLayer, IN stMenuItemInfo* pstMenuIte
 	pSpriteNormal->setScaleY(RESOLUTION_HEIGHT/sizePngNormal.height);
 
 	// todo 2017/12/8 to be continue
-	//int nPngNormalX = SIZE_SCREEN.width - sizePngNormal.width - SCREEN_DISTANCE_X;
-	//int nPngNormalY = SCREEN_DISTANCE_Y;
+	int nPngNormalX = SIZE_SCREEN.width - sizePngNormal.width - pstMenuItemInfo->nX;
+	int nPngNormalY = pstMenuItemInfo->nY;
 
 	MenuItemSprite* pMenuItemSprite = MenuItemSprite::create(pSpriteNormal, pSpriteSelect, menuCallback);
 
 	// 2.scale png to adapter to screen size and position
 	// 2017/12/9 to be continue
-	pMenuItemSprite->setPosition(Director::getInstance()->convertToGL(Vec2(pstMenuItemInfo->nX, pstMenuItemInfo->nY)));
+	pMenuItemSprite->setPosition(Director::getInstance()->convertToGL(Vec2(nPngNormalX, nPngNormalY)));
 
 	// 3.create menu item
 	Menu* pMenu = Menu::create(pMenuItemSprite, NULL);

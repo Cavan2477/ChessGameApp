@@ -16,6 +16,7 @@
 #include "ui/CocosGUI.h"
 #include "cocos-ext.h"
 #include "BaseUI/Layer/ESLayer.h"
+#include "Utils/Singleton.h"
 #include <string>
 
 using namespace std;

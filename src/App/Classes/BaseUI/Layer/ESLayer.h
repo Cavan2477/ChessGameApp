@@ -43,6 +43,8 @@ typedef struct stMenuItemInfo
 	int		nX;								// x
 	int		nY;								// y
 
+	Menu*	pMenu;
+
 	//ccMenuCallback ccMenuCallbackFunc;		// menu item callback function
 }ST_MENU_ITEM_INFO, *PST_MENU_ITEM_INFO;
 
@@ -54,6 +56,9 @@ public:
 
 	// Initialize menu item
 	static bool initMenuItem(cocos2d::Layer* pLayer, IN stMenuItemInfo* pstMenuItemInfo, IN const cocos2d::ccMenuCallback& menuCallback);
+
+private:
+	Menu*	m_pMenu;
 };
 #endif // __ESScene_h__
 

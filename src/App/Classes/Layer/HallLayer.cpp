@@ -54,14 +54,53 @@ bool HallLayer::init()
 		return false;
 
 	// 2.set menu item
-	if (!initMenuItem())
-		return false;
+	initMyMenuItem();
+	//initMenuItem();
 
 	return true;
 }
 
 //************************************************************************
 // 	Function:	initialize menu item
+//	Privilege:	
+//	Create:		2017/07/24
+//	Author:		Cavan.Liu
+//	Parameter:	
+//	Return:		void
+//************************************************************************
+void HallLayer::initMyMenuItem()
+{
+	CCSpriteFrame* pSpriteFrameSettingUp = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(PNG_SETTING_UP);
+
+	CCSprite* pSpriteSettingUp = Sprite::create(PNG_SETTING_UP);
+	CCSprite* pSpriteSettingDown = Sprite::create(PNG_SETTING_DOWN);
+
+	auto sizePngSettingUp = pSpriteSettingUp->getTextureRect().size;
+
+	pSpriteSettingUp->setScaleX(RESOLUTION_WIDTH / sizePngSettingUp.width);
+	pSpriteSettingUp->setScaleY(RESOLUTION_HEIGHT / sizePngSettingUp.height);
+
+	int nPngSettingX = SIZE_SCREEN.width - sizePngSettingUp.width - SCREEN_DISTANCE_X;
+	int nPngSettingY = SCREEN_DISTANCE_Y;
+
+	MenuItemSprite* pMenuItemSprite = MenuItemSprite::create(pSpriteSettingDown, pSpriteSettingDown, CC_CALLBACK_1(HallLayer::menuItemSettingCallback, this));
+
+	// 2.1 scale png to adapter to screen size and position
+	// todo 2017/07/22 to be continue 
+	pMenuItemSprite->setPosition(Director::getInstance()->convertToGL(Vec2(nPngSettingX, nPngSettingY)));
+
+	// 3.create menu item
+	Menu* pMenu = Menu::create(pMenuItemSprite, NULL);
+
+	// 4.set menu position
+	pMenu->setPosition(Vec2::ZERO);
+
+	// 5.add menu
+	this->addChild(pMenu);
+}
+
+//************************************************************************
+// 	Function:	initialize menu item(注释原因详见函数内调用说明)
 //	Privilege:	
 //	Create:		2017/07/24
 //	Author:		Cavan.Liu
@@ -76,22 +115,10 @@ bool HallLayer::initMenuItem()
 	sprintf_s(stMenuItemInfo.szPNGNormal, sizeof(stMenuItemInfo.szPNGNormal), PNG_SETTING_UP.c_str());
 	sprintf_s(stMenuItemInfo.szPNGSelect, sizeof(stMenuItemInfo.szPNGSelect), PNG_SETTING_DOWN.c_str());
 
-	stMenuItemInfo.nX = 100;
-	stMenuItemInfo.nY = 100;
+	stMenuItemInfo.nX = 10;
+	stMenuItemInfo.nY = 10;
 
 	if (!ESLayer::initMenuItem(this, &stMenuItemInfo, CC_CALLBACK_1(HallLayer::menuItemSettingCallback, this)))
-		return false;
-
-	ST_MENU_ITEM_INFO stMenuItemInfo2 = {0};
-
-	sprintf_s(stMenuItemInfo2.szPNGMenuItem, sizeof(stMenuItemInfo2.szPNGMenuItem), PNG_HELP_DOWN.c_str());
-	sprintf_s(stMenuItemInfo2.szPNGNormal, sizeof(stMenuItemInfo2.szPNGNormal), PNG_HELP_UP.c_str());
-	sprintf_s(stMenuItemInfo2.szPNGSelect, sizeof(stMenuItemInfo2.szPNGSelect), PNG_HELP_DOWN.c_str());
-
-	stMenuItemInfo2.nX = 100;
-	stMenuItemInfo2.nY = 200;
-
-	if (!ESLayer::initMenuItem(this, &stMenuItemInfo2, CC_CALLBACK_1(HallLayer::menuItemSettingCallback, this)))
 		return false;
 
 	return true;

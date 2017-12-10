@@ -30,6 +30,7 @@ public:
 
 	// initialize menu item 
 	bool initMenuItem();
+	void initMyMenuItem();
 
 	// menu item callback function
 	void menuItemSettingCallback(cocos2d::Ref * pSender);
