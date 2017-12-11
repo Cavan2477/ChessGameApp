@@ -145,25 +145,53 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\BaseUI\Layer\ESLayer.cpp" />
+    <ClCompile Include="..\Classes\BaseUI\Layer\ESScene.cpp" />
     <ClCompile Include="..\Classes\Common\Global.cpp" />
     <ClCompile Include="..\Classes\Common\GlobalConst.cpp" />
-    <ClCompile Include="..\Classes\Layer\GameCreateLayer.cpp" />
-    <ClCompile Include="..\Classes\Layer\HallLayer.cpp" />
-    <ClCompile Include="..\Classes\Layer\SettingLayer.cpp" />
-    <ClCompile Include="..\Classes\Plaza\Plaza\LoginLayer.cpp" />
+    <ClCompile Include="..\Classes\DataMgr\AudioMgr.cpp" />
+    <ClCompile Include="..\Classes\DataMgr\GameDataMgr.cpp" />
+    <ClCompile Include="..\Classes\DataMgr\HallDataMgr.cpp" />
+    <ClCompile Include="..\Classes\DataMgr\NetworkMgr.cpp" />
+    <ClCompile Include="..\Classes\Plaza\Plaza\FramList.cpp" />
+    <ClCompile Include="..\Classes\Plaza\Plaza\LoginScene.cpp" />
+    <ClCompile Include="..\Classes\Public\Help.cpp" />
+    <ClCompile Include="..\Classes\Scene\GameCreateScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\HallScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\SettingScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\BaseUI\Layer\ESLayer.h" />
+    <ClInclude Include="..\Classes\BaseUI\Layer\ESScene.h" />
+    <ClInclude Include="..\Classes\CocosHeader.h" />
+    <ClInclude Include="..\Classes\Common\CMD_Common.h" />
+    <ClInclude Include="..\Classes\Common\CMD_GameServer.h" />
+    <ClInclude Include="..\Classes\Common\CMD_LogonServer.h" />
+    <ClInclude Include="..\Classes\Common\CMD_NotifyDefine.h" />
+    <ClInclude Include="..\Classes\Common\CMD_Stdafx.h" />
     <ClInclude Include="..\Classes\Common\Global.h" />
     <ClInclude Include="..\Classes\Common\GlobalConst.h" />
-    <ClInclude Include="..\Classes\Layer\GameCreateLayer.h" />
-    <ClInclude Include="..\Classes\Layer\HallLayer.h" />
-    <ClInclude Include="..\Classes\Layer\SettingLayer.h" />
-    <ClInclude Include="..\Classes\Plaza\Plaza\LoginLayer.h" />
-    <ClInclude Include="..\Classes\Utils\Singleton.h" />
+    <ClInclude Include="..\Classes\Common\MacroDefine.h" />
+    <ClInclude Include="..\Classes\Common\Packet.h" />
+    <ClInclude Include="..\Classes\Common\Platform.h" />
+    <ClInclude Include="..\Classes\Common\Project.h" />
+    <ClInclude Include="..\Classes\Common\Property.h" />
+    <ClInclude Include="..\Classes\Common\Protocol.h" />
+    <ClInclude Include="..\Classes\Common\PublicDefine.h" />
+    <ClInclude Include="..\Classes\Common\Struct.h" />
+    <ClInclude Include="..\Classes\Common\UIMsgDefine.h" />
+    <ClInclude Include="..\Classes\DataMgr\AudioMgr.h" />
+    <ClInclude Include="..\Classes\DataMgr\GameDataMgr.h" />
+    <ClInclude Include="..\Classes\DataMgr\HallDataMgr.h" />
+    <ClInclude Include="..\Classes\DataMgr\NetworkMgr.h" />
+    <ClInclude Include="..\Classes\LibExt\UIInterface.h" />
+    <ClInclude Include="..\Classes\Pattern\Singleton.h" />
+    <ClInclude Include="..\Classes\Plaza\Plaza\FramList.h" />
+    <ClInclude Include="..\Classes\Plaza\Plaza\LoginScene.h" />
+    <ClInclude Include="..\Classes\Public\Help.h" />
+    <ClInclude Include="..\Classes\Scene\GameCreateScene.h" />
+    <ClInclude Include="..\Classes\Scene\HallScene.h" />
+    <ClInclude Include="..\Classes\Scene\SettingScene.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +208,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Classes\Public\Help.mm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

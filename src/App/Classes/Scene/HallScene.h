@@ -9,17 +9,17 @@
  *
  ************************************************************************************/
 
-#ifndef __HallLayer_h__
-#define __HallLayer_h__
+#ifndef __HallScene_h__
+#define __HallScene_h__
 
 #pragma once
 
 #include "cocos2d.h"
 #include "../Common/GlobalConst.h"
-#include "../BaseUI/Layer/ESLayer.h"
-#include "../Layer/SettingLayer.h"
+#include "../BaseUI/Layer/ESScene.h"
+#include "../Layer/SettingScene.h"
 
-class HallLayer : public cocos2d::Layer
+class HallScene : public cocos2d::Layer
 {
 public:
 	// create scene
@@ -35,7 +35,7 @@ public:
 	// menu item callback function
 	void menuItemSettingCallback(cocos2d::Ref * pSender);
 
-	CREATE_FUNC(HallLayer);
+	CREATE_FUNC(HallScene);
 
 protected:
 
@@ -50,5 +50,5 @@ private:
 	
 };
 
-#endif // __HallLayer_h__
+#endif // __HallScene_h__
 

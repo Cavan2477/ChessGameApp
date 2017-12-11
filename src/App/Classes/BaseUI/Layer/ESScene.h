@@ -48,7 +48,7 @@ typedef struct stMenuItemInfo
 	//ccMenuCallback ccMenuCallbackFunc;		// menu item callback function
 }ST_MENU_ITEM_INFO, *PST_MENU_ITEM_INFO;
 
-class ESLayer
+class ESScene
 {
 public:
 	// Initialize layer background

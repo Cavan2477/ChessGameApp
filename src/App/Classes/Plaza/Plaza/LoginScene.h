@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		LoginLayer.h
+ * file: 		LoginScene.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/12/06 23:27:36
@@ -9,13 +9,13 @@
  *
  ************************************************************************************/
 
-#ifndef __Login_h__
-#define __Login_h__
+#ifndef __LoginScene_h__
+#define __LoginScene_h__
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "cocos-ext.h"
-#include "BaseUI/Layer/ESLayer.h"
+#include "BaseUI/Layer/ESScene.h"
 #include "Utils/Singleton.h"
 #include <string>
 
@@ -33,7 +33,7 @@ typedef struct stLoginServerInfo
 	char szAddress[256];		// ·þÎñÆ÷µØÖ·
 }ST_LOGIN_SERVER_INFO, *PST_LOGIN_SERVER_INFO;
 
-class LoginLayer :
+class LoginScene :
 	public cocos2d::Layer,
 	public cocos2d::ui::EditBoxDelegate//,
 	//public cocos2d::extension::TableViewDataSource,
@@ -41,7 +41,7 @@ class LoginLayer :
 {
 public:
 	//Login();
-	~LoginLayer();
+	~LoginScene();
 
 	static cocos2d::Scene* createScene();
 
@@ -109,7 +109,7 @@ protected:
 
 	cocos2d::Sprite*				m_pSpriteServerListBg;
 
-	vector<stLoginServerInfo> m_vecLoginServerList;
+	vector<stLoginServerInfo>		m_vecLoginServerList;
 
 	float	m_fCount;
 
@@ -118,5 +118,5 @@ private:
 	bool	m_bSelectSave;
 };
 
-#endif // __Login_h__
+#endif // __LoginScene_h__
 

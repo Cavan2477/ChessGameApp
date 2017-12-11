@@ -1,19 +1,19 @@
 /************************************************************************************
- * file: 		SettingLayer.cpp
+ * file: 		SettingScene.cpp
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/07/22 9:34:16
- * Description: Setting layer
+ * Description: Setting Scene
  * Version	Author		Time			Description
  * V1.0    	Cavan.Liu	2017/07/22			
  *
  ************************************************************************************/
 
-#include "SettingLayer.h"
+#include "SettingScene.h"
 
 USING_NS_CC;
 
-Scene* SettingLayer::createScene()
+Scene* SettingScene::createScene()
 {
 	return Scene::create();
 }
@@ -26,13 +26,13 @@ Scene* SettingLayer::createScene()
 //	Parameter:	
 //	Return:		bool
 //************************************************************************
-bool SettingLayer::init()
+bool SettingScene::init()
 {
 	if (!Layer::init())
 		return false;
 
 	// 1.set scene information
-	if (!ESLayer::initLayerBg(this, PNG_SETTING_BG))
+	if (!ESScene::initLayerBg(this, PNG_SETTING_BG))
 		return false;
 
 	// 2.

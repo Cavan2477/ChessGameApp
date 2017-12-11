@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		HallLayer.cpp
+ * file: 		HallScene.cpp
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/07/23 23:08:24
@@ -9,7 +9,7 @@
  *
  ************************************************************************************/
 
-#include "HallLayer.h"
+#include "HallScene.h"
 
 USING_NS_CC;
 
@@ -21,13 +21,13 @@ USING_NS_CC;
 //	Parameter:	
 //	Return:		bool
 //************************************************************************
-Scene* HallLayer::createScene()
+Scene* HallScene::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::create();
 
 	// 'layer' is an autorelease object
-	auto layer = HallLayer::create();
+	auto layer = HallScene::create();
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -44,13 +44,13 @@ Scene* HallLayer::createScene()
 //	Parameter:	
 //	Return:		bool
 //************************************************************************
-bool HallLayer::init()
+bool HallScene::init()
 {
 	if (!Layer::init())
 		return false;
 
 	// 1.set scene information
-	if (!ESLayer::initLayerBg(this, PNG_HALL_BG))
+	if (!ESScene::initLayerBg(this, PNG_HALL_BG))
 		return false;
 
 	// 2.set menu item
@@ -68,7 +68,7 @@ bool HallLayer::init()
 //	Parameter:	
 //	Return:		void
 //************************************************************************
-void HallLayer::initMyMenuItem()
+void HallScene::initMyMenuItem()
 {
 	CCSpriteFrame* pSpriteFrameSettingUp = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(PNG_SETTING_UP);
 
@@ -83,7 +83,7 @@ void HallLayer::initMyMenuItem()
 	int nPngSettingX = SIZE_SCREEN.width - sizePngSettingUp.width - SCREEN_DISTANCE_X;
 	int nPngSettingY = SCREEN_DISTANCE_Y;
 
-	MenuItemSprite* pMenuItemSprite = MenuItemSprite::create(pSpriteSettingDown, pSpriteSettingDown, CC_CALLBACK_1(HallLayer::menuItemSettingCallback, this));
+	MenuItemSprite* pMenuItemSprite = MenuItemSprite::create(pSpriteSettingDown, pSpriteSettingDown, CC_CALLBACK_1(HallScene::menuItemSettingCallback, this));
 
 	// 2.1 scale png to adapter to screen size and position
 	// todo 2017/07/22 to be continue 
@@ -107,7 +107,7 @@ void HallLayer::initMyMenuItem()
 //	Parameter:	
 //	Return:		void
 //************************************************************************
-bool HallLayer::initMenuItem()
+bool HallScene::initMenuItem()
 {
 	ST_MENU_ITEM_INFO stMenuItemInfo = {0};
 
@@ -118,7 +118,7 @@ bool HallLayer::initMenuItem()
 	stMenuItemInfo.nX = 10;
 	stMenuItemInfo.nY = 10;
 
-	if (!ESLayer::initMenuItem(this, &stMenuItemInfo, CC_CALLBACK_1(HallLayer::menuItemSettingCallback, this)))
+	if (!ESScene::initMenuItem(this, &stMenuItemInfo, CC_CALLBACK_1(HallScene::menuItemSettingCallback, this)))
 		return false;
 
 	return true;
@@ -132,7 +132,7 @@ bool HallLayer::initMenuItem()
 //	Parameter:	
 //	Return:		void
 //************************************************************************
-void HallLayer::menuItemSettingCallback(cocos2d::Ref * pSender)
+void HallScene::menuItemSettingCallback(cocos2d::Ref * pSender)
 {
 	log("进入设置页面 HallLayer::menuItemSettingCallback(cocos2d::Ref * pSender)");
 

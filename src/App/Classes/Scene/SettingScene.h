@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		SettingLayer.h
+ * file: 		SettingScene.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/07/22 10:34:18
@@ -16,9 +16,9 @@
 
 #include "cocos2d.h"
 #include "../Common/GlobalConst.h"
-#include "../BaseUI/Layer/ESLayer.h"
+#include "../BaseUI/Scene/ESScene.h"
 
-class SettingLayer : public cocos2d::Layer
+class SettingScene : public cocos2d::Layer
 {
 public:
 	// create scene
@@ -27,7 +27,7 @@ public:
 	// initialize 
 	virtual bool init();
 
-	CREATE_FUNC(SettingLayer);
+	CREATE_FUNC(SettingScene);
 
 protected:
 

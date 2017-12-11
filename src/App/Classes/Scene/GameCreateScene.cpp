@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		GameCreateLayer.cpp
+ * file: 		GameCreateScene.cpp
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/07/23 23:08:31
@@ -9,7 +9,7 @@
  *
  ************************************************************************************/
 
-#include "GameCreateLayer.h"
+#include "GameCreateScene.h"
 
 USING_NS_CC;
 
@@ -21,7 +21,7 @@ USING_NS_CC;
 //	Parameter:	
 //	Return:		Scene*	
 //************************************************************************
-Scene* GameCreateLayer::createScene()
+Scene* GameCreateScene::createScene()
 {
 	return Scene::create();
 }
@@ -34,13 +34,13 @@ Scene* GameCreateLayer::createScene()
 //	Parameter:	
 //	Return:		bool
 //************************************************************************
-bool GameCreateLayer::init()
+bool GameCreateScene::init()
 {
 	if (!Layer::init())
 		return false;
 
 	// 1.set scene information
-	if (!ESLayer::initLayerBg(this, PNG_GAME_CREATE_BG))
+	if (!ESScene::initLayerBg(this, PNG_GAME_CREATE_BG))
 		return false;
 
 	// 2.set menu item
