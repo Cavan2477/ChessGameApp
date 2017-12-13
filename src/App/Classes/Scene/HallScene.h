@@ -9,8 +9,8 @@
  *
  ************************************************************************************/
 
-#ifndef __HallLayer_h__
-#define __HallLayer_h__
+#ifndef __HallScene_h__
+#define __HallScene_h__
 
 #pragma once
 
@@ -50,5 +50,5 @@ private:
 	
 };
 
-#endif // __HallLayer_h__
+#endif // __HallScene_h__
 

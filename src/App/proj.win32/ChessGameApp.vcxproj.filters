@@ -13,23 +13,38 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Layer\HallScene.cpp">
-      <Filter>src\Layer</Filter>
+    <ClCompile Include="..\Classes\BaseUI\Layer\ESScene.cpp">
+      <Filter>src\BaseUI\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Plaza\Plaza\LoginScene.cpp">
       <Filter>src\Plaza\Plaza</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Layer\GameCreateScene.cpp">
-      <Filter>src\Layer</Filter>
+    <ClCompile Include="..\Classes\Scene\GameCreateScene.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Layer\SettingScene.cpp">
-      <Filter>src\Layer</Filter>
+    <ClCompile Include="..\Classes\Scene\HallScene.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BaseUI\Layer\ESScene.cpp">
-      <Filter>src\BaseUI\Layer</Filter>
+    <ClCompile Include="..\Classes\Scene\SettingScene.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\DataMgr\DataMgr.cpp">
+    <ClCompile Include="..\Classes\DataMgr\GameDataMgr.cpp">
       <Filter>src\DataMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DataMgr\HallDataMgr.cpp">
+      <Filter>src\DataMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DataMgr\NetworkMgr.cpp">
+      <Filter>src\DataMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Public\Help.cpp">
+      <Filter>src\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DataMgr\AudioMgr.cpp">
+      <Filter>src\DataMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Plaza\FramList.cpp">
+      <Filter>src\Plaza\Plaza</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -45,26 +60,89 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Layer\HallScene.h">
-      <Filter>src\Layer</Filter>
+    <ClInclude Include="..\Classes\BaseUI\Layer\ESScene.h">
+      <Filter>src\BaseUI\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Plaza\Plaza\LoginScene.h">
       <Filter>src\Plaza\Plaza</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Layer\GameCreateScene.h">
-      <Filter>src\Layer</Filter>
+    <ClInclude Include="..\Classes\Scene\GameCreateScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Layer\SettingScene.h">
-      <Filter>src\Layer</Filter>
+    <ClInclude Include="..\Classes\Scene\HallScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BaseUI\Layer\ESScene.h">
-      <Filter>src\BaseUI\Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DataMgr\DataMgr.h">
-      <Filter>src\DataMgr</Filter>
+    <ClInclude Include="..\Classes\Scene\SettingScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Pattern\Singleton.h">
       <Filter>src\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CocosHeader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\MacroDefine.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LibExt\UIInterface.h">
+      <Filter>src\LibExt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\UIMsgDefine.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataMgr\GameDataMgr.h">
+      <Filter>src\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataMgr\HallDataMgr.h">
+      <Filter>src\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataMgr\NetworkMgr.h">
+      <Filter>src\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Public\Help.h">
+      <Filter>src\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\PublicDefine.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataMgr\AudioMgr.h">
+      <Filter>src\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Plaza\FramList.h">
+      <Filter>src\Plaza\Plaza</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\Project.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\CMD_Stdafx.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\Packet.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\Platform.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\Property.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\Protocol.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\Struct.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\CMD_GameServer.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\CMD_LogonServer.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\CMD_NotifyDefine.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\CMD_Common.h">
+      <Filter>src\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,14 +158,8 @@
     <Filter Include="src\BaseUI">
       <UniqueIdentifier>{07b71095-4d7f-423b-8fe7-997c3487a193}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BaseUI\Layer">
-      <UniqueIdentifier>{7ec7589d-e67b-40a0-9f15-6aad3f8557c7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Common">
       <UniqueIdentifier>{a986279e-a597-43ee-b0df-9204c81bc148}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Layer">
-      <UniqueIdentifier>{454078c2-1b4e-479d-a7e2-372d1718ca39}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Plaza">
       <UniqueIdentifier>{6fceacb7-2f0a-4646-95de-cf43faa22da5}</UniqueIdentifier>
@@ -95,19 +167,36 @@
     <Filter Include="src\Plaza\Plaza">
       <UniqueIdentifier>{a684b068-068e-4907-b16c-88a0c6d4c9f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Utils">
-      <UniqueIdentifier>{b0e0cbd7-553f-4c92-a8d1-e8c5e76bffea}</UniqueIdentifier>
+    <Filter Include="src\BaseUI\Scene">
+      <UniqueIdentifier>{7ec7589d-e67b-40a0-9f15-6aad3f8557c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\DataMgr">
-      <UniqueIdentifier>{1b7b1eb3-5aea-45ed-9764-d4d93c6a11c8}</UniqueIdentifier>
+    <Filter Include="src\Scene">
+      <UniqueIdentifier>{454078c2-1b4e-479d-a7e2-372d1718ca39}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Pattern">
-      <UniqueIdentifier>{e99eb794-a72e-4f77-8a8c-e56329d4d9d9}</UniqueIdentifier>
+      <UniqueIdentifier>{b0e0cbd7-553f-4c92-a8d1-e8c5e76bffea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utils">
+      <UniqueIdentifier>{4fc35720-5b82-4531-911f-39d6880b51ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\DataMgr">
+      <UniqueIdentifier>{dfb6e594-5f88-4036-91bb-2fbcbfd808f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\LibExt">
+      <UniqueIdentifier>{6e925b70-d9fc-470f-97c1-cd38e394c4eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Public">
+      <UniqueIdentifier>{5226c435-29c2-4469-b86c-175e81b696b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
       <Filter>resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Classes\Public\Help.mm">
+      <Filter>src\Public</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -9,8 +9,8 @@
  *
  ************************************************************************************/
 
-#ifndef __GameCreateLayer_h__
-#define __GameCreateLayer_h__
+#ifndef __GameCreateScene_h__
+#define __GameCreateScene_h__
 
 #pragma once
 
@@ -46,5 +46,5 @@ private:
 
 };
 
-#endif // __GameCreateLayer_h__
+#endif // __GameCreateScene_h__
 

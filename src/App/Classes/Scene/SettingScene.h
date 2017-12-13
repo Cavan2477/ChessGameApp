@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		SettingLayer.h
+ * file: 		SettingScene.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/07/22 10:34:18
@@ -16,7 +16,7 @@
 
 #include "cocos2d.h"
 #include "../Common/GlobalConst.h"
-#include "../BaseUI/Layer/ESScene.h"
+#include "../BaseUI/Scene/ESScene.h"
 
 class SettingScene : public cocos2d::Layer
 {
