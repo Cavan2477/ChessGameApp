@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		ESLayer.cpp
+ * file: 		ESScene.cpp
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/07/22 10:31:44

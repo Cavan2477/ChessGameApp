@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		ESLayer.h
+ * file: 		ESScene.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/07/24 7:18:44
