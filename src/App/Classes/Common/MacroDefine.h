@@ -9,8 +9,8 @@
  *
  ************************************************************************************/
 
-#ifndef DEFINE_HEAD_FILE
-#define DEFINE_HEAD_FILE
+#ifndef __MACRO_DEFINE_H__
+#define __MACRO_DEFINE_H__
 
 #include "cocos2d.h"
 
@@ -46,7 +46,7 @@ typedef struct _SYSTEMTIME
     WORD wMinute;
     WORD wSecond;
     WORD wMilliseconds;
-} 	SYSTEMTIME;
+}SYSTEMTIME;
 
 //兼容PC函数
 #define ASSERT(e)                       assert(e)

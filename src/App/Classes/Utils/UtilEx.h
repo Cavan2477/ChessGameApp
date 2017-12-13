@@ -1,17 +1,34 @@
-#ifndef _WH_UTIL_EX_H_
-#define _WH_UTIL_EX_H_
+/************************************************************************************
+ * file: 		UtilEx.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/12 23:11:33
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/12			
+ *
+ ************************************************************************************/
+
+#ifndef __UTIL_EX_H__
+#define __UTIL_EX_H__
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "define.h"
+#include "../Common/MacroDefine.h"
 #include <locale.h>
+
 USING_NS_CC;
+
 using namespace std;
-class CUtilEx {
+
+class CUtilEx 
+{
 public:
     static Image* getSDCardImage(const std::string& listname);
+
     // 获取utf－8字符
     static std::string getString(const std::string& key);
+
     // utf－8字符计数 ˝
     static int getUTF8StringCount(const char* src);
     
@@ -47,6 +64,7 @@ public:
     
     //转换成灰度图
     static cocos2d::Sprite* convertToGraySprite(Sprite* sp);
+
     //转换成普通图
     static cocos2d::Sprite* convertToNormalSprite(Sprite* sp);
 };

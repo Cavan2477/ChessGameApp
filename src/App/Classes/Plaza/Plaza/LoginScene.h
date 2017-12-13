@@ -15,8 +15,8 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "cocos-ext.h"
-#include "BaseUI/Layer/ESScene.h"
-#include "Utils/Singleton.h"
+#include "../../BaseUI/Scene/ESScene.h"
+#include "../../Pattern/Singleton.h"
 #include <string>
 
 using namespace std;

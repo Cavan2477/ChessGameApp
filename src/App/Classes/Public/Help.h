@@ -1,29 +1,30 @@
-//
-//  Help.h
-//  MyGame
-//
-//  Created by wh on 15/4/27.
-//
-//
+/************************************************************************************
+ * file: 		Help.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/12 23:23:35
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/12			
+ *
+ ************************************************************************************/
 
-#ifndef __MyGame__Help__
-#define __MyGame__Help__
+#ifndef __Help_h__
+#define __Help_h__
 
 #include <stdio.h>
-#include "CMD_Stdafx.h"
 #include "cocos2d.h"
-#include "PublicDefine.h"
+#include "../Common/CMD_Stdafx.h"
+#include "../Common/PublicDefine.h"
+
 USING_NS_CC;
 
-
-extern "C"{
-    
+extern "C"
+{
     const char VersionCheckURL[] = "http://www.foxuc.cn/APPService/JDDownService.ashx?action=getversion";
     
     void getCurrentVersion(WORD kindID);
-
 }
-
 
 extern "C"
 {
@@ -71,16 +72,11 @@ const std::string getCurrentTime();
 //获取时间
 const std::string getTimeStr(SCORE timesec);
 
-
-
 //由数据创建纹理，对GIF数据做了额外处理
 cocos2d::Texture2D *CreatewithImageData(unsigned char *pdata, DWORD wsize);
 
 const std::string File(LIST_Kind kind,const std::string &res);
 
-
 void getAreaConfig();
-
-
 
 #endif /* defined(__MyGame__Help__) */

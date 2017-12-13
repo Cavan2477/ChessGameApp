@@ -1,3 +1,14 @@
+/************************************************************************************
+ * file: 		GameDataMgr.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/12 23:01:46
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/12			
+ *
+ ************************************************************************************/
+
 #ifndef __GameDataMgr_h__
 #define __GameDataMgr_h__
 

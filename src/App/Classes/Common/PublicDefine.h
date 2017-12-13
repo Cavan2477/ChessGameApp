@@ -9,7 +9,7 @@
 #ifndef MyGame_PublicDefine_h
 #define MyGame_PublicDefine_h
 
-#include "define.h"
+#include "MacroDefine.h"
 
 #define WinSize Director::getInstance()->getVisibleSize()
 #define ThirdAccount            "third_account"//第三方帐号

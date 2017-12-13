@@ -1,14 +1,17 @@
-//
-//  AudioMgr.cpp
-//  NiuNiu
-//
-//  Created by zhong on 1/7/16.
-//
-//
+/************************************************************************************
+ * file: 		AudioMgr.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/12 22:21:08
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/12			
+ *
+ ************************************************************************************/
 
-#include "AudioMgr.h"
+#include "../DataMgr/AudioMgr.h"
+#include "../DataMgr/HallDataMgr.h"
 #include "SimpleAudioEngine.h"
-#include "HallDataMgr.h"
 
 USING_NS_CC;
 

@@ -145,24 +145,42 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\BaseUI\Layer\ESScene.cpp" />
+    <ClCompile Include="..\Classes\BaseUI\Scene\ESScene.cpp" />
     <ClCompile Include="..\Classes\Common\Global.cpp" />
     <ClCompile Include="..\Classes\Common\GlobalConst.cpp" />
     <ClCompile Include="..\Classes\DataMgr\AudioMgr.cpp" />
     <ClCompile Include="..\Classes\DataMgr\GameDataMgr.cpp" />
     <ClCompile Include="..\Classes\DataMgr\HallDataMgr.cpp" />
     <ClCompile Include="..\Classes\DataMgr\NetworkMgr.cpp" />
+    <ClCompile Include="..\Classes\DataMgr\TableMgr.cpp" />
+    <ClCompile Include="..\Classes\LibExt\ClipText.cpp" />
+    <ClCompile Include="..\Classes\Plaza\Bank\Bank.cpp" />
+    <ClCompile Include="..\Classes\Plaza\Bank\BankSendReceiptLayer.cpp" />
+    <ClCompile Include="..\Classes\Plaza\Bank\BankShow.cpp" />
+    <ClCompile Include="..\Classes\Plaza\Loading\Loading.cpp" />
+    <ClCompile Include="..\Classes\Plaza\Notice\Notice.cpp" />
+    <ClCompile Include="..\Classes\Plaza\PersonalInfo\Personal.cpp" />
+    <ClCompile Include="..\Classes\Plaza\PersonalInfo\PhotoBridge.cpp" />
     <ClCompile Include="..\Classes\Plaza\Plaza\FramList.cpp" />
     <ClCompile Include="..\Classes\Plaza\Plaza\LoginScene.cpp" />
+    <ClCompile Include="..\Classes\Plaza\Plaza\Plazz.cpp" />
+    <ClCompile Include="..\Classes\Plaza\Shop\AreaPicker.cpp" />
+    <ClCompile Include="..\Classes\Plaza\Shop\Shop.cpp" />
+    <ClCompile Include="..\Classes\Public\HeaderRequest.cpp" />
     <ClCompile Include="..\Classes\Public\Help.cpp" />
+    <ClCompile Include="..\Classes\Scene\AnimationMgr\AnimationMgr.cpp" />
     <ClCompile Include="..\Classes\Scene\GameCreateScene.cpp" />
     <ClCompile Include="..\Classes\Scene\HallScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\SceneMgr\SceneMgr.cpp" />
     <ClCompile Include="..\Classes\Scene\SettingScene.cpp" />
+    <ClCompile Include="..\Classes\Socket\BSDSocket.cpp" />
+    <ClCompile Include="..\Classes\Socket\TCPSocket.cpp" />
+    <ClCompile Include="..\Classes\Utils\UtilEx.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\BaseUI\Layer\ESScene.h" />
+    <ClInclude Include="..\Classes\BaseUI\Scene\ESScene.h" />
     <ClInclude Include="..\Classes\CocosHeader.h" />
     <ClInclude Include="..\Classes\Common\CMD_Common.h" />
     <ClInclude Include="..\Classes\Common\CMD_GameServer.h" />
@@ -184,14 +202,36 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\DataMgr\GameDataMgr.h" />
     <ClInclude Include="..\Classes\DataMgr\HallDataMgr.h" />
     <ClInclude Include="..\Classes\DataMgr\NetworkMgr.h" />
+    <ClInclude Include="..\Classes\DataMgr\TableMgr.h" />
+    <ClInclude Include="..\Classes\DataMgr\UserData.h" />
+    <ClInclude Include="..\Classes\LibExt\ClipText.h" />
     <ClInclude Include="..\Classes\LibExt\UIInterface.h" />
     <ClInclude Include="..\Classes\Pattern\Singleton.h" />
+    <ClInclude Include="..\Classes\Plaza\Bank\Bank.h" />
+    <ClInclude Include="..\Classes\Plaza\Bank\BankSendReceiptLayer.h" />
+    <ClInclude Include="..\Classes\Plaza\Bank\BankShow.h" />
+    <ClInclude Include="..\Classes\Plaza\Loading\Loading.h" />
+    <ClInclude Include="..\Classes\Plaza\Notice\Notice.h" />
+    <ClInclude Include="..\Classes\Plaza\PersonalInfo\Personal.h" />
+    <ClInclude Include="..\Classes\Plaza\PersonalInfo\PhotoBridge.h" />
     <ClInclude Include="..\Classes\Plaza\Plaza\FramList.h" />
     <ClInclude Include="..\Classes\Plaza\Plaza\LoginScene.h" />
+    <ClInclude Include="..\Classes\Plaza\Plaza\Plazz.h" />
+    <ClInclude Include="..\Classes\Plaza\Shop\AreaPicker.h" />
+    <ClInclude Include="..\Classes\Plaza\Shop\Shop.h" />
+    <ClInclude Include="..\Classes\Public\HeaderRequest.h" />
     <ClInclude Include="..\Classes\Public\Help.h" />
+    <ClInclude Include="..\Classes\Public\ModeLayer.h" />
+    <ClInclude Include="..\Classes\Scene\AnimationMgr\AnimationMgr.h" />
     <ClInclude Include="..\Classes\Scene\GameCreateScene.h" />
     <ClInclude Include="..\Classes\Scene\HallScene.h" />
+    <ClInclude Include="..\Classes\Scene\SceneHeader.h" />
+    <ClInclude Include="..\Classes\Scene\SceneMgr\SceneMgr.h" />
     <ClInclude Include="..\Classes\Scene\SettingScene.h" />
+    <ClInclude Include="..\Classes\Socket\BSDSocket.h" />
+    <ClInclude Include="..\Classes\Socket\SocketRecvData.h" />
+    <ClInclude Include="..\Classes\Socket\TCPSocket.h" />
+    <ClInclude Include="..\Classes\Utils\UtilEx.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +250,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ResourceCompile Include="game.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Classes\Plaza\PersonalInfo\PhotoBridge.mm" />
     <None Include="..\Classes\Public\Help.mm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

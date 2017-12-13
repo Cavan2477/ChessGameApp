@@ -1,24 +1,29 @@
-//
-//  NetworkMgr.cpp
-//  MyGame
-//
-//  Created by wh on 15/4/24.
-//
-//
+/************************************************************************************
+ * file: 		NetworkMgr.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/12 22:40:51
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/12			
+ *
+ ************************************************************************************/
 
 #include "NetworkMgr.h"
 #include "HallDataMgr.h"
-#include "Project.h"
-#include "Help.h"
-#include "ModeLayer.h"
-#include "Login.h"
+#include "../Common/Project.h"
+#include "../Public/Help.h"
+#include "../Public/ModeLayer.h"
+#include "../Plaza/Plaza/LoginScene.h"
+
 //桌子信息管理
 #include "TableMgr.h"
 #include "CocosHeader.h"
-#include "SceneHeader.h"
-#include "SceneMgr.h"
+#include "../Plaza/SceneHeader.h"
+#include "../Scene/SceneMgr/SceneMgr.h"
 
 static NetworkMgr *s_SharedNetwork = NULL;
+
 NetworkMgr::NetworkMgr()
 :m_pSocketData(nullptr)
 ,m_pSocketOnce(nullptr)

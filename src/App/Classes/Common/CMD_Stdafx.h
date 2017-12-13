@@ -25,7 +25,7 @@
 #include "CMD_LogonServer.h"
 #include "CMD_NotifyDefine.h"
 
-#include "HeaderRequest.h"
+#include "../Public/HeaderRequest.h"
 
 //#include "ROConnect.h"
 

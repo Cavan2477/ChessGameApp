@@ -1,26 +1,28 @@
-//
-//  NetworkMgr.h
-//  MyGame
-//
-//  Created by wh on 15/4/24.
-//
+/************************************************************************************
+ * file: 		NetworkMgr.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/12 22:34:36
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/12			
+ *
+ ************************************************************************************/
+
 //网络管理模块
 
-#ifndef __MyGame__NetworkMgr__
-#define __MyGame__NetworkMgr__
-
+#ifndef __NetworkMgr_h__
+#define __NetworkMgr_h__
 
 #include <stdio.h>
 #include "cocos2d.h"
-#include "CMD_Stdafx.h"
-#include "TCPSocket.h"
-
+#include "../Common/CMD_Stdafx.h"
+#include "../Socket/TCPSocket.h"
 
 class NetworkMgr : public cocos2d::Ref
 {
 public:
     NetworkMgr();
-    
     ~NetworkMgr();
     
     static NetworkMgr *getInstance();

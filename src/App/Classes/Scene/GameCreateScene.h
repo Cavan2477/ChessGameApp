@@ -15,7 +15,7 @@
 #pragma once
 
 #include "../Common/GlobalConst.h"
-#include "../BaseUI/Layer/ESScene.h"
+#include "../BaseUI/Scene/ESScene.h"
 
 class GameCreateScene : public cocos2d::Layer
 {

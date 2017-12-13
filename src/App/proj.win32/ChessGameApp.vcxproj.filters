@@ -13,9 +13,6 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BaseUI\Layer\ESScene.cpp">
-      <Filter>src\BaseUI\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Plaza\Plaza\LoginScene.cpp">
       <Filter>src\Plaza\Plaza</Filter>
     </ClCompile>
@@ -46,6 +43,63 @@
     <ClCompile Include="..\Classes\Plaza\Plaza\FramList.cpp">
       <Filter>src\Plaza\Plaza</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Public\HeaderRequest.cpp">
+      <Filter>src\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Socket\BSDSocket.cpp">
+      <Filter>src\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Socket\TCPSocket.cpp">
+      <Filter>src\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DataMgr\TableMgr.cpp">
+      <Filter>src\DataMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BaseUI\Scene\ESScene.cpp">
+      <Filter>src\BaseUI\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\AnimationMgr\AnimationMgr.cpp">
+      <Filter>src\Scene\AnimationMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\SceneMgr\SceneMgr.cpp">
+      <Filter>src\Scene\SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Utils\UtilEx.cpp">
+      <Filter>src\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\PersonalInfo\Personal.cpp">
+      <Filter>src\Plaza\PersonalInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\PersonalInfo\PhotoBridge.cpp">
+      <Filter>src\Plaza\PersonalInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Shop\AreaPicker.cpp">
+      <Filter>src\Plaza\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Shop\Shop.cpp">
+      <Filter>src\Plaza\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LibExt\ClipText.cpp">
+      <Filter>src\LibExt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Bank\Bank.cpp">
+      <Filter>src\Plaza\Bank</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Bank\BankSendReceiptLayer.cpp">
+      <Filter>src\Plaza\Bank</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Bank\BankShow.cpp">
+      <Filter>src\Plaza\Bank</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Loading\Loading.cpp">
+      <Filter>src\Plaza\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Notice\Notice.cpp">
+      <Filter>src\Plaza\Notice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Plaza\Plazz.cpp">
+      <Filter>src\Plaza\Plaza</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -59,9 +113,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BaseUI\Layer\ESScene.h">
-      <Filter>src\BaseUI\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Plaza\Plaza\LoginScene.h">
       <Filter>src\Plaza\Plaza</Filter>
@@ -144,6 +195,75 @@
     <ClInclude Include="..\Classes\Common\CMD_Common.h">
       <Filter>src\Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Public\HeaderRequest.h">
+      <Filter>src\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Socket\BSDSocket.h">
+      <Filter>src\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Socket\SocketRecvData.h">
+      <Filter>src\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Socket\TCPSocket.h">
+      <Filter>src\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataMgr\TableMgr.h">
+      <Filter>src\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataMgr\UserData.h">
+      <Filter>src\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BaseUI\Scene\ESScene.h">
+      <Filter>src\BaseUI\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\AnimationMgr\AnimationMgr.h">
+      <Filter>src\Scene\AnimationMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\SceneMgr\SceneMgr.h">
+      <Filter>src\Scene\SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\UtilEx.h">
+      <Filter>src\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\SceneHeader.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Public\ModeLayer.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\PersonalInfo\Personal.h">
+      <Filter>src\Plaza\PersonalInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\PersonalInfo\PhotoBridge.h">
+      <Filter>src\Plaza\PersonalInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Shop\AreaPicker.h">
+      <Filter>src\Plaza\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Shop\Shop.h">
+      <Filter>src\Plaza\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LibExt\ClipText.h">
+      <Filter>src\LibExt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Bank\Bank.h">
+      <Filter>src\Plaza\Bank</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Bank\BankSendReceiptLayer.h">
+      <Filter>src\Plaza\Bank</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Bank\BankShow.h">
+      <Filter>src\Plaza\Bank</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Loading\Loading.h">
+      <Filter>src\Plaza\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Notice\Notice.h">
+      <Filter>src\Plaza\Notice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Plaza\Plazz.h">
+      <Filter>src\Plaza\Plaza</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
@@ -188,6 +308,30 @@
     <Filter Include="src\Public">
       <UniqueIdentifier>{5226c435-29c2-4469-b86c-175e81b696b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Socket">
+      <UniqueIdentifier>{a8c1c30d-77e0-4637-a3f6-4bd0b3558772}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\AnimationMgr">
+      <UniqueIdentifier>{bd8346c9-64d6-440a-8c5a-2fa269fa8a34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\SceneMgr">
+      <UniqueIdentifier>{37e33de5-d32d-433d-a072-eb12f3846de9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza\PersonalInfo">
+      <UniqueIdentifier>{01fff439-19cb-4739-b683-79ee2a09da2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza\Shop">
+      <UniqueIdentifier>{5405dee9-4d96-4b8b-9721-655f90787e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza\Bank">
+      <UniqueIdentifier>{c5ff9767-d5bb-4f65-bc07-4dff52af0dd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza\Loading">
+      <UniqueIdentifier>{d3b37ff7-cfcb-40bc-b228-89f06a27cd43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza\Notice">
+      <UniqueIdentifier>{148cd40e-6a15-4b66-a1fd-f5b8da3e0436}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -197,6 +341,9 @@
   <ItemGroup>
     <None Include="..\Classes\Public\Help.mm">
       <Filter>src\Public</Filter>
+    </None>
+    <None Include="..\Classes\Plaza\PersonalInfo\PhotoBridge.mm">
+      <Filter>src\Plaza\PersonalInfo</Filter>
     </None>
   </ItemGroup>
 </Project>

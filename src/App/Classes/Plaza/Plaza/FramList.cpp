@@ -120,11 +120,10 @@ void CFramList::readAccountList()
         }*/
               
         fclose(fp); //关闭文件
-
-    }else{
+    }
+	else{
           memset(&m_pAccList, 0, sizeof(m_pAccList));
-          CCLOG("无纪录");
-
+		  CCLOG("无纪录");
     }
     this->AccountListCount();
     

@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "Layer/HallScene.h"
+#include "Scene/HallScene.h"
 #include "SimpleAudioEngine.h"
 
 // #define USE_AUDIO_ENGINE 1

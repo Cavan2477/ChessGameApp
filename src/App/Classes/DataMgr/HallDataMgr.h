@@ -1,22 +1,26 @@
-//
-//  HallDataMgr.h
-//  MyGame
-//
-//  Created by wh on 15/4/24.
-//
-//
+/************************************************************************************
+ * file: 		HallDataMgr.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/12 22:48:02
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/12			
+ *
+ ************************************************************************************/
+
 //大厅数据管理 以及玩家数据
 
-#ifndef __MyGame__HallDataMgr__
-#define __MyGame__HallDataMgr__
+#ifndef __HallDataMgr_h__
+#define __HallDataMgr_h__
 
 #include <stdio.h>
-#include "CMD_Stdafx.h"
 #include "cocos2d.h"
-#include "ModeLayer.h"
 #include "UserData.h"
-#include "Help.h"
-#include "Photo_Bridge.h"
+#include "../Common/CMD_Stdafx.h"
+#include "../Scene/ModeLayer.h"
+#include "../Public/Help.h"
+#include "../Plaza/PersonalInfo/PhotoBridge.h"
 
 //分系统游戏数据 add by zhong
 struct tagSubSystemParam
