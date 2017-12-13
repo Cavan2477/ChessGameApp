@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		ESLayer.h
+ * file: 		ESScene.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/07/24 7:18:44
@@ -48,7 +48,7 @@ typedef struct stMenuItemInfo
 	//ccMenuCallback ccMenuCallbackFunc;		// menu item callback function
 }ST_MENU_ITEM_INFO, *PST_MENU_ITEM_INFO;
 
-class ESLayer
+class ESScene
 {
 public:
 	// Initialize layer background

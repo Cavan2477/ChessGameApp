@@ -15,8 +15,8 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "cocos-ext.h"
-#include "BaseUI/Layer/ESLayer.h"
-#include "Utils/Singleton.h"
+#include "BaseUI/Layer/ESScene.h"
+#include "Pattern/Singleton.h"
 #include <string>
 
 using namespace std;
@@ -33,15 +33,14 @@ typedef struct stLoginServerInfo
 	char szAddress[256];		// ·þÎñÆ÷µØÖ·
 }ST_LOGIN_SERVER_INFO, *PST_LOGIN_SERVER_INFO;
 
-class LoginLayer :
+class LoginScene :
 	public cocos2d::Layer,
 	public cocos2d::ui::EditBoxDelegate//,
 	//public cocos2d::extension::TableViewDataSource,
 	//public cocos2d::extension::TableViewDelegate
 {
 public:
-	//Login();
-	~LoginLayer();
+	~LoginScene();
 
 	static cocos2d::Scene* createScene();
 

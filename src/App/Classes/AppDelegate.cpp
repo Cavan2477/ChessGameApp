@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "Layer/HallLayer.h"
+#include "Layer/HallScene.h"
 #include "SimpleAudioEngine.h"
 
 // #define USE_AUDIO_ENGINE 1
@@ -102,7 +102,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     register_all_packages();
 
     // create a scene. it's an autorelease object
-	auto scene = HallLayer::createScene();
+	auto scene = HallScene::createScene();
 
     // run
     director->runWithScene(scene);

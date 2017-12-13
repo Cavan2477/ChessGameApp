@@ -1,42 +1,49 @@
 /************************************************************************************
- * file: 		SettingLayer.cpp
+ * file: 		GameCreateScene.cpp
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
- * Create: 		2017/07/22 9:34:16
- * Description: Setting layer
+ * Create: 		2017/07/23 23:08:31
+ * Description: 
  * Version	Author		Time			Description
- * V1.0    	Cavan.Liu	2017/07/22			
+ * V1.0    	Cavan.Liu	2017/07/23			
  *
  ************************************************************************************/
 
-#include "SettingLayer.h"
+#include "GameCreateScene.h"
 
 USING_NS_CC;
 
-Scene* SettingLayer::createScene()
+//************************************************************************
+// 	Function:	createScene
+//	Privilege:	public
+//	Create:		2017/07/23
+//	Author:		Cavan.Liu
+//	Parameter:	
+//	Return:		Scene*	
+//************************************************************************
+Scene* GameCreateScene::createScene()
 {
 	return Scene::create();
 }
 
 //************************************************************************
 // 	Function:	init
-//	Privilege:	public static
-//	Create:		2017/07/22
+//	Privilege:	public
+//	Create:		2017/07/12
 //	Author:		Cavan.Liu
 //	Parameter:	
 //	Return:		bool
 //************************************************************************
-bool SettingLayer::init()
+bool GameCreateScene::init()
 {
 	if (!Layer::init())
 		return false;
 
 	// 1.set scene information
-	if (!ESLayer::initLayerBg(this, PNG_SETTING_BG))
+	if (!ESScene::initLayerBg(this, PNG_GAME_CREATE_BG))
 		return false;
 
-	// 2.
+	// 2.set menu item
 
 	return true;
 }
-

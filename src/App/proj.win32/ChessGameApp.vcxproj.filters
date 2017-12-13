@@ -4,37 +4,37 @@
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BaseUI\Layer\ESLayer.cpp">
-      <Filter>src\BaseUI\Layer</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Common\Global.cpp">
       <Filter>src\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Common\GlobalConst.cpp">
       <Filter>src\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Layer\GameCreateLayer.cpp">
-      <Filter>src\Layer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Layer\HallLayer.cpp">
-      <Filter>src\Layer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Layer\SettingLayer.cpp">
-      <Filter>src\Layer</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Plaza\Plaza\LoginLayer.cpp">
+    <ClCompile Include="..\Classes\Layer\HallScene.cpp">
+      <Filter>src\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Plaza\LoginScene.cpp">
       <Filter>src\Plaza\Plaza</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Layer\GameCreateScene.cpp">
+      <Filter>src\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Layer\SettingScene.cpp">
+      <Filter>src\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BaseUI\Layer\ESScene.cpp">
+      <Filter>src\BaseUI\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DataMgr\DataMgr.cpp">
+      <Filter>src\DataMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BaseUI\Layer\ESLayer.h">
-      <Filter>src\BaseUI\Layer</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Common\Global.h">
       <Filter>src\Common</Filter>
@@ -42,23 +42,29 @@
     <ClInclude Include="..\Classes\Common\GlobalConst.h">
       <Filter>src\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Layer\GameCreateLayer.h">
-      <Filter>src\Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Layer\HallLayer.h">
-      <Filter>src\Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Layer\SettingLayer.h">
-      <Filter>src\Layer</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Plaza\Plaza\LoginLayer.h">
+    <ClInclude Include="..\Classes\Layer\HallScene.h">
+      <Filter>src\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Plaza\LoginScene.h">
       <Filter>src\Plaza\Plaza</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Utils\Singleton.h">
-      <Filter>src\Utils</Filter>
+    <ClInclude Include="..\Classes\Layer\GameCreateScene.h">
+      <Filter>src\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layer\SettingScene.h">
+      <Filter>src\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BaseUI\Layer\ESScene.h">
+      <Filter>src\BaseUI\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataMgr\DataMgr.h">
+      <Filter>src\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pattern\Singleton.h">
+      <Filter>src\Pattern</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +97,12 @@
     </Filter>
     <Filter Include="src\Utils">
       <UniqueIdentifier>{b0e0cbd7-553f-4c92-a8d1-e8c5e76bffea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\DataMgr">
+      <UniqueIdentifier>{1b7b1eb3-5aea-45ed-9764-d4d93c6a11c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Pattern">
+      <UniqueIdentifier>{e99eb794-a72e-4f77-8a8c-e56329d4d9d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

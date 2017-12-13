@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		GameCreateLayer.h
+ * file: 		GameCreateScene.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/07/23 23:01:40
@@ -15,9 +15,9 @@
 #pragma once
 
 #include "../Common/GlobalConst.h"
-#include "../BaseUI/Layer/ESLayer.h"
+#include "../BaseUI/Layer/ESScene.h"
 
-class GameCreateLayer : public cocos2d::Layer
+class GameCreateScene : public cocos2d::Layer
 {
 public:
 	// create scene
@@ -31,7 +31,7 @@ public:
 	void menuItemJoinRoomCallback(cocos2d::Ref * pSender);
 	void menuItemPlayNoFeeCallback(cocos2d::Ref * pSender);
 
-	CREATE_FUNC(GameCreateLayer);
+	CREATE_FUNC(GameCreateScene);
 
 protected:
 

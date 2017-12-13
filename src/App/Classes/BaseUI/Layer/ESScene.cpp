@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		ESLayer.cpp
+ * file: 		ESScene.cpp
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/07/22 10:31:44
@@ -9,7 +9,7 @@
  *
  ************************************************************************************/
 
-#include "ESLayer.h"
+#include "ESScene.h"
 
 USING_NS_CC;
 
@@ -22,7 +22,7 @@ USING_NS_CC;
 //				IN const string&	strPngBg
 //	Return:		bool
 //************************************************************************
-bool ESLayer::initLayerBg(Layer* pLayer, IN const string& strPngBg)
+bool ESScene::initLayerBg(Layer* pLayer, IN const string& strPngBg)
 {
 	if (NULL == pLayer || strPngBg.empty())
 		return false;
@@ -71,7 +71,7 @@ bool ESLayer::initLayerBg(Layer* pLayer, IN const string& strPngBg)
 //				IN stMenuItemInfo* pstMenuItemInfo
 //	Return:		bool
 //************************************************************************
-bool ESLayer::initMenuItem(cocos2d::Layer* pLayer, IN stMenuItemInfo* pstMenuItemInfo, IN const cocos2d::ccMenuCallback& menuCallback)
+bool ESScene::initMenuItem(cocos2d::Layer* pLayer, IN stMenuItemInfo* pstMenuItemInfo, IN const cocos2d::ccMenuCallback& menuCallback)
 {
 	if (NULL == pLayer || NULL == pstMenuItemInfo)
 		return false;
