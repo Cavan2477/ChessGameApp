@@ -34,12 +34,12 @@
 #include "errno.h"
 
 
-typedef int				SOCKET;
+//typedef int				SOCKET;
 
-	//#pragma region define win32 const variable in linux
-	#define INVALID_SOCKET	-1
-	#define SOCKET_ERROR	-1
-	//#pragma endregion
+//#pragma region define win32 const variable in linux
+#define INVALID_SOCKET	-1
+#define SOCKET_ERROR	-1
+//#pragma endregion
 
 #include "cocos2d.h"
 

@@ -125,9 +125,9 @@ public UIResourceInterface
 };
 
 class UILayer:
-public cocos2d::Layer,
-public UIResourceInterface,
-public UIMessageInterface
+	public cocos2d::Layer,
+	public UIResourceInterface,
+	public UIMessageInterface
 {
 
 };

@@ -9,7 +9,7 @@
  *
  ************************************************************************************/
 
-#include "BankShow.h"
+#include "BankShowScene.h"
 #include "BankSendReceiptLayer.h"
 #include "cocostudio/CocoStudio.h"
 #include "cocostudio/DictionaryHelper.h"
@@ -41,7 +41,7 @@ typedef enum
     BANK_TAG_RECORD_LISET = 200,
 }BANK_TAG;
 
-BankShow::BankShow():
+BankShowScene::BankShowScene():
 _layout(nullptr),
 _applyLayout(nullptr),
 _saveLayout(nullptr),
@@ -54,7 +54,7 @@ _userInsureScoreLB(nullptr)
 {
 }
 
-BankShow::~BankShow()
+BankShowScene::~BankShowScene()
 {
     CC_SAFE_RELEASE(_userScoreLB);
     CC_SAFE_RELEASE(_userInsureScoreLB);
@@ -62,9 +62,9 @@ BankShow::~BankShow()
     Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(RECORD_REQUEST_EVENT);
 }
 
-bool BankShow::init()
+bool BankShowScene::init()
 {
-    if(!Bank::init())
+    if(!BankScene::init())
     {
         return false;
     }
@@ -113,7 +113,7 @@ bool BankShow::init()
     {
 
         SaveTake->setTag(BANK_TAG_SAVEBTN);
-        SaveTake->addTouchEventListener(CC_CALLBACK_2(BankShow::buttonEventWithTouch, this));
+        SaveTake->addTouchEventListener(CC_CALLBACK_2(BankShowScene::buttonEventWithTouch, this));
         
         
         SaveTake->loadTextures("bank_res/bank_saveTake_Icon.png", "bank_res/bank_saveTakeBtn_0.png");
@@ -125,7 +125,7 @@ bool BankShow::init()
     {
     
         Present->setTag(BANK_TAG_PRESENT);
-        Present->addTouchEventListener(CC_CALLBACK_2(BankShow::buttonEventWithTouch, this));
+        Present->addTouchEventListener(CC_CALLBACK_2(BankShowScene::buttonEventWithTouch, this));
     }
     
     //操作记录
@@ -133,39 +133,39 @@ bool BankShow::init()
     if (nullptr != Record)
     {
         Record->setTag(BANK_TAG_RECORD);
-        Record->addTouchEventListener(CC_CALLBACK_2(BankShow::buttonEventWithRecord, this));
+        Record->addTouchEventListener(CC_CALLBACK_2(BankShowScene::buttonEventWithRecord, this));
     }
     
     //返回按钮
     Button *back = static_cast<Button *>(rootNode->getChildByName("back_btn"));
     back->setTag(BANK_TAG_CLOSE);
-    back->addTouchEventListener(CC_CALLBACK_2(BankShow::buttonEventWithTouch, this));
+    back->addTouchEventListener(CC_CALLBACK_2(BankShowScene::buttonEventWithTouch, this));
     this->addChild(_layout);
     return true;
     
 }
 
-void BankShow::onEnter()
+void BankShowScene::onEnter()
 {
     
-    Bank::onEnter();
+    BankScene::onEnter();
     
 }
 
-void BankShow::onEnterTransitionDidFinish()
+void BankShowScene::onEnterTransitionDidFinish()
 {
-    Bank::onEnterTransitionDidFinish();
+    BankScene::onEnterTransitionDidFinish();
 }
 
-void BankShow::onExit()
+void BankShowScene::onExit()
 {
     
     
-    Bank::onExit();
+    BankScene::onExit();
     
 }
 
-void BankShow::initApply()
+void BankShowScene::initApply()
 {
     
     m_eType = type_apply;
@@ -215,11 +215,11 @@ void BankShow::initApply()
     if(applyBtn != nullptr)
     {
         applyBtn->setTag(BANK_TAG_APPLY);
-        applyBtn->addTouchEventListener(CC_CALLBACK_2(BankShow::buttonEventWithTouch, this));
+        applyBtn->addTouchEventListener(CC_CALLBACK_2(BankShowScene::buttonEventWithTouch, this));
     }
 }
 
-void BankShow::initSaveTake()
+void BankShowScene::initSaveTake()
 {
 
     _saveLayout =  Layout::create();
@@ -287,7 +287,7 @@ void BankShow::initSaveTake()
     Button *saveBtn = static_cast<Button *>(saveTake->getChildByName("Button_save"));
     if (nullptr != saveBtn)
     {
-        saveBtn->addTouchEventListener(CC_CALLBACK_2(BankShow::buttonEventWithTouch, this));
+        saveBtn->addTouchEventListener(CC_CALLBACK_2(BankShowScene::buttonEventWithTouch, this));
         saveBtn->setTag(BANK_TAG_SAVE);
     }
     
@@ -295,7 +295,7 @@ void BankShow::initSaveTake()
     Button *takeBtn = static_cast<Button *>(saveTake->getChildByName("Button_take"));
     if (nullptr != takeBtn)
     {
-        takeBtn->addTouchEventListener(CC_CALLBACK_2(BankShow::buttonEventWithTouch, this));
+        takeBtn->addTouchEventListener(CC_CALLBACK_2(BankShowScene::buttonEventWithTouch, this));
         takeBtn->setTag(BANK_TAG_TAKE);
     }
     
@@ -305,7 +305,7 @@ void BankShow::initSaveTake()
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.4f), func));
 }
 
-void BankShow::initPresent()
+void BankShowScene::initPresent()
 {
     _presentLayout = Layout::create();
     _presentLayout->setContentSize(Size(1136, 640));
@@ -378,14 +378,14 @@ void BankShow::initPresent()
     if (prentByID != nullptr)
     {
         prentByID->setTag(4);
-        prentByID->addTouchEventListener(CC_CALLBACK_2(BankShow::buttonEventWithSendType, this));
+        prentByID->addTouchEventListener(CC_CALLBACK_2(BankShowScene::buttonEventWithSendType, this));
     }
     
     Button *presentByNick = static_cast<Button *>(presentNode->getChildByName("Button_nick"));
     if (presentByNick != nullptr)
     {
         presentByNick->setTag(5);
-        presentByNick->addTouchEventListener(CC_CALLBACK_2(BankShow::buttonEventWithSendType, this));
+        presentByNick->addTouchEventListener(CC_CALLBACK_2(BankShowScene::buttonEventWithSendType, this));
     }
     presentByNick->setEnabled(false);
     presentByNick->setVisible(false);
@@ -394,7 +394,7 @@ void BankShow::initPresent()
     Button *presentBtn= static_cast<Button *>(presentNode->getChildByName("Button_present"));
     if (presentBtn != nullptr)
     {
-        presentBtn->addTouchEventListener(CC_CALLBACK_2(BankShow::buttonEventWithPresent, this));
+        presentBtn->addTouchEventListener(CC_CALLBACK_2(BankShowScene::buttonEventWithPresent, this));
     }
     
     Text *prentText = static_cast<Text *>(presentNode->getChildByName("Text_1"));
@@ -404,7 +404,7 @@ void BankShow::initPresent()
     buttonEventWithSendType(prentByID,ui::Widget::TouchEventType::ENDED);
 }
 
-void BankShow::initRecord()
+void BankShowScene::initRecord()
 {
    
     _recordLayout = Layout::create();
@@ -419,12 +419,12 @@ void BankShow::initRecord()
     
 }
 
-int BankShow::getBankType() const
+int BankShowScene::getBankType() const
 {
 
     return m_eType;
 }
-void BankShow::updateScore()
+void BankShowScene::updateScore()
 {
     if(m_eType == type_savetake)
     {
@@ -457,7 +457,7 @@ void BankShow::updateScore()
 }
 
 //MARK::开通银行结果
- void BankShow:: InsureEnableResult(void* pData, WORD wSize)
+ void BankShowScene:: InsureEnableResult(void* pData, WORD wSize)
 {
     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
     
@@ -485,7 +485,7 @@ void BankShow::updateScore()
     }
 }
 //MARK::银行资料
- void BankShow::InsureInfoResult(void* pData, WORD wSize)
+ void BankShowScene::InsureInfoResult(void* pData, WORD wSize)
 {
      HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
     
@@ -508,7 +508,7 @@ void BankShow::updateScore()
     DebugLog("银行资料");
 }
 //MARK::操作成功
- void BankShow::BankSuccedResult(void* pData, WORD wSize)
+ void BankShowScene::BankSuccedResult(void* pData, WORD wSize)
 {
     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
     auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(Data_Load);});
@@ -535,7 +535,7 @@ void BankShow::updateScore()
                                          this->addChild(p);
                                          
                                          tagBankSendInfo info = HallDataMgr::getInstance()->m_tagBankSend;
-                                         tagReceipt rec = {};
+                                         _stReceipt rec = {};
                                          rec.dwRecordIndex = idx;
                                          rec.dwRecUserId = info.dwReceiveUserId;
                                          rec.llSendCount = info.llSendCount;
@@ -558,7 +558,7 @@ void BankShow::updateScore()
     DebugLog("银行操作成功");
 }
 //MARK::操作失败
- void BankShow::BankFailureResult(void* pData, WORD wSize)
+ void BankShowScene::BankFailureResult(void* pData, WORD wSize)
 {
     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
     auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(Data_Load);});
@@ -573,7 +573,7 @@ void BankShow::updateScore()
     
 }
 //MARK::用户信息
- void BankShow::BankUserInfoResult(void* pData, WORD wSize)
+ void BankShowScene::BankUserInfoResult(void* pData, WORD wSize)
 {
     DebugLog("银行用户信息");
     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
@@ -594,7 +594,7 @@ void BankShow::updateScore()
     }
 }
 
-void BankShow::queryUserInfo(const BYTE &cbType, const std::string &sTarget)
+void BankShowScene::queryUserInfo(const BYTE &cbType, const std::string &sTarget)
 {
     if (HallDataMgr::getInstance()->m_RoomType == Data_Load)
     {
@@ -619,7 +619,7 @@ void BankShow::queryUserInfo(const BYTE &cbType, const std::string &sTarget)
 }
 
 //MARK::EditBoxDelegate
-void BankShow::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)
+void BankShowScene::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)
 {
 
     if (editBox->getTag() == 1)
@@ -683,7 +683,7 @@ void BankShow::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::stri
 }
 
 //MARK::赠送模式
-void BankShow::buttonEventWithSendType(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
+void BankShowScene::buttonEventWithSendType(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
     Button *btn = static_cast<Button *>(target);
     Node *subNode =  static_cast<Node *>(_presentLayout->getChildByTag(BANK_TAG_SUBNODE));
@@ -723,7 +723,7 @@ void BankShow::buttonEventWithSendType(cocos2d::Ref *target, cocos2d::ui::Widget
 }
 
 //MARK::
-void BankShow::buttonEventWithTouch(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
+void BankShowScene::buttonEventWithTouch(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
     
     Button *btn = static_cast<Button *>(target);
@@ -872,7 +872,7 @@ void BankShow::buttonEventWithTouch(cocos2d::Ref *target, cocos2d::ui::Widget::T
 }
 
 
-void BankShow::buttonEventWithRecord(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
+void BankShowScene::buttonEventWithRecord(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
@@ -906,7 +906,7 @@ void BankShow::buttonEventWithRecord(cocos2d::Ref *target, cocos2d::ui::Widget::
         HallDataMgr::getInstance()->AddpopLayer("", "正在获取数据...", Type_Wait);
         
         
-         Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(RECORD_REQUEST_EVENT, CC_CALLBACK_1(BankShow::RecordReuqcestEvent, this)), 1);
+         Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(RECORD_REQUEST_EVENT, CC_CALLBACK_1(BankShowScene::RecordReuqcestEvent, this)), 1);
         
         SCORE _time = getsystemtomillisecond() - HallDataMgr::getInstance()->m_Logintime;
         auto prequest = new HttpRequest;
@@ -915,14 +915,14 @@ void BankShow::buttonEventWithRecord(cocos2d::Ref *target, cocos2d::ui::Widget::
         log("%s\n",purl->getCString());
         prequest->setUrl(purl->getCString());
         prequest->setRequestType(HttpRequest::Type::GET);
-        prequest->setResponseCallback(CC_CALLBACK_2(BankShow::RecoreRequestCallBack, this));
+        prequest->setResponseCallback(CC_CALLBACK_2(BankShowScene::RecoreRequestCallBack, this));
         HttpClient::getInstance()->send(prequest);
         prequest->release();
 
     }
 }
 
-void BankShow::buttonEventWithPresent(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
+void BankShowScene::buttonEventWithPresent(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
       if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
       {
@@ -986,7 +986,7 @@ void BankShow::buttonEventWithPresent(cocos2d::Ref *target, cocos2d::ui::Widget:
     
 }
 //MARK::检查空格
-bool BankShow::checkSpaceStr(const std::string str) const
+bool BankShowScene::checkSpaceStr(const std::string str) const
 {
     
     if (str.find(" ") != std::string::npos)
@@ -1002,7 +1002,7 @@ bool BankShow::checkSpaceStr(const std::string str) const
 }
 
 //MARK::弹出动画
-void BankShow::popBank()
+void BankShowScene::popBank()
 {
   
     Action *action = MoveTo::create(0.4f, Vec2(.0, .0));
@@ -1010,14 +1010,14 @@ void BankShow::popBank()
     
 }
 
-void BankShow::RecordReuqcestEvent(cocos2d::EventCustom *event)
+void BankShowScene::RecordReuqcestEvent(cocos2d::EventCustom *event)
 {
     
     showRecord();
 }
 
 //MARK::http回调
-void BankShow::RecoreRequestCallBack(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
+void BankShowScene::RecoreRequestCallBack(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
 {
     
      HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
@@ -1079,7 +1079,7 @@ void BankShow::RecoreRequestCallBack(cocos2d::network::HttpClient *sender, cocos
 }
 
 //MARK::银行记录处理
-void BankShow::showRecord()
+void BankShowScene::showRecord()
 {
     
     if (m_Datalist.size() == 0)

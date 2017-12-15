@@ -10,18 +10,18 @@
  ************************************************************************************/
 
 #include"cocostudio/CocoStudio.h"
-#include "Personal.h"
+#include "PersonalScene.h"
 #include "../../Common/Project.h"
 #include "../../DataMgr/HallDataMgr.h"
 #include "../../Public/HeaderRequest.h"
 #include "../../DataMgr/NetworkMgr.h"
 #include "../Plaza/FramList.h"
-#include "../Shop/Shop.h"
-#include "../Bank/BankShow.h"
+#include "../Shop/ShopScene.h"
+#include "../Bank/BankShowScene.h"
 
 using namespace ui;
 
-Personal::Personal():
+PersonalScene::PersonalScene():
 m_eType(Type_PersonalInfo),
 m_eModify(modify_sex),
 _personalLayout(nullptr),
@@ -36,7 +36,7 @@ m_photo(nullptr)
 
 }
 
-Personal::~Personal()
+PersonalScene::~PersonalScene()
 {
     
     CC_SAFE_RELEASE(_headSprite);
@@ -44,7 +44,7 @@ Personal::~Personal()
     
 }
 
-bool Personal::init()
+bool PersonalScene::init()
 {
     
     if (!Layer::init())
@@ -100,7 +100,7 @@ bool Personal::init()
             });
         }else
         {
-            loginPassModifyBtn->addTouchEventListener(CC_CALLBACK_2(Personal::buttonEventWithSureModify, this));
+            loginPassModifyBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithSureModify, this));
         }
     }
     
@@ -118,7 +118,7 @@ bool Personal::init()
     auto bankPassModifyBtn = static_cast<Button *>(bankModifyRoot->getChildByName("Button_sureModify"));
     if  (bankPassModifyBtn != nullptr)
     {
-        bankPassModifyBtn->addTouchEventListener(CC_CALLBACK_2(Personal::buttonEventWithSureModify, this));
+        bankPassModifyBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithSureModify, this));
     }
     
     
@@ -144,7 +144,7 @@ bool Personal::init()
     if (nullptr != personal)
     {
         
-        personal->addTouchEventListener(CC_CALLBACK_2(Personal::buttonEventWithMenu, this));
+        personal->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithMenu, this));
     }
     
     //帐号
@@ -184,7 +184,7 @@ bool Personal::init()
     
     //修改按钮
     Button *modifyBtn = Button::create("personal_res/userinfo_modiyNick_0.png","personal_res/userinfo_modiyNick_1.png");
-    modifyBtn->addTouchEventListener(CC_CALLBACK_2(Personal::buttonEventWithModifyNick, this));
+    modifyBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithModifyNick, this));
     modifyBtn->setAnchorPoint(Vec2(.0, .5));
     modifyBtn->setTag(INFO_MODIFYBTN);
     modifyBtn->setPosition(Vec2(nick->getPositionX() + 230, nick->getPositionY()));
@@ -237,7 +237,7 @@ bool Personal::init()
                 if (this->getChildByTag(SHOP))
                     return;
                 
-                Shop *shop = Shop::create();
+                ShopScene *shop = ShopScene::create();
                 shop->setTag(SHOP);
                 shop->setPosition(Vec2(1136, 0));
                 this->addChild(shop);
@@ -256,7 +256,7 @@ bool Personal::init()
                 if (this->getChildByTag(BANK))
                     return ;
                 
-                BankShow *bank = BankShow::create();
+                BankShowScene *bank = BankShowScene::create();
                 bank->setTag(BANK);
                 bank->setPosition(Vec2(1136, 0));
                 this->addChild(bank);
@@ -279,7 +279,7 @@ bool Personal::init()
                     return;
                 
                 
-                Shop *shop = Shop::create();
+                ShopScene *shop = ShopScene::create();
                 shop->setTag(SHOP);
                 shop->setPosition(Vec2(1136, 0));
                 this->addChild(shop);
@@ -313,8 +313,8 @@ bool Personal::init()
             
         }
         
-        manBtn->addTouchEventListener(CC_CALLBACK_2(Personal::buttonEventWithGender, this));
-        womanBtn->addTouchEventListener(CC_CALLBACK_2(Personal::buttonEventWithGender, this));
+        manBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithGender, this));
+        womanBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithGender, this));
         
     }
 
@@ -323,7 +323,7 @@ bool Personal::init()
     modifyLogin->setTag(INFO_LOGINPASS);
     if (nullptr != modifyLogin)
     {
-        modifyLogin->addTouchEventListener(CC_CALLBACK_2(Personal::buttonEventWithMenu, this));
+        modifyLogin->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithMenu, this));
     }
     
     
@@ -332,7 +332,7 @@ bool Personal::init()
     modifyBank->setTag(INFO_BANKPASS);
     if (nullptr != modifyBank)
     {
-        modifyBank->addTouchEventListener(CC_CALLBACK_2(Personal::buttonEventWithMenu, this));
+        modifyBank->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithMenu, this));
     }
     
     //用户头像
@@ -359,7 +359,7 @@ bool Personal::init()
         
         //上传头像
         auto  modify = Button::create("personal_res/info_pen.png");
-        modify->addTouchEventListener(CC_CALLBACK_2(Personal::buttonEventWithUploadRes, this));
+        modify->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithUploadRes, this));
         modify->setPosition(Vec2(340,285));
         _personalLayout->addChild(modify);
     }
@@ -423,22 +423,22 @@ bool Personal::init()
 }
 
 
-void Personal::onEnter()
+void PersonalScene::onEnter()
 {
     Layer::onEnter();
     
 }
 
-void Personal::onEnterTransitionDidFinish()
+void PersonalScene::onEnterTransitionDidFinish()
 {
     Layer::onEnterTransitionDidFinish();
-    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_USER_FACE_INFO, CC_CALLBACK_2(Personal::userFaceinfoResult, this));
-    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_OPERATE_SUCCESS, CC_CALLBACK_2(Personal::operatesuccessResult, this));
-    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_OPERATE_FAILURE, CC_CALLBACK_2(Personal::operatefailureResult, this));
+    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_USER_FACE_INFO, CC_CALLBACK_2(PersonalScene::userFaceinfoResult, this));
+    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_OPERATE_SUCCESS, CC_CALLBACK_2(PersonalScene::operatesuccessResult, this));
+    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_OPERATE_FAILURE, CC_CALLBACK_2(PersonalScene::operatefailureResult, this));
     
 }
 
-void Personal::onExit()
+void PersonalScene::onExit()
 {
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_USER_FACE_INFO);
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_OPERATE_SUCCESS);
@@ -448,14 +448,14 @@ void Personal::onExit()
     
 }
 
-void Personal::popPersonal()
+void PersonalScene::popPersonal()
 {
     
     auto run = MoveTo::create(0.2f, Vec2(.0,.0));
     this->runAction(run);
     
 }
-void Personal::initModify()
+void PersonalScene::initModify()
 {
     
     auto modify = (m_eType == Type_ModifyLoginPass)  ? static_cast<Node *>(_modifyLoginLayout->getChildByTag(2)) :
@@ -510,7 +510,7 @@ void Personal::initModify()
     }
 }
 //MARK::Notify
-void Personal::userFaceinfoResult(void *pData, WORD wSize)
+void PersonalScene::userFaceinfoResult(void *pData, WORD wSize)
 {
     auto result = (CMD_GP_UserFaceInfo *)pData;
     HallDataMgr::getInstance()->m_wFaceID = result->wFaceID;
@@ -528,7 +528,7 @@ void Personal::userFaceinfoResult(void *pData, WORD wSize)
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }
 
-void Personal::operatesuccessResult(void *pData, WORD wSize)
+void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
 {
     auto presult = (CMD_GP_OperateSuccess *)pData;
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
@@ -611,7 +611,7 @@ void Personal::operatesuccessResult(void *pData, WORD wSize)
     
 }
 
-void Personal::operatefailureResult(void *pData, WORD wSize)
+void PersonalScene::operatefailureResult(void *pData, WORD wSize)
 {
     auto presult = (CMD_GP_OperateFailure *)pData;
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
@@ -621,7 +621,7 @@ void Personal::operatefailureResult(void *pData, WORD wSize)
 
 
 //MARK::按钮事件
-void Personal::buttonEventWithMenu(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
+void PersonalScene::buttonEventWithMenu(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
     
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
@@ -707,7 +707,7 @@ void Personal::buttonEventWithMenu(cocos2d::Ref *target, cocos2d::ui::Widget::To
     
 }
 
-void Personal::buttonEventWithGender(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
+void PersonalScene::buttonEventWithGender(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
     
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
@@ -750,7 +750,7 @@ void Personal::buttonEventWithGender(cocos2d::Ref *target, cocos2d::ui::Widget::
 }
 
 //更换头像
-void Personal::buttonEventWithUploadRes(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
+void PersonalScene::buttonEventWithUploadRes(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
@@ -830,8 +830,8 @@ void Personal::buttonEventWithUploadRes(cocos2d::Ref *target, cocos2d::ui::Widge
                 }
                 m_photo->openPhoto();
                 m_photo->setChoiceType(0);
-                m_photo->m_completecallback = CC_CALLBACK_1(Personal::photocomplete, this);
-                HallDataMgr::getInstance()->m_completecallback = CC_CALLBACK_1(Personal::photocomplete, this);
+                m_photo->m_completecallback = CC_CALLBACK_1(PersonalScene::photocomplete, this);
+                HallDataMgr::getInstance()->m_completecallback = CC_CALLBACK_1(PersonalScene::photocomplete, this);
                 
             }
         });
@@ -880,7 +880,7 @@ void Personal::buttonEventWithUploadRes(cocos2d::Ref *target, cocos2d::ui::Widge
         
     }
 }
-void Personal::buttonEventWithModifyNick(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
+void PersonalScene::buttonEventWithModifyNick(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
     
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
@@ -901,7 +901,7 @@ void Personal::buttonEventWithModifyNick(cocos2d::Ref *target, cocos2d::ui::Widg
     
 }
 
-void Personal::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
+void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
     
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
@@ -1015,7 +1015,7 @@ void Personal::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui::Widg
     
 }
 //MARK::CALLBACK
-void Personal::photocomplete(cocos2d::Image *pimage)
+void PersonalScene::photocomplete(cocos2d::Image *pimage)
 {
     auto ptexture = new Texture2D;
     ptexture->initWithImage(pimage);
@@ -1026,7 +1026,7 @@ void Personal::photocomplete(cocos2d::Image *pimage)
 }
 
 //MARK::NetWork
-void Personal::sendSystemFaceInfo(WORD wface)
+void PersonalScene::sendSystemFaceInfo(WORD wface)
 {
     CMD_GP_SystemFaceInfo SystemFaceInfo;
     memset(&SystemFaceInfo, 0, sizeof(CMD_GP_SystemFaceInfo));
@@ -1039,7 +1039,7 @@ void Personal::sendSystemFaceInfo(WORD wface)
     
     
 }
-void Personal::sendCustomFaceInfo(cocos2d::Image *pimage)
+void PersonalScene::sendCustomFaceInfo(cocos2d::Image *pimage)
 {
     auto pdate = pimage->getData();
     int length = (int)pimage->getDataLen();
@@ -1064,7 +1064,7 @@ void Personal::sendCustomFaceInfo(cocos2d::Image *pimage)
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_CUSTOM_FACE_INFO, &CustomFaceInfo, sizeof(CMD_GP_CustomFaceInfo),NetworkMgr::getInstance()->getSocketOnce());
 }
 
-void Personal::sendAlterIndividual(const std::string &name, BYTE cbgerder, int type)
+void PersonalScene::sendAlterIndividual(const std::string &name, BYTE cbgerder, int type)
 {
     BYTE buffer[256];
     memset(buffer, 0, sizeof(buffer));
@@ -1099,7 +1099,7 @@ void Personal::sendAlterIndividual(const std::string &name, BYTE cbgerder, int t
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INDIVIDUAL, &buffer, size,NetworkMgr::getInstance()->getSocketOnce());
 }
 
-void Personal::sendAlterloginPass(const std::string &oldpass, const std::string &newpass)
+void PersonalScene::sendAlterloginPass(const std::string &oldpass, const std::string &newpass)
 {
     CMD_GP_ModifyLogonPass request;
     memset(&request, 0, sizeof(request));
@@ -1111,7 +1111,7 @@ void Personal::sendAlterloginPass(const std::string &oldpass, const std::string 
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_LOGON_PASS, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
 }
 
-void Personal::sendAlterBankPass(const std::string &oldpass, const std::string &newpass)
+void PersonalScene::sendAlterBankPass(const std::string &oldpass, const std::string &newpass)
 {
     CMD_GP_ModifyInsurePass request;
     memset(&request, 0, sizeof(request));
@@ -1124,24 +1124,24 @@ void Personal::sendAlterBankPass(const std::string &oldpass, const std::string &
 }
 
 //MARK::EditBoxDelegate
-void Personal::editBoxEditingDidBegin(cocos2d::ui::EditBox* editBox)
+void PersonalScene::editBoxEditingDidBegin(cocos2d::ui::EditBox* editBox)
 {
    
     
     
 }
 
-void Personal::editBoxEditingDidEnd(cocos2d::ui::EditBox* editBox)
+void PersonalScene::editBoxEditingDidEnd(cocos2d::ui::EditBox* editBox)
 {
     
 }
 
-void Personal::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)
+void PersonalScene::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)
 {
     
 }
 
-void Personal::editBoxReturn(cocos2d::ui::EditBox* editBox)
+void PersonalScene::editBoxReturn(cocos2d::ui::EditBox* editBox)
 {
     if (m_eType == Type_PersonalInfo)
     {

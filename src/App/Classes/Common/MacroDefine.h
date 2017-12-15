@@ -19,9 +19,11 @@
 //对应数据类型
 typedef unsigned char		BYTE;
 typedef unsigned short		WORD;
-typedef unsigned int		DWORD;
-typedef unsigned short      TCHAR;
-typedef unsigned int        UINT;
+//typedef unsigned int		DWORD;
+
+//typedef WORD				TCHAR;
+//typedef DWORD				UINT;
+typedef DWORD               COLORREF;
 
 typedef	long long			LONGLONG;
 typedef long long			SCORE;
@@ -29,14 +31,13 @@ typedef double              DOUBLE;
 typedef short               SHORT;
 typedef int                 INT;
 typedef float               FLOAT;
-typedef DWORD               COLORREF;
 
 typedef long                LONG;
 
 typedef const char c_char;
 typedef const char* pConstChar;
 
-typedef struct _SYSTEMTIME
+typedef struct _stSystemTime
 {
     WORD wYear;
     WORD wMonth;
@@ -46,7 +47,7 @@ typedef struct _SYSTEMTIME
     WORD wMinute;
     WORD wSecond;
     WORD wMilliseconds;
-}SYSTEMTIME;
+}SYSTEM_TIME;
 
 //兼容PC函数
 #define ASSERT(e)                       assert(e)
@@ -56,6 +57,7 @@ typedef struct _SYSTEMTIME
 
 
 #pragma mark 数值定义
+
 //头像大小
 #define	FACE_CX				48						//头像宽度
 #define FACE_CY				48						//头像高度
@@ -370,7 +372,7 @@ typedef struct _SYSTEMTIME
 #define INVALID_IP_ADDRESS(IPAddress)	(((IPAddress==0L)||(IPAddress==INADDR_NONE)))
 
 //跟踪输出
-#define DebugLog(_FORMAT, ...)     cocos2d::log("---------------------------------------------------------COCOS2D: %s",_FORMAT, ##__VA_ARGS__)
+#define DebugLog(_FORMAT, ...)		cocos2d::log("---------------------------------------------------------COCOS2D: %s",_FORMAT, ##__VA_ARGS__)
 #define DebugFileLine(_FORMAT, ...) cocos2d::log("COCOS2D:%s %d %s",__FILE__,__LINE__,_FORMAT, ##__VA_ARGS__)
 
 #pragma pack(0)

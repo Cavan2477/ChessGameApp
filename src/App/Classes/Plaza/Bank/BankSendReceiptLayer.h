@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include "CocosHeader.h"
 
-struct tagReceipt
+typedef struct _stReceipt
 {
     DWORD dwRecordIndex;            //记录编号
     std::string strSendUserName;    //赠送人昵称
@@ -23,7 +23,7 @@ struct tagReceipt
     std::string strRecUserName;     //接收人昵称
     DWORD dwRecUserId;              //接收人id
     SCORE llSendCount;              //赠送数额
-};
+}ST_RECEIPT, *PST_RECEIPT;
 
 class BankSendReceiptLayer: public UILayer
 {
@@ -32,9 +32,10 @@ public:
     ~BankSendReceiptLayer();
     
     CREATE_FUNC(BankSendReceiptLayer);
+
     virtual bool init() override;
     
-    void refreshReceipt(const tagReceipt &tagRec);
+    void refreshReceipt(const _stReceipt &tagRec);
     
 private:
     std::string numberTransiform(const std::string &strCount);
@@ -42,27 +43,36 @@ private:
     std::string replaceAll(std::string &src, const std::string &regex, const std::string &replacement);
     
     std::string cleanZero(std::string &s);
+
 private:
     cocos2d::Node *m_root;
     
     //编号
     cocos2d::ui::Text *m_textCode;
+
     //赠送人昵称
     cocos2d::ui::Text *m_textSendUserName;
+
     //赠送人id
     cocos2d::ui::Text *m_textSendUserId;
+
     //接收人昵称
     cocos2d::ui::Text *m_textRecUserName;
+
     //接收人id
     cocos2d::ui::Text *m_textRecUserId;
+
     //赠送游戏币
     cocos2d::ui::Text *m_textSendCount;
+
     //数额大写
     cocos2d::ui::Text *m_textDaXie;
+
     //日期
     cocos2d::ui::Text *m_textSendDate;
     
     //赠送结果
     cocos2d::Sprite *m_spSendRes;
 };
+
 #endif /* BankSendReceiptLayer_hpp */

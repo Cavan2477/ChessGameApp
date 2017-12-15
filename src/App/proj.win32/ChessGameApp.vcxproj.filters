@@ -67,38 +67,56 @@
     <ClCompile Include="..\Classes\Utils\UtilEx.cpp">
       <Filter>src\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Plaza\PersonalInfo\Personal.cpp">
-      <Filter>src\Plaza\PersonalInfo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plaza\PersonalInfo\PhotoBridge.cpp">
-      <Filter>src\Plaza\PersonalInfo</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Plaza\Shop\AreaPicker.cpp">
-      <Filter>src\Plaza\Shop</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plaza\Shop\Shop.cpp">
       <Filter>src\Plaza\Shop</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LibExt\ClipText.cpp">
       <Filter>src\LibExt</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Plaza\Bank\Bank.cpp">
-      <Filter>src\Plaza\Bank</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Plaza\Bank\BankSendReceiptLayer.cpp">
       <Filter>src\Plaza\Bank</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plaza\Bank\BankShow.cpp">
-      <Filter>src\Plaza\Bank</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plaza\Loading\Loading.cpp">
-      <Filter>src\Plaza\Loading</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Plaza\Notice\Notice.cpp">
       <Filter>src\Plaza\Notice</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Plaza\Plaza\Plazz.cpp">
+    <ClCompile Include="..\Classes\Plaza\Plaza\Plaza.cpp">
       <Filter>src\Plaza\Plaza</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Task\TaskScene.cpp">
+      <Filter>src\Plaza\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DataMgr\GameConfigMgr.cpp">
+      <Filter>src\DataMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Rank\RankScene.cpp">
+      <Filter>src\Plaza\Rank</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Regist\RegistScene.cpp">
+      <Filter>src\Plaza\Regist</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Reward\RewardScene.cpp">
+      <Filter>src\Plaza\Reward</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Setting\SettingScene.cpp">
+      <Filter>src\Plaza\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Loading\LoadingScene.cpp">
+      <Filter>src\Plaza\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Bank\BankScene.cpp">
+      <Filter>src\Plaza\Bank</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Bank\BankShowScene.cpp">
+      <Filter>src\Plaza\Bank</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Personal\PersonalScene.cpp">
+      <Filter>src\Plaza\Personal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Personal\PhotoBridge.cpp">
+      <Filter>src\Plaza\Personal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\Shop\ShopScene.cpp">
+      <Filter>src\Plaza\Shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -231,38 +249,59 @@
     <ClInclude Include="..\Classes\Public\ModeLayer.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Plaza\PersonalInfo\Personal.h">
-      <Filter>src\Plaza\PersonalInfo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plaza\PersonalInfo\PhotoBridge.h">
-      <Filter>src\Plaza\PersonalInfo</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Plaza\Shop\AreaPicker.h">
-      <Filter>src\Plaza\Shop</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plaza\Shop\Shop.h">
       <Filter>src\Plaza\Shop</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LibExt\ClipText.h">
       <Filter>src\LibExt</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Plaza\Bank\Bank.h">
-      <Filter>src\Plaza\Bank</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Plaza\Bank\BankSendReceiptLayer.h">
       <Filter>src\Plaza\Bank</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plaza\Bank\BankShow.h">
-      <Filter>src\Plaza\Bank</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plaza\Loading\Loading.h">
-      <Filter>src\Plaza\Loading</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Plaza\Notice\Notice.h">
       <Filter>src\Plaza\Notice</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Plaza\Plaza\Plazz.h">
+    <ClInclude Include="..\Classes\Plaza\Plaza\Plaza.h">
       <Filter>src\Plaza\Plaza</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Task\TaskScene.h">
+      <Filter>src\Plaza\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DataMgr\GameConfigMgr.h">
+      <Filter>src\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Rank\RankScene.h">
+      <Filter>src\Plaza\Rank</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Regist\RegistScene.h">
+      <Filter>src\Plaza\Regist</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Public\GameGoldMove.h">
+      <Filter>src\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Reward\RewardScene.h">
+      <Filter>src\Plaza\Reward</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Setting\SettingScene.h">
+      <Filter>src\Plaza\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Loading\LoadingScene.h">
+      <Filter>src\Plaza\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Bank\BankScene.h">
+      <Filter>src\Plaza\Bank</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Bank\BankShowScene.h">
+      <Filter>src\Plaza\Bank</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Personal\PersonalScene.h">
+      <Filter>src\Plaza\Personal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Personal\PhotoBridge.h">
+      <Filter>src\Plaza\Personal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\Shop\ShopScene.h">
+      <Filter>src\Plaza\Shop</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -317,9 +356,6 @@
     <Filter Include="src\Scene\SceneMgr">
       <UniqueIdentifier>{37e33de5-d32d-433d-a072-eb12f3846de9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Plaza\PersonalInfo">
-      <UniqueIdentifier>{01fff439-19cb-4739-b683-79ee2a09da2d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Plaza\Shop">
       <UniqueIdentifier>{5405dee9-4d96-4b8b-9721-655f90787e71}</UniqueIdentifier>
     </Filter>
@@ -332,6 +368,24 @@
     <Filter Include="src\Plaza\Notice">
       <UniqueIdentifier>{148cd40e-6a15-4b66-a1fd-f5b8da3e0436}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Plaza\Task">
+      <UniqueIdentifier>{acd98811-a1f9-49e7-a785-ff65c3d7fe25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza\Rank">
+      <UniqueIdentifier>{6cd75094-a9db-4d42-8486-222d0be094d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza\Regist">
+      <UniqueIdentifier>{5622f79f-bbc5-42db-a06f-2168b53bc77a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza\Reward">
+      <UniqueIdentifier>{7489ddf7-67c6-4f0c-8858-626f8a5610da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza\Setting">
+      <UniqueIdentifier>{b4ad8d30-cf03-47e8-b8ed-49f3a6eaa356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plaza\Personal">
+      <UniqueIdentifier>{01fff439-19cb-4739-b683-79ee2a09da2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -342,8 +396,11 @@
     <None Include="..\Classes\Public\Help.mm">
       <Filter>src\Public</Filter>
     </None>
-    <None Include="..\Classes\Plaza\PersonalInfo\PhotoBridge.mm">
-      <Filter>src\Plaza\PersonalInfo</Filter>
+    <None Include="..\Classes\Plaza\Setting\SettingScene.mm">
+      <Filter>src\Plaza\Setting</Filter>
+    </None>
+    <None Include="..\Classes\Plaza\Personal\PhotoBridge.mm">
+      <Filter>src\Plaza\Personal</Filter>
     </None>
   </ItemGroup>
 </Project>

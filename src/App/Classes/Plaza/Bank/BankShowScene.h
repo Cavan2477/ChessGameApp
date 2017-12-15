@@ -9,10 +9,10 @@
  *
  ************************************************************************************/
 
-#ifndef __BankShow_h__
-#define __BankShow_h__
+#ifndef __BankShowScene_h__
+#define __BankShowScene_h__
 
-#include "Bank.h"
+#include "BankScene.h"
 #include "../../Common/CMD_Stdafx.h"
 #include "network/HttpClient.h"
 
@@ -32,14 +32,14 @@ public:
     CC_SYNTHESIZE(SCORE, m_Revenue, Revenue)
 };
 
-class BankShow : public Bank , public cocos2d::ui::EditBoxDelegate
+class BankShowScene : public BankScene , public cocos2d::ui::EditBoxDelegate
 {
     
 public:
-    BankShow();
-    virtual ~BankShow();
+    BankShowScene();
+    virtual ~BankShowScene();
     
-    CREATE_FUNC(BankShow);
+    CREATE_FUNC(BankShowScene);
     
     virtual bool init();
     

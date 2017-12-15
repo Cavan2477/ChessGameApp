@@ -25,7 +25,6 @@ using namespace cocos2d::network;
 class Notice : public ClippingRectangleNode
 {
 public:
-    
     Notice();
     virtual ~Notice();
     static Notice* CreateNotice();
@@ -38,6 +37,7 @@ public:
     void NoticeRequestCallback(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response);
     
     void runAction();
+
 private:
     CC_SYNTHESIZE_RETAIN(Label *, _noticeText, NoticeText);
     bool m_bGetNotice;

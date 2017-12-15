@@ -9,7 +9,7 @@
  *
  ************************************************************************************/
 
-#include "Shop.h"
+#include "ShopScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "cocostudio/DictionaryHelper.h"
 
@@ -240,7 +240,7 @@ Texture2D * ShopList::getTextureByID(uint64_t ID)
 }
 
 //MARK::SHOP
-Shop::Shop():
+ShopScene::ShopScene():
 _userBean(nullptr)
 ,_userIngot(nullptr)
 ,_userScore(nullptr)
@@ -262,9 +262,9 @@ _userBean(nullptr)
 ,m_bShopData(false)
 ,_httpType(HTTP_LIST)
 {
-          Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(REAL_REQUEST_EVENT, CC_CALLBACK_1(Shop::RealReuqcestEvent, this)), 1);
+          Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(REAL_REQUEST_EVENT, CC_CALLBACK_1(ShopScene::RealReuqcestEvent, this)), 1);
 }
-Shop::~Shop()
+ShopScene::~ShopScene()
 {
     
     CC_SAFE_RELEASE(_userScore);
@@ -281,7 +281,7 @@ Shop::~Shop()
     m_Datalist.clear();
 }
 
-bool Shop::init()
+bool ShopScene::init()
 {
     
     if (!Layer::init())
@@ -438,7 +438,7 @@ bool Shop::init()
                     auto purl = __String::createWithFormat("%s&page=%d&PageSize=%d",URL_LIST,page,PageSize);
                     prequest->setUrl(purl->getCString());
                     prequest->setRequestType(cocos2d::network::HttpRequest::Type::GET);
-                    prequest->setResponseCallback(CC_CALLBACK_2(Shop::ListRequestCallback, this));
+                    prequest->setResponseCallback(CC_CALLBACK_2(ShopScene::ListRequestCallback, this));
                     cocos2d::network::HttpClient::getInstance()->send(prequest);
                     prequest->release();
                     
@@ -502,7 +502,7 @@ bool Shop::init()
     return true;
 }
 
-void Shop::setIndex(int nindex)
+void ShopScene::setIndex(int nindex)
 {
     
     //菜单按钮
@@ -532,16 +532,16 @@ void Shop::setIndex(int nindex)
     
 }
 
-void Shop::onEnterTransitionDidFinish()
+void ShopScene::onEnterTransitionDidFinish()
 {
     Layer::onEnterTransitionDidFinish();
     
-    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_EXCHANGE_PARAMETER, CC_CALLBACK_2(Shop::ExchangeParameterResult, this));
-    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_EXCHANGE_RESULT, CC_CALLBACK_2(Shop::ExchangeResult, this));
+    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_EXCHANGE_PARAMETER, CC_CALLBACK_2(ShopScene::ExchangeParameterResult, this));
+    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_EXCHANGE_RESULT, CC_CALLBACK_2(ShopScene::ExchangeResult, this));
     
 }
 
-void Shop::onExit()
+void ShopScene::onExit()
 {
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_EXCHANGE_PARAMETER);
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_EXCHANGE_RESULT);
@@ -549,7 +549,7 @@ void Shop::onExit()
     
 }
 
-void Shop::initShop()
+void ShopScene::initShop()
 {
  
     int per[9] = {1,5,10,20,50,100,500,1000,5000};
@@ -685,7 +685,7 @@ void Shop::initShop()
   
 }
 
-void Shop::initPurchase()
+void ShopScene::initPurchase()
 {
     
     auto beanPurchaseList = ListView::create();
@@ -757,7 +757,7 @@ void Shop::initPurchase()
     }
 }
 
-void Shop::initReal()
+void ShopScene::initReal()
 {
     auto realList = ListView::create();
     realList->setTag(1000);
@@ -814,7 +814,7 @@ void Shop::initReal()
         });
     }
 }
-void Shop::initDetail(ListData *data,ShopList *list)
+void ShopScene::initDetail(ListData *data,ShopList *list)
 {
     
     auto realList = _realExchangeLayout->getChildByTag(1000);
@@ -966,7 +966,7 @@ void Shop::initDetail(ListData *data,ShopList *list)
     if (sureExchange != nullptr)
     {
         
-        sureExchange->addTouchEventListener(CC_CALLBACK_2(Shop::buttoneEventWithRealExchange, this));
+        sureExchange->addTouchEventListener(CC_CALLBACK_2(ShopScene::buttoneEventWithRealExchange, this));
         
     }
     
@@ -1174,14 +1174,14 @@ void Shop::initDetail(ListData *data,ShopList *list)
     }
 }
 
-void Shop::updateInfo()
+void ShopScene::updateInfo()
 {
     _userScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","));
     _userBean->setString(getScorewithComma(HallDataMgr::getInstance()->m_Bean, ","));
     _userIngot->setString(getScorewithComma(HallDataMgr::getInstance()->m_Ingot, ","));
     
 }
-void Shop::sendExchangeParameter()
+void ShopScene::sendExchangeParameter()
 {
     if (HallDataMgr::getInstance()->m_RoomType == Data_Load)
     {
@@ -1194,7 +1194,7 @@ void Shop::sendExchangeParameter()
     }
 }
 
-void Shop::sendExchangeBean(DOUBLE beannum)
+void ShopScene::sendExchangeBean(DOUBLE beannum)
 {
     if (HallDataMgr::getInstance()->m_RoomType == Data_Load) {
         CMD_GP_ExchangeScoreByBean request;
@@ -1218,7 +1218,7 @@ void Shop::sendExchangeBean(DOUBLE beannum)
     }
 }
 
-void Shop::sendExchangeIngot(SCORE ingotnum)
+void ShopScene::sendExchangeIngot(SCORE ingotnum)
 {
     if (HallDataMgr::getInstance()->m_RoomType == Data_Load) {
         CMD_GP_ExchangeScoreByIngot request;
@@ -1243,7 +1243,7 @@ void Shop::sendExchangeIngot(SCORE ingotnum)
     }
 }
 
-void Shop::ExchangeParameterResult(void *pData, WORD wSize)
+void ShopScene::ExchangeParameterResult(void *pData, WORD wSize)
 {
     auto result = (CMD_GP_ExchangeParameter *)pData;
     m_IngotRate = result->wExchangeRate;
@@ -1254,7 +1254,7 @@ void Shop::ExchangeParameterResult(void *pData, WORD wSize)
    
 }
 
-void Shop::ExchangeResult(void *pData, WORD wSize)
+void ShopScene::ExchangeResult(void *pData, WORD wSize)
 {
      HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
     
@@ -1285,7 +1285,7 @@ void Shop::ExchangeResult(void *pData, WORD wSize)
 }
 
 
-void Shop::popShop()
+void ShopScene::popShop()
 {
     
     CallFunc *func = CallFunc::create([this]{
@@ -1299,13 +1299,13 @@ void Shop::popShop()
     this->runAction(Sequence::createWithTwoActions(run, func));
 }
 //MARK::EditDelegate
-void Shop::editBoxReturn(EditBox* editBox)
+void ShopScene::editBoxReturn(EditBox* editBox)
 {
     
     
     
 }
-void Shop::RealReuqcestEvent(cocos2d::EventCustom *event)
+void ShopScene::RealReuqcestEvent(cocos2d::EventCustom *event)
 {
     __Integer *value = static_cast<__Integer *>(event->getUserData());
     
@@ -1346,7 +1346,7 @@ void Shop::RealReuqcestEvent(cocos2d::EventCustom *event)
 }
 
 //MARK::HTTP
-void Shop::ListRequestCallback(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
+void ShopScene::ListRequestCallback(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
 {
     
     if(this->getReferenceCount() == 0)
@@ -1440,7 +1440,7 @@ void Shop::ListRequestCallback(cocos2d::network::HttpClient *sender, cocos2d::ne
     }
 }
 
-void Shop::buttoneEventWithRealExchange(cocos2d::Ref *ref, cocos2d::ui::Widget::TouchEventType type)
+void ShopScene::buttoneEventWithRealExchange(cocos2d::Ref *ref, cocos2d::ui::Widget::TouchEventType type)
 {
     if (type == Widget::TouchEventType::ENDED)
     {
@@ -1489,7 +1489,7 @@ void Shop::buttoneEventWithRealExchange(cocos2d::Ref *ref, cocos2d::ui::Widget::
         
         
         prequest->setRequestData(postData.c_str(), postData.size());
-        prequest->setResponseCallback(CC_CALLBACK_2(Shop::ListRequestCallback, this));
+        prequest->setResponseCallback(CC_CALLBACK_2(ShopScene::ListRequestCallback, this));
         cocos2d::network::HttpClient::getInstance()->send(prequest);
         prequest->release();
         

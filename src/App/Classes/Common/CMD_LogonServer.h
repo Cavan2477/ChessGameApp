@@ -160,7 +160,6 @@ struct CMD_GP_VerifyIndividualResult
 	bool							bVerifyPassage;					//验证通过
 	WORD							wVerifyMask;					//验证掩码
 	TCHAR							szErrorMsg[128];				//错误信息
-    
 };
 
 //升级提示
@@ -191,7 +190,7 @@ struct DTP_GP_GroupInfo
 struct DTP_GP_MemberInfo
 {
     BYTE							cbMemberOrder;						//会员等级
-    SYSTEMTIME						MemberOverDate;						//到期时间
+    SYSTEM_TIME						MemberOverDate;						//到期时间
 };
 
 //列表命令

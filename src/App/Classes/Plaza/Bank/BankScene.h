@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		Bank.h
+ * file: 		BankScene.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/12/12 23:18:57
@@ -9,8 +9,8 @@
  *
  ************************************************************************************/
 
-#ifndef __Bank_h__
-#define __Bank_h__
+#ifndef __BankScene_h__
+#define __BankScene_h__
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
@@ -18,10 +18,10 @@
 
 USING_NS_CC;
 
-class Bank : public Layer
+class BankScene : public Layer
 {
 public:
-    CREATE_FUNC(Bank);
+    CREATE_FUNC(BankScene);
     
     virtual bool init();
     

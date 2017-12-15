@@ -53,11 +53,11 @@ typedef enum
     
 }INFOTAG;
 
-class Personal : public Layer , public cocos2d::ui::EditBoxDelegate
+class PersonalScene : public Layer , public cocos2d::ui::EditBoxDelegate
 {
 public:
-    Personal();
-    virtual ~Personal();
+    PersonalScene();
+    virtual ~PersonalScene();
 
     virtual bool init();
     
@@ -67,7 +67,7 @@ public:
     
     virtual void onExit();
     
-    CREATE_FUNC(Personal);
+    CREATE_FUNC(PersonalScene);
     
 public:
     void popPersonal();

@@ -9,13 +9,14 @@
  *
  ************************************************************************************/
 
-#ifndef Plazz_h
-#define Plazz_h
+#ifndef __Plaza_h__
+#define __Plaza_h__
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "../../Common/MacroDefine.h"
 #include "../Notice/Notice.h"
+
 #include "Reward.h"
 #include "Rank.h"
 #include "Setting.h"

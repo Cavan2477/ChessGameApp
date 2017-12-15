@@ -117,8 +117,8 @@ typedef struct _tagGameMatch
     WORD                            wRewardCount;                       //奖励人数
     
 	//比赛时间
-	SYSTEMTIME						MatchStartTime;						//开始时间
-	SYSTEMTIME						MatchEndTime;						//结束时间
+	SYSTEM_TIME						MatchStartTime;						//开始时间
+	SYSTEM_TIME						MatchEndTime;						//结束时间
 }tagGameMatch;
 
 //视频配置

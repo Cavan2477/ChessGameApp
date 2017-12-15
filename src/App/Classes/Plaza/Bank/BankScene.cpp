@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		Bank.cpp
+ * file: 		BankScene.cpp
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/12/12 23:19:36
@@ -9,12 +9,12 @@
  *
  ************************************************************************************/
 
-#include "Bank.h"
+#include "BankScene.h"
 #include "../../Public/Help.h"
 #include "../../DataMgr/NetworkMgr.h"
 #include "../../DataMgr/HallDataMgr.h"
 
-bool Bank::init()
+bool BankScene::init()
 {
     if (!Layer::init())
         return false;
@@ -22,23 +22,23 @@ bool Bank::init()
     return true;
 }
 
-void Bank::onEnter()
+void BankScene::onEnter()
 {
     Layer::onEnter();
 }
 
-void Bank::onEnterTransitionDidFinish()
+void BankScene::onEnterTransitionDidFinish()
 {
     Layer::onEnterTransitionDidFinish();
     
-    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_USER_INSURE_ENABLE_RESULT, CC_CALLBACK_2(Bank::InsureEnableResult, this));
-    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_USER_INSURE_INFO, CC_CALLBACK_2(Bank::InsureInfoResult, this));
-    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_USER_INSURE_SUCCESS, CC_CALLBACK_2(Bank::BankSuccedResult, this));
-    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_USER_INSURE_FAILURE, CC_CALLBACK_2(Bank::BankFailureResult, this));
-    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_QUERY_USER_INFO_RESULT, CC_CALLBACK_2(Bank::BankUserInfoResult, this));
+    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_USER_INSURE_ENABLE_RESULT, CC_CALLBACK_2(BankScene::InsureEnableResult, this));
+    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_USER_INSURE_INFO, CC_CALLBACK_2(BankScene::InsureInfoResult, this));
+    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_USER_INSURE_SUCCESS, CC_CALLBACK_2(BankScene::BankSuccedResult, this));
+    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_USER_INSURE_FAILURE, CC_CALLBACK_2(BankScene::BankFailureResult, this));
+    NetworkMgr::getInstance()->registeruserfunction(SUB_GP_QUERY_USER_INFO_RESULT, CC_CALLBACK_2(BankScene::BankUserInfoResult, this));
 }
 
-void Bank::onExit()
+void BankScene::onExit()
 {
     NetworkMgr::getInstance()->unregisterloadfunction(SUB_GP_USER_INSURE_ENABLE_RESULT);
     NetworkMgr::getInstance()->unregisterloadfunction(SUB_GP_USER_INSURE_INFO);
@@ -50,7 +50,7 @@ void Bank::onExit()
 }
 
 //发送开通银行
-void Bank::sendInsureEnable(const std::string &pass)
+void BankScene::sendInsureEnable(const std::string &pass)
 {
     std::string bankpass = MD5Encrypt(pass);
     if (HallDataMgr::getInstance()->m_RoomType == Data_Load)
@@ -70,7 +70,7 @@ void Bank::sendInsureEnable(const std::string &pass)
 }
 
 //查询银行
-void Bank::sendInsureInfo()
+void BankScene::sendInsureInfo()
 {
     if (HallDataMgr::getInstance()->m_RoomType == Data_Load)
     {
@@ -95,7 +95,7 @@ void Bank::sendInsureInfo()
 }
 
 //存款
-void Bank::sendSaveScore(SCORE score)
+void BankScene::sendSaveScore(SCORE score)
 {
     if(HallDataMgr::getInstance()->m_RoomType == Data_Load)
     {
@@ -120,7 +120,7 @@ void Bank::sendSaveScore(SCORE score)
 }
 
 //取款
-void Bank::sendTakeScore(SCORE score, const std::string &pass)
+void BankScene::sendTakeScore(SCORE score, const std::string &pass)
 {
     if(HallDataMgr::getInstance()->m_RoomType == Data_Load)
     {
@@ -149,7 +149,7 @@ void Bank::sendTakeScore(SCORE score, const std::string &pass)
 }
 
 //转帐
-void Bank::sendTransferScore(SCORE score, const std::string &pass, int type, const std::string &nickname)
+void BankScene::sendTransferScore(SCORE score, const std::string &pass, int type, const std::string &nickname)
 {
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
     

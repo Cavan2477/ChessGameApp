@@ -1,5 +1,5 @@
 /************************************************************************************
- * file: 		Shop.h
+ * file: 		ShopScene.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
  * Create: 		2017/12/12 23:08:17
@@ -9,8 +9,8 @@
  *
  ************************************************************************************/
 
-#ifndef __Shop_h__
-#define __Shop_h__
+#ifndef __ShopScene_h__
+#define __ShopScene_h__
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
@@ -60,26 +60,29 @@ public:
     virtual void onExit();
     
     Texture2D *getTextureByID(uint64_t ID);
+
     void TexureReuqcestEvent(cocos2d::EventCustom *event);
-    void setData(ListData *data);    
+    void setData(ListData *data); 
+
 public:
     CC_SYNTHESIZE(Label*, _price, Price);
     CC_SYNTHESIZE(Sprite*,_cellImage, CellImage);//商品图片
     CC_SYNTHESIZE(Label*, _awardName, Award);  //商品名称
     
     int _nAwardID;
+
     cocos2d::Map<int ,cocos2d::Texture2D *> _listRes;
 };
 
-class Shop : public Layer,public cocos2d::ui::EditBoxDelegate
+class ShopScene : public Layer, public cocos2d::ui::EditBoxDelegate
 {
 public:
-    Shop();
-    virtual ~Shop();
+    ShopScene();
+    virtual ~ShopScene();
 
     bool init();
 
-    CREATE_FUNC(Shop);
+    CREATE_FUNC(ShopScene);
     
 public:
     void initShop();

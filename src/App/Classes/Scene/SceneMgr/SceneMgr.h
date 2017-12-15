@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include "CocosHeader.h"
-#include "UIInterface.h"
+#include "../../LibExt/UIInterface.h"
 
 #define SCENE_CREATE_RETURN(SCENE_NAME, CLASS) \
     if (0 == strcmp(SCENE_NAME, CLASS::getSceneName().c_str())) \
@@ -23,7 +23,8 @@
 
 class SceneMgr
 {
-    CREATE_SINGLETON_MUTEX_CLEAR(SceneMgr,s_sceneInstance,nullptr);
+    CREATE_SINGLETON_MUTEX_CLEAR(SceneMgr, s_sceneInstance, nullptr);
+
     void init();
     void clear();
     

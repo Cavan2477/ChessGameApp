@@ -9,8 +9,8 @@
  *
  ************************************************************************************/
 
-#ifndef __Loading_h__
-#define __Loading_h__
+#ifndef __LoadingScene_h__
+#define __LoadingScene_h__
 
 #include "cocos2d.h"
 #include <iostream>
@@ -21,20 +21,20 @@ using namespace std;
 
 typedef std::function<void(Ref*)> FinishCallFunc;
 
-enum LOADING_Tag
+enum ENUM_LOADING
 {
-    Tag_Bottom_Layout = 10,
-    Tag_Loading_Pro,//登录进度条
+    EM_BOTTOM_LAYOUT = 10,
+    EM_LOADING_PRO,			//登录进度条
 };
 
-class Loading : public Layer
+class LoadingScene : public Layer
 {
   public:
     virtual bool init();
-    CREATE_FUNC(Loading);
+    CREATE_FUNC(LoadingScene);
     
-    Loading();
-    virtual ~Loading();
+    LoadingScene();
+    virtual ~LoadingScene();
     virtual void onEnterTransitionDidFinish();
     
 //    virtual void onExit();

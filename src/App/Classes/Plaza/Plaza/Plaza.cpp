@@ -6,22 +6,25 @@
 //
 //
 
-#include "Plazz.h"
-#include "HallDataMgr.h"
-#include"cocostudio/CocoStudio.h"
-#include "NetworkMgr.h"
-#include "BankShow.h"
-#include "Task.h"
-#include "Personal.h"
-#include "Shop.h"
-
-#include "SceneMgr.h"
-#include "SceneHeader.h"
+#include "Plaza.h"
 #include "CocosHeader.h"
+#include "cocostudio/CocoStudio.h"
 
+#include "../../DataMgr/HallDataMgr.h"
+#include "../../DataMgr/NetworkMgr.h"
 #include "../../DataMgrSrc/GameConfigMgr.h"
+
+#include "../Bank/BankShowScene.h"
+#include "../Task/TaskScene.h"
+#include "../Personal/PersonalScene.h"
+#include "../Shop/ShopScene.h"
+
+#include "../../Scene/SceneMgr/SceneMgr.h"
+#include "../../Scene/SceneHeader.h"
+
 using namespace cocos2d::ui;
-enum TAG_PLZZ
+
+enum ENUM_PLAZA
 {
     TAG_MainLayout = 50,
     TAG_LockMachine,
@@ -31,8 +34,6 @@ enum TAG_PLZZ
 //MARK::PROGRESS
 Progress::Progress():_percent(nullptr)
 {
-    
-    
 }
 
 Progress::~Progress()
@@ -241,7 +242,7 @@ bool Plazz::init()
     for (int i = 0; i < nGameCount; ++i)
     {
         bool bHave = false;
-        tagGameConfig config = INSTANCE(GameConfigMgr)->getGameConfigByIdx(i, bHave);
+        _stGameConfig config = INSTANCE(GameConfigMgr)->getGameConfigByIdx(i, bHave);
         if (!bHave)
         {
             continue;
@@ -864,14 +865,12 @@ void Plazz::buttonEventWithTouchUser(cocos2d::Ref *target, cocos2d::ui::Widget::
         if (this->getChildByTag(PERSONAL))
             return;
         
-        
-        Personal *personal = Personal::create();
+        PersonalScene *personal = PersonalScene::create();
         personal->setTag(PERSONAL);
         personal->setPosition(Vec2(1136, 0));
         this->addChild(personal);
         
         personal->popPersonal();
-        
     }
 }
 
@@ -883,7 +882,7 @@ void Plazz::buttonEventWithBank(cocos2d::Ref *target, cocos2d::ui::Widget::Touch
         if (this->getChildByTag(BANK))
             return;
         
-        BankShow *bank = BankShow::create();
+        BankShowScene *bank = BankShowScene::create();
         bank->setTag(BANK);
         bank->setPosition(Vec2(1136, 0));
         this->addChild(bank);
@@ -897,7 +896,7 @@ void Plazz::buttonEventWithReward(cocos2d::Ref *target, cocos2d::ui::Widget::Tou
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
       
-        Reward *reward = Reward::create();
+        RewardScene *reward = RewardScene::create();
         reward->setScale(0.5f);
         this->addChild(reward);
         
@@ -914,7 +913,7 @@ void Plazz::buttonEventWithShop(Ref* target,cocos2d::ui::Widget::TouchEventType 
         if (this->getChildByTag(SHOP))
             return;
         
-        Shop *shop = Shop::create();
+        ShopScene *shop = ShopScene::create();
         shop->setTag(SHOP);
         shop->setPosition(Vec2(1136, 0));
         this->addChild(shop);
@@ -932,7 +931,7 @@ void Plazz::buttonEventWithTask(Ref* target,cocos2d::ui::Widget::TouchEventType 
         if (this->getChildByTag(TASK))
             return;
         
-        Task *task = Task::create();
+        TaskScene *task = TaskScene::create();
         task->setTag(TASK);
         task->setPosition(Vec2(1136, 0));
         this->addChild(task);
@@ -944,7 +943,7 @@ void Plazz::buttonEventWithSet(Ref* target,cocos2d::ui::Widget::TouchEventType t
 {
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
-        Setting *set = Setting::create();
+        SettingScene *set = SettingScene::create();
         
         this->addChild(set);
         
@@ -959,7 +958,7 @@ void Plazz::buttonEventWithRank(Ref* target,cocos2d::ui::Widget::TouchEventType 
         if (this->getChildByTag(RANK))
             return;
         
-        Rank *rank = Rank::create();
+        RankScene *rank = RankScene::create();
         rank->setTag(RANK);
         rank->setPosition(Vec2(1136, 0));
         this->addChild(rank);
@@ -1049,7 +1048,7 @@ void Plazz::loadingGame(LIST_Kind game)
     if (HallDataMgr::getInstance()->m_dwKindID != kind_default)
         return;
     bool bHaveGame = false;
-    tagGameConfig config = INSTANCE(GameConfigMgr)->getGameConfigByKind(game, bHaveGame);
+    _stGameConfig config = INSTANCE(GameConfigMgr)->getGameConfigByKind(game, bHaveGame);
     if (!bHaveGame)
     {
         return;

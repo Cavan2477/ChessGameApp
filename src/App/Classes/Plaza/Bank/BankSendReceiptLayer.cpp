@@ -93,7 +93,7 @@ bool BankSendReceiptLayer::init()
     return bRes;
 }
 
-void BankSendReceiptLayer::refreshReceipt(const tagReceipt &tagRec)
+void BankSendReceiptLayer::refreshReceipt(const _stReceipt &tagRec)
 {
     char buf[128] = "";
     

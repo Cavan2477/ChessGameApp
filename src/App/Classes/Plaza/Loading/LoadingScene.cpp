@@ -9,13 +9,13 @@
  *
  ************************************************************************************/
 
-#include "Loading.h"
-#include "../../Common/PublicDefine.h"
+#include "LoadingScene.h"
 #include "ui/CocosGUI.h"
+#include "../../Common/PublicDefine.h"
 
 using namespace cocos2d::ui;
 
-bool Loading::init()
+bool LoadingScene::init()
 {
     if(!Layer::init())
     {
@@ -26,13 +26,13 @@ bool Loading::init()
     
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     auto touchListener = EventListenerTouchOneByOne::create();
-    touchListener->onTouchBegan = CC_CALLBACK_2(Loading::onTouchBegan, this);
+    touchListener->onTouchBegan = CC_CALLBACK_2(LoadingScene::onTouchBegan, this);
     touchListener->setSwallowTouches(true);
     dispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
     
-    this->removeChildByTag(Tag_Bottom_Layout);
+    this->removeChildByTag(EM_BOTTOM_LAYOUT);
     auto playout = Layout::create();
-    playout->setTag(Tag_Bottom_Layout);
+    playout->setTag(EM_BOTTOM_LAYOUT);
     playout->setContentSize(cocos2d::Size(1136,640));
     playout->setBackGroundImage("common_res/common_backGround.png");
     playout->setScaleX(JudgeScale);
@@ -50,18 +50,18 @@ bool Loading::init()
     progress->setPosition(Vec2(playout->getContentSize().width/2, playout->getContentSize().height/2));
     progress->setPercentage(0.f);
     progress->runAction(ProgressTo::create(0.7f, 70));
-    progress->setTag(Tag_Loading_Pro);
+    progress->setTag(EM_LOADING_PRO);
     playout->addChild(progress);
     
     return true;
 }
 
-Loading::Loading():finishCallFunc(nullptr)
+LoadingScene::LoadingScene():finishCallFunc(nullptr)
 {
     
     
 }
-Loading::~Loading()
+LoadingScene::~LoadingScene()
 {
    
     finishCallFunc = nullptr;
@@ -69,11 +69,11 @@ Loading::~Loading()
     
 }
 
-void Loading::onEnterTransitionDidFinish()
+void LoadingScene::onEnterTransitionDidFinish()
 {
     Layer::onEnterTransitionDidFinish();
     
-    auto playout = this->getChildByTag(Tag_Bottom_Layout);
+    auto playout = this->getChildByTag(EM_BOTTOM_LAYOUT);
     Vector<SpriteFrame *> animarray;
     for (int index=0; index<5; ++index)
     {
@@ -91,24 +91,24 @@ void Loading::onEnterTransitionDidFinish()
 
 }
 
-bool Loading::onTouchBegan(Touch *touch, Event *event)
+bool LoadingScene::onTouchBegan(Touch *touch, Event *event)
 {
     
     return true;
 }
 
-void Loading::runFinish()
+void LoadingScene::runFinish()
 {
     
-    auto action = CallFunc::create(CC_CALLBACK_0(Loading::loadingFinish, this));
-    auto playout = static_cast<Layout *>(this->getChildByTag(Tag_Bottom_Layout));
-    auto progress = static_cast<ProgressTimer *>(playout->getChildByTag(Tag_Loading_Pro));
+    auto action = CallFunc::create(CC_CALLBACK_0(LoadingScene::loadingFinish, this));
+    auto playout = static_cast<Layout *>(this->getChildByTag(EM_BOTTOM_LAYOUT));
+    auto progress = static_cast<ProgressTimer *>(playout->getChildByTag(EM_LOADING_PRO));
     auto paction = Sequence::createWithTwoActions(ProgressTo::create(0.7f, 100), action);
     progress->runAction(paction);
     
 }
 
-void  Loading::loadingFinish()
+void  LoadingScene::loadingFinish()
 {
 
     if(nullptr != finishCallFunc)
@@ -118,7 +118,7 @@ void  Loading::loadingFinish()
         
     }
 }
-void  Loading::setFinishCallFunc(const FinishCallFunc &func)
+void  LoadingScene::setFinishCallFunc(const FinishCallFunc &func)
 {
     
     finishCallFunc = func;
