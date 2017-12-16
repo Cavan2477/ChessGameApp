@@ -434,7 +434,7 @@ void Labellengthdeal(cocos2d::Label *plabel , float length)
         plabel->setScale(length/plabel->getContentSize().width);
     }
 }
-const std::string File(LIST_Kind kind,const std::string &res)
+const std::string File(ENUM_GAME kind,const std::string &res)
 {
     
     std::string file = "";

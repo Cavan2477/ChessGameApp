@@ -20,7 +20,7 @@
 #include "Reward.h"
 #include "Rank.h"
 #include "Setting.h"
-#include "DownManager.h"
+#include "DownloadMgr.h"
 
 USING_NS_CC;
 
@@ -58,12 +58,12 @@ public:
     static GameList* create();
     virtual bool init();
 public:
-    void setInfo(DownLoadInfo &info);
+    void setInfo(ST_DOWNLOAD_INFO &info);
     void addProgress();
     void removeProgress();
 public:
     Progress  *m_pProgress;
-    DownLoadInfo DownInfo;
+    ST_DOWNLOAD_INFO DownInfo;
     
 };
 
@@ -133,10 +133,10 @@ public:
     void buttonEventWithLock(Ref* target,cocos2d::ui::Widget::TouchEventType tType);
     
 public:
-    void onTaskSuccess(LIST_Kind kind);
-    void ontaskError(LIST_Kind kind);
-    void onDecompressSuccess(LIST_Kind kind);
-    void loadingGame(LIST_Kind game);
+    void onTaskSuccess(ENUM_GAME kind);
+    void ontaskError(ENUM_GAME kind);
+    void onDecompressSuccess(ENUM_GAME kind);
+    void loadingGame(ENUM_GAME game);
 public:
     
 private:

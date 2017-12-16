@@ -28,9 +28,9 @@ public:
     static NetworkMgr *getInstance();
     
     //网络连接
-    void doConnect(const char* domain, WORD wPort, DataType type);
+    void doConnect(const char* domain, WORD wPort, EM_DATA_TYPE type);
     
-    void Disconnect(DataType type);
+    void Disconnect(EM_DATA_TYPE type);
     
     //消息接收
     void SocketDelegateWithRecvData(void* socket, void* pData, WORD wSize, bool isinBack);    //消息处理

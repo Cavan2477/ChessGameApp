@@ -39,11 +39,12 @@
 #define SOCKET_TCP_BUFFER	16384									//网络缓冲
 #define SOCKET_TCP_PACKET	(SOCKET_TCP_BUFFER-sizeof(TCP_Head))	//网络缓冲
 
-
 #pragma mark 内核命令
+
 #define MDM_KN_COMMAND			0				//内核命令
 #define SUB_KN_DETECT_SOCKET	1				//检测命令
 #define SUB_KN_VALIDATE_SOCKET	2				//验证命令
+
 ///////////////////////////////////////////////////////////////////////////
 //结构定义
 //网络验证

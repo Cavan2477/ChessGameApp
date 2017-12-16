@@ -132,7 +132,7 @@ CTCPSocket::CTCPSocket()
     m_pSocket = NULL;
     
     m_bEntry = true;
-    m_DataType = Data_Load;
+    m_DataType = EM_DATA_TYPE_LOAD;
     m_wSize = 0;
     m_Recv = nullptr;
     memset(m_pData, 0, sizeof(m_pData));
@@ -161,7 +161,7 @@ void CTCPSocket::setSocketTarget(gameMessageRecv recv)
 }
 
 
-bool CTCPSocket::socketConnect(const char *domain, WORD wPort, DataType type , bool isLoop)
+bool CTCPSocket::socketConnect(const char *domain, WORD wPort, EM_DATA_TYPE type , bool isLoop)
 {
     //pthread_mutex_lock(&Connectmutex);
     m_pSocket = new CBSDSocket();
@@ -207,7 +207,7 @@ void CTCPSocket::RecvDataUpdate(float time)
         return;
     }
     if (m_NoMessageTime > 60.f) {
-        if (m_DataType == !Data_Load) {
+        if (m_DataType == !EM_DATA_TYPE_LOAD) {
             this->Disconnettologin("网络异常，请重新登录");
         }
         NetworkMgr::getInstance()->Disconnect(m_DataType);
@@ -318,8 +318,8 @@ void CTCPSocket::Disconnettologin(const std::string &str)
             Director::getInstance()->replaceScene(TransitionFade::create(0.3f, Login::createScene()));
         }
     });
-    NetworkMgr::getInstance()->Disconnect(Data_Room);
-    NetworkMgr::getInstance()->Disconnect(Data_Load);
+    NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_ROOM);
+    NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(whNd_Socket_Connect_Failure);
 }
 

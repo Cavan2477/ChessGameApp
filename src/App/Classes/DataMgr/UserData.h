@@ -31,11 +31,11 @@ public:
     void UpdateData(void *pdata)
     {
         memcpy(&m_date, pdata, sizeof(m_date));
-        auto pdescribe = (tagDataDescribe *)((char *)pdata+sizeof(tagMobileUserInfoHead));
-        if (pdescribe->wDataDecribe == DTP_GR_NICK_NAME) {
+        auto pdescribe = (_stUserDataExt *)((char *)pdata+sizeof(_stMobileUserHeadInfo));
+        if (pdescribe->wDataDesc == DTP_GR_NICK_NAME) {
             TCHAR nickname[LEN_NICKNAME];
             memset(nickname, 0, sizeof(nickname));
-            memcpy(nickname,(char *)pdata+sizeof(tagMobileUserInfoHead)+sizeof(tagDataDescribe), pdescribe->wDataSize);
+            memcpy(nickname,(char *)pdata+sizeof(_stMobileUserHeadInfo)+sizeof(_stUserDataExt), pdescribe->wDataSize);
             m_nickname = WHConverUnicodeToUtf8WithArray(nickname);
         }
     }
@@ -59,7 +59,7 @@ public:
         m_date.dwExperience = pdata->UserScore.dwExperience;
     }
     
-    tagMobileUserInfoHead  m_date;
+    _stMobileUserHeadInfo  m_date;
     
     std::string m_nickname;
     

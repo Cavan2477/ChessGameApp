@@ -56,7 +56,7 @@ public:
     
     //网络操作
 public:
-    bool socketConnect(const char *domain, WORD wPort, DataType type , bool isLoop=true);
+    bool socketConnect(const char *domain, WORD wPort, EM_DATA_TYPE type , bool isLoop=true);
     void socketClose();
     
     bool socketRecv();
@@ -76,11 +76,11 @@ public:
 public:
     void setLoop(bool loop)     { m_bLoop=loop;}        //设置循环
     void setEntry(bool isEntry) { m_bEntry=isEntry;}    //加密映射
-    void setData(DataType dt)   { m_DataType=dt;}       //数据类型
+    void setData(EM_DATA_TYPE dt)   { m_DataType=dt;}       //数据类型
     
     bool getLoop() {return m_bLoop;};
     bool getEntry() {return m_bEntry;};
-    DataType getData() {return m_DataType;}
+    EM_DATA_TYPE getData() {return m_DataType;}
     
     bool getConnect();
     
@@ -96,7 +96,7 @@ private:
     
     //数据隐射标识在此添加
     bool                    m_bEntry;                   //隐射标识 d:true
-    DataType                m_DataType;                 //数据类型 d:load
+    EM_DATA_TYPE                m_DataType;                 //数据类型 d:load
     
     //数据缓冲
     char                    m_pData[SOCKET_TCP_BUFFER]; //网络缓冲

@@ -37,7 +37,7 @@ typedef long                LONG;
 typedef const char c_char;
 typedef const char* pConstChar;
 
-typedef struct _stSystemTime
+typedef struct _stSysTime
 {
     WORD wYear;
     WORD wMonth;
@@ -47,14 +47,13 @@ typedef struct _stSystemTime
     WORD wMinute;
     WORD wSecond;
     WORD wMilliseconds;
-}SYSTEM_TIME;
+}ST_SYS_TIME, *PST_SYS_TIME;
 
 //兼容PC函数
 #define ASSERT(e)                       assert(e)
 #define CopyMemory(des,src,size_t)      memcpy(des,src,size_t)
 #define ZeroMemory(des,size)            memset(des,0,size)
 #define VERIFY(e)                       assert(e)
-
 
 #pragma mark 数值定义
 
@@ -143,7 +142,7 @@ typedef struct _stSystemTime
 //资料数据
 #define LEN_USER_UIN        33 
 #define LEN_MD5				33						//加密密码
-#define LEN_ACCOUNTS		32						//备注长度
+#define LEN_ACCOUNT		32						//备注长度
 #define LEN_NICENAME		32						//帐号长度	
 #define LEN_NICKNAME		32						//昵称长度
 #define LEN_PASSWORD		33						//密码长度	
@@ -156,7 +155,7 @@ typedef struct _stSystemTime
 #define LEN_USER_NOTE		256						//用户备注
 #define LEN_SEAT_PHONE		33						//固定电话
 #define LEN_MOBILE_PHONE	12						//移动电话
-#define LEN_PASS_PORT_ID	19						//证件号码
+#define LEN_IDENTITY_ID		19						//证件号码
 #define LEN_COMPELLATION	16						//真实名字
 #define LEN_DWELLING_PLACE	128						//联系地址
 #define LEN_WEEK            7                       //星期长度
@@ -376,6 +375,7 @@ typedef struct _stSystemTime
 #define DebugFileLine(_FORMAT, ...) cocos2d::log("COCOS2D:%s %d %s",__FILE__,__LINE__,_FORMAT, ##__VA_ARGS__)
 
 #pragma pack(0)
+
 #endif
 
 

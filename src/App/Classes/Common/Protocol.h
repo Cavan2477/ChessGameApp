@@ -30,18 +30,57 @@
 #include "struct.h"
 #include "../Public/Help.h"
 
+#pragma mark -
+#pragma mark 警告提示
+
+//弹窗提示
+#define ALERT_DEFAULT_TIPS					0								// 默认
+#define ALERT_LOGON_FAILURE					2								// 连接失败
+#define ALERT_EXCEPTION_TIPS				3								// 异常断开
+#define ALERT_OUTTIME_TIPS					4								// 网络超时断开
+#define ALERT_ROOMLOAD_TIPS					5								// 进入房间失败
+#define ALERT_DESKLIST_TIPS					6								// 坐下失败
+#define ALERT_GAME_DISCONNET				7								// 游戏中异常断开
+#define ALERT_UPDATE_TIPS					9								// 更新提示
+#define ALERT_REQUESTFAILURE_TIPS			10								// 请求失败提示
+
+//大厅提示
+#define ALERT_GP_DEFAULT                    0                               // 默认
+#define ALERT_GP_LOGON_FAILURE              1                               // 登陆失败
+#define ALERT_GR_LOGON_FAILURE              2                               // 房间失败
+
+
+//系统提示
+#define ALERT_CLOSE_GAME                    11                              // 关闭游戏
+#define ALERT_CLOSE_ROOM                    12                              // 关闭房间
+#define ALERT_CLOSE_LINK                    13                              // 中断连接
+#define ALERT_SYSTEM_MGS                    14                              // 系统消息
+#define ALERT_ACTION_MGS                    15                              // 动作消息
+
+#define ALERT_SHORTSTREAM                   20                              // 短连接处理
+
+//#pragma pack(0)
+
 //#pragma pack(1)
 //登陆类型
-enum LoadType
+typedef enum 
 {
-    Load_Default = -1,
-    Load_Normal=0,
-    Load_QQ    =1,
-    Load_Sina  =2,
-    Load_RenRen=3,
-    Load_Visitor=4
-    
-};
+    EM_LOAD_TYPE_DEFAULT = -1,
+	EM_LOAD_TYPE_NORMAL,
+	EM_LOAD_TYPE_QQ,
+	EM_LOAD_TYPE_SINA,
+	EM_LOAD_TYPE_RENREN,
+	EM_LOAD_TYPE_VISITOR
+}EM_LOAD_TYPE;
+
+//数据分类
+typedef enum _EM_DATA_TYPE
+{
+	EM_DATA_TYPE_DEFAULT= 0,			// 默认
+	EM_DATA_TYPE_LOAD	= 1,			// 登录命令
+	EM_DATA_TYPE_ROOM	= 2,			// 房间命令
+	EM_DATA_TYPE_END	= 10,			// 结束
+}EM_DATA_TYPE;
 
 //MARK::游戏协议
 class CGameSocketDelegate
@@ -131,7 +170,6 @@ public:
     bool            m_bOptionNovice;                        //提示标识
 };
 
-
 //MARK::用户协议
 class UserItemDelegate
 {
@@ -149,47 +187,6 @@ public:
     }
 };
 
-
-//数据分类
-typedef enum _DataType
-{
-	Data_Default	= 0,		//默认
-	Data_Load		= 1,		//登录命令
-	Data_Room		= 2,		//房间命令
-	Data_End		= 10,		//结束
-}DataType;
-
-
-#pragma mark -
-#pragma mark 警告提示
-
-//弹窗提示
-#define ALERT_DEFAULT_TIPS					0								//默认
-#define ALERT_LOGON_FAILURE					2								//连接失败
-#define ALERT_EXCEPTION_TIPS				3								//异常断开
-#define ALERT_OUTTIME_TIPS					4								//网络超时断开
-#define ALERT_ROOMLOAD_TIPS					5								//进入房间失败
-#define ALERT_DESKLIST_TIPS					6								//坐下失败
-#define ALERT_GAME_DISCONNET				7								//游戏中异常断开
-#define ALERT_UPDATE_TIPS					9								//更新提示
-#define ALERT_REQUESTFAILURE_TIPS			10								//请求失败提示
-
-//大厅提示
-#define ALERT_GP_DEFAULT                    0                               //默认
-#define ALERT_GP_LOGON_FAILURE              1                               //登陆失败
-#define ALERT_GR_LOGON_FAILURE              2                               //房间失败
-
-
-//系统提示
-#define ALERT_CLOSE_GAME                    11                              //关闭游戏
-#define ALERT_CLOSE_ROOM                    12                              //关闭房间
-#define ALERT_CLOSE_LINK                    13                              //中断连接
-#define ALERT_SYSTEM_MGS                    14                              //系统消息
-#define ALERT_ACTION_MGS                    15                              //动作消息
-
-#define ALERT_SHORTSTREAM                   20                              //短连接处理
-
-//#pragma pack(0)
 #endif
 
 

@@ -75,7 +75,7 @@ const std::string getTimeStr(SCORE timesec);
 //由数据创建纹理，对GIF数据做了额外处理
 cocos2d::Texture2D *CreatewithImageData(unsigned char *pdata, DWORD wsize);
 
-const std::string File(LIST_Kind kind,const std::string &res);
+const std::string File(ENUM_GAME kind,const std::string &res);
 
 void getAreaConfig();
 

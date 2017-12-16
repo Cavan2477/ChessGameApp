@@ -194,7 +194,7 @@ void RankScene::initRankShow()
         {
             //自己当前排名
             auto selfRank = Label::createWithSystemFont(__String::createWithFormat("您当前排名第 %d 名",rankData->getRankIndex())->getCString(),
-                                                        FONT_DEFAULT,
+                                                        FONT_TREBUCHET_MS_BOLD,
                                                         28);
             selfRank->setPosition(Vec2(568, 470));
             selfRank->setTextColor(cocos2d::Color4B(44,220,115,255));
@@ -225,7 +225,7 @@ void RankScene::initRankShow()
             
         {
             
-            auto rank = Label::createWithSystemFont(__String::createWithFormat("%d",index)->getCString(), FONT_DEFAULT, 28);
+            auto rank = Label::createWithSystemFont(__String::createWithFormat("%d",index)->getCString(), FONT_TREBUCHET_MS_BOLD, 28);
             rank->setPosition(Vec2(80, _layout->getContentSize().height/2));
             _layout->addChild(rank);
         }
@@ -245,7 +245,7 @@ void RankScene::initRankShow()
             
         
         //昵称
-        Label *nick = Label::createWithSystemFont(rankData->getNickName().c_str(), FONT_DEFAULT, 24);
+        Label *nick = Label::createWithSystemFont(rankData->getNickName().c_str(), FONT_TREBUCHET_MS_BOLD, 24);
         nick->setTextColor(cocos2d::Color4B(36,236,250,255));
         nick->setAnchorPoint(Vec2(0.0, 0.5));
         nick->setDimensions(250, nick->getContentSize().height + 2);

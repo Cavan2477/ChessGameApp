@@ -190,13 +190,13 @@ cocos2d::Scene *SceneMgr::getTempSceneByKind(const int &kind)
     
     switch (kind)
     {
-        case kind_baijiale:
+        case EM_GAME_BAIJIALE:
             s = BJL_NAMESPACE_FUN(TempGameScene)::create();
             break;
-        case kind_niuniu:
+        case EM_GAME_NIUNIU:
             s = NN_NAMESPACE_FUN(TempGameScene)::create();
             break;
-        case kind_tbnn:
+        case EM_GAME_TBNN:
             s = TBNN_NAMESPACE_FUN(TempGameScene)::create();
             break;
     }

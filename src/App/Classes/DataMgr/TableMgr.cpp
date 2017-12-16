@@ -33,20 +33,20 @@ bool TableMgr::haveTableList()
     bool bRes = false;
     switch (dwKind)
     {
-        case kind_baijiale:
+        case EM_GAME_BAIJIALE:
             bRes = false;
             break;
-        case kind_niuniu:
+        case EM_GAME_NIUNIU:
             bRes = true;
             break;
-        case kind_tbnn:
+        case EM_GAME_TBNN:
             bRes = true;
             break;
     }
     return bRes;
 }
 
-void TableMgr::addTableItem(const tagTableStatus *pStatus, const WORD &tableId)
+void TableMgr::addTableItem(const _stTableStatus *pStatus, const WORD &tableId)
 {
     tagTableItem *item = getTableItemById(tableId);
     if (nullptr == item)
@@ -55,13 +55,13 @@ void TableMgr::addTableItem(const tagTableStatus *pStatus, const WORD &tableId)
         item->wTableId = tableId;
         item->tagStatus.cbPlayStatus = pStatus->cbPlayStatus;
         item->tagStatus.cbTableLock = pStatus->cbTableLock;
-        item->tagStatus.lCellScore = pStatus->lCellScore;
+        item->tagStatus.nCellScore = pStatus->nCellScore;
         
         m_vecTables.push_back(item);
     }
 }
 
-bool TableMgr::updateTableItem(const tagTableStatus *pStatus,const WORD &tableId)
+bool TableMgr::updateTableItem(const _stTableStatus *pStatus,const WORD &tableId)
 {
 	bool bRes = false;
     tagTableItem *item = nullptr;
@@ -75,7 +75,7 @@ bool TableMgr::updateTableItem(const tagTableStatus *pStatus,const WORD &tableId
 		item->wTableId = tableId;
 		item->tagStatus.cbPlayStatus = pStatus->cbPlayStatus;
 		item->tagStatus.cbTableLock = pStatus->cbTableLock;
-		item->tagStatus.lCellScore = pStatus->lCellScore;
+		item->tagStatus.nCellScore = pStatus->nCellScore;
 		
 		bRes = true;
 	} while (false);
@@ -184,7 +184,7 @@ void TableMgr::grouping(const int &game_kind /*const int groupCount*/)
     m_nPageGroupCount = 6;
     switch (game_kind)
     {
-        case kind_tbnn:
+        case EM_GAME_TBNN:
             m_nPageGroupCount = 3;
             break;
     }

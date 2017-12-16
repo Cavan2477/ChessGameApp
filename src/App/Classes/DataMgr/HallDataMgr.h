@@ -20,7 +20,7 @@
 #include "../Common/CMD_Stdafx.h"
 #include "../Scene/ModeLayer.h"
 #include "../Public/Help.h"
-#include "../Plaza/PersonalInfo/PhotoBridge.h"
+#include "../Plaza/Personal/PhotoBridge.h"
 
 //分系统游戏数据 add by zhong
 struct tagSubSystemParam
@@ -66,9 +66,9 @@ public:
     
     cocos2d::Map<int , cocos2d::Texture2D *> m_Headlist;//头像
     
-    std::vector<tagGameServer *> m_roomList;    //所有的房间列表
+    std::vector<_stGameRoomServer *> m_roomList;    //所有的房间列表
     
-    std::vector<tagGameServer *> m_subRoomList; //分系统房间列表
+    std::vector<_stGameRoomServer *> m_subRoomList; //分系统房间列表
     
     cocos2d::Map<int, UserData *> m_UserList;// 用户列表
     
@@ -110,7 +110,7 @@ public:
     
     BYTE						m_cbGameStatus;					//游戏状态
     
-    LoadType                    m_loadtype;                     //登陆模式
+    EM_LOAD_TYPE                    m_loadtype;                     //登陆模式
     bool                        m_bcancel;                      //是否注销当前帐号
     
     BYTE                        m_cbInsureEnable;               //银行使能标示
@@ -140,7 +140,7 @@ public:
     //分系统游戏参数
     tagSubSystemParam           m_tagSubParam;                  //分系统游戏参数
     //银行赠送信息
-    tagBankSendInfo             m_tagBankSend;
+    _stBankGiftInfo             m_tagBankSend;
     //ip地址
     std::string                 m_strGameIpAdress;
 private:

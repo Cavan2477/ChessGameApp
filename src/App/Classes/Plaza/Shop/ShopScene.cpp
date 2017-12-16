@@ -97,7 +97,7 @@ void ShopList::setData(ListData *data)
     userDefault->flush();
     
     //商品名称
-    ClipText *clipName = ClipText::createClipText(cocos2d::Size(200,30), data->_awardName, FONT_DEFAULT, 24);
+    ClipText *clipName = ClipText::createClipText(cocos2d::Size(200,30), data->_awardName, FONT_TREBUCHET_MS_BOLD, 24);
     clipName->setTextColor(cocos2d::Color4B::YELLOW);
     clipName->setAnchorPoint(Vec2(0.5, 0.5));
     clipName->setPosition(Vec2(this->getContentSize().width/2,175));
@@ -109,7 +109,7 @@ void ShopList::setData(ListData *data)
     ingotIcon->setPosition(Vec2(60, 30));
     this->addChild(ingotIcon);
     
-    auto ingotNum = Label::createWithSystemFont(__String::createWithFormat("%d",(int)data->_price)->getCString(), FONT_DEFAULT, 24);
+    auto ingotNum = Label::createWithSystemFont(__String::createWithFormat("%d",(int)data->_price)->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
     ingotNum->setAnchorPoint(Vec2(.0, 0.5));
     ingotNum->setPosition(Vec2(90, 30));
     this->addChild(ingotNum);
@@ -297,7 +297,7 @@ bool ShopScene::init()
     layout->addChild(_rootNode);
     
     //用户金币
-    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_DEFAULT, 24);
+    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserScore(coin);
     _userScore->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userScore, 145);
@@ -306,7 +306,7 @@ bool ShopScene::init()
     layout->addChild(_userScore);
     
     //用户元宝
-    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_Ingot, ","), FONT_DEFAULT, 24);
+    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_Ingot, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserIngot(ingot);
     _userIngot->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userIngot, 145);
@@ -315,7 +315,7 @@ bool ShopScene::init()
     layout->addChild(_userIngot);
     
     //用户游戏豆
-    Label *bean = Label::createWithSystemFont(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_Bean)->getCString(), FONT_DEFAULT, 24);
+    Label *bean = Label::createWithSystemFont(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_Bean)->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
     setUserBean(bean);
     _userBean->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userBean, 145);
@@ -590,7 +590,7 @@ void ShopScene::initShop()
         
         //游戏币
         auto coin = Label::createWithSystemFont(__String::createWithFormat("%u",per[i] * this->m_BeanRate)->getCString(),
-                                                FONT_DEFAULT,
+                                                FONT_TREBUCHET_MS_BOLD,
                                                 24);
         
         coin->setAlignment(cocos2d::TextHAlignment::RIGHT);
@@ -600,7 +600,7 @@ void ShopScene::initShop()
         exchange_byBean->addChild(coin);
         
         auto tips = Label::createWithSystemFont("游戏币",
-                                               FONT_DEFAULT,
+                                               FONT_TREBUCHET_MS_BOLD,
                                                24);
         
         tips->setAlignment(cocos2d::TextHAlignment::LEFT);
@@ -614,7 +614,7 @@ void ShopScene::initShop()
         beanIcon->setPosition(Vec2(60, 30));
         exchange_byBean->addChild(beanIcon);
         
-        auto beanNum = Label::createWithSystemFont(__String::createWithFormat("%d",per[i])->getCString(), FONT_DEFAULT, 24);
+        auto beanNum = Label::createWithSystemFont(__String::createWithFormat("%d",per[i])->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
         beanNum->setAnchorPoint(Vec2(.0, 0.5));
         beanNum->setPosition(Vec2(beanIcon->getPosition().x + 30, beanIcon->getPosition().y));
         exchange_byBean->addChild(beanNum);
@@ -653,7 +653,7 @@ void ShopScene::initShop()
         
         //游戏币
         auto coin = Label::createWithSystemFont(__String::createWithFormat("%u",per[i] * this->m_IngotRate)->getCString(),
-                                                FONT_DEFAULT,
+                                                FONT_TREBUCHET_MS_BOLD,
                                                 24);
         
         coin->setAlignment(cocos2d::TextHAlignment::RIGHT);
@@ -663,7 +663,7 @@ void ShopScene::initShop()
         exchange_byIngot->addChild(coin);
         
         auto tips = Label::createWithSystemFont("游戏币",
-                                                FONT_DEFAULT,
+                                                FONT_TREBUCHET_MS_BOLD,
                                                 24);
         
         tips->setAlignment(cocos2d::TextHAlignment::LEFT);
@@ -677,7 +677,7 @@ void ShopScene::initShop()
         ingotIcon->setPosition(Vec2(60, 30));
         exchange_byIngot->addChild(ingotIcon);
         
-        auto ingotNum = Label::createWithSystemFont(__String::createWithFormat("%d",per[i])->getCString(), FONT_DEFAULT, 24);
+        auto ingotNum = Label::createWithSystemFont(__String::createWithFormat("%d",per[i])->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
         ingotNum->setAnchorPoint(Vec2(.0, 0.5));
         ingotNum->setPosition(Vec2(ingotIcon->getPosition().x + 30, ingotIcon->getPosition().y));
         exchange_byIngot->addChild(ingotNum);
@@ -734,7 +734,7 @@ void ShopScene::initPurchase()
         
         //游戏币
         auto coin = Label::createWithSystemFont(__String::createWithFormat("¥%d",per[i])->getCString(),
-                                                FONT_DEFAULT,
+                                                FONT_TREBUCHET_MS_BOLD,
                                                 24);
         
         coin->setAlignment(cocos2d::TextHAlignment::RIGHT);
@@ -749,7 +749,7 @@ void ShopScene::initPurchase()
         beanIcon->setPosition(Vec2(60, 30));
         shopList->addChild(beanIcon);
         
-        auto beanNum = Label::createWithSystemFont(__String::createWithFormat("%d",per[i])->getCString(), FONT_DEFAULT, 24);
+        auto beanNum = Label::createWithSystemFont(__String::createWithFormat("%d",per[i])->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
         beanNum->setAnchorPoint(Vec2(.0, 0.5));
         beanNum->setPosition(Vec2(beanIcon->getPosition().x + 30, beanIcon->getPosition().y));
         shopList->addChild(beanNum);
@@ -928,7 +928,7 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
     _nameEidt->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     _nameEidt->setFontSize(28);
     _nameEidt->setReturnType(EditBox::KeyboardReturnType::DONE);
-    _nameEidt->setPlaceholderFont(FONT_DEFAULT, 24);
+    _nameEidt->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 24);
     _nameEidt->setPlaceHolder("请输入收货人姓名");
     _nameEidt->setFontColor(Color3B::YELLOW);
     node->addChild(_nameEidt);
@@ -941,7 +941,7 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
     telEdit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     telEdit->setFontSize(28);
     telEdit->setReturnType(EditBox::KeyboardReturnType::DONE);
-    telEdit->setPlaceholderFont(FONT_DEFAULT, 24);
+    telEdit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 24);
     telEdit->setInputMode(cocos2d::ui::EditBox::InputMode::PHONE_NUMBER);
     telEdit->setMaxLength(11);
     telEdit->setPlaceHolder("请输入收货人手机号码");
@@ -956,7 +956,7 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
     _adressEidt->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     _adressEidt->setFontSize(28);
     _adressEidt->setReturnType(EditBox::KeyboardReturnType::DONE);
-    _adressEidt->setPlaceholderFont(FONT_DEFAULT, 24);
+    _adressEidt->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 24);
     _adressEidt->setPlaceHolder("请输入收货人详细地址");
     _adressEidt->setFontColor(Color3B::YELLOW);
     node->addChild(_adressEidt);
@@ -978,7 +978,7 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
     _realExchangeLayout->addChild(listDetail);
     
     //商品名称
-    ClipText *clipName = ClipText::createClipText(cocos2d::Size(200,30), data->_awardName, FONT_DEFAULT, 24);
+    ClipText *clipName = ClipText::createClipText(cocos2d::Size(200,30), data->_awardName, FONT_TREBUCHET_MS_BOLD, 24);
     clipName->setTextColor(cocos2d::Color4B::YELLOW);
     clipName->setAnchorPoint(Vec2(0.5, 0.5));
     clipName->setPosition(Vec2(listDetail->getContentSize().width/2,175));
@@ -990,7 +990,7 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
     ingotIcon->setPosition(Vec2(60, 30));
     listDetail->addChild(ingotIcon);
     
-    auto ingotNum = Label::createWithSystemFont(__String::createWithFormat("%d",(int)data->_price)->getCString(), FONT_DEFAULT, 24);
+    auto ingotNum = Label::createWithSystemFont(__String::createWithFormat("%d",(int)data->_price)->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
     ingotNum->setAnchorPoint(Vec2(.0, 0.5));
     ingotNum->setPosition(Vec2(90, 30));
     listDetail->addChild(ingotNum);
@@ -1011,7 +1011,7 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
     auto detailName = static_cast<Text *>(node->getChildByName("Text_detailName"));
     if (detailName != nullptr)
     {
-        auto nameLabel = Label::createWithSystemFont(data->_awardName, FontNormal, 24, cocos2d::Size(200,0));
+        auto nameLabel = Label::createWithSystemFont(data->_awardName, FONT_ARIAL, 24, cocos2d::Size(200,0));
         nameLabel->setColor(Color3B::YELLOW);
         nameLabel->setAnchorPoint(Vec2(0.5f, 1.0f));
         nameLabel->setPosition(Vec2(125, 240));
@@ -1183,12 +1183,12 @@ void ShopScene::updateInfo()
 }
 void ShopScene::sendExchangeParameter()
 {
-    if (HallDataMgr::getInstance()->m_RoomType == Data_Load)
+    if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
-        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_QUERY, NULL, 0, NetworkMgr::getInstance()->getSocketOnce());
     }
-    else if (HallDataMgr::getInstance()->m_RoomType == Data_Room)
+    else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
         NetworkMgr::getInstance()->sendData(MDM_GR_EXCHANGE, SUB_GR_EXCHANGE_LOAD_INFO, NULL, 0);
     }
@@ -1196,17 +1196,17 @@ void ShopScene::sendExchangeParameter()
 
 void ShopScene::sendExchangeBean(DOUBLE beannum)
 {
-    if (HallDataMgr::getInstance()->m_RoomType == Data_Load) {
+    if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD) {
         CMD_GP_ExchangeScoreByBean request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.dExchangeBean = beannum;
         UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
-        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_SCORE_BYBEAN, &request, sizeof(request), NetworkMgr::getInstance()->getSocketOnce());
     }
-    else if (HallDataMgr::getInstance()->m_RoomType == Data_Room)
+    else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
         CMD_GR_ExchangeScoreByBean request;
         memset(&request, 0, sizeof(request));
@@ -1220,17 +1220,17 @@ void ShopScene::sendExchangeBean(DOUBLE beannum)
 
 void ShopScene::sendExchangeIngot(SCORE ingotnum)
 {
-    if (HallDataMgr::getInstance()->m_RoomType == Data_Load) {
+    if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD) {
         CMD_GP_ExchangeScoreByIngot request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.lExchangeIngot = ingotnum;
         UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
-        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_SCORE_BYINGOT, &request, sizeof(request), NetworkMgr::getInstance()->getSocketOnce());
     }
-    else if (HallDataMgr::getInstance()->m_RoomType == Data_Room)
+    else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
         CMD_GR_ExchangeScore request;
         memset(&request, 0, sizeof(request));

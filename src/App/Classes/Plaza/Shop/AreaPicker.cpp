@@ -47,8 +47,8 @@ bool AreaPicker::init()
     auto button = Button::create();
     button->setTouchEnabled(true);
     button->setScale9Enabled(true);
-    button->setContentSize(WinSize);
-    button->setPosition(WinSize/2);
+    button->setContentSize(WIN_SIZE);
+    button->setPosition(WIN_SIZE/2);
     button->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type){
         
         
@@ -108,7 +108,7 @@ void AreaPicker::openPicker(int nindex)
             _layout->setContentSize(Size(_list->getContentSize().width , _province->getContentSize().height + 40));
             _province->setAnchorPoint(Vec2(.5, .5));
             _province->setTitleFontSize(30);
-            _province->setTitleFontName(FontNormal);
+            _province->setTitleFontName(FONT_ARIAL);
             //_province->setTitleAlignment(TextHAlignment::CENTER);
             _province->setPosition(_layout->getContentSize()/2);
             _province->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type){
@@ -146,7 +146,7 @@ void AreaPicker::openPicker(int nindex)
             _layout->setContentSize(Size(_list->getContentSize().width , _city->getContentSize().height + 40));
             _city->setAnchorPoint(Vec2(.5, .5));
             _city->setTitleFontSize(30);
-            _city->setTitleFontName(FontNormal);
+            _city->setTitleFontName(FONT_ARIAL);
             //_city->setTitleAlignment(TextHAlignment::CENTER);
             _city->setPosition(_layout->getContentSize()/2);
             _city->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type){
@@ -185,7 +185,7 @@ void AreaPicker::openPicker(int nindex)
             _layout->setContentSize(Size(_list->getContentSize().width , _area->getContentSize().height + 40));
             _area->setAnchorPoint(Vec2(.5, .5));
             _area->setTitleFontSize(30);
-            _area->setTitleFontName(FontNormal);
+            _area->setTitleFontName(FONT_ARIAL);
             //_area->setTitleAlignment(TextHAlignment::CENTER);
             _area->setPosition(_layout->getContentSize()/2);
             _area->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type){

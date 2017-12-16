@@ -26,7 +26,7 @@ HallDataMgr::HallDataMgr()
 ,m_bStartType(false)
 ,m_popLayer(nullptr)
 ,m_cbGameStatus(US_NULL)
-,m_RoomType(Data_Load)
+,m_RoomType(EM_DATA_TYPE_LOAD)
 ,m_TableCount(0)
 ,m_ChairCount(0)
 ,m_isEnterBack(false)
@@ -104,7 +104,7 @@ cocos2d::Layer* HallDataMgr::AddpopLayer(const std::string &title, const std::st
             }
         }
         CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound_res/open_alert.wav");
-        m_popLayer = ModeLayer::createBytype(title, content, (ModeType)type,close);
+        m_popLayer = ModeLayer::createBytype(title, content, (ENUM_MODE_TYPE)type,close);
         Director::getInstance()->getRunningScene()->addChild(m_popLayer,15);
         m_popLayer->retain();
         return m_popLayer;
@@ -148,7 +148,7 @@ void HallDataMgr::readConfig()
     m_bcancel = userCongfig->getBoolForKey("load_cancel");
     m_bOptionShake = userCongfig->getBoolForKey("opt_shake");
     m_bOptionMute = userCongfig->getBoolForKey("opt_mute");
-    m_loadtype = (LoadType)userCongfig->getIntegerForKey("load_type");
+    m_loadtype = (EM_LOAD_TYPE)userCongfig->getIntegerForKey("load_type");
     m_wCustom = userCongfig->getIntegerForKey("user_customid");
     m_wFaceID = userCongfig->getIntegerForKey("user_faceid");
     m_fOptionMusic = userCongfig->getFloatForKey("opt_music");

@@ -27,7 +27,7 @@ enum enTableCode
 struct tagTableUserInfo
 {
 	DWORD				wUserId;
-	tagUserStatus		tagStatus;
+	_stUserStatus		tagStatus;
 	tagTableUserInfo()
 	{
 		wUserId = INVALID_USERID;
@@ -39,7 +39,7 @@ struct tagTableUserInfo
 struct tagTableItem
 {
 	WORD				wTableId;				//桌子id
-	tagTableStatus		tagStatus;				//桌子状态
+	_stTableStatus		tagStatus;				//桌子状态
 	tagTableUserInfo	tableUsers[6];          //桌子用户id
 };
 
@@ -57,10 +57,10 @@ public:
     bool haveTableList();
     
     //增加桌子信息
-    void addTableItem(const tagTableStatus *pStatus,const WORD &tableId);
+    void addTableItem(const _stTableStatus *pStatus,const WORD &tableId);
     
 	//更新桌子状态信息
-	bool updateTableItem(const tagTableStatus *pStatus,const WORD &tableId);
+	bool updateTableItem(const _stTableStatus *pStatus,const WORD &tableId);
     
 	//更新桌子用户信息(桌子状态信息必须已存在)
 	bool updateTableItem( const tagTableUserInfo &tagInfo );

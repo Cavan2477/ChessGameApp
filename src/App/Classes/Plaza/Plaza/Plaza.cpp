@@ -73,7 +73,7 @@ bool Progress::initProgress(const std::string &res)
     this->addChild(circle);
     
     //进度
-    auto percent = Label::createWithSystemFont("0％", FONT_DEFAULT, 18);
+    auto percent = Label::createWithSystemFont("0％", FONT_TREBUCHET_MS_BOLD, 18);
     setPercent(percent);
     _percent->setPosition(this->getContentSize()/2);
     this->addChild(_percent);
@@ -111,7 +111,7 @@ GameList::GameList():
 m_pProgress(nullptr)
 {
     
-    memset(&DownInfo, 0, sizeof(DownLoadInfo));
+    memset(&DownInfo, 0, sizeof(ST_DOWNLOAD_INFO));
 }
 
 GameList::~GameList()
@@ -121,7 +121,7 @@ GameList::~GameList()
         m_pProgress = nullptr;
     }
     
-    memset(&DownInfo, 0, sizeof(DownLoadInfo));
+    memset(&DownInfo, 0, sizeof(ST_DOWNLOAD_INFO));
 }
 GameList *GameList::create()
 {
@@ -145,9 +145,9 @@ bool GameList::init()
     }
     return false;
 }
-void GameList::setInfo(DownLoadInfo &info)
+void GameList::setInfo(ST_DOWNLOAD_INFO &info)
 {
-    memcpy(&DownInfo, &info, sizeof(DownLoadInfo));
+    memcpy(&DownInfo, &info, sizeof(ST_DOWNLOAD_INFO));
 }
 
 void GameList::addProgress()
@@ -253,15 +253,15 @@ bool Plazz::init()
         {
             continue;
         }
-        LIST_Kind eTag = (LIST_Kind)list->getTag();
+        ENUM_GAME eTag = (ENUM_GAME)list->getTag();
         
         list->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type)
                                     {
                                         if (cocos2d::ui::Widget::TouchEventType::ENDED == type)
                                         {
-                                            if (DownManager::getInstance()->getDownInfo(eTag))
+                                            if (DownloadMgr::getInstance()->getDownInfo(eTag))
                                             {
-                                                list->DownInfo.status = DownLoadDone;
+                                                list->DownInfo.emDownloadStatus = DownLoadDone;
                                                 //加载游戏
                                                 this->loadingGame(eTag);
                                             }
@@ -271,11 +271,11 @@ bool Plazz::init()
                                                 if (config.bGameActive)
                                                 {
                                                     std::string path = "http://jd.foxuc.net" + config.strGameResPath;
-                                                    DownManager::getInstance()->createTaskforDown(path,
+                                                    DownloadMgr::getInstance()->createTaskforDown(path,
                                                                                                   storagePath,
                                                                                                   eTag);
                                                     
-                                                    list->DownInfo.status = DownLoading;
+                                                    list->DownInfo.emDownloadStatus = DownLoading;
                                                     list->addProgress();
                                                 }
                                                 else
@@ -296,7 +296,7 @@ bool Plazz::init()
     }
     
     //用户昵称
-    Label *nick = Label::createWithSystemFont(HallDataMgr::getInstance()->m_pNickName, FONT_DEFAULT, 24);
+    Label *nick = Label::createWithSystemFont(HallDataMgr::getInstance()->m_pNickName, FONT_TREBUCHET_MS_BOLD, 24);
     setUserNickName(nick);
     _UserNikcName->setAnchorPoint(Vec2(.0, .5));
     _UserNikcName->setDimensions(129, _UserNikcName->getContentSize().height + 1);
@@ -304,7 +304,7 @@ bool Plazz::init()
     layout->addChild(_UserNikcName);
     
     //用户分数
-    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_DEFAULT, 24);
+    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserScore(score);
     _UserScore->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_UserScore, 135);
@@ -501,7 +501,7 @@ void Plazz::onEnterTransitionDidFinish()
     
     //用户头像
     HeaderRequest *pHead = nullptr;
-    if (HallDataMgr::getInstance()->m_loadtype == Load_Normal || HallDataMgr::getInstance()->m_loadtype == Load_Visitor)
+    if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_NORMAL || HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_VISITOR)
     {
         
         pHead = HeaderRequest::createwithFaceID(HallDataMgr::getInstance()->m_wFaceID,
@@ -509,7 +509,7 @@ void Plazz::onEnterTransitionDidFinish()
                                                 HallDataMgr::getInstance()->m_dwUserID,
                                                 HallDataMgr::getInstance()->m_cbGender);
     }
-    else if (HallDataMgr::getInstance()->m_loadtype == Load_RenRen || HallDataMgr::getInstance()->m_loadtype == Load_Sina)
+    else if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_RENREN || HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_SINA)
     {
         pHead = HeaderRequest::createwithUrl(HallDataMgr::getInstance()->m_MethodHeadUrl, HallDataMgr::getInstance()->m_dwUserID);
     }
@@ -532,13 +532,13 @@ void Plazz::onEnterTransitionDidFinish()
     notice->setPosition(Vec2(568, 630));
     layout->addChild(notice);
     
-    HallDataMgr::getInstance()->m_dwKindID = kind_default;
+    HallDataMgr::getInstance()->m_dwKindID = EM_GAME_DEFALUT;
     
-    DownManager::getInstance()->onTaskSuccess = CC_CALLBACK_1(Plazz::onTaskSuccess, this);
-    DownManager::getInstance()->onDecompressSuccess = CC_CALLBACK_1(Plazz::onDecompressSuccess, this);
+    DownloadMgr::getInstance()->onTaskSuccess = CC_CALLBACK_1(Plazz::onTaskSuccess, this);
+    DownloadMgr::getInstance()->onDecompressSuccess = CC_CALLBACK_1(Plazz::onDecompressSuccess, this);
     
     
-    if (HallDataMgr::getInstance()->m_loadtype != Load_Visitor)
+    if (HallDataMgr::getInstance()->m_loadtype != EM_LOAD_TYPE_VISITOR)
     {
         //查询等级
         this->sendPacketWithUserLevelInfo();
@@ -604,7 +604,7 @@ void Plazz::sendPacketWithUserLevelInfo()
     levelQueryInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), levelQueryInfo.szMachineID);
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), levelQueryInfo.szPassword);
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_GROWLEVEL_QUERY, &levelQueryInfo, sizeof(levelQueryInfo), NetworkMgr::getInstance()->getSocketOnce());
 }
 //MARK::等级
@@ -633,7 +633,7 @@ void Plazz::LevelInfo(void* pData, WORD wSize)
     
     
     auto action = CallFunc::create([]{
-        NetworkMgr::getInstance()->Disconnect(Data_Load);
+        NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     });
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
 }
@@ -679,12 +679,12 @@ void Plazz::notifyDownRefresh(cocos2d::EventCustom *event)
 {
     
     void * data = event->getUserData();
-    DownRefresh refresh;
-    memset(&refresh, 0, sizeof(DownRefresh));
-    memcpy(&refresh, data, sizeof(DownRefresh));
+    ST_DOWNLOAD_REFRESH refresh;
+    memset(&refresh, 0, sizeof(ST_DOWNLOAD_REFRESH));
+    memcpy(&refresh, data, sizeof(ST_DOWNLOAD_REFRESH));
     
-    LIST_Kind eCurrentKind = refresh.eKind;
-    int  nPercent = refresh.dPercent;
+    ENUM_GAME eCurrentKind = refresh.emGame;
+    int  nPercent = refresh.dDownloadPercent;
     
     char buf[32] = "";
     sprintf(buf, "game_kind_%d", eCurrentKind);
@@ -695,9 +695,9 @@ void Plazz::notifyDownRefresh(cocos2d::EventCustom *event)
         if (nPercent == 100)
         {
             list->removeProgress();
-            DownLoadInfo info;
-            info.kindID = eCurrentKind;
-            info.status = DownLoadDone;
+            ST_DOWNLOAD_INFO info;
+            info.emGame = eCurrentKind;
+            info.emDownloadStatus = DownLoadDone;
             list->setInfo(info);
             return;
         }
@@ -1016,22 +1016,22 @@ void Plazz::buttonEventWithLock(cocos2d::Ref *target, cocos2d::ui::Widget::Touch
     }
 }
 //MARK::CallBack
-void Plazz::onTaskSuccess(LIST_Kind kind)
+void Plazz::onTaskSuccess(ENUM_GAME kind)
 {
     
-    if (HallDataMgr::getInstance()->m_dwKindID != kind_default)
+    if (HallDataMgr::getInstance()->m_dwKindID != EM_GAME_DEFALUT)
         return;
     
     HallDataMgr::getInstance()->AddpopLayer("", "正在加载资源...", Type_Wait_Text);
     
 }
-void Plazz::ontaskError(LIST_Kind kind)
+void Plazz::ontaskError(ENUM_GAME kind)
 {
     
       HallDataMgr::getInstance()->AddpopLayer("", "资源下载失败", Type_Info_Reminder);
     
 }
-void Plazz::onDecompressSuccess(LIST_Kind kind)
+void Plazz::onDecompressSuccess(ENUM_GAME kind)
 {
     
     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
@@ -1043,9 +1043,9 @@ void Plazz::onDecompressSuccess(LIST_Kind kind)
 
 
 //MARK::游戏入口
-void Plazz::loadingGame(LIST_Kind game)
+void Plazz::loadingGame(ENUM_GAME game)
 {
-    if (HallDataMgr::getInstance()->m_dwKindID != kind_default)
+    if (HallDataMgr::getInstance()->m_dwKindID != EM_GAME_DEFALUT)
         return;
     bool bHaveGame = false;
     _stGameConfig config = INSTANCE(GameConfigMgr)->getGameConfigByKind(game, bHaveGame);
@@ -1054,14 +1054,14 @@ void Plazz::loadingGame(LIST_Kind game)
         return;
     }
     
-    std::vector<tagGameServer*>().swap(HallDataMgr::getInstance()->m_subRoomList);
+    std::vector<_stGameRoomServer*>().swap(HallDataMgr::getInstance()->m_subRoomList);
     
     HallDataMgr::getInstance()->m_dwKindID = (DWORD)game;
     
     //配置分系统房间列表
     for (size_t i = 0; i < HallDataMgr::getInstance()->m_roomList.size(); ++i)
     {
-        tagGameServer *pServer = HallDataMgr::getInstance()->m_roomList[i];
+        _stGameRoomServer *pServer = HallDataMgr::getInstance()->m_roomList[i];
         if (pServer->wKindID == HallDataMgr::getInstance()->m_dwKindID
             && pServer->wServerType != GAME_GENRE_MATCH)
         {
@@ -1071,7 +1071,7 @@ void Plazz::loadingGame(LIST_Kind game)
     
     switch (game)
     {
-        case kind_niuniu:
+        case EM_GAME_NIUNIU:
         {
             std::string path = FileUtils::getInstance()->getWritablePath() + "JDNiuNiu/hd";
             FileUtils::getInstance()->addSearchPath(path);
@@ -1093,7 +1093,7 @@ void Plazz::loadingGame(LIST_Kind game)
             Director::getInstance()->replaceScene(reScene);
         }
             break;
-        case kind_baijiale:
+        case EM_GAME_BAIJIALE:
         {
             std::string path = FileUtils::getInstance()->getWritablePath() + "JDBaiJiaLe/hd";
             FileUtils::getInstance()->addSearchPath(path);
@@ -1109,7 +1109,7 @@ void Plazz::loadingGame(LIST_Kind game)
             INSTANCE(SceneMgr)->transitionScene(BJL_SCENE(PLAZA_SCENE), false);
         }
             break;
-        case kind_lkpy:
+        case EM_GAME_LKPY:
         {
             
             std::string path = FileUtils::getInstance()->getWritablePath() + "JDLkpy/";
@@ -1121,7 +1121,7 @@ void Plazz::loadingGame(LIST_Kind game)
             Director::getInstance()->replaceScene(TransitionFade::create(0.3f,lkpy_game::RoomLayer::createScene()));
         }
             break;
-        case kind_brnn:   //百人牛牛
+        case EM_GAME_BRNN:   //百人牛牛
         {
             std::string path = FileUtils::getInstance()->getWritablePath() + "JDBRNN/";
             FileUtils::getInstance()->addSearchPath(path);
@@ -1133,7 +1133,7 @@ void Plazz::loadingGame(LIST_Kind game)
             Director::getInstance()->replaceScene(TransitionFade::create(0.3f,brnn_game::RoomLayer::createScene()));
         }
             break;
-        case kind_zjh:      //扎金花
+        case EM_GAME_ZJH:      //扎金花
         {
             std::string path = FileUtils::getInstance()->getWritablePath() + "JDZjh/";
             std::string path2 = FileUtils::getInstance()->getWritablePath();
@@ -1148,7 +1148,7 @@ void Plazz::loadingGame(LIST_Kind game)
             Director::getInstance()->replaceScene(TransitionFade::create(0.3f,zjh_game::RoomLayer::createScene()));
         }
             break;
-        case kind_tbnn:
+        case EM_GAME_TBNN:
         {
             std::string path = FileUtils::getInstance()->getWritablePath() + "OxSixEx";
             FileUtils::getInstance()->addSearchPath(path);

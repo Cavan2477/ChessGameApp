@@ -40,7 +40,7 @@ public:
     void clearTaskStatus();
     
     void initTasklist();
-    void updateTask(tagTaskStatus *pstatus, tagTaskParameter *pinfo);
+    void updateTask(ST_TASK_STATUS *pstatus, ST_TASK_PARAM *pinfo);
     
     //请求加载任务列表
     void sendLoadTask();
@@ -68,10 +68,10 @@ private:
     CC_SYNTHESIZE_RETAIN(Label *, _userBean, UserBean);
     
     //任务状态
-    std::vector<tagTaskStatus *>   m_TaskStatus;
+    std::vector<ST_TASK_STATUS *>   m_TaskStatus;
     
     //任务列表
-    std::map<int, tagTaskParameter *> m_TaskList;
+    std::map<int, ST_TASK_PARAM *> m_TaskList;
     
     cocos2d::ui::ListView  *m_scrollView;
 };

@@ -6,17 +6,17 @@
 //
 //
 
-#ifndef __GameGoldMove_h__
-#define __GameGoldMove_h__
+#ifndef ____GameGoldMove__
+#define ____GameGoldMove__
 
 #include <stdio.h>
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
 USING_NS_CC;
-
 class GoldDrop : public Sprite
 {
+    
 public:
     static GoldDrop *create(const std::string& filename);
     
@@ -29,9 +29,11 @@ public:
     
 private:
     cocos2d::Vec2 m_beginvec2;
-
     float _gModulus ;//重力系数
+    
 };
+
+
 
 class GameGoldMove : public cocos2d::Sprite
 {
@@ -54,7 +56,7 @@ private:
     float   m_Span;					// 跨度
     float	m_Height;				// 高度
     
-    bool    m_bhide;				//开始隐藏
+    bool    m_bhide;            //开始隐藏
 };
 
 #endif /* defined(____GamePoolScore__) */

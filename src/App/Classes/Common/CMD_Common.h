@@ -21,9 +21,9 @@
 //系统消息
 #define MDM_CM_SYSTEM					1000							//系统命令
 
-#define SUB_CM_SYSTEM_MESSAGE			1								//系统消息
-#define SUB_CM_ACTION_MESSAGE			2								//动作消息
-#define SUB_CM_DOWN_LOAD_MODULE			3								//下载消息
+#define SUB_CM_MSG_SYS					1								//系统消息
+#define SUB_CM_MSG_ACTION				2								//动作消息
+#define SUB_CM_SYS_DOWNLOAD_MODULE		3								//下载消息
 
 //类型掩码
 #define SMT_CHAT						0x0001							//聊天消息
@@ -38,12 +38,12 @@
 #define SMT_CLOSE_LINK					0x0400							//中断连接
 
 //系统消息
-typedef struct _CMD_CM_SystemMessage
+typedef struct _stCmdSysMsg
 {
 	WORD								wType;							//消息类型
 	WORD								wLength;						//消息长度
-	TCHAR								szString[1024];					//消息内容
-}CMD_CM_SystemMessage;
+	TCHAR								szMsgContent[1024];				//消息内容
+}ST_CMD_SYS_MSG, *PST_CMD_SYS_MSG;
 
 #pragma pack()
 

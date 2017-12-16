@@ -118,7 +118,7 @@ typedef struct
 	DWORD							dwProcessVersion;					//进程版本
 	
 	//登录信息
-	TCHAR							szAccounts[LEN_ACCOUNTS];			//登录帐号
+	TCHAR							szAccounts[LEN_ACCOUNT];			//登录帐号
 	TCHAR							szPassword[LEN_MD5];				//登录密码
 	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 
@@ -177,7 +177,7 @@ typedef struct
 typedef struct
 {
 	BYTE							cbColumnCount;						//列表数目
-	tagColumnItem					ColumnItem[MAX_COLUMN];				//列表描述
+	_stColumnItem					ColumnItem[MAX_COLUMN];				//列表描述
 }CMD_GR_ConfigColumn;
 
 //房间配置
@@ -314,7 +314,7 @@ typedef struct
 typedef struct
 {
 	DWORD							dwUserID;							//用户标识
-	tagUserScore					UserScore;							//积分信息
+	_stUserScore					UserScore;							//积分信息
 }CMD_GR_UserScore;
 
 #pragma mark -
@@ -322,14 +322,14 @@ typedef struct
 typedef struct 
 {
 	DWORD							dwUserID;							//用户标识
-	tagMobileUserScore				UserScore;							//积分信息
+	_stMobileUserScore				UserScore;							//积分信息
 }CMD_GR_MobileUserScore;
 
 //用户状态
 typedef struct
 {
 	DWORD							dwUserID;							//用户标识
-	tagUserStatus					UserStatus;							//用户状态
+	_stUserStatus					UserStatus;							//用户状态
 }CMD_GR_UserStatus;
 
 //请求失败
@@ -552,14 +552,14 @@ typedef struct
 typedef struct
 {
 	WORD							wTableCount;						//桌子数目
-	tagTableStatus					TableStatusArray[512];				//桌子状态
+	_stTableStatus					TableStatusArray[512];				//桌子状态
 }CMD_GR_TableInfo;
 
 //桌子状态
 typedef struct
 {
 	WORD							wTableID;							//桌子号码
-	tagTableStatus					TableStatus;						//桌子状态
+	_stTableStatus					TableStatus;						//桌子状态
 }CMD_GR_TableStatus;
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -627,7 +627,7 @@ typedef struct
 {
     BYTE	cbActivityGame;                         //游戏动作
     BYTE	cbByNickName;                           //昵称赠送
-    TCHAR	szAccounts[LEN_ACCOUNTS];				//目标用户
+    TCHAR	szAccounts[LEN_ACCOUNT];				//目标用户
 }CMD_GR_C_QueryUserInfoRequest;
 
 //转帐金币
@@ -635,7 +635,7 @@ typedef struct
 {
 	BYTE	cbActivityGame;							//游戏动作
 	SCORE	lTransferScore;							//转帐金币
-	TCHAR	szAccounts[LEN_ACCOUNTS];				//目标用户
+	TCHAR	szAccounts[LEN_ACCOUNT];				//目标用户
 	TCHAR	szInsurePass[LEN_PASSWORD];				//银行密码
     TCHAR   szTransRemark[LEN_TRANS_REMARK];        //转帐备注
 }CMD_GR_C_TransferScoreRequest;
@@ -682,7 +682,7 @@ typedef struct
 {
 	BYTE	cbActivityGame;							//游戏动作
 	DWORD   dwTargerUserID;                         //目标用户
-	TCHAR   szAccounts[LEN_ACCOUNTS];				//目标用户
+	TCHAR   szAccounts[LEN_ACCOUNT];				//目标用户
 }CMD_GR_S_UserTransferUserInfo;
 
 //开通结果
@@ -745,7 +745,7 @@ typedef struct
 typedef struct
 {
     WORD                wTaskCount;                                     //任务数量
-    tagTaskStatus       TaskStatus[TASK_MAX_COUNT];                     //任务状态
+    ST_TASK_STATUS       TaskStatus[TASK_MAX_COUNT];                     //任务状态
     
 }CMD_GR_S_TaskInfo;
 
@@ -794,7 +794,7 @@ typedef struct
     DWORD							wPresentExchangeRate;				//魅力游戏币兑换率
     DWORD							wRateGold;							//游戏豆游戏币兑换率
     WORD							wMemberCount;						//会员数目
-    tagMemberParameter				MemberParameter[10];				//会员参数
+    _stMemberParam				MemberParameter[10];				//会员参数
 }CMD_GR_ExchangeParameter;
 
 
@@ -935,13 +935,13 @@ typedef struct
 typedef struct
 {
     DWORD                           dwRuleMask;                         //规则掩码
-    tagServerOptionInfo             ServerOptionInfo;                   //房间配置
+    _stServerConfigInfo             ServerOptionInfo;                   //房间配置
 }CMD_GR_OptionCurrent;
 
 //房间设置
 typedef struct
 {
-    tagServerOptionInfo             ServerOptionInfo;                   //房间配置
+    _stServerConfigInfo             ServerOptionInfo;                   //房间配置
 }CMD_GR_ServerOption;
 
 //剔出所有用户

@@ -53,7 +53,7 @@ void BankScene::onExit()
 void BankScene::sendInsureEnable(const std::string &pass)
 {
     std::string bankpass = MD5Encrypt(pass);
-    if (HallDataMgr::getInstance()->m_RoomType == Data_Load)
+    if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
         CMD_GP_UserEnableInsure insuer;
         memset(&insuer, 0, sizeof(insuer));
@@ -64,7 +64,7 @@ void BankScene::sendInsureEnable(const std::string &pass)
         UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), insuer.szMachineID);
         UTF8Str_To_UTF16Str(bankpass.c_str(), insuer.szInsurePass);
         
-        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_ENABLE_INSURE, &insuer, sizeof(insuer),NetworkMgr::getInstance()->getSocketOnce());
     }
 }
@@ -72,7 +72,7 @@ void BankScene::sendInsureEnable(const std::string &pass)
 //查询银行
 void BankScene::sendInsureInfo()
 {
-    if (HallDataMgr::getInstance()->m_RoomType == Data_Load)
+    if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
         CMD_GP_QueryInsureInfo info;
         memset(&info, 0, sizeof(info));
@@ -80,10 +80,10 @@ void BankScene::sendInsureInfo()
         info.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), info.szPassword);
         
-        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_INSURE_INFO, &info, sizeof(info),NetworkMgr::getInstance()->getSocketOnce());
     }
-    else if (HallDataMgr::getInstance()->m_RoomType == Data_Room)
+    else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
         CMD_GR_C_QueryInsureInfoRequest info;
         memset(&info,0,sizeof(info));
@@ -97,7 +97,7 @@ void BankScene::sendInsureInfo()
 //存款
 void BankScene::sendSaveScore(SCORE score)
 {
-    if(HallDataMgr::getInstance()->m_RoomType == Data_Load)
+    if(HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
         CMD_GP_UserSaveScore request;
         memset(&request, 0, sizeof(request));
@@ -105,10 +105,10 @@ void BankScene::sendSaveScore(SCORE score)
         request.lSaveScore = score;
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), request.szMachineID);
-        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_SAVE_SCORE, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
     }
-    else if (HallDataMgr::getInstance()->m_RoomType == Data_Room)
+    else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
         CMD_GR_C_SaveScoreRequest request;
         memset(&request, 0, sizeof(request));
@@ -122,7 +122,7 @@ void BankScene::sendSaveScore(SCORE score)
 //取款
 void BankScene::sendTakeScore(SCORE score, const std::string &pass)
 {
-    if(HallDataMgr::getInstance()->m_RoomType == Data_Load)
+    if(HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
         CMD_GP_UserTakeScore request;
         memset(&request, 0, sizeof(request));
@@ -132,10 +132,10 @@ void BankScene::sendTakeScore(SCORE score, const std::string &pass)
         auto md5pass = MD5Encrypt(pass);
         UTF8Str_To_UTF16Str(md5pass.c_str(), request.szPassword);
         UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), request.szMachineID);
-        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_TAKE_SCORE, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
     }
-    else if (HallDataMgr::getInstance()->m_RoomType == Data_Room)
+    else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
         CMD_GR_C_TakeScoreRequest request;
         memset(&request, 0, sizeof(request));
@@ -151,9 +151,9 @@ void BankScene::sendTakeScore(SCORE score, const std::string &pass)
 //转帐
 void BankScene::sendTransferScore(SCORE score, const std::string &pass, int type, const std::string &nickname)
 {
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     
-	if (HallDataMgr::getInstance()->m_RoomType == Data_Load)
+	if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
         /*
         if (type == 0)
@@ -181,7 +181,7 @@ void BankScene::sendTransferScore(SCORE score, const std::string &pass, int type
         UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), request.szMachineID);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_TRANSFER_SCORE, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
     }
-    else if (HallDataMgr::getInstance()->m_RoomType == Data_Room)
+    else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
         /*
         if (type == 0)

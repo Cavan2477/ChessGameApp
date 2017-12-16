@@ -1,0 +1,46 @@
+Searching 12711 files for "有乐棋牌"
+
+/Users/Gin/WorkingSpace/Projects/YouLeGameHallProjects/GamePlazz8Games/fhxyf/fhxyf/Classes/MultiPlatformSrc/android/MultiPlatformMgr-android.cpp:
+   40      JNIEXPORT void JNICALL Java_org_cocos2dx_cpp_AppActivity_nativeQuitApp(JNIEnv * env, jobject obj)
+   41      {
+   42:         auto player = static_cast<ModeLayer *>(HallDataMgr::getInstance()->AddpopLayer("提示", "确定要退出有乐棋牌吗?", Type_Ensure_Cancel));
+   43          player->setEnsureCallback([]
+   44                                    {
+
+/Users/Gin/WorkingSpace/Projects/YouLeGameHallProjects/GamePlazz8Games/fhxyf/fhxyf/Classes/PlazzSrc/Plazz/Login.cpp:
+  238          {
+  239              HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+  240:             auto player = static_cast<ModeLayer *>(HallDataMgr::getInstance()->AddpopLayer("提示", "确定要退出有乐棋牌吗 ?", Type_Ensure_Cancel));
+  241              player->setEnsureCallback([=](){
+  242              
+
+/Users/Gin/WorkingSpace/Projects/YouLeGameHallProjects/GamePlazz8Games/fhxyf/fhxyf/Classes/PlazzSrc/Plazz/Login.mm:
+  239          {
+  240              HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+  241:             auto player = static_cast<ModeLayer *>(HallDataMgr::getInstance()->AddpopLayer("提示", "确定要退出有乐棋牌吗 ?", Type_Ensure_Cancel));
+  242              player->setEnsureCallback([=](){
+  243              
+
+/Users/Gin/WorkingSpace/Projects/YouLeGameHallProjects/GamePlazz8Games/fhxyf/fhxyf/Classes/PlazzSrc/Plazz/Plazz.cpp:
+  564          {
+  565              HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+  566:             auto player = static_cast<ModeLayer *>(HallDataMgr::getInstance()->AddpopLayer("提示", "确定要退出有乐棋牌吗 ?", Type_Ensure_Cancel));
+  567              player->setEnsureCallback([=](){
+  568                  
+
+/Users/Gin/WorkingSpace/Projects/YouLeGameHallProjects/GamePlazz8Games/fhxyf/fhxyf/proj.android/res/values/strings.xml:
+    1  <?xml version="1.0" encoding="utf-8"?>
+    2  <resources>
+    3:     <string name="app_name">有乐棋牌</string>
+    4  </resources>
+    5  
+
+Unable to open /Users/Gin/WorkingSpace/Projects/YouLeGameHallProjects/GamePlazz8Games/fhxyf/fhxyf/proj.ios_mac/Build/Intermediates/ArchiveIntermediates/GameProject-mobile/BuildProductsPath/Release-iphoneos/GameProject-mobile.app
+/Users/Gin/WorkingSpace/Projects/YouLeGameHallProjects/GamePlazz8Games/fhxyf/fhxyf/proj.ios_mac/ios/Info.plist:
+    6  	<string>zh_CN</string>
+    7  	<key>CFBundleDisplayName</key>
+    8: 	<string>有乐棋牌</string>
+    9  	<key>CFBundleExecutable</key>
+   10  	<string>${EXECUTABLE_NAME}</string>
+
+6 matches across 6 files

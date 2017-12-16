@@ -59,7 +59,7 @@ void Notice::NoticeReuqcestEvent(cocos2d::EventCustom *event)
     
     std::string noticecontent = data->getCString();
     
-    Label *label = Label::createWithSystemFont(noticecontent, FONT_DEFAULT, 20);
+    Label *label = Label::createWithSystemFont(noticecontent, FONT_TREBUCHET_MS_BOLD, 20);
     setNoticeText(label);
     _noticeText->setAnchorPoint(Vec2(.0, .0));
     _noticeText->setPosition(Vec2(200, 0));

@@ -132,7 +132,7 @@ void RewardScene::onExit()
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_CHECKIN_RESULT);
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_BASEENSURE_PARAMETER);
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_BASEENSURE_RESULT);
-    NetworkMgr::getInstance()->Disconnect(Data_Load);
+    NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     Layer::onExit();
    
 }
@@ -300,7 +300,7 @@ void RewardScene::sendCheckinQueryInfo()
     
     info.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), info.szPassword);
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_CHECKIN_QUERY, &info, sizeof(info),NetworkMgr::getInstance()->getSocketOnce());
     
 }
@@ -313,7 +313,7 @@ void RewardScene::sendCheckinDone()
     CheckInDone.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), CheckInDone.szPassword);
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), CheckInDone.szMachineID);
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_CHECKIN_DONE,
                                         &CheckInDone,
                                         sizeof(CheckInDone),
@@ -328,7 +328,7 @@ void RewardScene::sendEnsureTake()
     BaseEnsureTake.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), BaseEnsureTake.szPassword);
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), BaseEnsureTake.szMachineID);
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_BASEENSURE_TAKE, &BaseEnsureTake,
                                         sizeof(BaseEnsureTake),NetworkMgr::getInstance()->getSocketOnce());
 }
@@ -339,7 +339,7 @@ void RewardScene::checkininfo(void *pData, WORD wSize)
     //更新显示
     updateReward(pData);
     
-    NetworkMgr::getInstance()->Disconnect(Data_Load);
+    NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
 }
 
 void RewardScene::checkinresult(void *pData, WORD wSize)
@@ -394,7 +394,7 @@ void RewardScene::checkinresult(void *pData, WORD wSize)
     event.setUserData(value);
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
     
-    NetworkMgr::getInstance()->Disconnect(Data_Load);
+    NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     
     //金币掉落动画
     CallFunc *createMove = CallFunc::create([=](){
@@ -465,7 +465,7 @@ void RewardScene::baseensureparamter(void *pData, WORD wSize)
     
      updateBaseen(pData);
 
-     NetworkMgr::getInstance()->Disconnect(Data_Load);
+     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
 
 }
 
@@ -481,7 +481,7 @@ void RewardScene::baseensureresult(void *pData, WORD wSize)
     auto value = __Integer::create(User_Change_Score);
     event.setUserData(value);
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
-    NetworkMgr::getInstance()->Disconnect(Data_Load);
+    NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     
     if (m_lowbase < HallDataMgr::getInstance()->m_UserScore) {
         auto BaseenNode = _BaseenLayout->getChildByTag(BASE_NODE);
@@ -560,7 +560,7 @@ void RewardScene::buttonEventWithShowBaseen(cocos2d::Ref *target, cocos2d::ui::W
          
          if (m_lowbase == 0)
          {
-             NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+             NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
              NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_BASEENSURE_LOAD, NULL, 0, NetworkMgr::getInstance()->getSocketOnce());
          }
          

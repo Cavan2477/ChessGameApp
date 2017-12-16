@@ -9,8 +9,8 @@
  *
  ************************************************************************************/
 
-#ifndef GameProject_LogonServer_h
-#define GameProject_LogonServer_h
+#ifndef __LogonServer_h__
+#define __LogonServer_h__
 
 #include "MacroDefine.h"
 #include "Packet.h"
@@ -47,8 +47,8 @@
 #define VERIFY_ACCOUNTS				0x01                    //校验帐号
 #define VERIFY_NICKNAME				0x02                    //校验昵称
 
-//I D 登录
-struct CMD_GP_LogonGameID
+//ID登录
+typedef struct _stCMD_GP_LogonGameID
 {
     //系统信息
     DWORD							dwPlazaVersion;             //广场版本
@@ -58,10 +58,10 @@ struct CMD_GP_LogonGameID
 	DWORD							dwGameID;                   //游戏 I D
     TCHAR							szPassword[LEN_MD5];        //登录密码
     BYTE							cbValidateFlags;            //校验标识
-};
+}ST_CMD_GP_LOGON_GAME_ID, *PST_CMD_GP_LOGON_GAME_ID;
 
 //帐号登录
-struct CMD_GP_LogonAccounts
+typedef struct _stCMD_GP_LogonAccounts
 {
     //系统信息
     DWORD							dwPlazaVersion;                 //广场版本
@@ -69,13 +69,13 @@ struct CMD_GP_LogonAccounts
     
     //登录信息
     BYTE							cbValidateFlags;                //校验标识
-    TCHAR							szPassword[LEN_MD5];            //登录密码
-    TCHAR							szAccounts[LEN_ACCOUNTS];       //登录帐号
-    TCHAR							szPassPortID[LEN_PASS_PORT_ID]; //身份证号
-};
+    TCHAR							szPwd[LEN_MD5];					//登录密码
+    TCHAR							szAccount[LEN_ACCOUNT];		//登录帐号
+    TCHAR							szIdentityID[LEN_IDENTITY_ID];	//身份证号
+}CMD_GP_LOGON_ACCOUNTS, *PCMD_GP_LOGON_ACCOUNTS;
 
 //注册帐号
-struct CMD_GP_RegisterAccounts
+typedef struct _stCMD_GP_RegisterAccount
 {
     //系统信息
 	DWORD							dwPlazaVersion;                     //广场版本
@@ -87,26 +87,26 @@ struct CMD_GP_RegisterAccounts
 	//注册信息
 	WORD							wFaceID;                            //头像标识
 	BYTE							cbGender;                           //用户性别
-	TCHAR							szAccounts[LEN_ACCOUNTS];           //登录帐号
+	TCHAR							szAccount[LEN_ACCOUNT];				//登录帐号
 	TCHAR							szNickName[LEN_NICKNAME];           //用户昵称
-	TCHAR							szSpreader[LEN_ACCOUNTS];           //推荐帐号
-	TCHAR							szPassPortID[LEN_PASS_PORT_ID];     //证件号码
+	TCHAR							szSpreader[LEN_ACCOUNT];			//推荐帐号
+	TCHAR							szPassPortID[LEN_IDENTITY_ID];		//证件号码
 	TCHAR							szCompellation[LEN_COMPELLATION];   //真实名字
     BYTE							cbValidateFlags;                    //校验标识
-};
+}ST_CMD_GP_REGISTER_ACCOUNT, *PST_CMD_GP_REGISTER_ACCOUNT;
 
 //验证资料
-struct CMD_GP_VerifyIndividual
+typedef struct _stCMD_GP_VerifyIndividual
 {
     //系统信息
     DWORD							dwPlazaVersion;                     //广场版本
     
     //验证信息
     WORD							wVerifyMask;                        //验证掩码
-};
+}ST_CMD_GP_VERIFY_INDIVIDUAL, *PST_CMD_GP_VERIFY_INDIVIDUAL;
 
 //登录成功
-struct CMD_GP_LogonSuccess
+typedef struct _stCMD_GP_LogonSuccess
 {
     //属性资料
     WORD							wFaceID;            			//头像标识
@@ -126,72 +126,73 @@ struct CMD_GP_LogonSuccess
     //用户信息
     BYTE							cbGender;						//用户性别
     BYTE							cbMoorMachine;					//锁定机器
-    TCHAR							szAccounts[LEN_ACCOUNTS];		//登录帐号
-    TCHAR							szNickName[LEN_ACCOUNTS];		//用户昵称
+    TCHAR							szAccounts[LEN_ACCOUNT];		//登录帐号
+    TCHAR							szNickName[LEN_ACCOUNT];		//用户昵称
     TCHAR							szDynamicPass[LEN_PASSWORD];	//动态密码
     TCHAR							szGroupName[LEN_GROUP_NAME];	//社团名字
     
     //配置信息
-    BYTE							cbInsureEnabled;				//银行使能标识
-    BYTE                            cbShowServerStatus;				//显示服务器状态
-};
+	BYTE							cbInsureEnabled;				//银行使能标识
+	BYTE                            cbShowServerStatus;				//显示服务器状态
+}ST_CMD_GP_LOGON_SUCCESS, *PST_CMD_GP_LOGON_SUCCESS;
 
 //登录失败
-struct CMD_GP_LogonFailure
+typedef struct _stCMD_GP_LogonFail
 {
-    INT								lResultCode;					//错误代码
-    TCHAR							szDescribeString[128];
-};
+    INT								nErrCode;						//错误代码
+    TCHAR							szDesc[256];
+}ST_CMD_GP_LOGON_FAIL, *PST_CMD_GP_LOGON_FAIL;
+
 //登陆完成
-struct CMD_GP_LogonFinish
+typedef struct _stCMD_GP_LogonFinish
 {
 	WORD							wIntermitTime;					//中断时间
-	WORD							wOnLineCountTime;				//更新时间
-};
+	WORD							wOnlineCountTime;				//更新时间
+}ST_CMD_GP_LOGON_FINISH, *PST_CMD_GP_LOGON_FINISH;
 
 //登录失败
-struct CMD_GP_ValidateMBCard
+typedef struct _stCMD_GP_ValidateMBCard
 {
-    UINT							uMBCardID;						//机器序列
-};
+    UINT							uMBCardID;						// 机器序列
+}ST_CMD_GP_VALIDATE_MB_CARD, *PST_CMD_GP_VALIDATE_MB_CARD;
+
 //验证结果
-struct CMD_GP_VerifyIndividualResult
+typedef struct _stCMD_GP_VerifyIndividualResult
 {
 	bool							bVerifyPassage;					//验证通过
 	WORD							wVerifyMask;					//验证掩码
 	TCHAR							szErrorMsg[128];				//错误信息
-};
+}ST_CMD_GP_VERIFY_INDIVIDUAL_RESULT, *PST_CMD_GP_VERIFY_INDIVIDUAL_RESULT;
 
 //升级提示
-struct CMD_GP_UpdateNotify
+typedef struct _stCMD_GP_UpdateNotify
 {
     BYTE							cbMustUpdate;					//强行升级
     BYTE							cbAdviceUpdate;					//建议升级
     DWORD							dwCurrentVersion;				//当前版本
-};
+}ST_CMD_GP_UPDATE_NOTIFY, *PST_CMD_GP_UPDATE_NOTIFY;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-
-//携带信息 CMD_GP_LogonSuccess
+//携带信息 _stCMD_GP_LogonSuccess
 #define DTP_GP_GROUP_INFO			1								//社团信息
 #define DTP_GP_MEMBER_INFO			2								//会员信息
 #define	DTP_GP_UNDER_WRITE			3								//个性签名
 #define DTP_GP_STATION_URL			4								//主页信息
 
 //社团信息
-struct DTP_GP_GroupInfo
+typedef struct _stDTP_GP_GroupInfo
 {
     DWORD							dwGroupID;							//社团索引
     TCHAR							szGroupName[LEN_GROUP_NAME];		//社团名字
-};
+}ST_DTP_GP_GROUP_INFO, *PST_DTP_GP_GROUP_INFO;
 
 //会员信息
-struct DTP_GP_MemberInfo
+typedef struct _stDTP_GP_MemberInfo
 {
     BYTE							cbMemberOrder;						//会员等级
-    SYSTEM_TIME						MemberOverDate;						//到期时间
-};
+    ST_SYS_TIME						MemberOverDate;						//到期时间
+}ST_DTP_GP_MEMBER_INFO, *PST_DTP_GP_MEMBER_INFO;
 
 //列表命令
 #define MDM_GP_SERVER_LIST			2									//列表信息
@@ -220,27 +221,28 @@ struct DTP_GP_MemberInfo
 //在线信息
 #define SUB_GR_KINE_ONLINE			300									//类型在线
 #define SUB_GR_SERVER_ONLINE		301									//房间在线
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 //获取在线
-struct CMD_GP_GetOnline
+typedef struct _stCMD_GP_GetOnline
 {
     WORD							wServerCount;						//房间数目
     WORD							wOnLineServerID[MAX_SERVER];		//房间标识
-};
+}ST_CMD_GP_GET_ONLINE, *PST_CMD_GP_GET_ONLINE;
 
 //类型在线
-struct CMD_GP_KindOnline
+typedef struct _stCMD_GP_TypeOnline
 {
-    WORD							wKindCount;							//类型数目
-    tagOnLineInfoKind				OnLineInfoKind[MAX_KIND];			//类型在线
+    WORD							wTypeCount;							//类型数目
+    _stOnlineInfoType				OnlineInfoType[MAX_KIND];			//类型在线
 };
 
 //房间在线
-struct CMD_GP_ServerOnline
+typedef struct CMD_GP_ServerOnline
 {
     WORD							wServerCount;						//房间数目
-    tagOnLineInfoServer				OnLineInfoServer[MAX_SERVER];		//房间在线
+    _stOnlineInfoRoomServer				OnLineInfoServer[MAX_SERVER];		//房间在线
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -344,6 +346,7 @@ typedef struct
     TCHAR							szDesPassword[LEN_PASSWORD];		//用户密码
     TCHAR							szScrPassword[LEN_PASSWORD];		//用户密码
 }CMD_GP_ModifyLogonPass;
+
 //修改密码
 typedef struct
 {
@@ -524,14 +527,14 @@ typedef struct _CMD_GP_QueryInsureInfo
 typedef struct _CMD_GP_QueryUserInfoRequest
 {
     BYTE                            cbByNickName;                       //昵称赠送
-    TCHAR							szAccounts[LEN_ACCOUNTS];			//目标用户
+    TCHAR							szAccounts[LEN_ACCOUNT];			//目标用户
 }CMD_GP_QueryUserInfoRequest;
 
 //用户信息
 typedef struct _CMD_GP_UserTransferUserInfo
 {
     DWORD							dwTargetGameID;						//目标用户
-    TCHAR							szAccounts[LEN_ACCOUNTS];			//目标用户
+    TCHAR							szAccounts[LEN_ACCOUNT];			//目标用户
 }CMD_GP_UserTransferUserInfo;
 
 //开通结果
@@ -606,7 +609,7 @@ typedef struct _CMD_GP_TaskReward
 typedef struct _CMD_GP_TaskInfo
 {
     WORD							wTaskCount;							//任务数量
-    tagTaskStatus					TaskStatus[TASK_MAX_COUNT];			//任务状态
+    ST_TASK_STATUS					TaskStatus[TASK_MAX_COUNT];			//任务状态
 }CMD_GP_TaskInfo;
 
 //任务结果
@@ -680,7 +683,7 @@ typedef struct _CMD_GP_GrowLevelQueryInfo
 struct CMD_GP_GrowLevelConfig
 {
     WORD							wLevelCount;						//等级数目
-    tagGrowLevelConfig				GrowLevelItem[60];					//等级配置
+    _stGrowLevelConfig				GrowLevelItem[60];					//等级配置
 };
 //等级参数
 typedef struct _CMD_GP_GrowLevelParameter
@@ -710,7 +713,7 @@ typedef struct _CMD_GP_ExchangeParameter
     DWORD							wPresentExchangeRate;				//魅力游戏币兑换率
     DWORD							wRateGold;							//游戏豆游戏币兑换率
     WORD							wMemberCount;						//会员数目
-    tagMemberParameter				MemberParameter[10];				//会员参数
+    _stMemberParam				MemberParameter[10];				//会员参数
 }CMD_GP_ExchangeParameter;
 
 //兑换游戏币
@@ -757,7 +760,7 @@ struct CMD_GP_LotteryConfigReq
 struct CMD_GP_LotteryConfig
 {
     WORD							wLotteryCount;						//奖项个数
-    tagLotteryItem					LotteryItem[MAX_LOTTERY];				//奖项内容
+    _stLotteryItem					LotteryItem[MAX_LOTTERY];				//奖项内容
 };
 
 //抽奖信息
@@ -787,7 +790,7 @@ struct CMD_GP_LotteryResult
     DWORD							dwUserID;							//用户标识
     SCORE							lUserScore;							//用户分数
     DOUBLE							dUserBeans;							//用户游戏豆
-    tagLotteryItem					LotteryItem;							//中奖内容
+    _stLotteryItem					LotteryItem;							//中奖内容
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -881,7 +884,7 @@ struct CMD_GP_C_SearchCorrespond
 struct CMD_GP_S_SearchCorrespond
 {
     WORD							wUserCount;							//用户数目
-    tagUserRemoteInfo				UserRemoteInfo[16];					//用户信息
+    _stUserRemoteInfo				UserRemoteInfo[16];					//用户信息
 };
 
 
@@ -938,7 +941,7 @@ typedef struct
     
     //登陆信息
     TCHAR	szPassword[LEN_MD5];					//登陆密码
-    TCHAR	szAccounts[LEN_ACCOUNTS];				//登陆帐号
+    TCHAR	szAccounts[LEN_ACCOUNT];				//登陆帐号
     
     //连接信息
     TCHAR	szMachineID[LEN_MACHINE_ID];			//机器标识
@@ -960,7 +963,7 @@ typedef struct
     //注册信息
     WORD		wFaceID;							//头像标识
     BYTE		cbGender;							//用户性别
-    TCHAR		szAccounts[LEN_ACCOUNTS];			//登录帐号
+    TCHAR		szAccounts[LEN_ACCOUNT];			//登录帐号
     TCHAR		szNickName[LEN_NICKNAME];			//用户昵称
     
     //连接信息
@@ -1003,8 +1006,8 @@ typedef struct
     DWORD	dwGameID;								//游戏ID
     DWORD	dwExperience;							//经验数值
     DWORD	dwLoveLiness;							//用户魅力
-    TCHAR	szAccounts[LEN_ACCOUNTS];				//用户帐号
-    TCHAR	szNickName[LEN_ACCOUNTS];				//用户昵称
+    TCHAR	szAccounts[LEN_ACCOUNT];				//用户帐号
+    TCHAR	szNickName[LEN_ACCOUNT];				//用户昵称
     TCHAR   szDynamicPasswd[LEN_PASSWORD];          //动态密码
     
     //用户成绩
@@ -1059,14 +1062,14 @@ typedef struct
 typedef struct
 {
     WORD							wKindCount;							//类型数目
-    tagOnLineInfoKind				OnLineInfoKind[MAX_KIND];			//类型在线
+    _stOnlineInfoType				OnLineInfoKind[MAX_KIND];			//类型在线
 }CMD_MB_KindOnline;
 
 //房间在线
 typedef struct
 {
     WORD							wServerCount;						//房间数目
-    tagOnLineInfoServer				OnLineInfoServer[MAX_SERVER];		//房间在线
+    _stOnlineInfoRoomServer				OnLineInfoServer[MAX_SERVER];		//房间在线
 }CMD_MB_ServerOnline;
 
 #pragma pack()

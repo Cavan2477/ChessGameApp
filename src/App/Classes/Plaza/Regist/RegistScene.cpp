@@ -55,9 +55,9 @@ bool RegistScene::init()
     m_pAccountEdit = EditBox::create(Size(318, 58), "common_res/common_edit_textIcon.png");
     m_pAccountEdit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     m_pAccountEdit->setPosition(cocos2d::Point(account->getPositionX()+80, account->getPositionY()));
-    m_pAccountEdit->setMaxLength(LEN_ACCOUNTS);
+    m_pAccountEdit->setMaxLength(LEN_ACCOUNT);
     m_pAccountEdit->setFontSize(28);
-    m_pAccountEdit->setPlaceholderFont(FONT_DEFAULT, 20);
+    m_pAccountEdit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     m_pAccountEdit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     m_pAccountEdit->setPlaceholderFontColor(cocos2d::Color3B(214,246,255));
     m_pAccountEdit->setPlaceHolder("6-31位英文字母,数字,下划线组合");
@@ -71,7 +71,7 @@ bool RegistScene::init()
     m_pPasswordEdit->setPosition(cocos2d::Point(password->getPositionX()+80, password->getPositionY()));
     m_pPasswordEdit->setMaxLength(LEN_PASSWORD);
     m_pPasswordEdit->setFontSize(28);
-    m_pPasswordEdit->setPlaceholderFont(FONT_DEFAULT, 20);
+    m_pPasswordEdit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     m_pPasswordEdit->setPlaceholderFontColor(cocos2d::Color3B(214,246,255));
     m_pPasswordEdit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     m_pPasswordEdit->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
@@ -87,7 +87,7 @@ bool RegistScene::init()
     m_pPWDConfirmEdit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     m_pPWDConfirmEdit->setMaxLength(LEN_PASSWORD);
     m_pPWDConfirmEdit->setFontSize(28);
-    m_pPWDConfirmEdit->setPlaceholderFont(FONT_DEFAULT, 20);
+    m_pPWDConfirmEdit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     m_pPWDConfirmEdit->setPlaceholderFontColor(cocos2d::Color3B(214,246,255));
     m_pPWDConfirmEdit->setPlaceHolder("6-31位英文字母,数字,下划线组合");
     m_pPWDConfirmEdit->setDelegate(this);
@@ -237,13 +237,13 @@ void RegistScene::buttonEventWithRegist(cocos2d::Ref *target, cocos2d::ui::Widge
         {
             if (password.compare(confirmPwd) == 0)
             {
-                HallDataMgr::getInstance()->m_loadtype = Load_Normal;
+                HallDataMgr::getInstance()->m_loadtype = EM_LOAD_TYPE_NORMAL;
                 HallDataMgr::getInstance()->m_pAccounts = account;
                 HallDataMgr::getInstance()->m_pPassword = MD5Encrypt(password);
                 HallDataMgr::getInstance()->m_cbGender  = 1;
-                HallDataMgr::getInstance()->m_loadtype = Load_Normal;
+                HallDataMgr::getInstance()->m_loadtype = EM_LOAD_TYPE_NORMAL;
                 
-                NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+                NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
                 NetworkMgr::getInstance()->sendRegister();
                 
                 LoadingScene *loading = LoadingScene::create();
@@ -297,12 +297,12 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         HallDataMgr::getInstance()->m_UserScore = success->lUserScore;
         HallDataMgr::getInstance()->m_cbInsureEnable = success->cbInsureEnable;
         
-        if (HallDataMgr::getInstance()->m_loadtype == Load_Normal)
+        if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_NORMAL)
         {
             CFramList::getInstance()->addAccountListWithString(HallDataMgr::getInstance()->m_pAccounts, HallDataMgr::getInstance()->m_pPassword);
             HallDataMgr::getInstance()->saveConfig();
         }
-        if (HallDataMgr::getInstance()->m_loadtype == Load_Visitor)
+        if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_VISITOR)
         {
             HallDataMgr::getInstance()->m_pAccounts = HallDataMgr::getInstance()->m_pNickName;
         }
@@ -320,7 +320,7 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         
      
         CMD_MB_LogonFailure* failuer = (CMD_MB_LogonFailure *)pData;
-        auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(Data_Load);});
+        auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
         this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.1f), action));
         
         //昵称错误
@@ -342,7 +342,7 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         loading->removeFromParent();
         
         HallDataMgr::getInstance()->AddpopLayer("系统提示", "当前版本不是最新版本，请升级到最新版本", Type_Ensure);
-        auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(Data_Load);});
+        auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
         this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.1f), action));
     }
 }
@@ -359,17 +359,17 @@ void RegistScene::roomlistResult(WORD  wSubCmdID, void* pData, WORD wSize)
             break;
         case SUB_MB_LIST_SERVER:			//房间列表	101
         {
-            int size = sizeof(tagGameServer);
+            int size = sizeof(_stGameRoomServer);
             int count = wSize/size;
             HallDataMgr::getInstance()->roomlistclear();
             for (int index=0 ; index<count ; index++)
             {
-                tagGameServer *pServer = new tagGameServer();
-                memset(pServer, 0, sizeof(tagGameServer));
+                _stGameRoomServer *pServer = new _stGameRoomServer();
+                memset(pServer, 0, sizeof(_stGameRoomServer));
                 char *pVector = (char *)pData + index*size;
                 memcpy(pServer, pVector, size);
                 HallDataMgr::getInstance()->m_roomList.push_back(pServer);
-                std::sort(HallDataMgr::getInstance()->m_roomList.begin(), HallDataMgr::getInstance()->m_roomList.end(), [](const tagGameServer *s1,const tagGameServer *s2){
+                std::sort(HallDataMgr::getInstance()->m_roomList.begin(), HallDataMgr::getInstance()->m_roomList.end(), [](const _stGameRoomServer *s1,const _stGameRoomServer *s2){
                     return s1->wSortID < s2->wSortID;
                 });
             }

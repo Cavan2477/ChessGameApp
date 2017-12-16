@@ -72,8 +72,8 @@ bool BankShowScene::init()
     auto pbg = ImageView::create();
     pbg->setTouchEnabled(true);
     pbg->setScale9Enabled(true);
-    pbg->setContentSize(WinSize);
-    pbg->setPosition(WinSize/2);
+    pbg->setContentSize(WIN_SIZE);
+    pbg->setPosition(WIN_SIZE/2);
     this->addChild(pbg);
 
     
@@ -185,11 +185,11 @@ void BankShowScene::initApply()
     password->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     password->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     password->setPosition(cocos2d::Point(passwordText->getPositionX()+80, passwordText->getPositionY()));
-    password->setMaxLength(LEN_ACCOUNTS);
+    password->setMaxLength(LEN_ACCOUNT);
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
     password->setFontSize(24);
     password->setTag(1);
-    password->setPlaceholderFont(FONT_DEFAULT, 23);
+    password->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 23);
     password->setPlaceHolder("请输入密码");
     password->setFontColor(Color3B::YELLOW);
     _applyLayout->addChild(password);
@@ -201,11 +201,11 @@ void BankShowScene::initApply()
     confirm->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     confirm->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     confirm->setPosition(cocos2d::Point(confirmText->getPositionX()+80, confirmText->getPositionY()));
-    confirm->setMaxLength(LEN_ACCOUNTS);
+    confirm->setMaxLength(LEN_ACCOUNT);
     confirm->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
     confirm->setFontSize(24);
     confirm->setTag(2);
-    confirm->setPlaceholderFont(FONT_DEFAULT, 23);
+    confirm->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 23);
     confirm->setPlaceHolder("请重复您刚才输入的密码");
     confirm->setFontColor(Color3B::YELLOW);
     _applyLayout->addChild(confirm);
@@ -238,9 +238,9 @@ void BankShowScene::initSaveTake()
     takeNum->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     takeNum->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     takeNum->setPosition(cocos2d::Point(saveText->getPositionX()+80, saveText->getPositionY()));
-    takeNum->setMaxLength(LEN_ACCOUNTS);
+    takeNum->setMaxLength(LEN_ACCOUNT);
     takeNum->setFontSize(20);
-    takeNum->setPlaceholderFont(FONT_DEFAULT, 20);
+    takeNum->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     takeNum->setPlaceHolder("请输入取款数目");
     takeNum->setInputMode(cocos2d::ui::EditBox::InputMode::PHONE_NUMBER);
     takeNum->setTag(1);
@@ -254,10 +254,10 @@ void BankShowScene::initSaveTake()
     password->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     password->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     password->setPosition(cocos2d::Point(passwordText->getPositionX()+80, passwordText->getPositionY()));
-    password->setMaxLength(LEN_ACCOUNTS);
+    password->setMaxLength(LEN_ACCOUNT);
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
     password->setFontSize(20);
-    password->setPlaceholderFont(FONT_DEFAULT, 20);
+    password->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     password->setPlaceHolder("存款不需要输入密码");
     password->setTag(2);
     password->setFontColor(Color3B::YELLOW);
@@ -265,7 +265,7 @@ void BankShowScene::initSaveTake()
     
     //携带
     Text *pText = static_cast<Text *>(saveTake->getChildByName("Text_0"));
-    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_DEFAULT, 24);
+    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_TREBUCHET_MS_BOLD, 24);
     score->setAnchorPoint(Vec2(.0, .5));
     score->setTag(BANK_TAG_USERSCORE);
     score->setPosition(Vec2(pText->getPosition().x + 50, pText->getPosition().y));
@@ -275,7 +275,7 @@ void BankShowScene::initSaveTake()
     
     //银行存款
     Text *_pText = static_cast<Text *>(saveTake->getChildByName("Text_1"));
-    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserInsure, ","), FONT_DEFAULT, 24);
+    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserInsure, ","), FONT_TREBUCHET_MS_BOLD, 24);
     insureScore->setAnchorPoint(Vec2(.0, .5));
     insureScore->setTag(BANK_TAG_USERINSURE);
     insureScore->setPosition(Vec2(_pText->getPosition().x + 50, _pText->getPosition().y));
@@ -318,7 +318,7 @@ void BankShowScene::initPresent()
     
     //银行存款
     Text *_pText = static_cast<Text *>(presentNode->getChildByName("Text_0"));
-    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserInsure, ","), FONT_DEFAULT, 24);
+    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserInsure, ","), FONT_TREBUCHET_MS_BOLD, 24);
     insureScore->setAnchorPoint(Vec2(.0, .5));
     insureScore->setTag(BANK_TAG_USERINSURE);
     insureScore->setPosition(Vec2(_pText->getPosition().x + 50, _pText->getPosition().y));
@@ -333,9 +333,9 @@ void BankShowScene::initPresent()
     targetEdit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     targetEdit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     targetEdit->setPosition(cocos2d::Point(targetText->getPositionX()+80, targetText->getPositionY()));
-    targetEdit->setMaxLength(LEN_ACCOUNTS);
+    targetEdit->setMaxLength(LEN_ACCOUNT);
     targetEdit->setFontSize(20);
-    targetEdit->setPlaceholderFont(FONT_DEFAULT, 20);
+    targetEdit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     targetEdit->setPlaceHolder("请输入接收目标");
     targetEdit->setTag(0);
     targetEdit->setFontColor(Color3B::YELLOW);
@@ -349,10 +349,10 @@ void BankShowScene::initPresent()
     prentNum->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     prentNum->setPosition(cocos2d::Point(numText->getPositionX()+80, numText->getPositionY()));
     prentNum->setInputMode(cocos2d::ui::EditBox::InputMode::PHONE_NUMBER);
-    prentNum->setMaxLength(LEN_ACCOUNTS);
+    prentNum->setMaxLength(LEN_ACCOUNT);
     prentNum->setFontSize(20);
     prentNum->setTag(1);
-    prentNum->setPlaceholderFont(FONT_DEFAULT, 20);
+    prentNum->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     prentNum->setPlaceHolder("请输入赠送金额");
     prentNum->setFontColor(Color3B::YELLOW);
     _presentLayout->addChild(prentNum);
@@ -364,11 +364,11 @@ void BankShowScene::initPresent()
     password->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     password->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     password->setPosition(cocos2d::Point(passwordText->getPositionX()+80, passwordText->getPositionY()));
-    password->setMaxLength(LEN_ACCOUNTS);
+    password->setMaxLength(LEN_ACCOUNT);
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
     password->setFontSize(20);
     password->setTag(2);
-    password->setPlaceholderFont(FONT_DEFAULT, 20);
+    password->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     password->setPlaceHolder("请输入银行密码");
     password->setFontColor(Color3B::YELLOW);
     _presentLayout->addChild(password);
@@ -480,7 +480,7 @@ void BankShowScene::updateScore()
         auto title = WHConverUnicodeToUtf8WithArray(result->szDescribeString);
         HallDataMgr::getInstance()->AddpopLayer("系统提示", title, Type_Ensure);
         
-        auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(Data_Load);});
+        auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
         this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
     }
 }
@@ -501,7 +501,7 @@ void BankShowScene::updateScore()
     
     updateScore();
     
-    auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(Data_Load);});
+    auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
     
     
@@ -511,7 +511,7 @@ void BankShowScene::updateScore()
  void BankShowScene::BankSuccedResult(void* pData, WORD wSize)
 {
     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
-    auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(Data_Load);});
+    auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
     
     
@@ -534,7 +534,7 @@ void BankShowScene::updateScore()
                                          BankSendReceiptLayer *p = BankSendReceiptLayer::create();
                                          this->addChild(p);
                                          
-                                         tagBankSendInfo info = HallDataMgr::getInstance()->m_tagBankSend;
+                                         _stBankGiftInfo info = HallDataMgr::getInstance()->m_tagBankSend;
                                          _stReceipt rec = {};
                                          rec.dwRecordIndex = idx;
                                          rec.dwRecUserId = info.dwReceiveUserId;
@@ -561,7 +561,7 @@ void BankShowScene::updateScore()
  void BankShowScene::BankFailureResult(void* pData, WORD wSize)
 {
     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
-    auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(Data_Load);});
+    auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
     
     auto result = (CMD_GP_UserInsureFailure *)pData;
@@ -596,17 +596,17 @@ void BankShowScene::updateScore()
 
 void BankShowScene::queryUserInfo(const BYTE &cbType, const std::string &sTarget)
 {
-    if (HallDataMgr::getInstance()->m_RoomType == Data_Load)
+    if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
         CMD_GP_QueryUserInfoRequest request;
         memset(&request, 0, sizeof(request));
         
         request.cbByNickName = cbType;
         UTF8Str_To_UTF16Str(sTarget.c_str(), request.szAccounts);
-        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+        NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_USER_INFO_REQUEST, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
     }
-    else if (HallDataMgr::getInstance()->m_RoomType == Data_Room)
+    else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
         CMD_GR_C_QueryUserInfoRequest request;
         memset(&request, 0, sizeof(request));
@@ -966,7 +966,7 @@ void BankShowScene::buttonEventWithPresent(cocos2d::Ref *target, cocos2d::ui::Wi
           sscanf(edNum->getText(), "%lld",&score);
           //sendTransferScore(score, password, m_nSendType, target);
           
-          tagBankSendInfo tagInfo = {};
+          _stBankGiftInfo tagInfo = {};
           tagInfo.nSendType = m_nSendType;
           tagInfo.llSendCount = score;
           if (0 == m_nSendType)
@@ -1085,7 +1085,7 @@ void BankShowScene::showRecord()
     if (m_Datalist.size() == 0)
     {
         
-        auto record = Label::createWithSystemFont("无操作记录", FONT_DEFAULT, 32);
+        auto record = Label::createWithSystemFont("无操作记录", FONT_TREBUCHET_MS_BOLD, 32);
         record->setAnchorPoint(Vec2(.5, .5));
         record->setPosition(Vec2(568, 320));
         _recordLayout->addChild(record);
@@ -1119,22 +1119,22 @@ void BankShowScene::showRecord()
         layout->setContentSize(Size(1048, 50));
         
         //交易日期
-        Label *date = Label::createWithSystemFont(record->getDate(), FONT_DEFAULT, 24);
+        Label *date = Label::createWithSystemFont(record->getDate(), FONT_TREBUCHET_MS_BOLD, 24);
         date->setPosition(Vec2(100, layout->getContentSize().height/2));
         layout->addChild(date);
         
         //交易类型
-        Label *type = Label::createWithSystemFont(record->getType(), FONT_DEFAULT, 24);
+        Label *type = Label::createWithSystemFont(record->getType(), FONT_TREBUCHET_MS_BOLD, 24);
         type->setPosition(Vec2(380, layout->getContentSize().height/2));
         layout->addChild(type);
         
         //交易金额
-        Label *num = Label::createWithSystemFont(__String::createWithFormat("%lld",record->getSwapScore())->getCString(), FONT_DEFAULT, 24);
+        Label *num = Label::createWithSystemFont(__String::createWithFormat("%lld",record->getSwapScore())->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
         num->setPosition(Vec2(660, layout->getContentSize().height/2));
         layout->addChild(num);
         
         //服务费
-        Label *fee = Label::createWithSystemFont(__String::createWithFormat("%lld",record->getRevenue())->getCString(), FONT_DEFAULT, 24);
+        Label *fee = Label::createWithSystemFont(__String::createWithFormat("%lld",record->getRevenue())->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
         fee->setPosition(Vec2(950, layout->getContentSize().height/2));
         layout->addChild(fee);
      

@@ -81,14 +81,14 @@ CTCPSocket * NetworkMgr::getSocketOnce() const
     return  m_pSocketOnce;
 }
 
-void NetworkMgr::doConnect(const char *domain, WORD wPort, DataType type)
+void NetworkMgr::doConnect(const char *domain, WORD wPort, EM_DATA_TYPE type)
 {
     CTCPSocket *socket = new CTCPSocket();
     this->Disconnect(type);
-    if (type == Data_Room) {
+    if (type == EM_DATA_TYPE_ROOM) {
         m_pSocketData = socket;
     }
-    if (type == Data_Load) {
+    if (type == EM_DATA_TYPE_LOAD) {
         m_pSocketOnce = socket;
     }
     socket->socketConnect(domain, wPort, type);
@@ -96,9 +96,9 @@ void NetworkMgr::doConnect(const char *domain, WORD wPort, DataType type)
     this->sendPacket_Compilatio(socket);
 }
 
-void NetworkMgr::Disconnect(DataType type)
+void NetworkMgr::Disconnect(EM_DATA_TYPE type)
 {
-    if (type == Data_Load) {
+    if (type == EM_DATA_TYPE_LOAD) {
         if (m_pSocketOnce) {
             m_pSocketOnce->socketClose();
             m_pSocketOnce->runAction(Sequence::createWithTwoActions(DelayTime::create(0.5f), CallFunc::create([=]{
@@ -107,7 +107,7 @@ void NetworkMgr::Disconnect(DataType type)
         }
         m_pSocketOnce = nullptr;
     }
-    if (type == Data_Room) {
+    if (type == EM_DATA_TYPE_ROOM) {
         if (m_pSocketData) {
             m_pSocketData->socketClose();
             m_pSocketData->runAction(Sequence::createWithTwoActions(DelayTime::create(0.5f), CallFunc::create([=]{
@@ -136,10 +136,10 @@ void NetworkMgr::SocketDelegateWithRecvData(void *socket, void *pData, WORD wSiz
     CCLOG("MainCmdID:%d,SubCmdID:%d",wMainCmdID,wSubCmdID);
     switch (pScoket->getData())
     {
-        case Data_Default:
+        case EM_DATA_TYPE_DEFAULT:
             CCAssert(false,"无效状态");
             break;
-        case Data_Load:
+        case EM_DATA_TYPE_LOAD:
         {
             auto iter = m_loadfunction.find(wMainCmdID);
             if (iter != m_loadfunction.end()) {
@@ -147,7 +147,7 @@ void NetworkMgr::SocketDelegateWithRecvData(void *socket, void *pData, WORD wSiz
             }
         }
             break;
-        case Data_Room:
+        case EM_DATA_TYPE_ROOM:
         {
             auto iter = m_roomfunction.find(wMainCmdID);
             if (iter != m_roomfunction.end()) {
@@ -230,7 +230,7 @@ void NetworkMgr::unregisterroomfunction(WORD wMainCmdID)
 void NetworkMgr::networkszCompilatioFalut(WORD wSubCmdID, void *pData, WORD wSize)
 {
     HallDataMgr::getInstance()->AddpopLayer("系统提示", "授权码错误", Type_Ensure);
-    this->Disconnect(Data_Load);
+    this->Disconnect(EM_DATA_TYPE_LOAD);
 }
 
 void NetworkMgr::networkUserService(WORD wSubCmdID, void *pData, WORD wSize)
@@ -314,8 +314,8 @@ void NetworkMgr::networkGRUser(WORD wSubCmdID, void *pData, WORD wSize)
 
 void NetworkMgr::OnUserEnter(void *pData, WORD wSize)
 {
-    if(wSize<sizeof(tagMobileUserInfoHead)) return;
-    auto result = ( tagMobileUserInfoHead*)pData;
+    if(wSize<sizeof(_stMobileUserHeadInfo)) return;
+    auto result = ( _stMobileUserHeadInfo*)pData;
     if (result->cbUserStatus == US_LOOKON) {//旁观暂不处理
         return;
     }
@@ -340,7 +340,7 @@ void NetworkMgr::OnUserEnter(void *pData, WORD wSize)
         int enterRoom = INSTANCE(GameDataMgr)->getEnterRoom();
         if (enterRoom >= 0 && enterRoom < HallDataMgr::getInstance()->m_subRoomList.size())
         {
-            tagGameServer *pServer = HallDataMgr::getInstance()->m_subRoomList.at(INSTANCE(GameDataMgr)->getEnterRoom());
+            _stGameRoomServer *pServer = HallDataMgr::getInstance()->m_subRoomList.at(INSTANCE(GameDataMgr)->getEnterRoom());
             if (nullptr != pServer)
             {
                 if (result->dwUserID == HallDataMgr::getInstance()->m_dwUserID
@@ -429,7 +429,7 @@ void NetworkMgr::OnUserStatus(void *pData, WORD wSize)
         {
             switch (HallDataMgr::getInstance()->m_dwKindID)
             {
-                case kind_baijiale:
+                case EM_GAME_BAIJIALE:
                 {
                     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
                     INSTANCE(SceneMgr)->preloaderScene(BJL_SCENE(GAME_SCENE),
@@ -440,7 +440,7 @@ void NetworkMgr::OnUserStatus(void *pData, WORD wSize)
                                                        false);
                 }
                     break;
-                case kind_lkpy:
+                case EM_GAME_LKPY:
                 {
 //                    /GameDataMgr::getInstance();
                     if(!HallDataMgr::getInstance()->m_isFirstSendGameOption)
@@ -449,7 +449,7 @@ void NetworkMgr::OnUserStatus(void *pData, WORD wSize)
                     
                 }
                     break;
-                case kind_tbnn:
+                case EM_GAME_TBNN:
                 {
                     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
                     INSTANCE(SceneMgr)->preloaderScene(TBNN_SCENE(GAME_SCENE),
@@ -489,7 +489,7 @@ void NetworkMgr::OnUserScore(void *pData, WORD wSize)
         int enterRoom = INSTANCE(GameDataMgr)->getEnterRoom();
         if (enterRoom >= 0 && enterRoom < HallDataMgr::getInstance()->m_subRoomList.size())
         {
-            tagGameServer *pServer = HallDataMgr::getInstance()->m_subRoomList.at(INSTANCE(GameDataMgr)->getEnterRoom());
+            _stGameRoomServer *pServer = HallDataMgr::getInstance()->m_subRoomList.at(INSTANCE(GameDataMgr)->getEnterRoom());
             if (nullptr != pServer)
             {
                 if (result->dwUserID == HallDataMgr::getInstance()->m_dwUserID
@@ -616,18 +616,18 @@ void NetworkMgr::OnGameStatus(void *pData, WORD wSize)
     log("游戏场景状态%d",presult->cbGameStatus);
     switch (HallDataMgr::getInstance()->m_dwKindID)
     {
-        case kind_baijiale:
+        case EM_GAME_BAIJIALE:
         {
             INSTANCE(SceneMgr)->transitionScene(BJL_SCENE(GAME_SCENE),false);
         }
             break;
-        case kind_niuniu:
+        case EM_GAME_NIUNIU:
         {
             auto scene = NN_NAMESPACE_FUN(GameScene)::create();
             Director::getInstance()->replaceScene(scene);
         }
             break;
-        case kind_lkpy:
+        case EM_GAME_LKPY:
         {
             auto presult = (CMD_GF_GameStatus *)pData;
             HallDataMgr::getInstance()->m_cbGameStatus = presult->cbGameStatus;
@@ -636,17 +636,17 @@ void NetworkMgr::OnGameStatus(void *pData, WORD wSize)
             cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(0.3f, lkpy_game::GameLodingLayer::createScene()));
         }
             break;
-        case kind_brnn:
+        case EM_GAME_BRNN:
         {
             cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(0.3f, brnn_game::GameLayer::createScene()));
         }
             break;
-        case kind_zjh:
+        case EM_GAME_ZJH:
         {
             cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(0.3f, zjh_game::GameLayer::createScene()));
         }
             break;
-        case kind_tbnn:
+        case EM_GAME_TBNN:
         {
             INSTANCE(SceneMgr)->transitionScene(TBNN_SCENE(GAME_SCENE),false);
         }
@@ -683,16 +683,16 @@ void NetworkMgr::networkGRGame(WORD wSubCmdID, void *pData, WORD wSize)
 void NetworkMgr::networkGRSystem(WORD wSubCmdID, void *pData, WORD wSize)
 {
     switch (wSubCmdID) {
-        case SUB_CM_SYSTEM_MESSAGE://系统消息
+        case SUB_CM_MSG_SYS://系统消息
         {
-            auto presult = (CMD_CM_SystemMessage *)pData;
+            auto presult = (ST_CMD_SYS_MSG *)pData;
             if ((presult->wType&SMT_CLOSE_ROOM) || (presult->wType&SMT_CLOSE_GAME) || (presult->wType&SMT_CLOSE_LINK)) {
-                auto pstr = WHConverUnicodeToUtf8WithArray(presult->szString);
+                auto pstr = WHConverUnicodeToUtf8WithArray(presult->szMsgContent);
                 auto player = static_cast<ModeLayer *>(HallDataMgr::getInstance()->AddpopLayer("系统提示", pstr, Type_Ensure));
                 player->setEnsureCallback([=]{
                     if (!Director::getInstance()->getRunningScene()->getChildByTag(10)) {
                         Director::getInstance()->replaceScene(TransitionFade::create(0.3f, Login::createScene()));
-                        this->Disconnect(Data_Room);
+                        this->Disconnect(EM_DATA_TYPE_ROOM);
                         //播放通用大厅音乐
                         INSTANCE(AudioMgr)->playGeneralBackgroudAudio(true);
                     }
@@ -700,12 +700,12 @@ void NetworkMgr::networkGRSystem(WORD wSubCmdID, void *pData, WORD wSize)
             }
             else if (presult->wType&SMT_EJECT)
             {
-                auto pstr = WHConverUnicodeToUtf8WithArray(presult->szString);
+                auto pstr = WHConverUnicodeToUtf8WithArray(presult->szMsgContent);
                 HallDataMgr::getInstance()->AddpopLayer("系统提示", pstr, Type_Ensure);
             }
             else if(presult->wType&SMT_CHAT)
             {
-                std::string chatstr = WHConverUnicodeToUtf8WithArray(presult->szString);
+                std::string chatstr = WHConverUnicodeToUtf8WithArray(presult->szMsgContent);
                 std::string::iterator new_end = remove_if(chatstr.begin(), chatstr.end(), bind2nd(std::equal_to<char>(), '\r'));
                 chatstr.erase(new_end, chatstr.end());
                 new_end = remove_if(chatstr.begin(), chatstr.end(), bind2nd(std::equal_to<char>(), '\n'));
@@ -720,7 +720,7 @@ void NetworkMgr::networkGRSystem(WORD wSubCmdID, void *pData, WORD wSize)
             }
         }
             break;
-        case SUB_CM_DOWN_LOAD_MODULE://下载消息
+        case SUB_CM_SYS_DOWNLOAD_MODULE://下载消息
             break;
             
         default:
@@ -771,7 +771,7 @@ void NetworkMgr::sendMethodLogin(int platform)
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, otherPlatform.szMachineID);
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pNickName, otherPlatform.szNickName);
     
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_MB_LOGON, SUB_MB_LOGON_OTHERPLATFORM, &otherPlatform, sizeof(otherPlatform), NetworkMgr::getInstance()->getSocketOnce());
 }
 
@@ -838,11 +838,11 @@ void NetworkMgr::sendEncrypt(const std::string &pass)
     UTF8Str_To_UTF16Str_BYTE((BYTE*)pass.c_str(), describe);
     
     BYTE *tbuffer = buffer+size;
-    tagDataDescribe* datadescribe=(tagDataDescribe*)tbuffer;
-    datadescribe->wDataDecribe=DTP_GR_TABLE_PASSWORD;
+    _stUserDataExt* datadescribe=(_stUserDataExt*)tbuffer;
+    datadescribe->wDataDesc=DTP_GR_TABLE_PASSWORD;
     datadescribe->wDataSize=length*sizeof(TCHAR);
     
-    size += sizeof(tagDataDescribe);
+    size += sizeof(_stUserDataExt);
     memcpy(buffer+size, describe, datadescribe->wDataSize);
     
     size += datadescribe->wDataSize;
@@ -917,7 +917,7 @@ void NetworkMgr::sendCustomFaceInfo(cocos2d::Image *pimage)
     CustomFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
     memcpy(CustomFaceInfo.dwCustomFace, byte, length);
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_CUSTOM_FACE_INFO, &CustomFaceInfo, sizeof(CMD_GP_CustomFaceInfo),NetworkMgr::getInstance()->getSocketOnce());
 }
 
@@ -929,6 +929,6 @@ void NetworkMgr::bindingMachine(const BYTE &cbBind, const std::string &strpass)
     UTF8Str_To_UTF16Str(MD5Encrypt(strpass), cmd.szPassword);
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, cmd.szMachineID);
     
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_MACHINE, &cmd, sizeof(CMD_GP_ModifyMachine),NetworkMgr::getInstance()->getSocketOnce());
 }

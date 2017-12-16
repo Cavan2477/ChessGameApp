@@ -47,7 +47,7 @@ bool TaskScene::init()
     }
     
     //用户金币
-    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_DEFAULT, 24);
+    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserScore(coin);
     _userScore->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userScore, 145);
@@ -56,7 +56,7 @@ bool TaskScene::init()
     _layout->addChild(_userScore);
     
     //用户元宝
-    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_Ingot, ","), FONT_DEFAULT, 24);
+    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_Ingot, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserIngot(ingot);
     _userIngot->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userIngot, 145);
@@ -65,7 +65,7 @@ bool TaskScene::init()
     _layout->addChild(_userIngot);
     
     //用户游戏豆
-    Label *bean = Label::createWithSystemFont(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_Bean)->getCString(), FONT_DEFAULT, 24);
+    Label *bean = Label::createWithSystemFont(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_Bean)->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
     setUserBean(bean);
     _userBean->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userBean, 145);
@@ -181,7 +181,7 @@ void TaskScene::initTasklist()
         oneList->setPosition(450,listLayout->getContentSize().height/2);
         listLayout->addChild(oneList);
         
-        std::string des =  WHConverUnicodeToUtf8WithArray(iter.second->szTaskDescribe);
+        std::string des =  WHConverUnicodeToUtf8WithArray(iter.second->szTaskDesc);
         log("%s\n",des.c_str());
         
         std::string taskName = WHConverUnicodeToUtf8WithArray(iter.second->szTaskName);
@@ -278,7 +278,7 @@ void TaskScene::initTasklist()
     
     
 }
-void TaskScene::updateTask(tagTaskStatus *pstatus, tagTaskParameter *pinfo)
+void TaskScene::updateTask(ST_TASK_STATUS *pstatus, ST_TASK_PARAM *pinfo)
 {
     
     //目标任务
@@ -373,7 +373,7 @@ void TaskScene::updateTask(tagTaskStatus *pstatus, tagTaskParameter *pinfo)
 //请求加载任务列表
 void TaskScene::sendLoadTask()
 {
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     CMD_GP_TaskLoadInfo taskloadinfo;
     memset(&taskloadinfo, 0, sizeof(taskloadinfo));
     taskloadinfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
@@ -392,7 +392,7 @@ void TaskScene::sendTakeTask(int taskID)
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), TaskTake.szPassword);
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), TaskTake.szMachineID);
     
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_TASK_TAKE, &TaskTake, sizeof(TaskTake), NetworkMgr::getInstance()->getSocketOnce());
     
 }
@@ -408,7 +408,7 @@ void TaskScene::sendTaskReward(int taskID)
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), TaskReward.szPassword);
     UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), TaskReward.szMachineID);
     
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_TASK_REWARD, &TaskReward, sizeof(TaskReward), NetworkMgr::getInstance()->getSocketOnce());
 }
 
@@ -431,8 +431,8 @@ void TaskScene::TaskListResult(void* pData, WORD wSize)
         wParemeterSize=*(WORD*)pDatabuffer;
         pDatabuffer+=sizeof(wParemeterSize);
         
-        auto Parameter = new tagTaskParameter();
-        memset(Parameter, 0, sizeof(tagTaskParameter));
+        auto Parameter = new ST_TASK_PARAM();
+        memset(Parameter, 0, sizeof(ST_TASK_PARAM));
         if(pDatabuffer==NULL||wParemeterSize==0)
         {
             delete Parameter;
@@ -443,7 +443,7 @@ void TaskScene::TaskListResult(void* pData, WORD wSize)
         memcpy(Parameter, pDatabuffer, wParemeterSize);
         //指针叠加
         pDatabuffer+=wParemeterSize;
-        if ((DWORD)kind_default != HallDataMgr::getInstance()->m_dwKindID)
+        if ((DWORD)EM_GAME_DEFALUT != HallDataMgr::getInstance()->m_dwKindID)
         {
             //任务过滤
             if (Parameter->wKindID != HallDataMgr::getInstance()->m_dwKindID)
@@ -471,9 +471,9 @@ void TaskScene::TaskInfoResult(void* pData, WORD wSize)
     auto ptaskinfo = static_cast<CMD_GP_TaskInfo *>(pData);
     for (int index=0; index<ptaskinfo->wTaskCount; ++index)
     {
-        auto pinfo = new tagTaskStatus();
-        memset(pinfo, 0, sizeof(tagTaskStatus));
-        memcpy(pinfo, &ptaskinfo->TaskStatus[index], sizeof(tagTaskStatus));
+        auto pinfo = new ST_TASK_STATUS();
+        memset(pinfo, 0, sizeof(ST_TASK_STATUS));
+        memcpy(pinfo, &ptaskinfo->TaskStatus[index], sizeof(ST_TASK_STATUS));
         auto ptask = m_TaskList.at(pinfo->wTaskID);
         if (ptask)
         {
@@ -482,14 +482,14 @@ void TaskScene::TaskInfoResult(void* pData, WORD wSize)
         CC_SAFE_DELETE(pinfo);
     }
     
-     NetworkMgr::getInstance()->Disconnect(Data_Load);
+     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
 }
 
 //任务结果消息
 void TaskScene::TaskResult(void* pData, WORD wSize)
 {
 
-    NetworkMgr::getInstance()->Disconnect(Data_Load);
+    NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     
     auto TaskResult = static_cast<CMD_GP_TaskResult *>(pData);
     std::string tipstr = WHConverUnicodeToUtf8WithArray(TaskResult->szNotifyContent);

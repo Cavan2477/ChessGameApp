@@ -53,8 +53,8 @@ bool PersonalScene::init()
     auto pbg = ImageView::create();
     pbg->setTouchEnabled(true);
     pbg->setScale9Enabled(true);
-    pbg->setContentSize(WinSize);
-    pbg->setPosition(WinSize/2);
+    pbg->setContentSize(WIN_SIZE);
+    pbg->setPosition(WIN_SIZE/2);
     this->addChild(pbg);
  
     auto layout = Layout::create();
@@ -88,7 +88,7 @@ bool PersonalScene::init()
     auto loginPassModifyBtn = static_cast<Button *>(LoginModifyRoot->getChildByName("Button_sureModify"));
     if  (loginPassModifyBtn != nullptr)
     {
-        if (HallDataMgr::getInstance()->m_loadtype == Load_Visitor || HallDataMgr::getInstance()->m_loadtype == Load_Sina)
+        if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_VISITOR || HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_SINA)
         {
             loginPassModifyBtn->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type){
                 
@@ -172,10 +172,10 @@ bool PersonalScene::init()
     edit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     edit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     edit->setPosition(cocos2d::Point(nick->getPositionX(), nick->getPositionY()));
-    edit->setMaxLength(LEN_ACCOUNTS);
+    edit->setMaxLength(LEN_ACCOUNT);
     edit->setFontSize(28);
     edit->setReturnType(EditBox::KeyboardReturnType::DONE);
-    edit->setPlaceholderFont(FONT_DEFAULT, 24);
+    edit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 24);
     edit->setPlaceHolder("");
     edit->setTag(INFO_NICKEDIT);
     edit->setFontColor(Color3B::YELLOW);
@@ -337,14 +337,14 @@ bool PersonalScene::init()
     
     //用户头像
     HeaderRequest *pHead = nullptr;
-    if (HallDataMgr::getInstance()->m_loadtype == Load_Normal || HallDataMgr::getInstance()->m_loadtype == Load_Visitor)
+    if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_NORMAL || HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_VISITOR)
     {
         pHead = HeaderRequest::createwithFaceID(HallDataMgr::getInstance()->m_wFaceID,
                                                 HallDataMgr::getInstance()->m_wCustom,
                                                 HallDataMgr::getInstance()->m_dwUserID,
                                                 HallDataMgr::getInstance()->m_cbGender);
     }
-    else if (HallDataMgr::getInstance()->m_loadtype == Load_RenRen || HallDataMgr::getInstance()->m_loadtype == Load_Sina)
+    else if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_RENREN || HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_SINA)
     {
         pHead = HeaderRequest::createwithUrl(HallDataMgr::getInstance()->m_MethodHeadUrl, HallDataMgr::getInstance()->m_dwUserID);
     }
@@ -501,7 +501,7 @@ void PersonalScene::initModify()
         edit->setFontSize(28);
         edit->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
         edit->setReturnType(EditBox::KeyboardReturnType::DONE);
-        edit->setPlaceholderFont(FONT_DEFAULT, 24);
+        edit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 24);
         edit->setPlaceholderFontColor(cocos2d::Color3B(36,236,250));
         edit->setPlaceHolder(str.getCString());
         edit->setTag(100 + i);
@@ -517,7 +517,7 @@ void PersonalScene::userFaceinfoResult(void *pData, WORD wSize)
     HallDataMgr::getInstance()->m_wCustom = result->dwCustomID;
     
     HallDataMgr::getInstance()->m_Headlist.insert(HallDataMgr::getInstance()->m_dwUserID, _headSprite->getTexture());
-    NetworkMgr::getInstance()->Disconnect(Data_Load);
+    NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     
     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
     
@@ -534,7 +534,7 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
     HallDataMgr::getInstance()->AddpopLayer("系统提示", str, Type_Ensure);
     HallDataMgr::getInstance()->m_cbGender = m_cbGender;
-    NetworkMgr::getInstance()->Disconnect(Data_Load);
+    NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     if (m_eType == Type_PersonalInfo)
     {
         
@@ -616,7 +616,7 @@ void PersonalScene::operatefailureResult(void *pData, WORD wSize)
     auto presult = (CMD_GP_OperateFailure *)pData;
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
     HallDataMgr::getInstance()->AddpopLayer("错误提示", str, Type_Ensure);
-    NetworkMgr::getInstance()->Disconnect(Data_Load);
+    NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
 }
 
 
@@ -1034,7 +1034,7 @@ void PersonalScene::sendSystemFaceInfo(WORD wface)
     SystemFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
     SystemFaceInfo.wFaceID = wface;
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_SYSTEM_FACE_INFO, &SystemFaceInfo, sizeof(CMD_GP_SystemFaceInfo),NetworkMgr::getInstance()->getSocketOnce());
     
     
@@ -1060,7 +1060,7 @@ void PersonalScene::sendCustomFaceInfo(cocos2d::Image *pimage)
     CustomFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
     memcpy(CustomFaceInfo.dwCustomFace, byte, length);
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_CUSTOM_FACE_INFO, &CustomFaceInfo, sizeof(CMD_GP_CustomFaceInfo),NetworkMgr::getInstance()->getSocketOnce());
 }
 
@@ -1081,12 +1081,12 @@ void PersonalScene::sendAlterIndividual(const std::string &name, BYTE cbgerder, 
     {
         int wsize = (int)name.size()+1;
         
-        tagDataDescribe describe;
-        memset(&describe, 0, sizeof(tagDataDescribe));
+        _stUserDataExt describe;
+        memset(&describe, 0, sizeof(_stUserDataExt));
         describe.wDataSize = wsize*sizeof(TCHAR);
-        describe.wDataDecribe = DTP_GP_UI_NICKNAME;
-        memcpy(buffer+size, &describe, sizeof(tagDataDescribe));
-        size += sizeof(tagDataDescribe);
+        describe.wDataDesc = DTP_GP_UI_NICKNAME;
+        memcpy(buffer+size, &describe, sizeof(_stUserDataExt));
+        size += sizeof(_stUserDataExt);
         
         TCHAR tname[wsize];
         memset(tname, 0, sizeof(tname));
@@ -1095,7 +1095,7 @@ void PersonalScene::sendAlterIndividual(const std::string &name, BYTE cbgerder, 
         size += describe.wDataSize;
     }
     
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INDIVIDUAL, &buffer, size,NetworkMgr::getInstance()->getSocketOnce());
 }
 
@@ -1107,7 +1107,7 @@ void PersonalScene::sendAlterloginPass(const std::string &oldpass, const std::st
     UTF8Str_To_UTF16Str(MD5Encrypt(oldpass), request.szScrPassword);
     UTF8Str_To_UTF16Str(MD5Encrypt(newpass), request.szDesPassword);
     
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_LOGON_PASS, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
 }
 
@@ -1119,7 +1119,7 @@ void PersonalScene::sendAlterBankPass(const std::string &oldpass, const std::str
     UTF8Str_To_UTF16Str(MD5Encrypt(oldpass), request.szScrPassword);
     UTF8Str_To_UTF16Str(MD5Encrypt(newpass), request.szDesPassword);
     
-    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, Data_Load);
+    NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INSURE_PASS, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
 }
 
