@@ -64,12 +64,11 @@ EGifOpenFileName(const char *FileName,
     int FileHandle;
     GifFileType *GifFile;
 
+	// todo 2017/12/17 to be continue
     if (TestExistance)
-        FileHandle = open(FileName, O_WRONLY | O_CREAT | O_EXCL, 
-			  S_IRUSR | S_IWUSR);
+        FileHandle = open(FileName, O_WRONLY | O_CREAT | O_EXCL/*, S_IRUSR | S_IWUSR*/);
     else
-        FileHandle = open(FileName, O_WRONLY | O_CREAT | O_TRUNC, 
-			  S_IRUSR | S_IWUSR);
+        FileHandle = open(FileName, O_WRONLY | O_CREAT | O_TRUNC/*, S_IRUSR | S_IWUSR*/);
 
     if (FileHandle == -1) {
         _GifError = E_GIF_ERR_OPEN_FAILED;

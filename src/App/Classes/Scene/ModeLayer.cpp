@@ -104,7 +104,7 @@ void ModeLayer::TextInit(const std::string &title, const std::string &content)
 void ModeLayer::WaitInit()
 {
     Size visibleSize = WinSize;
-    m_type = Type_Wait;
+    m_emModeType = Type_Wait;
     
     LayerColor *player = LayerColor::create(Color4B(0, 0, 0, 100), visibleSize.width, visibleSize.height);
     this->addChild(player);
@@ -168,7 +168,7 @@ void ModeLayer::WaitTextInit(const std::string &content,bool close /* = false*/)
 void ModeLayer::EnsureInit()
 {
     //Size visibleSize = WinSize;
-    m_type = Type_Ensure;
+    m_emModeType = Type_Ensure;
     
     m_ensure = Button::create("public_res/bt_ensure.png");
     m_ensure->setTag(Tag_Ensure);
@@ -180,7 +180,7 @@ void ModeLayer::EnsureInit()
 void ModeLayer::EnsuercancelInit()
 {
     //Size visibleSize = WinSize;
-    m_type = Type_Ensure_Cancel;
+    m_emModeType = Type_Ensure_Cancel;
     
     m_ensure = Button::create("public_res/bt_ensure.png");
     m_ensure->setTag(Tag_Ensure);
@@ -197,7 +197,7 @@ void ModeLayer::EnsuercancelInit()
 
 void ModeLayer::RemindInit(const std::string &content)
 {
-    m_type = Type_Info_Reminder;
+    m_emModeType = Type_Info_Reminder;
     Size visibleSize = WinSize;
     m_bg = ImageView::create();
     m_bg->setScale9Enabled(true);
@@ -228,7 +228,7 @@ void ModeLayer::RemindCallback()
 void ModeLayer::onEnter()
 {
     Layer::onEnter();
-    if (m_type == Type_Info_Reminder) {
+    if (m_emModeType == Type_Info_Reminder) {
         return;
     }
 

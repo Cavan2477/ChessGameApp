@@ -58,7 +58,7 @@ bool RankScene::init()
     auto rootNode = CSLoader::createNode("rank_res/RankNode.csb");
     _layout->addChild(rootNode);
     
-    _layout->setScaleX(JudgeScale);
+    _layout->setScaleX(JUDGE_SCALE);
     this->addChild(_layout);
     
     

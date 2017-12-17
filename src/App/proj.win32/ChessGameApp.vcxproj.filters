@@ -49,9 +49,6 @@
     <ClCompile Include="..\Classes\DataMgr\TableMgr.cpp">
       <Filter>src\DataMgr</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BaseUI\Scene\ESScene.cpp">
-      <Filter>src\BaseUI\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Scene\AnimationMgr\AnimationMgr.cpp">
       <Filter>src\Scene\AnimationMgr</Filter>
     </ClCompile>
@@ -112,9 +109,6 @@
     <ClCompile Include="..\Classes\Plaza\Shop\ShopScene.cpp">
       <Filter>src\Plaza\Shop</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\CurlDownload\CurlDownload.cpp">
-      <Filter>src\CurlDownload</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\LibExt\ButtonGroup.cpp">
       <Filter>src\LibExt</Filter>
     </ClCompile>
@@ -142,24 +136,6 @@
     <ClCompile Include="..\Classes\DownloadMgr\DownloadMgr.cpp">
       <Filter>src\DownloadMgr</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Gif\dgif_lib.c">
-      <Filter>src\Gif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Gif\egif_lib.c">
-      <Filter>src\Gif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Gif\gif_err.c">
-      <Filter>src\Gif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Gif\gif_font.c">
-      <Filter>src\Gif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Gif\gif_hash.c">
-      <Filter>src\Gif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Gif\gifalloc.c">
-      <Filter>src\Gif</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\MultiPlatform\MultiPlatformMgr.cpp">
       <Filter>src\MultiPlatform</Filter>
     </ClCompile>
@@ -178,11 +154,32 @@
     <ClCompile Include="..\Classes\Public\Help.cpp">
       <Filter>src\Public</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Public\ModeLayer.cpp">
-      <Filter>src\Public</Filter>
+    <ClCompile Include="..\Classes\Scene\ExtBaseScene.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Utils\md5.c">
-      <Filter>src\Utils</Filter>
+    <ClCompile Include="..\Classes\DownloadMgr\CurlDownload.cpp">
+      <Filter>src\DownloadMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Utils\MD5\md5.c">
+      <Filter>src\Utils\MD5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Utils\Gif\dgif_lib.c">
+      <Filter>src\Utils\Gif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Utils\Gif\egif_lib.c">
+      <Filter>src\Utils\Gif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Utils\Gif\gif_err.c">
+      <Filter>src\Utils\Gif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Utils\Gif\gif_font.c">
+      <Filter>src\Utils\Gif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Utils\Gif\gif_hash.c">
+      <Filter>src\Utils\Gif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Utils\Gif\gifalloc.c">
+      <Filter>src\Utils\Gif</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -291,9 +288,6 @@
     <ClInclude Include="..\Classes\DataMgr\UserData.h">
       <Filter>src\DataMgr</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BaseUI\Scene\ESScene.h">
-      <Filter>src\BaseUI\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Scene\AnimationMgr\AnimationMgr.h">
       <Filter>src\Scene\AnimationMgr</Filter>
     </ClInclude>
@@ -357,9 +351,6 @@
     <ClInclude Include="..\Classes\Plaza\Shop\ShopScene.h">
       <Filter>src\Plaza\Shop</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\CurlDownload\CurlDownload.h">
-      <Filter>src\CurlDownload</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\LibExt\ButtonGroup.h">
       <Filter>src\LibExt</Filter>
     </ClInclude>
@@ -387,15 +378,6 @@
     <ClInclude Include="..\Classes\DownloadMgr\DownloadMgr.h">
       <Filter>src\DownloadMgr</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Gif\gif_hash.h">
-      <Filter>src\Gif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Gif\gif_lib.h">
-      <Filter>src\Gif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Gif\gif_lib_private.h">
-      <Filter>src\Gif</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\MultiPlatform\MultiPlatformMgr.h">
       <Filter>src\MultiPlatform</Filter>
     </ClInclude>
@@ -417,11 +399,23 @@
     <ClInclude Include="..\Classes\Public\Help.h">
       <Filter>src\Public</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Public\ModeLayer.h">
-      <Filter>src\Public</Filter>
+    <ClInclude Include="..\Classes\Scene\ExtBaseScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Utils\md5.h">
-      <Filter>src\Utils</Filter>
+    <ClInclude Include="..\Classes\DownloadMgr\CurlDownload.h">
+      <Filter>src\DownloadMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\MD5\md5.h">
+      <Filter>src\Utils\MD5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\Gif\gif_hash.h">
+      <Filter>src\Utils\Gif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\Gif\gif_lib.h">
+      <Filter>src\Utils\Gif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Utils\Gif\gif_lib_private.h">
+      <Filter>src\Utils\Gif</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -434,17 +428,11 @@
     <Filter Include="win32">
       <UniqueIdentifier>{50eadec8-f6ac-494c-a84a-fe2e4b32e53c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BaseUI">
-      <UniqueIdentifier>{07b71095-4d7f-423b-8fe7-997c3487a193}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Plaza">
       <UniqueIdentifier>{6fceacb7-2f0a-4646-95de-cf43faa22da5}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Plaza\Plaza">
       <UniqueIdentifier>{a684b068-068e-4907-b16c-88a0c6d4c9f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\BaseUI\Scene">
-      <UniqueIdentifier>{7ec7589d-e67b-40a0-9f15-6aad3f8557c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Scene">
       <UniqueIdentifier>{454078c2-1b4e-479d-a7e2-372d1718ca39}</UniqueIdentifier>
@@ -506,14 +494,8 @@
     <Filter Include="src\DownloadMgr">
       <UniqueIdentifier>{235434a0-7f95-4ad2-afbe-0a092dfbfa72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\CurlDownload">
-      <UniqueIdentifier>{e8f6148e-3885-4202-b630-d525f187125d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Common">
       <UniqueIdentifier>{a986279e-a597-43ee-b0df-9204c81bc148}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Gif">
-      <UniqueIdentifier>{e041b105-c2da-4304-9101-cf8de617b548}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\MultiPlatform">
       <UniqueIdentifier>{8d7d08f0-4faf-4018-bf27-4fb41d683ea7}</UniqueIdentifier>
@@ -523,6 +505,12 @@
     </Filter>
     <Filter Include="src\MultiPlatform\ios">
       <UniqueIdentifier>{ca95c8e5-28d9-4ec9-8252-0c55fecceef3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utils\MD5">
+      <UniqueIdentifier>{e828bd9b-3eb9-4987-ae5f-a0773bdbe920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utils\Gif">
+      <UniqueIdentifier>{e041b105-c2da-4304-9101-cf8de617b548}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

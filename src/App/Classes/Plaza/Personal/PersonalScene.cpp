@@ -84,21 +84,21 @@ bool PersonalScene::init()
     LoginModifyRoot->setTag(2);
     _modifyLoginLayout->addChild(LoginModifyRoot);
     
-    
     auto loginPassModifyBtn = static_cast<Button *>(LoginModifyRoot->getChildByName("Button_sureModify"));
-    if  (loginPassModifyBtn != nullptr)
+
+    if (loginPassModifyBtn != nullptr)
     {
         if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_VISITOR || HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_SINA)
         {
-            loginPassModifyBtn->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type){
-                
+            loginPassModifyBtn->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type)
+			{    
                 if (type == Widget::TouchEventType::ENDED)
-                {
-                    
-                    HallDataMgr::getInstance()->AddpopLayer("系统提示", "游客或第三方帐号不支持修改登录密码功能", Type_Ensure);
+                {       
+                    HallDataMgr::getInstance()->AddpopLayer("系统提示", "游客或第三方帐号不支持修改登录密码功能", EM_MODE_TYPE_ENSURE);
                 }
             });
-        }else
+        }
+		else
         {
             loginPassModifyBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithSureModify, this));
         }
@@ -123,7 +123,7 @@ bool PersonalScene::init()
     
     
 
-    layout->setScaleX(JudgeScale);
+    layout->setScaleX(JUDGE_SCALE);
     this->addChild(layout);
     
     //返回按钮
@@ -509,6 +509,7 @@ void PersonalScene::initModify()
         modify->addChild(edit);
     }
 }
+
 //MARK::Notify
 void PersonalScene::userFaceinfoResult(void *pData, WORD wSize)
 {
@@ -519,11 +520,11 @@ void PersonalScene::userFaceinfoResult(void *pData, WORD wSize)
     HallDataMgr::getInstance()->m_Headlist.insert(HallDataMgr::getInstance()->m_dwUserID, _headSprite->getTexture());
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     
-    HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+    HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     
     //更新
     EventCustom event(whEvent_User_Data_Change);
-    auto value = __Integer::create(User_Change_Head);
+    auto value = __Integer::create(EM_USER_DATA_CHANGE_HEAD);
     event.setUserData(value);
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }
@@ -532,7 +533,7 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
 {
     auto presult = (CMD_GP_OperateSuccess *)pData;
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
-    HallDataMgr::getInstance()->AddpopLayer("系统提示", str, Type_Ensure);
+    HallDataMgr::getInstance()->AddpopLayer("系统提示", str, EM_MODE_TYPE_ENSURE);
     HallDataMgr::getInstance()->m_cbGender = m_cbGender;
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     if (m_eType == Type_PersonalInfo)
@@ -565,7 +566,7 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
             
             //更新大厅显示
             EventCustom event(whEvent_User_Data_Change);
-            auto value = __Integer::create(User_Change_Name);
+            auto value = __Integer::create(EM_USER_DATA_CHANGE_NAME);
             event.setUserData(value);
             Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
         }
@@ -615,7 +616,7 @@ void PersonalScene::operatefailureResult(void *pData, WORD wSize)
 {
     auto presult = (CMD_GP_OperateFailure *)pData;
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
-    HallDataMgr::getInstance()->AddpopLayer("错误提示", str, Type_Ensure);
+    HallDataMgr::getInstance()->AddpopLayer("错误提示", str, EM_MODE_TYPE_ENSURE);
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
 }
 
@@ -726,7 +727,7 @@ void PersonalScene::buttonEventWithGender(cocos2d::Ref *target, cocos2d::ui::Wid
                 return;
             }
             
-            HallDataMgr::getInstance()->AddpopLayer("", "发送资料中...", Type_Wait_Text);
+            HallDataMgr::getInstance()->AddpopLayer("", "发送资料中...", EM_MODE_TYPE_WAIT_TEXT);
             m_cbGender = 1;
             
             this->sendAlterIndividual(HallDataMgr::getInstance()->m_pNickName, m_cbGender);
@@ -738,7 +739,7 @@ void PersonalScene::buttonEventWithGender(cocos2d::Ref *target, cocos2d::ui::Wid
             {
                 return;
             }
-            HallDataMgr::getInstance()->AddpopLayer("", "发送资料中...", Type_Wait_Text);
+            HallDataMgr::getInstance()->AddpopLayer("", "发送资料中...", EM_MODE_TYPE_WAIT_TEXT);
             m_cbGender = 0;
             
             this->sendAlterIndividual(HallDataMgr::getInstance()->m_pNickName, m_cbGender);
@@ -793,7 +794,7 @@ void PersonalScene::buttonEventWithUploadRes(cocos2d::Ref *target, cocos2d::ui::
             head->addTouchEventListener([=](Ref *ref ,cocos2d::ui::Widget::TouchEventType type){
                 if (type == Widget::TouchEventType::ENDED)
                 {
-                    HallDataMgr::getInstance()->AddpopLayer("", "正在上传图片", Type_Wait_Text);
+                    HallDataMgr::getInstance()->AddpopLayer("", "正在上传图片", EM_MODE_TYPE_WAIT_TEXT);
     
                     this->sendSystemFaceInfo(head->getTag());
                     std::string file =  head->getNormalFile().file;
@@ -913,7 +914,7 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
             if (!HallDataMgr::getInstance()->m_cbInsureEnable)
             {
                 
-                HallDataMgr::getInstance()->AddpopLayer("提示", "您暂未开通银行密码,请先开通银行密码", Type_Ensure);
+                HallDataMgr::getInstance()->AddpopLayer("提示", "您暂未开通银行密码,请先开通银行密码", EM_MODE_TYPE_ENSURE);
                 return;
             }
         }
@@ -931,12 +932,12 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
         if (0 == len_orignal)
         {
             
-            HallDataMgr::getInstance()->AddpopLayer("提示", "原始密码不能变为空", Type_Ensure);
+            HallDataMgr::getInstance()->AddpopLayer("提示", "原始密码不能变为空", EM_MODE_TYPE_ENSURE);
             return;
             
         }else if (len_orignal > 32 || len_orignal < 6)
         {
-            HallDataMgr::getInstance()->AddpopLayer("提示", "原始密码请输入6-32位字符", Type_Ensure);
+            HallDataMgr::getInstance()->AddpopLayer("提示", "原始密码请输入6-32位字符", EM_MODE_TYPE_ENSURE);
              return;
         }
         
@@ -946,7 +947,7 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
             if (std::strcmp(MD5Encrypt(std::string(orignalPass->getText())).c_str() , HallDataMgr::getInstance()->m_pPassword.c_str()) != 0)
             {
                 
-                HallDataMgr::getInstance()->AddpopLayer("提示", "您输入的原始密码有误", Type_Ensure);
+                HallDataMgr::getInstance()->AddpopLayer("提示", "您输入的原始密码有误", EM_MODE_TYPE_ENSURE);
                return;
                 
             }
@@ -955,7 +956,7 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
             if (std::strcmp(MD5Encrypt(std::string(orignalPass->getText())).c_str() , HallDataMgr::getInstance()->m_pBankword.c_str()) != 0)
             {
                 
-                HallDataMgr::getInstance()->AddpopLayer("提示", "您输入的原始密码有误", Type_Ensure);
+                HallDataMgr::getInstance()->AddpopLayer("提示", "您输入的原始密码有误", EM_MODE_TYPE_ENSURE);
                 return;
                 
             }
@@ -965,12 +966,12 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
         if (0 == len_new)
         {
             
-            HallDataMgr::getInstance()->AddpopLayer("提示", "新密码不能变为空", Type_Ensure);
+            HallDataMgr::getInstance()->AddpopLayer("提示", "新密码不能变为空", EM_MODE_TYPE_ENSURE);
             return;
             
         }else if (len_new > 32 || len_new < 6)
         {
-            HallDataMgr::getInstance()->AddpopLayer("提示", "新密码请输入6-32位字符", Type_Ensure);
+            HallDataMgr::getInstance()->AddpopLayer("提示", "新密码请输入6-32位字符", EM_MODE_TYPE_ENSURE);
             return;
         }
         
@@ -979,14 +980,14 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
         if(newPassStr.find(" ") != std::string::npos)
         {
             //有空格
-            HallDataMgr::getInstance()->AddpopLayer("提示", "新密码不能输入空格字符,请重新输入", Type_Ensure);
+            HallDataMgr::getInstance()->AddpopLayer("提示", "新密码不能输入空格字符,请重新输入", EM_MODE_TYPE_ENSURE);
             return;
         }
         
         if (std::strcmp(orignalPass->getText() , newPassStr.c_str()) == 0)
         {
             
-            HallDataMgr::getInstance()->AddpopLayer("提示", "新密码与原始密码一致,请重新输入", Type_Ensure);
+            HallDataMgr::getInstance()->AddpopLayer("提示", "新密码与原始密码一致,请重新输入", EM_MODE_TYPE_ENSURE);
             return;
         }
         
@@ -995,7 +996,7 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
         if (std::strcmp(newPassStr.c_str(), confirmPassStr.c_str()) != 0)
         {
             
-            HallDataMgr::getInstance()->AddpopLayer("提示", "两次输入的密码不一致,请重新输入", Type_Ensure);
+            HallDataMgr::getInstance()->AddpopLayer("提示", "两次输入的密码不一致,请重新输入", EM_MODE_TYPE_ENSURE);
             return;
         }
         
@@ -1022,7 +1023,7 @@ void PersonalScene::photocomplete(cocos2d::Image *pimage)
     _headSprite->setTexture(ptexture);
     this->sendCustomFaceInfo(pimage);
     ptexture->release();
-    HallDataMgr::getInstance()->AddpopLayer("", "正在提交......", Type_Wait_Text);
+    HallDataMgr::getInstance()->AddpopLayer("", "正在提交......", EM_MODE_TYPE_WAIT_TEXT);
 }
 
 //MARK::NetWork
@@ -1039,13 +1040,14 @@ void PersonalScene::sendSystemFaceInfo(WORD wface)
     
     
 }
-void PersonalScene::sendCustomFaceInfo(cocos2d::Image *pimage)
+void PersonalScene::sendCustomFaceInfo(cocos2d::Image *pImage)
 {
-    auto pdate = pimage->getData();
-    int length = (int)pimage->getDataLen();
+    auto pdate = pImage->getData();
+    int length = (int)pImage->getDataLen();
     
     char byte[length];
     memset(byte, 0, length);
+
     for(int i=0; i<length/4;i++)
     {
         byte[i*4]=pdate[i*4+2];
@@ -1180,19 +1182,19 @@ void PersonalScene::editBoxReturn(cocos2d::ui::EditBox* editBox)
         if (0 == length)
         {
             
-            HallDataMgr::getInstance()->AddpopLayer("提示", "昵称不能为空,请输入昵称", Type_Ensure);
+            HallDataMgr::getInstance()->AddpopLayer("提示", "昵称不能为空,请输入昵称", EM_MODE_TYPE_ENSURE);
             success = false;
 
         }else if (length > 32 || length < 6)
         {
-             HallDataMgr::getInstance()->AddpopLayer("提示", "请输入6-32位字符", Type_Ensure);
+             HallDataMgr::getInstance()->AddpopLayer("提示", "请输入6-32位字符", EM_MODE_TYPE_ENSURE);
              success = false;
         }
         
         if(nick.find(" ") != std::string::npos)
         {
             //有空格
-            HallDataMgr::getInstance()->AddpopLayer("提示", "昵称中不能有空格", Type_Ensure);
+            HallDataMgr::getInstance()->AddpopLayer("提示", "昵称中不能有空格", EM_MODE_TYPE_ENSURE);
             success = false;
         }
         
@@ -1203,7 +1205,7 @@ void PersonalScene::editBoxReturn(cocos2d::ui::EditBox* editBox)
         }
         
         m_eModify = modify_nick;
-        HallDataMgr::getInstance()->AddpopLayer("", "修改昵称中...", Type_Wait_Text);
+        HallDataMgr::getInstance()->AddpopLayer("", "修改昵称中...", EM_MODE_TYPE_WAIT_TEXT);
         this->sendAlterIndividual(nick, HallDataMgr::getInstance()->m_cbGender);
     }
     

@@ -37,7 +37,7 @@
 
 //长度定义
 #define SOCKET_TCP_BUFFER	16384									//网络缓冲
-#define SOCKET_TCP_PACKET	(SOCKET_TCP_BUFFER-sizeof(TCP_Head))	//网络缓冲
+#define SOCKET_TCP_PACKET	(SOCKET_TCP_BUFFER-sizeof(ST_TCP_HEAD))	//网络缓冲
 
 #pragma mark 内核命令
 
@@ -48,39 +48,39 @@
 ///////////////////////////////////////////////////////////////////////////
 //结构定义
 //网络验证
-typedef struct
+typedef struct _stTcpValidate
 {
 	TCHAR		szValidateKey[64];				//验证字符
-}TCP_Validate;
+}ST_TCP_VALICATE, *PST_TCP_VALICATE;
 
 //网络内核
-struct TCP_Info
+typedef struct _stTcpInfo
 {
 	BYTE		cbDataKind;						//数据类型
 	BYTE		cbCheckCode;					//效验字段
 	WORD		wPacketSize;					//数据大小
-};
+}ST_TCP_INFO, *PST_TCP_INFO;
 
 //网络命令
-typedef struct
+typedef struct _stTcpCmd
 {
 	WORD		wMainCmdID;						//主命令码
 	WORD		wSubCmdID;						//子命令码
-}TCP_Command;
+}ST_TCP_CMD, *PST_TCP_CMD;
 
 //网络包头
-typedef struct
+typedef struct _stTcpHead
 {
-	TCP_Info	TCPInfo;						//基础结构
-	TCP_Command	CommandInfo;					//命令信息
-}TCP_Head;
+	_stTcpInfo	stTCPInfo;						//基础结构
+	_stTcpCmd	stTCPCmd;						//命令信息
+}ST_TCP_HEAD, *PST_TCP_HEAD;
 
 //网络缓冲
-typedef struct
+typedef struct _stTcpBuffer
 {
-	TCP_Head	Head;							//数据包头
+	_stTcpHead	stTcpHead;						//数据包头
 	BYTE		cbBuffer[SOCKET_TCP_PACKET];	//数据缓冲
-}TCP_Buffer;
+}ST_TCP_BUFFER, *PST_TCP_BUFFER;
 
 //数据定义
 #pragma pack()

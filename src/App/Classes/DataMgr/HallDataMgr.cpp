@@ -104,7 +104,7 @@ cocos2d::Layer* HallDataMgr::AddpopLayer(const std::string &title, const std::st
             }
         }
         CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound_res/open_alert.wav");
-        m_popLayer = ModeLayer::createBytype(title, content, (ENUM_MODE_TYPE)type,close);
+        m_popLayer = ModeLayer::createBytype(title, content, (EM_MODE_TYPE)type,close);
         Director::getInstance()->getRunningScene()->addChild(m_popLayer,15);
         m_popLayer->retain();
         return m_popLayer;

@@ -1,69 +1,69 @@
-//
-//  DownManager.hpp
-//  MyGame
-//
-//  Created by Tang Miao on 12/18/15.
-//
-//
+/************************************************************************************
+ * file: 		DownloadMgr.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/17 21:46:04
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/17			
+ *
+ ************************************************************************************/
 
-#ifndef DownManager_h
-#define DownManager_h
+#ifndef __DOWNLOAD_MGR_H__
+#define __DOWNLOAD_MGR_H__
 
 #include <stdio.h>
-#include "CurlDown.h"
 #include "cocos2d.h"
 #include "assets-manager/AssetsManagerEx.h"
+#include "CurlDownload.h"
+
 USING_NS_CC;
 using namespace std;
 
 #define GAMECOUNT   7
 
 typedef pair<string, string> Target;                    //下载源
-typedef pair<Target, LIST_Kind> DownInfo;               //下载信息
+typedef pair<Target, EM_GAME> DownInfo;               //下载信息
 
 class DownloadMgr : public Ref
 {
 public:
     DownloadMgr(void);
     virtual ~DownloadMgr();
+
+	static DownloadMgr* getInstance();
+
     virtual bool init();
-    
-    static DownloadMgr* getInstance();
     
     //下载信息
 public:
-    bool createTaskforDown(const string targetUrl ,const string filePath,LIST_Kind kind = kind_default);
-    bool getDownInfo(LIST_Kind eKind);
-    bool setDownInfo(LIST_Kind eKind);
+	bool createTaskforDown(const string targetUrl, const string filePath, EM_GAME emGame = EM_GAME_DEFALUT);
+    bool getDownInfo(EM_GAME eKind);
+    bool setDownInfo(EM_GAME eKind);
     
     //下载回调
-     void onError(int errorCode, Ref *down);
-     void onProgress(double percent, void *delegate, string filefullPath, Ref *down);
-     void onSuccess(string filefullPath, Ref *down);
-    
+    void onError(int errorCode, Ref *down);
+    void onProgress(double percent, void *delegate, string filefullPath, Ref *down);
+    void onSuccess(string filefullPath, Ref *down);
     
     void  update(float time);         //主线程更新ui
-    
-
+   
 public:
-    pthread_t               m_hDownThread;                  //线程句丙   
-    vector<CurlDown *>         downQueue;                     //下载队列
+    pthread_t               m_hThreadDownload;              //下载线程句柄  
+    vector<CurlDownload *>  m_vecCurlDownloadQueue;			//下载队列
     
     float                   m_fPercent;                     //下载进度
     
-    LIST_Kind               m_eCurrenKind;                  //游戏类型
+    EM_GAME					m_emGameCurrent;				//当前游戏
 public:
-      std::function<void(LIST_Kind)>    onTaskSuccess;
-      std::function<void(LIST_Kind)>    ontaskError;
-      std::function<void(LIST_Kind)>    onDecompressSuccess;
+    std::function<void(EM_GAME)>    onTaskSuccess;
+    std::function<void(EM_GAME)>    ontaskError;
+    std::function<void(EM_GAME)>    onDecompressSuccess;
     
-      bool    m_bDecompress;
+    bool    m_bDecompress;
     
-     std::condition_variable_any _sleepCondition;   //信号量
-     std::mutex _downQueueMutex;
-    
+    std::condition_variable_any _sleepCondition;			//信号量
+    std::mutex _downQueueMutex;
 };
-
-
 
 #endif /* DownManager_h */

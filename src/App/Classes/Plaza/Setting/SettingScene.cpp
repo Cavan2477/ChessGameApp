@@ -131,7 +131,7 @@ bool SettingScene::init()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)   
                 AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
                 [UMSocialSnsService presentSnsIconSheetView:pApp.viewController
-                                                     appKey:UMKey
+                                                     appKey:UM_KEY
                                                   shareText:@"游戏测试"
                                                  shareImage:[UIImage imageNamed:@"Icon-72.png"]
                                             shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToWechatSession,nil]
@@ -263,7 +263,7 @@ bool SettingScene::init()
         close->addTouchEventListener(CC_CALLBACK_2(SettingScene::buttonEventWithClose, this));
     }
     
-    layout->setScaleX(JudgeScale);
+    layout->setScaleX(JUDGE_SCALE);
     this->addChild(layout);
 
     return true;

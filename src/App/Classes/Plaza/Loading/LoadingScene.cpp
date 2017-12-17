@@ -35,7 +35,7 @@ bool LoadingScene::init()
     playout->setTag(EM_BOTTOM_LAYOUT);
     playout->setContentSize(cocos2d::Size(1136,640));
     playout->setBackGroundImage("common_res/common_backGround.png");
-    playout->setScaleX(JudgeScale);
+    playout->setScaleX(JUDGE_SCALE);
     playout->setPosition(Vec2(0,0));
     this->addChild(playout);
     

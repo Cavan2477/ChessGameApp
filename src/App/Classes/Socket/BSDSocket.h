@@ -29,10 +29,11 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include "cocos2d.h"
 #include "errno.h"
-
 
 //typedef int				SOCKET;
 
@@ -41,11 +42,8 @@
 #define SOCKET_ERROR	-1
 //#pragma endregion
 
-#include "cocos2d.h"
-
 class CBSDSocket
 {
-
 public:
 	CBSDSocket(SOCKET sock = INVALID_SOCKET);
 	~CBSDSocket();

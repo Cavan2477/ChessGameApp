@@ -103,7 +103,7 @@ bool BankShowScene::init()
         _saveLayout->setVisible(false);
         
     }
-     _layout->setScaleX(JudgeScale);
+     _layout->setScaleX(JUDGE_SCALE);
     
 
     //存取款

@@ -14,8 +14,8 @@
 #include "../DataMgr/HallDataMgr.h"
 #include "../DataMgr/NetworkMgr.h"
 #include "../Common/CMD_Stdafx.h"
-#include "ModeLayer.h"
-#include "Login.h"
+#include "../Public/ModeLayer.h"
+#include "../Plaza/LoginScene.h"
 
 USING_NS_CC;
 
@@ -81,23 +81,23 @@ void *threadSocketRecv(void* param)
     
     while(socket->getLoop())
     {
-        if (socket->getConnectType() == unConnect) {
-            socket->setConnectType(Connecting);
+        if (socket->getConnectType() == EM_CONNECT_TYPE_UNCONNECT) {
+            socket->setConnectType(EM_CONNECT_TYPE_CONNECTING);
             std::string sdomain(socket->getDomain());
             CCLOG("网络连接地址 %s",socket->getDomain().c_str());
             bool ret = socket->getSocket()->Connect(socket->getDomain().c_str(), socket->getwPort());
             if (ret == true) {
                 socket->setHeartTime(0.f);
-                socket->setConnectType(Connected);
+                socket->setConnectType(EM_CONNECT_TYPE_CONNECTED);
             }
             else
             {
                 CCLOG("连接服务器失败");
-                socket->setConnectType(Connect_Faild);
+                socket->setConnectType(EM_CONNECT_TYPE_CONNECT_FAILED);
                 break;
             }
         }
-        else if(socket->getConnectType() == Connected)
+        else if(socket->getConnectType() == EM_CONNECT_TYPE_CONNECTED)
         {
             if (!socket->socketRecv()) {
                 break;
@@ -124,7 +124,7 @@ CTCPSocket* CTCPSocket::create()
 
 CTCPSocket::CTCPSocket()
 :m_heartTime(0.f)
-,m_connecttype(unConnect),m_NoMessageTime(0.f)
+,m_connecttype(EM_CONNECT_TYPE_UNCONNECT),m_NoMessageTime(0.f)
 {
     m_hThread = 0;
     m_bLoop = true;
@@ -132,10 +132,10 @@ CTCPSocket::CTCPSocket()
     m_pSocket = NULL;
     
     m_bEntry = true;
-    m_DataType = EM_DATA_TYPE_LOAD;
+    m_emDataType = EM_DATA_TYPE_LOAD;
     m_wSize = 0;
-    m_Recv = nullptr;
-    memset(m_pData, 0, sizeof(m_pData));
+    m_gameMsgRecv = nullptr;
+    memset(m_pszDataBuffer, 0, sizeof(m_pszDataBuffer));
     Director::getInstance()->getScheduler()->schedule(CC_SCHEDULE_SELECTOR(CTCPSocket::RecvDataUpdate), this, 0, false);
 }
 
@@ -143,7 +143,7 @@ CTCPSocket::CTCPSocket()
 CTCPSocket::~CTCPSocket()
 {
     //this->socketClose();
-    m_recvdataQueue.clear();
+    m_vecRecvdataQueue.clear();
     
 }
 
@@ -157,7 +157,7 @@ CTCPSocket::~CTCPSocket()
 
 void CTCPSocket::setSocketTarget(gameMessageRecv recv)
 {
-    m_Recv = recv;
+    m_gameMsgRecv = recv;
 }
 
 
@@ -171,8 +171,8 @@ bool CTCPSocket::socketConnect(const char *domain, WORD wPort, EM_DATA_TYPE type
     //连接方式
     m_bLoop=isLoop;
     //pthread_mutex_unlock(&Connectmutex);
-    m_DataType = type;
-    memset(m_pData, 0, sizeof(m_pData));
+    m_emDataType = type;
+    memset(m_pszDataBuffer, 0, sizeof(m_pszDataBuffer));
     m_domain = domain;
     m_wport = wPort;
     this->threadCreate();
@@ -183,10 +183,10 @@ bool CTCPSocket::socketConnect(const char *domain, WORD wPort, EM_DATA_TYPE type
 void CTCPSocket::RecvDataUpdate(float time)
 {
     int type = m_connecttype;
-    if (type == unConnect) {
+    if (type == EM_CONNECT_TYPE_UNCONNECT) {
         return;
     }
-    if (type == Connecting) {
+    if (type == EM_CONNECT_TYPE_CONNECTING) {
         m_heartTime += time;
         if (m_heartTime > 30.f) {
             this->Disconnettologin("网络连接超时，请重新登录");
@@ -196,36 +196,36 @@ void CTCPSocket::RecvDataUpdate(float time)
         
         return;
     }
-    if (type == Connect_Faild) {
+    if (type == EM_CONNECT_TYPE_CONNECT_FAILED) {
         this->connetfaildDeal();
         return;
     }
-    if (type == Connect_Kick_Out) {
+    if (type == EM_CONNECT_TYPE_CONNECT_KICK_OUT) {
         this->Disconnettologin("网络异常，请重新登录");
         Director::getInstance()->getScheduler()->unschedule(CC_SCHEDULE_SELECTOR(CTCPSocket::RecvDataUpdate), this);
         this->socketClose();
         return;
     }
     if (m_NoMessageTime > 60.f) {
-        if (m_DataType == !EM_DATA_TYPE_LOAD) {
+        if (m_emDataType == !EM_DATA_TYPE_LOAD) {
             this->Disconnettologin("网络异常，请重新登录");
         }
-        NetworkMgr::getInstance()->Disconnect(m_DataType);
+        NetworkMgr::getInstance()->Disconnect(m_emDataType);
         return;
     }
     cocos2d::Vector<RecvData *> vectordata;
     RecvData *rdata = NULL;
-    recvdatamutex.lock();
-    if (!m_recvdataQueue.size()) {
+    m_mutexRecvdata.lock();
+    if (!m_vecRecvdataQueue.size()) {
         m_heartTime += time;
         m_NoMessageTime += time;
-        recvdatamutex.unlock();
+        m_mutexRecvdata.unlock();
         
         if (m_heartTime > 10) {
-            TCP_Buffer	heartBuffer;
-            memset(&heartBuffer,0,sizeof(TCP_Buffer));
-            heartBuffer.Head.CommandInfo.wMainCmdID	= MDM_KN_COMMAND;
-            heartBuffer.Head.CommandInfo.wSubCmdID	= SUB_KN_DETECT_SOCKET;
+            _stTcpBuffer	heartBuffer;
+            memset(&heartBuffer,0,sizeof(_stTcpBuffer));
+            heartBuffer.Head.stTCPCmd.wMainCmdID	= MDM_KN_COMMAND;
+            heartBuffer.Head.stTCPCmd.wSubCmdID	= SUB_KN_DETECT_SOCKET;
             this->socketSend((char *)&heartBuffer, sizeof(heartBuffer.Head));
             m_heartTime = 0;
         }
@@ -233,9 +233,9 @@ void CTCPSocket::RecvDataUpdate(float time)
     }
     else
     {
-        vectordata = m_recvdataQueue;
-        m_recvdataQueue.clear();
-        recvdatamutex.unlock();
+        vectordata = m_vecRecvdataQueue;
+        m_vecRecvdataQueue.clear();
+        m_mutexRecvdata.unlock();
         m_heartTime = 0;
         m_NoMessageTime = 0.f;
     }
@@ -248,8 +248,8 @@ void CTCPSocket::RecvDataUpdate(float time)
             }
             else
             {
-                if (m_Recv) {
-                    m_Recv(this,rdata->getRecvData(),datasize, rdata->getIsInBack());
+                if (m_gameMsgRecv) {
+                    m_gameMsgRecv(this,rdata->getRecvData(),datasize, rdata->getIsInBack());
                 }
             }
             vectordata.erase(0);
@@ -326,7 +326,7 @@ void CTCPSocket::Disconnettologin(const std::string &str)
 //关闭socket
 void CTCPSocket::socketClose()
 {
-    if (m_connecttype  == unConnect) {
+    if (m_connecttype  == EM_CONNECT_TYPE_UNCONNECT) {
         return;
     }
     m_bConnect = false;
@@ -351,7 +351,7 @@ void CTCPSocket::socketClose()
         CC_SAFE_DELETE(m_pSocket);
     }
     this->threadClosed();
-    m_connecttype = unConnect;
+    m_connecttype = EM_CONNECT_TYPE_UNCONNECT;
 }
 
 //消息接收
@@ -360,15 +360,15 @@ bool CTCPSocket::socketRecv()
     if (m_pSocket == NULL) {
         return false;
     }
-    int nSize=m_pSocket->Recv(m_pData+m_wSize, SOCKET_TCP_BUFFER-m_wSize);
+    int nSize=m_pSocket->Recv(m_pszDataBuffer+m_wSize, SOCKET_TCP_BUFFER-m_wSize);
     
     if (nSize == -1)
     {
         if (m_pSocket == NULL) {
             return false;
         }
-        if (m_connecttype == Connected) {
-            m_connecttype = Connect_Kick_Out;
+        if (m_connecttype == EM_CONNECT_TYPE_CONNECTED) {
+            m_connecttype = EM_CONNECT_TYPE_CONNECT_KICK_OUT;
         }
         return false;
     }
@@ -386,19 +386,19 @@ bool CTCPSocket::socketRecv()
     //wh协议映射
     if(m_bEntry)
     {
-        while ( m_wSize>=sizeof(TCP_Head) )
+        while ( m_wSize>=sizeof(_stTcpHead) )
         {
             //取出前8字节数据
             char headChar[8];
             memset(headChar,0,sizeof(headChar));
-            memcpy(headChar,m_pData,8);
+            memcpy(headChar,m_pszDataBuffer,8);
             
             //取的数据长度
-            TCP_Head* head = (TCP_Head*)headChar;
-            WORD wCurSize = head->TCPInfo.wPacketSize;
+            _stTcpHead* head = (_stTcpHead*)headChar;
+            WORD wCurSize = head->stTCPInfo.wPacketSize;
             
             //长度效验，小于包头 或者 大于当前数据总长度,说明只接收了一半数据，跳出处理
-            if( wCurSize<sizeof(TCP_Head) || wCurSize>m_wSize){
+            if( wCurSize<sizeof(_stTcpHead) || wCurSize>m_wSize){
                 break;
             }
             
@@ -406,7 +406,7 @@ bool CTCPSocket::socketRecv()
             char curBuffer[wCurSize];
             
             memset(curBuffer,0,sizeof(curBuffer));
-            memcpy(curBuffer,m_pData,wCurSize);
+            memcpy(curBuffer,m_pszDataBuffer,wCurSize);
             
             //数据映射
             if( !unMappedBuffer(curBuffer,wCurSize)){
@@ -417,19 +417,19 @@ bool CTCPSocket::socketRecv()
             CCLOG("处理长度:%d",wCurSize);
             RecvData *rdata = new RecvData(curBuffer, wCurSize);
             rdata->setIsInBack(HallDataMgr::getInstance()->m_isEnterBack);
-            recvdatamutex.lock();
-            m_recvdataQueue.pushBack(rdata);
-            recvdatamutex.unlock();
+            m_mutexRecvdata.lock();
+            m_vecRecvdataQueue.pushBack(rdata);
+            m_mutexRecvdata.unlock();
             rdata->release();
 
             //减去已处理长度
             m_wSize -= wCurSize;
             
             //数据移动
-            memmove(m_pData, m_pData+wCurSize, m_wSize);
+            memmove(m_pszDataBuffer, m_pszDataBuffer+wCurSize, m_wSize);
             
             //跳出判断
-            if( m_wSize<sizeof(TCP_Head) ){
+            if( m_wSize<sizeof(_stTcpHead) ){
                 CCLOG("处理完一次数据－－－－－－－－－－－－－－－－－－－－－－");
                 break;
             }
@@ -456,15 +456,15 @@ bool CTCPSocket::socketSend(char* pData, WORD wSize)
     if (m_pSocket == NULL) {
         return false;
     }
-    if (m_connecttype == Connect_Kick_Out) {
+    if (m_connecttype == EM_CONNECT_TYPE_CONNECT_KICK_OUT) {
         return false;
     }
-    if (m_connecttype != Connected) {
+    if (m_connecttype != EM_CONNECT_TYPE_CONNECTED) {
         RecvData *rdata = new RecvData(pData, wSize);
         rdata->setdataType(Send_Data);
-        recvdatamutex.lock();
-        m_recvdataQueue.pushBack(rdata);
-        recvdatamutex.unlock();
+        m_mutexRecvdata.lock();
+        m_vecRecvdataQueue.pushBack(rdata);
+        m_mutexRecvdata.unlock();
         rdata->release();
         return false;
     }
@@ -493,14 +493,14 @@ bool CTCPSocket::mappedBuffer(void* pData, WORD wDataSize)
 	BYTE cbCheckCode = 0;
 	
 	//映射数据
-	for(WORD i=sizeof(TCP_Info);i<wDataSize;i++)
+	for(WORD i=sizeof(_stTcpInfo);i<wDataSize;i++)
 	{
 		cbCheckCode+=buffer[i];
 		buffer[i]=g_SendByteMap[buffer[i]];
 	}
 	
 	//设置数据
-	TCP_Info *pInfo	 = (TCP_Info*)pData;
+	_stTcpInfo *pInfo	 = (_stTcpInfo*)pData;
 	pInfo->cbCheckCode = ~cbCheckCode+1;
 	pInfo->wPacketSize = wDataSize;
 	pInfo->cbDataKind |= DK_MAPPED;
@@ -513,14 +513,14 @@ bool CTCPSocket::unMappedBuffer(void* pData, WORD wDataSize)
 {
     //变量定义
 	BYTE* buffer=(BYTE*)pData;
-	TCP_Info* pInfo=(TCP_Info*)pData;
+	_stTcpInfo* pInfo=(_stTcpInfo*)pData;
 	
 	//映射
 	if( (pInfo->cbDataKind & DK_MAPPED) !=0)
 	{
 		BYTE cbCheckCode = pInfo->cbCheckCode;
 		
-		for(WORD i=sizeof(TCP_Info);i<wDataSize;i++)
+		for(WORD i=sizeof(_stTcpInfo);i<wDataSize;i++)
 		{
 			cbCheckCode += g_RecvByteMap[buffer[i]];
 			buffer[i] = g_RecvByteMap[buffer[i]];

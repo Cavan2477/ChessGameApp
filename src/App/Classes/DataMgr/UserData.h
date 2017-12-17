@@ -26,6 +26,7 @@ public:
         memset(&m_date, 0, sizeof(m_date));
         UpdateData(pdata);
     };
+
     ~UserData(){}
     
     void UpdateData(void *pdata)
@@ -36,7 +37,9 @@ public:
             TCHAR nickname[LEN_NICKNAME];
             memset(nickname, 0, sizeof(nickname));
             memcpy(nickname,(char *)pdata+sizeof(_stMobileUserHeadInfo)+sizeof(_stUserDataExt), pdescribe->wDataSize);
-            m_nickname = WHConverUnicodeToUtf8WithArray(nickname);
+
+			// todo 2017/12/17 to be continue
+            //m_nickname = WHConverUnicodeToUtf8WithArray((WORD)nickname);
         }
     }
     

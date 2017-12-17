@@ -38,7 +38,7 @@ bool BankSendReceiptLayer::init()
         auto ll = Layout::create();
         ll->setContentSize(Size(1136, 640));
         ll->addChild(m_root);
-        ll->setScaleX(JudgeScale);
+        ll->setScaleX(JUDGE_SCALE);
         this->addChild(ll);
         
         //确定按钮

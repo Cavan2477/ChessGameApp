@@ -2,11 +2,10 @@
 #include "stdlib.h"
 #include <ctype.h>
 
-
-Image* CUtilEx::getSDCardImage(const std::string& listname) {
+Image* CUtilEx::getSDCardImage(const std::string& listname) 
+{
     Image *image = new Image();
     char filepath[128] = { };
-    // 锟斤拷取SDCARD路锟斤拷
     // .......
     // ......
     if (!image->initWithImageFile(filepath))

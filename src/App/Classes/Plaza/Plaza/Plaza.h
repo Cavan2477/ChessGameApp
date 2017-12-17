@@ -53,32 +53,34 @@ private:
 class GameList:public cocos2d::ui::Button
 {
 public:
+	static GameList* create();
+
     GameList();
     virtual ~GameList();
-    static GameList* create();
+    
     virtual bool init();
-public:
-    void setInfo(ST_DOWNLOAD_INFO &info);
+
+    void setInfo(ST_DOWNLOAD_INFO &stDownloadInfo);
     void addProgress();
     void removeProgress();
+
 public:
     Progress  *m_pProgress;
     ST_DOWNLOAD_INFO DownInfo;
-    
 };
 
-class Plazz: public Layer
-,public cocos2d::ui::EditBoxDelegate
+class Plazz : public Layer, public cocos2d::ui::EditBoxDelegate
 {
-    
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
     
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     Plazz();
-    virtual bool init();
     virtual ~Plazz();
+
+	virtual bool init();
+
     CREATE_FUNC(Plazz);
     
     virtual void onEnter();
@@ -116,9 +118,10 @@ public:
     
     //修改操作失败
     void operatefailureResult(void* pData, WORD wSize);
+
 public:
-    
     cocos2d::ui::Widget* initOneList(int index);
+
     //根据kindid创建游戏图标
     cocos2d::ui::Widget* initOneListByKind(const int &nKind);
     
@@ -132,15 +135,14 @@ public:
     void buttonEventWithShare(Ref* target,cocos2d::ui::Widget::TouchEventType type);
     void buttonEventWithLock(Ref* target,cocos2d::ui::Widget::TouchEventType tType);
     
-public:
-    void onTaskSuccess(ENUM_GAME kind);
-    void ontaskError(ENUM_GAME kind);
-    void onDecompressSuccess(ENUM_GAME kind);
-    void loadingGame(ENUM_GAME game);
-public:
+    void onTaskSuccess(EM_GAME kind);
+    void ontaskError(EM_GAME kind);
+    void onDecompressSuccess(EM_GAME kind);
+    void loadingGame(EM_GAME game);
     
 private:
     cocos2d::ui::ListView*     _list;
+
     CC_SYNTHESIZE_RETAIN(Sprite*, _headSprite, HeadSprite);
     CC_SYNTHESIZE_RETAIN(Label*,_UserScore,UserScore);
     CC_SYNTHESIZE_RETAIN(Label*,_UserNikcName,UserNickName);

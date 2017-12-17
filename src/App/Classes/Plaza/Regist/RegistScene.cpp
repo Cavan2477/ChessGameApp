@@ -47,7 +47,7 @@ bool RegistScene::init()
     
     auto rootNode = CSLoader::createNode("load_res/RegistScene.csb");
     layout->addChild(rootNode);
-    layout->setScaleX(JudgeScale);
+    layout->setScaleX(JUDGE_SCALE);
     this->addChild(layout);
     
     //文本edit

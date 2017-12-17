@@ -296,7 +296,7 @@ typedef struct _stUserInfo
 typedef struct _stUserInfoHead
 {
 public:
-	ST_USER_INFO_HEAD()
+	_stUserInfoHead()
     :dwGameID(0.0),dwUserID(0.0),wFaceID(0.0),dwCustomID(0.0),cbGender('0'),cbMemberOrder('0'),
     wTableID(0.0),wChairID(0.0),cbUserStatus('0'),lScore(0.0),dwWinCount(0.0),dwLostCount(0.0),
     dwDrawCount(0.0),dwFleeCount(0.0),dwExperience(0.0)
@@ -304,7 +304,7 @@ public:
         
     }
     
-	~ST_USER_INFO_HEAD(){}
+	~_stUserInfoHead(){}
     
 public:
 	//用户属性

@@ -494,7 +494,7 @@ bool ShopScene::init()
     }
     
     
-    layout->setScaleX(JudgeScale);
+    layout->setScaleX(JUDGE_SCALE);
     this->addChild(layout);
     
     

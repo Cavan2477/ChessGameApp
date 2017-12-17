@@ -50,7 +50,7 @@ bool HallScene::init()
 		return false;
 
 	// 1.set scene information
-	if (!ESScene::initLayerBg(this, PNG_HALL_BG))
+	if (!ExtBaseScene::initLayerBg(this, PNG_HALL_BG))
 		return false;
 
 	// 2.set menu item
@@ -118,7 +118,7 @@ bool HallScene::initMenuItem()
 	stMenuItemInfo.nX = 10;
 	stMenuItemInfo.nY = 10;
 
-	if (!ESScene::initMenuItem(this, &stMenuItemInfo, CC_CALLBACK_1(HallScene::menuItemSettingCallback, this)))
+	if (!ExtBaseScene::initMenuItem(this, &stMenuItemInfo, CC_CALLBACK_1(HallScene::menuItemSettingCallback, this)))
 		return false;
 
 	return true;

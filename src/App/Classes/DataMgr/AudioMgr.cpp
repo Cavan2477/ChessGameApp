@@ -11,6 +11,7 @@
 
 #include "../DataMgr/AudioMgr.h"
 #include "../DataMgr/HallDataMgr.h"
+#include "../Common/Packet.h"
 #include "SimpleAudioEngine.h"
 
 USING_NS_CC;

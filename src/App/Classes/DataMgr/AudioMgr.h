@@ -9,8 +9,8 @@
  *
  ************************************************************************************/
 
-#ifndef __AudioMgr_h__
-#define __AudioMgr_h__
+#ifndef __AUDIO_MGR_H__
+#define __AUDIO_MGR_H__
 
 #include <stdio.h>
 #include "CocosHeader.h"
@@ -20,6 +20,7 @@
 class AudioMgr
 {
     CREATE_SINGLETON_MUTEX_CLEAR(AudioMgr,s_audioInstance,nullptr);
+
     void init();
     void clear();
 

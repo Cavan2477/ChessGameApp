@@ -1,3 +1,14 @@
+/************************************************************************************
+ * file: 		PlatformDefinitions.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/17 21:05:17
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/17			
+ *
+ ************************************************************************************/
+
 #ifndef BT_TYPE_DEFINITIONS_H
 #define BT_TYPE_DEFINITIONS_H
 
@@ -6,18 +17,15 @@
 #include "bullet/LinearMath/btMinMax.h"
 
 #ifdef PFX_USE_FREE_VECTORMATH
-#include "physics_effects/base_level/base/pfx_vectormath_include.win32.h"
-typedef Vectormath::Aos::Vector3    vmVector3;
-typedef Vectormath::Aos::Quat       vmQuat;
-typedef Vectormath::Aos::Matrix3    vmMatrix3;
-typedef Vectormath::Aos::Transform3 vmTransform3;
-typedef Vectormath::Aos::Point3     vmPoint3;
+	#include "physics_effects/base_level/base/pfx_vectormath_include.win32.h"
+	typedef Vectormath::Aos::Vector3    vmVector3;
+	typedef Vectormath::Aos::Quat       vmQuat;
+	typedef Vectormath::Aos::Matrix3    vmMatrix3;
+	typedef Vectormath::Aos::Transform3 vmTransform3;
+	typedef Vectormath::Aos::Point3     vmPoint3;
 #else
-#include "bullet/vectormath/vmInclude.h"
+	#include "bullet/vectormath/vmInclude.h"
 #endif//PFX_USE_FREE_VECTORMATH
-
-
-
 
 
 #ifdef _WIN32
@@ -43,7 +51,7 @@ typedef union
 #elif defined(_M_ARM)
         typedef unsigned __int64 uint64_t;
 #else
-		typedef unsigned long int uint64_t;
+		//typedef unsigned long int uint64_t;
 #endif
 #endif //__BT_SKIP_UINT64_H
 #endif //PFX_USE_FREE_VECTORMATH
@@ -55,10 +63,9 @@ typedef union
 		#define memalign(alignment, size) malloc(size);
 			
 #include <string.h> //memcpy
-
 		
-
 		#include <stdio.h>		
+
 		#define spu_printf printf
 		
 #else

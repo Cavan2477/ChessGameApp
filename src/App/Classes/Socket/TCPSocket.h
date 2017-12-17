@@ -9,30 +9,31 @@
  *
  ************************************************************************************/
 
-#ifndef __TCPSocket_h__
-#define __TCPSocket_h__
+#ifndef __TCP_SOCKET_H__
+#define __TCP_SOCKET_H__
 
 #include "cocos2d.h"
 #include "../Common/CMD_Stdafx.h"
 #include "BSDSocket.h"
+
 #include <stdio.h>
 #include <iostream>
 #include <pthread.h>
 
-enum ConnectType
+typedef enum EM_CONNECT_TYPE
 {
-    unConnect = 0,//未连接
-    Connecting,//正在连接
-    Connected,//已连接
-    Connect_Faild,//连接失败
-    Connect_Kick_Out,//踢出
+    EM_CONNECT_TYPE_UNCONNECT = 0,		//未连接
+    EM_CONNECT_TYPE_CONNECTING,			//正在连接
+    EM_CONNECT_TYPE_CONNECTED,			//已连接
+    EM_CONNECT_TYPE_CONNECT_FAILED,		//连接失败
+    EM_CONNECT_TYPE_CONNECT_KICK_OUT,	//踢出
 };
-
 
 //线程接收函数
 void *threadSocketRecv();
 
 class RecvData;
+
 //socket使用
 class CTCPSocket : public cocos2d::Node
 {
@@ -55,7 +56,6 @@ public:
     void Disconnettologin(const std::string &str);
     
     //网络操作
-public:
     bool socketConnect(const char *domain, WORD wPort, EM_DATA_TYPE type , bool isLoop=true);
     void socketClose();
     
@@ -69,18 +69,17 @@ public:
     bool unMappedBuffer(void* pData, WORD wDataSize);
     
     //多线程操作
-public:
     bool threadCreate();
     void threadClosed();
     
-public:
     void setLoop(bool loop)     { m_bLoop=loop;}        //设置循环
     void setEntry(bool isEntry) { m_bEntry=isEntry;}    //加密映射
-    void setData(EM_DATA_TYPE dt)   { m_DataType=dt;}       //数据类型
+    void setData(EM_DATA_TYPE dt)   { m_emDataType=dt;} //数据类型
     
     bool getLoop() {return m_bLoop;};
     bool getEntry() {return m_bEntry;};
-    EM_DATA_TYPE getData() {return m_DataType;}
+
+    EM_DATA_TYPE getData() {return m_emDataType;}
     
     bool getConnect();
     
@@ -89,31 +88,33 @@ public:
     }
     
 private:
-    CBSDSocket*             m_pSocket;                  //网络连接
-    pthread_t               m_hThread;                  //线程句丙
-    bool                    m_bConnect;                 //连接状态 d:false
-    bool                    m_bLoop;                    //接收标识 d:true
+    CBSDSocket*		m_pSocket;							//网络连接
+    pthread_t		m_hThread;							//线程句柄
+
+    bool			m_bConnect;							//连接状态 d:false
+    bool			m_bLoop;							//接收标识 d:true
     
     //数据隐射标识在此添加
-    bool                    m_bEntry;                   //隐射标识 d:true
-    EM_DATA_TYPE                m_DataType;                 //数据类型 d:load
+    bool			m_bEntry;							//隐射标识 d:true
+    EM_DATA_TYPE	m_emDataType;						//数据类型 d:load
     
     //数据缓冲
-    char                    m_pData[SOCKET_TCP_BUFFER]; //网络缓冲
-    WORD                    m_wSize;                    //缓冲大小
+    char			m_pszDataBuffer[SOCKET_TCP_BUFFER];	//网络缓冲
+    WORD			m_wSize;							//缓冲大小
     
-    gameMessageRecv m_Recv;
+    gameMessageRecv m_gameMsgRecv;
     
-    cocos2d::Vector<RecvData *> m_recvdataQueue;//接受到需要调用得数据
+    cocos2d::Vector<RecvData *> 
+					m_vecRecvdataQueue;					//接受到需要调用得数据
     
-    std::mutex recvdatamutex;//控制数据调用得互斥锁
+    std::mutex		m_mutexRecvdata;					//控制数据调用得互斥锁
 
     CC_SYNTHESIZE(float, m_heartTime , HeartTime)
     
     CC_SYNTHESIZE(float, m_NoMessageTime , NoMessageTime)
     
     //网络连接状态
-    CC_SYNTHESIZE(ConnectType, m_connecttype , ConnectType)
+    CC_SYNTHESIZE(EM_CONNECT_TYPE, m_connecttype , EM_CONNECT_TYPE)
     
     //ip地址
     CC_SYNTHESIZE(std::string, m_domain, Domain)
@@ -121,8 +122,5 @@ private:
     //端口号
     CC_SYNTHESIZE(WORD, m_wport, wPort)
 };
-
-
-
 
 #endif /* defined(__GameProject__TCPSocket__) */

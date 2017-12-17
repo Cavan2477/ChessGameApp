@@ -145,23 +145,16 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\BaseUI\Scene\ESScene.cpp" />
     <ClCompile Include="..\Classes\Common\Global.cpp" />
     <ClCompile Include="..\Classes\Common\GlobalConst.cpp" />
-    <ClCompile Include="..\Classes\CurlDownload\CurlDownload.cpp" />
     <ClCompile Include="..\Classes\DataMgr\AudioMgr.cpp" />
     <ClCompile Include="..\Classes\DataMgr\GameConfigMgr.cpp" />
     <ClCompile Include="..\Classes\DataMgr\GameDataMgr.cpp" />
     <ClCompile Include="..\Classes\DataMgr\HallDataMgr.cpp" />
     <ClCompile Include="..\Classes\DataMgr\NetworkMgr.cpp" />
     <ClCompile Include="..\Classes\DataMgr\TableMgr.cpp" />
+    <ClCompile Include="..\Classes\DownloadMgr\CurlDownload.cpp" />
     <ClCompile Include="..\Classes\DownloadMgr\DownloadMgr.cpp" />
-    <ClCompile Include="..\Classes\Gif\dgif_lib.c" />
-    <ClCompile Include="..\Classes\Gif\egif_lib.c" />
-    <ClCompile Include="..\Classes\Gif\gifalloc.c" />
-    <ClCompile Include="..\Classes\Gif\gif_err.c" />
-    <ClCompile Include="..\Classes\Gif\gif_font.c" />
-    <ClCompile Include="..\Classes\Gif\gif_hash.c" />
     <ClCompile Include="..\Classes\LibExt\ButtonGroup.cpp" />
     <ClCompile Include="..\Classes\LibExt\ClipText.cpp" />
     <ClCompile Include="..\Classes\LibExt\DotNode.cpp" />
@@ -194,21 +187,26 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Public\GameGoldMove.cpp" />
     <ClCompile Include="..\Classes\Public\HeaderRequest.cpp" />
     <ClCompile Include="..\Classes\Public\Help.cpp" />
-    <ClCompile Include="..\Classes\Public\ModeLayer.cpp" />
     <ClCompile Include="..\Classes\Scene\AnimationMgr\AnimationMgr.cpp" />
+    <ClCompile Include="..\Classes\Scene\ExtBaseScene.cpp" />
     <ClCompile Include="..\Classes\Scene\GameCreateScene.cpp" />
     <ClCompile Include="..\Classes\Scene\HallScene.cpp" />
     <ClCompile Include="..\Classes\Scene\SceneMgr\SceneMgr.cpp" />
     <ClCompile Include="..\Classes\Scene\SettingScene.cpp" />
     <ClCompile Include="..\Classes\Socket\BSDSocket.cpp" />
     <ClCompile Include="..\Classes\Socket\TCPSocket.cpp" />
-    <ClCompile Include="..\Classes\Utils\md5.c" />
+    <ClCompile Include="..\Classes\Utils\Gif\dgif_lib.c" />
+    <ClCompile Include="..\Classes\Utils\Gif\egif_lib.c" />
+    <ClCompile Include="..\Classes\Utils\Gif\gifalloc.c" />
+    <ClCompile Include="..\Classes\Utils\Gif\gif_err.c" />
+    <ClCompile Include="..\Classes\Utils\Gif\gif_font.c" />
+    <ClCompile Include="..\Classes\Utils\Gif\gif_hash.c" />
+    <ClCompile Include="..\Classes\Utils\MD5\md5.c" />
     <ClCompile Include="..\Classes\Utils\UtilEx.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\BaseUI\Scene\ESScene.h" />
     <ClInclude Include="..\Classes\CocosHeader.h" />
     <ClInclude Include="..\Classes\Common\CMD_Common.h" />
     <ClInclude Include="..\Classes\Common\CMD_GameServer.h" />
@@ -226,7 +224,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Common\PublicDefine.h" />
     <ClInclude Include="..\Classes\Common\Struct.h" />
     <ClInclude Include="..\Classes\Common\UIMsgDefine.h" />
-    <ClInclude Include="..\Classes\CurlDownload\CurlDownload.h" />
     <ClInclude Include="..\Classes\DataMgr\AudioMgr.h" />
     <ClInclude Include="..\Classes\DataMgr\GameConfigMgr.h" />
     <ClInclude Include="..\Classes\DataMgr\GameDataMgr.h" />
@@ -234,10 +231,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\DataMgr\NetworkMgr.h" />
     <ClInclude Include="..\Classes\DataMgr\TableMgr.h" />
     <ClInclude Include="..\Classes\DataMgr\UserData.h" />
+    <ClInclude Include="..\Classes\DownloadMgr\CurlDownload.h" />
     <ClInclude Include="..\Classes\DownloadMgr\DownloadMgr.h" />
-    <ClInclude Include="..\Classes\Gif\gif_hash.h" />
-    <ClInclude Include="..\Classes\Gif\gif_lib.h" />
-    <ClInclude Include="..\Classes\Gif\gif_lib_private.h" />
     <ClInclude Include="..\Classes\LibExt\ButtonGroup.h" />
     <ClInclude Include="..\Classes\LibExt\ClipText.h" />
     <ClInclude Include="..\Classes\LibExt\DotNode.h" />
@@ -273,8 +268,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Public\GameGoldMove.h" />
     <ClInclude Include="..\Classes\Public\HeaderRequest.h" />
     <ClInclude Include="..\Classes\Public\Help.h" />
-    <ClInclude Include="..\Classes\Public\ModeLayer.h" />
     <ClInclude Include="..\Classes\Scene\AnimationMgr\AnimationMgr.h" />
+    <ClInclude Include="..\Classes\Scene\ExtBaseScene.h" />
     <ClInclude Include="..\Classes\Scene\GameCreateScene.h" />
     <ClInclude Include="..\Classes\Scene\HallScene.h" />
     <ClInclude Include="..\Classes\Scene\SceneHeader.h" />
@@ -283,7 +278,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Socket\BSDSocket.h" />
     <ClInclude Include="..\Classes\Socket\SocketRecvData.h" />
     <ClInclude Include="..\Classes\Socket\TCPSocket.h" />
-    <ClInclude Include="..\Classes\Utils\md5.h" />
+    <ClInclude Include="..\Classes\Utils\Gif\gif_hash.h" />
+    <ClInclude Include="..\Classes\Utils\Gif\gif_lib.h" />
+    <ClInclude Include="..\Classes\Utils\Gif\gif_lib_private.h" />
+    <ClInclude Include="..\Classes\Utils\MD5\md5.h" />
     <ClInclude Include="..\Classes\Utils\UtilEx.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

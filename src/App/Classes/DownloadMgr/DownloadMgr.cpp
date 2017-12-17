@@ -10,43 +10,41 @@
  ************************************************************************************/
 
 #include "DownloadMgr.h"
-#include "HallDataMgr.h"
-#include "CMD_Stdafx.h"
+#include "../DataMgr/HallDataMgr.h"
+#include "../Common/CMD_Stdafx.h"
 
 USING_NS_CC_EXT;
 
-static DownloadMgr *s_shareDownManager = nullptr;
+static DownloadMgr *s_pDownloadMgr = nullptr;
 
 static pthread_mutex_t g_downloadMutex;
 
 //线程接收函数
 void *threadTask(void* param)
 {
-    DownloadMgr *down = (DownloadMgr*)param;
+    DownloadMgr* pDownloadMgr = (DownloadMgr*)param;
     
     while (true)
     {
-        if (down->downQueue.size() == 0)
-        {
-            down->_sleepCondition.wait(down->_downQueueMutex);
-        }
+        if (pDownloadMgr->m_vecCurlDownloadQueue.size() == 0)
+            pDownloadMgr->_sleepCondition.wait(pDownloadMgr->_downQueueMutex);
         
         pthread_mutex_lock(&g_downloadMutex);
-        auto iter = down->downQueue.begin();
-        CurlDown *curl = *iter;
-        down->downQueue.erase(iter);
+        auto iter = pDownloadMgr->m_vecCurlDownloadQueue.begin();
+        CurlDownload *curl = *iter;
+        pDownloadMgr->m_vecCurlDownloadQueue.erase(iter);
         pthread_mutex_unlock(&g_downloadMutex);
         
-        curl->setErrorCallFunc(CC_CALLBACK_2(DownloadMgr::onError, down));
-        curl->setSuccessCallFunc(CC_CALLBACK_2(DownloadMgr::onSuccess, down));
-        curl->setProgressCallFunc(CC_CALLBACK_4(DownloadMgr::onProgress, down));
+        curl->setErrorCallFunc(CC_CALLBACK_2(DownloadMgr::onError, pDownloadMgr));
+        curl->setSuccessCallFunc(CC_CALLBACK_2(DownloadMgr::onSuccess, pDownloadMgr));
+        curl->setProgressCallFunc(CC_CALLBACK_4(DownloadMgr::onProgress, pDownloadMgr));
         curl->downloadControler();
         curl->release();
         
-        sleep(5.0f);
+        //sleep(5.0f);
+		Sleep(500);
     }
 
-    
     return 0;
 }
 
@@ -54,23 +52,26 @@ void *threadTask(void* param)
 DownloadMgr::DownloadMgr():m_fPercent(0.0f),m_bDecompress(false)
 {
     pthread_mutex_init(&g_downloadMutex, NULL);
-    memset(&m_hDownThread, 0, sizeof(pthread_t));
+
+    memset(&m_hThreadDownload, 0, sizeof(pthread_t));
     
     Director::getInstance()->getScheduler()->schedule(CC_SCHEDULE_SELECTOR(::DownloadMgr::update), this, 0, false);
-    
 }
+
 DownloadMgr::~DownloadMgr()
 {
-    
     pthread_mutex_destroy(&g_downloadMutex);
-    if (m_hDownThread) {
+
+    if (m_hThreadDownload.p) 
+	{
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-        pthread_cancel(m_hDownThread);
+        pthread_cancel(m_hThreadDownload);
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        pthread_kill(m_hDownThread,0);
+        pthread_kill(m_hThreadDownload,0);
 #endif
-        m_hDownThread = 0;
+        m_hThreadDownload.p = 0;
+		m_hThreadDownload.x = 0;
     }
 
     Director::getInstance()->getScheduler()->unschedule(CC_SCHEDULE_SELECTOR(::DownloadMgr::update), this);
@@ -80,23 +81,22 @@ DownloadMgr::~DownloadMgr()
 DownloadMgr *DownloadMgr::getInstance()
 {
     
-    if (!s_shareDownManager)
+    if (!s_pDownloadMgr)
     {
-        s_shareDownManager = new (std::nothrow) DownloadMgr();
-        CCASSERT(s_shareDownManager, "FATAL: Not enough memory");
-        s_shareDownManager->init();
+        s_pDownloadMgr = new (std::nothrow) DownloadMgr();
+        CCASSERT(s_pDownloadMgr, "FATAL: Not enough memory");
+        s_pDownloadMgr->init();
  
     }
     
-    return s_shareDownManager;
+    return s_pDownloadMgr;
 }
 
-
+// 初始化
 bool DownloadMgr::init()
 {
-    
     m_fPercent = 0.0f;
-    m_eCurrenKind = kind_default;
+	m_emGameCurrent = EM_GAME_DEFALUT;
     
     //创建线程
     pthread_attr_t attr;
@@ -105,58 +105,58 @@ bool DownloadMgr::init()
     
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
     
-    int code = pthread_create(&m_hDownThread, 0, threadTask, this);
+    int code = pthread_create(&m_hThreadDownload, 0, threadTask, this);
     
     if(code!=0)
     {
         CCLOG("线程创建失败");
-        
         return false;
     }
     
     //4/4 join
-    pthread_detach(m_hDownThread);
-    
-    
+    pthread_detach(m_hThreadDownload);
+
     return true;
 }
 
-bool DownloadMgr::createTaskforDown(const string targetUrl, const string filePath,LIST_Kind kind /*= Game_None*/)
+bool DownloadMgr::createTaskforDown(const string strTargetUrl, const string strFilePath, EM_GAME emGame /*= Game_None*/)
 {
-    
-    for (auto  curl :downQueue)
+    for (auto curl : m_vecCurlDownloadQueue)
     {
-        if (targetUrl.compare(curl->mDownloadUrl) == 0)
-        {
-            DebugLog("资源已存在于队列中");
-            return false;
-        }
+		if (strTargetUrl.compare(curl->m_strDownloadUrl) == 0)
+		{
+			//DebugLog("资源已存在于队列中");
+			return false;
+		}
     }
     
-    CurlDown *curldown = CurlDown::create(targetUrl, filePath);
-    curldown->m_ekind = kind;
-    curldown->retain();
+    CurlDownload *curlDownload = CurlDownload::create(strTargetUrl, strFilePath);
+
+    curlDownload->m_emGame = emGame;
+    curlDownload->retain();
     
     pthread_mutex_lock(&g_downloadMutex);
-    downQueue.push_back(curldown);
+    m_vecCurlDownloadQueue.push_back(curlDownload);
     pthread_mutex_unlock(&g_downloadMutex);
 
-     //通知下载线程，处于下载状态
+    //通知下载线程，处于下载状态
     _sleepCondition.notify_one();
     
     return true;
 }
 
-bool DownloadMgr::getDownInfo(LIST_Kind eKind)
+bool DownloadMgr::getDownInfo(EM_GAME eKind)
 {
     UserDefault *downloadDefault = UserDefault::getInstance();
      __String *str = __String::createWithFormat("GAME_%d",eKind);
     Data data = downloadDefault->getDataForKey(str->getCString());
     if(nullptr != data.getBytes())
     {
-        DownLoadInfo info;
-        memset(&info, 0, sizeof(DownLoadInfo));
-        memcpy(&info, data.getBytes(), sizeof(DownLoadInfo));
+		ST_DOWNLOAD_INFO stDownloadInfo;
+
+		memset(&stDownloadInfo, 0, sizeof(ST_DOWNLOAD_INFO));
+		memcpy(&stDownloadInfo, data.getBytes(), sizeof(ST_DOWNLOAD_INFO));
+
         return true;
     }
     
@@ -164,26 +164,36 @@ bool DownloadMgr::getDownInfo(LIST_Kind eKind)
 
 }
 
-bool DownloadMgr::setDownInfo(LIST_Kind eKind)
+bool DownloadMgr::setDownInfo(EM_GAME emGame)
 {
-    
     //写入下载记录
-    DownLoadInfo info;
-    info.kindID  = eKind;
-    info.status  = DownLoadDone;
+	ST_DOWNLOAD_INFO stDownloadInfo;
+
+    stDownloadInfo.emGame			= emGame;
+    stDownloadInfo.emDownloadStatus = EM_DOWNLOAD_DONE;
     
     UserDefault *downloadDefault = UserDefault::getInstance();
-    __String *str = __String::createWithFormat("GAME_%d",info.kindID);
-    Data *data = new Data;
+
+    __String *str = __String::createWithFormat("GAME_%d", stDownloadInfo.emGame);
+
+    Data *pData = new Data;
+
     BYTE dataBuffer[256];
+
     memset(&dataBuffer, 0, sizeof(BYTE)*256);
-    memcpy(dataBuffer, &info, sizeof(DownLoadInfo));
+	memcpy(dataBuffer, &stDownloadInfo, sizeof(ST_DOWNLOAD_INFO));
     
-    data->copy(dataBuffer, sizeof(DownLoadInfo));
-    downloadDefault->setDataForKey(str->getCString(), *data);
+	pData->copy(dataBuffer, sizeof(ST_DOWNLOAD_INFO));
+
+    downloadDefault->setDataForKey(str->getCString(), *pData);
     downloadDefault->flush();
     
-    delete data;
+	if (nullptr != pData)
+	{
+		delete pData;
+		pData = nullptr;
+	}
+
     return true;
 }
 
@@ -195,39 +205,44 @@ void DownloadMgr::onError(int errorCode,Ref *down)
 
 void DownloadMgr::onProgress(double percent, void *delegate, string filefullPath,Ref *down)
 {
-    CurlDown *curl = dynamic_cast<CurlDown *>(down);
+    CurlDownload *curlDownload = dynamic_cast<CurlDownload *>(down);
     
     m_fPercent = percent;
-    m_eCurrenKind = curl->m_ekind;
+	m_emGameCurrent = curlDownload->m_emGame;
 }
 
 void DownloadMgr::onSuccess(string filefullPath,Ref *down)
 {
     DebugLog("下载完成");
 
-    CurlDown *curl = dynamic_cast<CurlDown *>(down);
+    CurlDownload *curl = dynamic_cast<CurlDownload *>(down);
     
-    string downUrl =curl->mDownloadUrl;
-    LIST_Kind kind = curl->m_ekind;
-    this->setDownInfo(kind);
+    string downUrl =curl->m_strDownloadUrl;
+    EM_GAME emGame = curl->m_emGame;
 
-    
+    this->setDownInfo(emGame);
+
     string fileName = downUrl.substr(downUrl.rfind('/') + 1);
     string zipFile = FileUtils::getInstance()->getWritablePath() + fileName;
 
-    AssetsManagerEx *assets = AssetsManagerEx::create("", "");
-    assets->retain();
-    if (!assets->customDecompress(zipFile))
-    {
-        DebugLog("解压失败");
-    }
+	AssetsManagerEx *pAssetsMgrEx = AssetsManagerEx::create("", "");
+    pAssetsMgrEx->retain();
+
+	// todo 2017/12/17 to be continue 未解压
+	/*if (!pAssetsMgrEx->customDecompress(zipFile))
+	{
+		DebugLog("解压失败");
+	}*/
+
     DebugLog("解压成功");
-    assets->release();
+
+	pAssetsMgrEx->release();
+
     //解压成功
     m_bDecompress = true;
+
     if (FileUtils::getInstance()->removeFile(zipFile))
     {
-        
         DebugLog("删除zip成功");
     }else
     {
@@ -242,7 +257,7 @@ void DownloadMgr::update(float time)
     if (m_bDecompress)
     {
         
-        onDecompressSuccess(m_eCurrenKind);
+        onDecompressSuccess(m_emGameCurrent);
         
         m_bDecompress = false;
         return;
@@ -253,20 +268,23 @@ void DownloadMgr::update(float time)
     
     //进度更新
     EventCustom event(whNd_Download_Update);
-    DownRefresh refresh;
-    memset(&refresh, 0, sizeof(DownRefresh));
-    refresh.eKind = this->m_eCurrenKind;
-    refresh.dPercent = this->m_fPercent;
-    event.setUserData(&refresh);
+	ST_DOWNLOAD_REFRESH stDownloadRefresh;
+
+	memset(&stDownloadRefresh, 0, sizeof(ST_DOWNLOAD_REFRESH));
+
+    stDownloadRefresh.emGame = this->m_emGameCurrent;
+    stDownloadRefresh.dDownloadPercent = this->m_fPercent;
+
+    event.setUserData(&stDownloadRefresh);
+
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
     
     int nPercent = m_fPercent;
+
     if (nPercent == 100)
     {
-        onTaskSuccess(m_eCurrenKind);
+        onTaskSuccess(m_emGameCurrent);
         m_fPercent = 0.0f;
     }
-        
-    
 }
 

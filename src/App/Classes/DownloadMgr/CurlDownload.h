@@ -9,13 +9,14 @@
  *
  ************************************************************************************/
 
-#ifndef __download__CurlDown__
-#define __download__CurlDown__
+#ifndef __CURL_DOWNLOAD_H__
+#define __CURL_DOWNLOAD_H__
 
-#include <iostream>
 #include "cocos2d.h"
+#include <iostream>
 #include <stdio.h>
 #include <unistd.h>
+#include <pthread.h>
 #include "../Common/PublicDefine.h"
 
 using namespace cocos2d;
@@ -29,10 +30,6 @@ typedef std::function<void(string,Ref*)> SuccessCallFunc;
 
 class CurlDownload : public Ref
 {
-private:
-    string mFileName; // 下载文件名称
-    bool isStop;
-
 public:
     ~CurlDownload();
     CurlDownload();
@@ -51,19 +48,22 @@ public:
     
     void setStopDown();// 停止下载
     
-    enum ErrorCode
+    typedef enum EM_ERR_CODE
     {
         // Error caused by creating a file to store downloaded data
-        kCreateFile,
+        EM_ERR_CODE_CREATE_FILE,
+
         /** Error caused by network
          -- network unavaivable
          -- timeout
          -- ...
          */
-        kNetwork,
+        EM_ERR_CODE_NETWORK,
+
         /** There is not a new version
          */
-        kNoNewVersion,
+        EM_ERR_CODE_NO_NEW_VERSION,
+
         /** Error caused in uncompressing stage
          -- can not open zip file
          -- can not read file global information
@@ -71,19 +71,25 @@ public:
          -- can not create a directory
          -- ...
          */
-        kUncompress,
+        EM_ERR_CODE_UNCOMPRESS,
     };
     
- public:
-    ErrorCallFunc       errorCodeFunc;
-    ProgressCallFunc    progressCallFunc;
-    SuccessCallFunc     successCallFunc;
+public:
+    ErrorCallFunc       m_errorCodeFunc;
+    ProgressCallFunc    m_progressCallFunc;
+    SuccessCallFunc     m_successCallFunc;
 
+	string		m_strFileName;					// 下载文件名称
 	string		m_strFilePath;					// 本地存储地址
 	string		m_strDownloadUrl;				// 下载URL
+
+	bool		m_bIsStop;
+
 	double		m_dFileLenth;					// 下载文件大小
+
 	long		m_lDownloadTimeout;				// 请求超时时间 为了测试用 设置超时时间为2秒 如果是发正式版本 改为20秒超时时间
-	ENUM_GAME   m_listKind;						// 游戏类型
+
+	EM_GAME		m_emGame;						// 游戏类型
 };
 
 #endif /* defined(__muli_download__CurlDown__) */

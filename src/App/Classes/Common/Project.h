@@ -20,13 +20,13 @@
 #define ADDRESS_WHhttp      ADDRESS_WHhttp6603
 #define LOGON_ADDRESS_YM    ADDRESS_WH6603				//登陆域名
 #define LOGON_PORT          8400						//登陆端口
-#define LOGON_KIND_ID        508						//游戏id
+#define LOGON_KIND_ID       508							//游戏id
 
 //#define LOGON_KIND_ID       27						//NIUNIU
 #define PAGE_TABLE_COUNT    1							//每页桌子个数
 
 //通用验证 演示平台验证
-static const char* szCompilatio="6F6AEE2F-53CD-4EF2-B876-35D57D81C7AC";
+static const char* szCompilatio = "6F6AEE2F-53CD-4EF2-B876-35D57D81C7AC";
 
 //AES偏移向量
 

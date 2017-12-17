@@ -91,7 +91,7 @@ bool TaskScene::init()
     m_scrollView->setItemsMargin(30.0f);
     _layout->addChild(m_scrollView);
     
-    _layout->setScaleX(JudgeScale);
+    _layout->setScaleX(JUDGE_SCALE);
     this->addChild(_layout);
     
     return true;

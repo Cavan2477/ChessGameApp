@@ -123,15 +123,15 @@ void NetworkMgr::SocketDelegateWithRecvData(void *socket, void *pData, WORD wSiz
     CTCPSocket* pScoket=(CTCPSocket*)socket;
     
     //数据转换
-    TCP_Buffer tcpBuffer;
-    memset(&tcpBuffer,0,sizeof(TCP_Buffer));
+    _stTcpBuffer tcpBuffer;
+    memset(&tcpBuffer,0,sizeof(_stTcpBuffer));
     memcpy(&tcpBuffer,pData,wSize);
     
     //命令码
-    uint wMainCmdID = tcpBuffer.Head.CommandInfo.wMainCmdID;
-    uint wSubCmdID	= tcpBuffer.Head.CommandInfo.wSubCmdID;
+    uint wMainCmdID = tcpBuffer.Head.stTCPCmd.wMainCmdID;
+    uint wSubCmdID	= tcpBuffer.Head.stTCPCmd.wSubCmdID;
     void* buffer = tcpBuffer.cbBuffer;
-    uint size = tcpBuffer.Head.TCPInfo.wPacketSize - sizeof(TCP_Head);
+    uint size = tcpBuffer.Head.stTCPInfo.wPacketSize - sizeof(_stTcpHead);
     
     CCLOG("MainCmdID:%d,SubCmdID:%d",wMainCmdID,wSubCmdID);
     switch (pScoket->getData())
@@ -174,14 +174,14 @@ void NetworkMgr::sendData(WORD wMainCmdID, WORD wSubCmdID, void *buffer, WORD wS
         psocket = m_pSocketData;
     }
     if (psocket) {
-        TCP_Buffer tcp_buffer;
-        memset(&tcp_buffer,0,sizeof(TCP_Buffer));
-        tcp_buffer.Head.CommandInfo.wMainCmdID=wMainCmdID;
-        tcp_buffer.Head.CommandInfo.wSubCmdID=wSubCmdID;
+        _stTcpBuffer tcp_buffer;
+        memset(&tcp_buffer,0,sizeof(_stTcpBuffer));
+        tcp_buffer.Head.stTCPCmd.wMainCmdID=wMainCmdID;
+        tcp_buffer.Head.stTCPCmd.wSubCmdID=wSubCmdID;
         
         memcpy(&tcp_buffer.cbBuffer,buffer,wSize);
         
-        psocket->socketSend((char*)&tcp_buffer, wSize+sizeof(TCP_Head));
+        psocket->socketSend((char*)&tcp_buffer, wSize+sizeof(_stTcpHead));
     }
 }
 
@@ -730,11 +730,11 @@ void NetworkMgr::networkGRSystem(WORD wSubCmdID, void *pData, WORD wSize)
 
 void NetworkMgr::sendPacket_Compilatio(CTCPSocket *socket)
 {
-    TCP_Validate validate;
-    memset(&validate, 0, sizeof(TCP_Validate));
+    _stTcpValidate validate;
+    memset(&validate, 0, sizeof(_stTcpValidate));
     UTF8Str_To_UTF16Str(szCompilatio,validate.szValidateKey);
     
-    this->sendData(MDM_KN_COMMAND, SUB_KN_VALIDATE_SOCKET, &validate, sizeof(TCP_Validate),socket);
+    this->sendData(MDM_KN_COMMAND, SUB_KN_VALIDATE_SOCKET, &validate, sizeof(_stTcpValidate),socket);
     
     CCLOG("		发送验证");
 }

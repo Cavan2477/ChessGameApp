@@ -1,16 +1,20 @@
-//
-//  SceneMgr.hpp
-//  DouDiZhu
-//
-//  Created by zhong on 1/11/16.
-//
-//
+/************************************************************************************
+ * file: 		SceneMgr.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/17 21:22:29
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/17			
+ *
+ ************************************************************************************/
 
-#ifndef SceneMgr_hpp
-#define SceneMgr_hpp
+#ifndef __SCENE_MGR_H__
+#define __SCENE_MGR_H__
 
 #include <stdio.h>
 #include "CocosHeader.h"
+#include "../../Pattern/Singleton.h"
 #include "../../LibExt/UIInterface.h"
 
 #define SCENE_CREATE_RETURN(SCENE_NAME, CLASS) \
@@ -21,9 +25,11 @@
     if (0 == strcmp(SCENE_NAME, CLASS::getSceneName().c_str())) \
         return CLASS::uiAsynLoadResource(); \
 
+#define HEART_TIME (60.0f)
+
 class SceneMgr
 {
-    CREATE_SINGLETON_MUTEX_CLEAR(SceneMgr, s_sceneInstance, nullptr);
+	CREATE_SINGLETON_MUTEX_CLEAR(SceneMgr, s_pSceneMgrInstance, nullptr);
 
     void init();
     void clear();
@@ -69,7 +75,7 @@ private:
     
     void onLoadFinishi();
 private:
-    static SceneMgr* s_sceneInstance;
+    static SceneMgr* s_pSceneMgrInstance;
     
     //总加载数量
     size_t m_nTotalCount;
@@ -99,4 +105,5 @@ private:
     //
     float m_fTmpProgress;
 };
+
 #endif /* SceneMgr_hpp */

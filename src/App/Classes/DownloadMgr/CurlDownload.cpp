@@ -1,55 +1,71 @@
-
+/************************************************************************************
+ * file: 		CurlDownload.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/17 19:32:03
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/17			
+ *
+ ************************************************************************************/
 
 #include "CurlDownload.h"
+
+// ios
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-
     #include <curl/include/ios/curl/curl.h>
-#endif
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+// android
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     #include <curl/include/android/curl/curl.h>
+// win32
+#else
+	#include <curl/include/win32/curl/curl.h>
 #endif
 
+#include <bullet/BulletMultiThreaded/TrbStateVec.h>
 
 static pthread_mutex_t g_downloadMutex_1;
 
-CurlDownload::~CurlDownload(){
-    m_dFileLenth = 0;
-    
-    errorCodeFunc = nullptr;
-    progressCallFunc = nullptr;
-    successCallFunc = nullptr;
-    
-}
 CurlDownload::CurlDownload():
-isStop(false),
+m_bIsStop(false),
 m_strDownloadUrl(""),
 m_lDownloadTimeout(20),
-errorCodeFunc(nullptr),
-progressCallFunc(nullptr),
-successCallFunc(nullptr)
+m_errorCodeFunc(nullptr),
+m_progressCallFunc(nullptr),
+m_successCallFunc(nullptr)
 { 
     m_dFileLenth = 0;
     m_strFilePath = "";
+
     pthread_mutex_init(&g_downloadMutex_1, NULL);
 }
 
 CurlDownload::CurlDownload(string downUrl,string filePath):
 m_dFileLenth(0),
-isStop(false),
+m_bIsStop(false),
 m_strDownloadUrl(downUrl),
 m_lDownloadTimeout(20),
 m_strFilePath(filePath),
-errorCodeFunc(nullptr),
-progressCallFunc(nullptr),
-successCallFunc(nullptr)
+m_errorCodeFunc(nullptr),
+m_progressCallFunc(nullptr),
+m_successCallFunc(nullptr)
 {
     pthread_mutex_init(&g_downloadMutex_1, NULL);
+}
+
+CurlDownload::~CurlDownload()
+{
+	m_dFileLenth = 0;
+
+	m_errorCodeFunc = nullptr;
+	m_progressCallFunc = nullptr;
+	m_successCallFunc = nullptr;
 }
 
 CurlDownload* CurlDownload::create(const std::string downUrl, const std::string filePath)
 {
     CurlDownload* ret = new (std::nothrow) CurlDownload(downUrl, filePath);
+
     if (ret)
     {
         ret->autorelease();
@@ -65,30 +81,31 @@ CurlDownload* CurlDownload::create(const std::string downUrl, const std::string 
 #pragma mark- 控制方法
 void CurlDownload::downloadControler()
 {
-
     // 获取远程文件大小
     m_dFileLenth = getDownloadFileLenth();
+
     if (m_dFileLenth <= 0)
     {
         cout << "-------------------------------download file fail..." << endl;
-        if(errorCodeFunc == nullptr)
+        if(m_errorCodeFunc == nullptr)
             return;
         
-        errorCodeFunc(kNetwork,this);
+        m_errorCodeFunc(EM_ERR_CODE_NETWORK,this);
         return;
     }
+
     vector<string> searchPaths = FileUtils::getInstance()->getSearchPaths();
     vector<string>::iterator iter = searchPaths.begin();
     searchPaths.insert(iter, m_strFilePath);
     FileUtils::getInstance()->setSearchPaths(searchPaths);
     
     log("--------------------------mFileLenth:%f",m_dFileLenth);
-	mFileName = m_strDownloadUrl.substr(m_strDownloadUrl.rfind('/') + 1);
+	m_strFileName = m_strDownloadUrl.substr(m_strDownloadUrl.rfind('/') + 1);
 
     
-    log("mFileName:%s;",mFileName.c_str());
+    log("mFileName:%s;",m_strFileName.c_str());
 
-    m_strFilePath = m_strFilePath + mFileName;
+    m_strFilePath = m_strFilePath + m_strFileName;
     log("mFilePath:%s",m_strFilePath.c_str());
     
     bool ret = false;
@@ -96,45 +113,51 @@ void CurlDownload::downloadControler()
     {
         // 循环下载 每30秒进行下载 避免断网情况
         ret = download(); //直接下载 进行堵塞线程
-        log("----stop---%s------",isStop?"true":"false");
-        if (isStop)
-        { // 如果进行停止 break
+
+        log("----stop---%s------",m_bIsStop?"true":"false");
+
+		// 如果进行停止 break
+        if (m_bIsStop)
+        { 
             log("----stop---------");
             break;
         }
-        if (ret )
-        { //下载完成
+
+		//下载完成
+        if (ret)
             break;
-        }
-        sleep(0.5); //每次下载中间间隔0.5秒
+
+		// todo 2017/12/17 to be continue
+		// sleep(0.5);
+        Sleep(500);			//每次下载中间间隔0.5秒
     }
     
     if (ret)
     {
         log("download ok");
-        if(successCallFunc == nullptr)
+        if(m_successCallFunc == nullptr)
         {
             return;
         }
         
-        successCallFunc(m_strFilePath,this);
+        m_successCallFunc(m_strFilePath,this);
        
     } else
     {
         log("download fail");
-        if(errorCodeFunc == nullptr)
+        if(m_errorCodeFunc == nullptr)
             return;
         
-        errorCodeFunc(kUncompress,this);
+        m_errorCodeFunc(EM_ERR_CODE_UNCOMPRESS,this);
     }
 }
 
 void CurlDownload::setStopDown()
 {
     pthread_mutex_lock(&g_downloadMutex_1);
-    isStop = true;
+    m_bIsStop = true;
     pthread_mutex_unlock(&g_downloadMutex_1);
-    log("----stop------%s------",isStop?"true":"false");
+    log("----stop------%s------",m_bIsStop?"true":"false");
 }
 
 #pragma mark 进行文件写入本地回调函数
@@ -154,10 +177,10 @@ static int my_progress_func(void *ptr, double totalToDownload, double nowDownloa
     double curpercent = nowDown / curlDown->m_dFileLenth * 100;
     
     
-    if(nullptr == curlDown->progressCallFunc)
+    if(nullptr == curlDown->m_progressCallFunc)
         return 0;
     
-    curlDown->progressCallFunc(curpercent,ptr, curlDown->m_strFilePath,curlDown);
+    curlDown->m_progressCallFunc(curpercent,ptr, curlDown->m_strFilePath,curlDown);
     return 0;
 }
 
@@ -185,13 +208,16 @@ long CurlDownload::getLocalFileLength()
 }
 
 #pragma mark 进行下载
-bool CurlDownload::download() {
+bool CurlDownload::download() 
+{
     FILE *fp = NULL;
+
     if(access(m_strFilePath.c_str(), 0)==0)
     {
         // 以二进制形式追加
         fp = fopen(m_strFilePath.c_str(), "ab+");
-    } else
+    } 
+	else
     {
         // 二进制写
         fp = fopen(m_strFilePath.c_str(), "wb");
@@ -205,11 +231,15 @@ bool CurlDownload::download() {
     
     // 读取本地文件下载大小
     long localFileLenth = getLocalFileLength(); //已经下载的大小
-    log("filePath:%s；leng:%ld",m_strFilePath.c_str() , localFileLenth );
+
+    log("filePath:%s；leng:%ld",m_strFilePath.c_str() , localFileLenth);
     
     CURL *handle = curl_easy_init();
+
     std::string packageUrl = m_strDownloadUrl; //下载地址+下载文件名
+
     curl_easy_setopt(handle, CURLOPT_URL, packageUrl.c_str());
+
     curl_easy_setopt(handle, CURLOPT_TIMEOUT, m_lDownloadTimeout);
     curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, my_write_func);   //写文件回调方法
     curl_easy_setopt(handle, CURLOPT_WRITEDATA, fp); // 写入文件对象
@@ -251,19 +281,19 @@ long CurlDownload::getDownloadFileLenth()
 void CurlDownload::setErrorCallFunc(const ErrorCallFunc &error)
 {
     
-    errorCodeFunc = error;
+    m_errorCodeFunc = error;
 }
 
 void CurlDownload::setProgressCallFunc(const ProgressCallFunc &progress)
 {
     
-    progressCallFunc = progress;
+    m_progressCallFunc = progress;
 }
 
 void CurlDownload::setSuccessCallFunc(const SuccessCallFunc &success)
 {
     
-    successCallFunc = success;
+    m_successCallFunc = success;
     
 }
 

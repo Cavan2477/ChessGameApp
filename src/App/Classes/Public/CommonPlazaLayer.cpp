@@ -142,7 +142,7 @@ bool CommonPlazaLayer::init()
         _UserLevel->setPosition(Vec2(170, 100));
         m_infoLayout->addChild(_UserLevel);
         
-        m_root->setScaleX(JudgeScale);
+        m_root->setScaleX(JUDGE_SCALE);
         this->addChild(m_root);
         
         //购买

@@ -9,25 +9,27 @@
  *
  ************************************************************************************/
 
-#ifndef __SceneHeader_H__
-#define __SceneHeader_H__
+#ifndef __SCENE_HEADER_H__
+#define __SCENE_HEADER_H__
 
-//牛牛场景
-#include "NiuNiuScene.h"
+// 游戏场景添加
 
-//百家乐场景
-#include "BaiJiaLeScene.h"
+//牛牛
+#include "../Game/NiuNiu/Header/NiuNiuScene.h"
+
+//百家乐
+//#include "BaiJiaLeScene.h"
 
 //李逵劈鱼
-#include "LkpyScene.h"
+//#include "LkpyScene.h"
 
 //百人牛牛
-#include "BRNNScene.h"
+//#include "BRNNScene.h"
 
 //扎金花
-#include "ZjhScene.h"
+//#include "ZjhScene.h"
 
 //通比牛牛
-#include "TBNNScene.h"
+//#include "TBNNScene.h"
 
 #endif

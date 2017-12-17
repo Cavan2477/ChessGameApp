@@ -7,30 +7,31 @@
 //
 
 #include "Help.h"
-#include "md5.h"
-#include "HallDataMgr.h"
+#include "../Utils/MD5/md5.h"
+#include "../Utils/Gif/gif_lib.h"
+#include "../DataMgr/HallDataMgr.h"
 #include "cocostudio/DictionaryHelper.h"
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include <CommonCrypto/CommonDigest.h>
-#include <sys/types.h>
-
-#include <sys/socket.h> // Per msqr
-#include <sys/sysctl.h>
-#include <net/if.h>
-#include <net/if_dl.h>
-#include "iconv.h"
+	#include <CommonCrypto/CommonDigest.h>
+	#include <sys/types.h>
+	#include <sys/socket.h> // Per msqr
+	#include <sys/sysctl.h>
+	#include <net/if.h>
+	#include <net/if_dl.h>
+	#include "iconv.h"
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)//预编译 判断是否是android平台
+	#include <jni.h>
+	#include "platform/android/jni/JniHelper.h"
+	#include <android/log.h>
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)//预编译 判断是否是android平台
-#include <jni.h>
-#include "platform/android/jni/JniHelper.h"
-#include <android/log.h>
-#endif
-
-#include "gif_lib.h"
 USING_NS_CC;
+
 using namespace cocostudio;
-static    pthread_t               m_sThread;                  //线程句丙
+
+static    pthread_t               m_sThread;                  //线程句柄
+
 int UTF8_To_UCS4( const BYTE* pbUTF8, DWORD& dwUCS4 )
 {
     INT i, iLen;
@@ -188,19 +189,21 @@ int WHConverUnicodeToUtf8(char* destUtf8, WORD srcUnicode)
 }
 
 //数组:unicode -> utf8
-const std::string WHConverUnicodeToUtf8WithArray( WORD srcUnicode[])
+const std::string WHConverUnicodeToUtf8WithArray(WORD srcUnicode[])
 {
     WORD wIndex=0;
-    for (int i=0; ; i++){
+
+    for (int i=0; ; i++)
+	{
         if(srcUnicode[i])
-        {
             wIndex += 1;
-        }
         else
             break;
     }
+
     std::u16string ptest((const char16_t *)srcUnicode, wIndex);
     std::string str;
+
     StringUtils::UTF16ToUTF8(ptest, str);
     
     return str;
@@ -218,12 +221,12 @@ LONGLONG getsystemtomillisecond()
 
 const std::string getCurrentTime()
 {
-    struct timeval tv;
-    memset(&tv, 0, sizeof(tv));
-    gettimeofday(&tv, NULL);
+    struct timeval timeval;
+    memset(&timeval, 0, sizeof(timeval));
+    gettimeofday(&timeval, NULL);
     
     struct tm* ptime;
-    ptime = localtime(&tv.tv_sec);
+    ptime = localtime(&timeval.tv_sec);
     std::string timestr = cocos2d::__String::createWithFormat("%02d/%02d", ptime->tm_hour, ptime->tm_min)->getCString();
     return timestr;
 }
@@ -254,13 +257,13 @@ void getCurrentVersion(WORD kindID)
         
         if (response == NULL)
         {
-            HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+            HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
             HallDataMgr::getInstance()->_versionCheckcallback();
             return;
         }
         if (response->isSucceed() == false)
         {
-            HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+            HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
             HallDataMgr::getInstance()->_versionCheckcallback();
             return;
         }
@@ -268,7 +271,7 @@ void getCurrentVersion(WORD kindID)
         int nsize = (int)buffer->size();
         if (nsize == 0)
         {
-            HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+            HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
             HallDataMgr::getInstance()->_versionCheckcallback();
             return;
         }
@@ -320,14 +323,14 @@ void getCurrentVersion(WORD kindID)
         }else
         {
             
-            HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+            HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
             HallDataMgr::getInstance()->_versionCheckcallback();
         }
 #endif
         
         
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+        HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
         HallDataMgr::getInstance()->_versionCheckcallback();
 #endif
         
@@ -363,11 +366,13 @@ const std::string MD5Encrypt(const std::string &str)
     md5_passwd((char *)str.c_str(), md5p);
     std::string test;
     test.append(md5p);
-    for (int index=0; index<test.size(); ++index) {
-        if (test[index] >='a' && test[index] <= 'z') {
+
+    for (int index=0; index<test.size(); ++index) 
+	{
+        if (test[index] >='a' && test[index] <= 'z') 
             test[index] -= 32;
-        }
     }
+
     return test;
 }
 
@@ -386,8 +391,8 @@ const std::string getScoreString(LONGLONG score)
         if (scorestr.substr(4,1) == ".") {
             scorestr = scorestr.substr(0,4);
         }
-        scorestr.append("万");
-        return scorestr;
+		scorestr.append("万");
+		return scorestr;
     }
     scorestr = scorestr.substr(0,length-6);
     scorestr.insert(length-8, ".");
@@ -434,7 +439,7 @@ void Labellengthdeal(cocos2d::Label *plabel , float length)
         plabel->setScale(length/plabel->getContentSize().width);
     }
 }
-const std::string File(ENUM_GAME kind,const std::string &res)
+const std::string File(EM_GAME kind,const std::string &res)
 {
     
     std::string file = "";
@@ -453,11 +458,9 @@ const std::string File(ENUM_GAME kind,const std::string &res)
     {
         DebugLog("文件不存在");
         assert(false);
-        
     }
     
     return file;
-    
 }
 
 //mac address

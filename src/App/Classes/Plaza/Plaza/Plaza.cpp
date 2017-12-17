@@ -253,7 +253,7 @@ bool Plazz::init()
         {
             continue;
         }
-        ENUM_GAME eTag = (ENUM_GAME)list->getTag();
+        EM_GAME eTag = (EM_GAME)list->getTag();
         
         list->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type)
                                     {
@@ -320,7 +320,7 @@ bool Plazz::init()
     
   
 
-    layout->setScaleX(JudgeScale);
+    layout->setScaleX(JUDGE_SCALE);
     this->addChild(layout);
     
     //购买
@@ -683,7 +683,7 @@ void Plazz::notifyDownRefresh(cocos2d::EventCustom *event)
     memset(&refresh, 0, sizeof(ST_DOWNLOAD_REFRESH));
     memcpy(&refresh, data, sizeof(ST_DOWNLOAD_REFRESH));
     
-    ENUM_GAME eCurrentKind = refresh.emGame;
+    EM_GAME eCurrentKind = refresh.emGame;
     int  nPercent = refresh.dDownloadPercent;
     
     char buf[32] = "";
@@ -1016,7 +1016,7 @@ void Plazz::buttonEventWithLock(cocos2d::Ref *target, cocos2d::ui::Widget::Touch
     }
 }
 //MARK::CallBack
-void Plazz::onTaskSuccess(ENUM_GAME kind)
+void Plazz::onTaskSuccess(EM_GAME kind)
 {
     
     if (HallDataMgr::getInstance()->m_dwKindID != EM_GAME_DEFALUT)
@@ -1025,13 +1025,13 @@ void Plazz::onTaskSuccess(ENUM_GAME kind)
     HallDataMgr::getInstance()->AddpopLayer("", "正在加载资源...", Type_Wait_Text);
     
 }
-void Plazz::ontaskError(ENUM_GAME kind)
+void Plazz::ontaskError(EM_GAME kind)
 {
     
       HallDataMgr::getInstance()->AddpopLayer("", "资源下载失败", Type_Info_Reminder);
     
 }
-void Plazz::onDecompressSuccess(ENUM_GAME kind)
+void Plazz::onDecompressSuccess(EM_GAME kind)
 {
     
     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
@@ -1043,7 +1043,7 @@ void Plazz::onDecompressSuccess(ENUM_GAME kind)
 
 
 //MARK::游戏入口
-void Plazz::loadingGame(ENUM_GAME game)
+void Plazz::loadingGame(EM_GAME game)
 {
     if (HallDataMgr::getInstance()->m_dwKindID != EM_GAME_DEFALUT)
         return;

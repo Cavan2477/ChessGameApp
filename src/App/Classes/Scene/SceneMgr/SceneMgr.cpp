@@ -1,21 +1,25 @@
-//
-//  SceneMgr.cpp
-//  DouDiZhu
-//
-//  Created by zhong on 1/11/16.
-//
-//
+/************************************************************************************
+ * file: 		SceneMgr.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/17 21:22:49
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/17			
+ *
+ ************************************************************************************/
 
 #include "SceneMgr.h"
-#include "SceneHeader.h"
-#include "PublicDefine.h"
+#include "../SceneHeader.h"
+#include "../../Common/PublicDefine.h"
 
 USING_NS_CC;
+
 using namespace std;
-#define HEART_TIME (60.0f)
 
 static const char* PRELOADER_SCHEDULE_KEY = "scenemgr_preloader";
-SceneMgr* SceneMgr::s_sceneInstance = nullptr;
+
+SceneMgr* SceneMgr::s_pSceneMgrInstance = nullptr;
 
 void SceneMgr::init()
 {
@@ -49,9 +53,9 @@ void SceneMgr::transitionScene(const std::string &scenename, bool bAnimation /*=
             this->preLoadSceneResource(param);
             
             if (!m_bAnimation)
-            {
+			{
                 //INSTANCE(LoadingMgr)->normalLoading();
-                HallDataMgr::getInstance()->AddpopLayer("", "", Type_Wait);
+                HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_WAIT);
             }
         }
     }
@@ -77,7 +81,7 @@ void SceneMgr::preloaderScene(const std::string &scenename, const std::function<
         if (!m_bAnimation)
         {
             //INSTANCE(LoadingMgr)->normalLoading();
-            HallDataMgr::getInstance()->AddpopLayer("", "", Type_Wait);
+            HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_WAIT);
         }
     }
 }
@@ -244,10 +248,10 @@ void SceneMgr::preLoader(float dt)
     }
     
     m_nHeartTime += dt;
-    if (m_nHeartTime > HEART_TIME)
+	if (m_nHeartTime > HEART_TIME)
     {
         //INSTANCE(LoadingMgr)->hideProgressLoading();
-        HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+        HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     }
     
     if (m_nCurrentCount >= m_nTotalCount)
@@ -347,7 +351,7 @@ void SceneMgr::onLoadFinishi()
     
     //INSTANCE(LoadingMgr)->hideProgressLoading();
     //INSTANCE(LoadingMgr)->hideNormalLoading();
-    HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+    HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     
     m_pNextScene = seekScene(m_strNextSceneName);
     //场景切换

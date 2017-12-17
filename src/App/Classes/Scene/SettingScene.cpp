@@ -32,7 +32,7 @@ bool SettingScene::init()
 		return false;
 
 	// 1.set scene information
-	if (!ESScene::initLayerBg(this, PNG_SETTING_BG))
+	if (!ExtBaseScene::initLayerBg(this, PNG_SETTING_BG))
 		return false;
 
 	// 2.

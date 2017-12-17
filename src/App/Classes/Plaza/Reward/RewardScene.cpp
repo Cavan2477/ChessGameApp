@@ -69,7 +69,7 @@ bool RewardScene::init()
     
     _BaseenLayout->setVisible(false);
     
-    _mainLayout->setScaleX(JudgeScale);
+    _mainLayout->setScaleX(JUDGE_SCALE);
     this->addChild(_mainLayout);
     
     //关闭
