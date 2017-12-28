@@ -142,9 +142,6 @@
     <ClCompile Include="..\Classes\MultiPlatform\android\MultiPlatformMgr-android.cpp">
       <Filter>src\MultiPlatform\android</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Public\CommonPlazaLayer.cpp">
-      <Filter>src\Public</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Public\GameGoldMove.cpp">
       <Filter>src\Public</Filter>
     </ClCompile>
@@ -180,6 +177,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Utils\Gif\gifalloc.c">
       <Filter>src\Utils\Gif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plaza\CommonPlazaLayer.cpp">
+      <Filter>src\Plaza</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -390,9 +390,6 @@
     <ClInclude Include="..\Classes\Public\GameGoldMove.h">
       <Filter>src\Public</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Public\CommonPlazaLayer.h">
-      <Filter>src\Public</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Public\HeaderRequest.h">
       <Filter>src\Public</Filter>
     </ClInclude>
@@ -416,6 +413,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Utils\Gif\gif_lib_private.h">
       <Filter>src\Utils\Gif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plaza\CommonPlazaLayer.h">
+      <Filter>src\Plaza</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

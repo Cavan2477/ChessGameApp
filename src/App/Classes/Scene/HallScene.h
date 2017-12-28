@@ -16,8 +16,8 @@
 
 #include "cocos2d.h"
 #include "../Common/GlobalConst.h"
-#include "../BaseUI/Scene/ESScene.h"
 #include "../Scene/SettingScene.h"
+#include "../Scene/ExtBaseScene.h"
 
 class HallScene : public cocos2d::Layer
 {

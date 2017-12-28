@@ -144,10 +144,12 @@ std::string BankSendReceiptLayer::numberTransiform(const std::string &strCount)
                           "亿","拾","佰","仟","万"};
     
     auto len = strCount.length();
+
     for (int i = 0; i < len; ++i)
     {
         str = str + big_num[strCount[i] - 48] + unit[len - i - 1];
     }
+
     return cleanZero(str);
 }
 

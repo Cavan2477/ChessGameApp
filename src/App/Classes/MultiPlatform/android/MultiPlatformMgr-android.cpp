@@ -1,21 +1,28 @@
-//
-//  MultiPlatformMgr-android.cpp
-//  NiuNiu
-//
-//  Created by zhong on 1/4/16.
-//
-//
+/************************************************************************************
+ * file: 		MultiPlatformMgr-android.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/28 21:34:49
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/28			
+ *
+ ************************************************************************************/
 
-#if  CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#include "MultiPlatformMgr-android.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+
+#include "../../MultiPlatform/android/MultiPlatformMgr-android.h"
 #include <jni.h>
 #include "platform/android/jni/JniHelper.h"
-#include "HallDataMgr.h"
-#include "ModeLayer.h"
+#include "../../DataMgr/HallDataMgr.h"
+#include "../../Scene/ModeLayer.h"
+
 #define JAVA_CLASS "com.foxuc.utils.WHHelper"
+
 USING_NS_CC;
 
 #ifdef __cplusplus
+
 extern "C"
 {
     JNIEXPORT void JNICALL Java_com_foxuc_utils_WHHelper_nativeDidPickImgFinish(JNIEnv * env, jobject obj, jstring jStr)

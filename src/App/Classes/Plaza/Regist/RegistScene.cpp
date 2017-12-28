@@ -331,7 +331,7 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         }
         else
         {
-            std::string str = WHConverUnicodeToUtf8WithArray(failuer->szDescribeString);
+            std::string str = WHConverUnicodeToUtf8WithArray(failuer->szDescription);
             HallDataMgr::getInstance()->AddpopLayer("", str, Type_Ensure);
         }
       

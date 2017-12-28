@@ -169,6 +169,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Plaza\Bank\BankScene.cpp" />
     <ClCompile Include="..\Classes\Plaza\Bank\BankSendReceiptLayer.cpp" />
     <ClCompile Include="..\Classes\Plaza\Bank\BankShowScene.cpp" />
+    <ClCompile Include="..\Classes\Plaza\CommonPlazaLayer.cpp" />
     <ClCompile Include="..\Classes\Plaza\Loading\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\Plaza\Notice\Notice.cpp" />
     <ClCompile Include="..\Classes\Plaza\Personal\PersonalScene.cpp" />
@@ -183,7 +184,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Plaza\Shop\AreaPicker.cpp" />
     <ClCompile Include="..\Classes\Plaza\Shop\ShopScene.cpp" />
     <ClCompile Include="..\Classes\Plaza\Task\TaskScene.cpp" />
-    <ClCompile Include="..\Classes\Public\CommonPlazaLayer.cpp" />
     <ClCompile Include="..\Classes\Public\GameGoldMove.cpp" />
     <ClCompile Include="..\Classes\Public\HeaderRequest.cpp" />
     <ClCompile Include="..\Classes\Public\Help.cpp" />
@@ -250,6 +250,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Plaza\Bank\BankScene.h" />
     <ClInclude Include="..\Classes\Plaza\Bank\BankSendReceiptLayer.h" />
     <ClInclude Include="..\Classes\Plaza\Bank\BankShowScene.h" />
+    <ClInclude Include="..\Classes\Plaza\CommonPlazaLayer.h" />
     <ClInclude Include="..\Classes\Plaza\Loading\LoadingScene.h" />
     <ClInclude Include="..\Classes\Plaza\Notice\Notice.h" />
     <ClInclude Include="..\Classes\Plaza\Personal\PersonalScene.h" />
@@ -264,7 +265,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Plaza\Shop\AreaPicker.h" />
     <ClInclude Include="..\Classes\Plaza\Shop\ShopScene.h" />
     <ClInclude Include="..\Classes\Plaza\Task\TaskScene.h" />
-    <ClInclude Include="..\Classes\Public\CommonPlazaLayer.h" />
     <ClInclude Include="..\Classes\Public\GameGoldMove.h" />
     <ClInclude Include="..\Classes\Public\HeaderRequest.h" />
     <ClInclude Include="..\Classes\Public\Help.h" />

@@ -525,7 +525,7 @@ void BankShowScene::updateScore()
     //凭证编号
     DWORD idx = result->dwRecordIndex;
     
-    auto str = WHConverUnicodeToUtf8WithArray(result->szDescribeString);
+    auto str = WHConverUnicodeToUtf8WithArray(result->szDescription);
     auto modeLayer = (ModeLayer*)HallDataMgr::getInstance()->AddpopLayer("操作成功", str , Type_Ensure);
     if (3 == result->cbOperateType)
     {
@@ -565,7 +565,7 @@ void BankShowScene::updateScore()
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
     
     auto result = (CMD_GP_UserInsureFailure *)pData;
-    auto str = WHConverUnicodeToUtf8WithArray(result->szDescribeString);
+    auto str = WHConverUnicodeToUtf8WithArray(result->szDescription);
     HallDataMgr::getInstance()->AddpopLayer("操作失败", str , Type_Ensure);
     
    

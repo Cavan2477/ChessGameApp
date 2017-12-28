@@ -253,7 +253,7 @@ void RankScene::initRankShow()
         _layout->addChild(nick);
         
         //金币
-        Label *coin = Label::createWithSystemFont(__String::createWithFormat("总金币 : %lld",rankData->getUserScore())->getCString(), FONT_DEFAULT, 24);
+        Label *coin = Label::createWithSystemFont(__String::createWithFormat("总金币 : %lld",rankData->getUserScore())->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
         coin->setTextColor(cocos2d::Color4B(243, 239, 147, 255));
         coin->setAnchorPoint(Vec2(0.0,0.5));
         coin->setPosition(Vec2(530,  _layout->getContentSize().height/2));

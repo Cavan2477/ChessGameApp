@@ -1,21 +1,27 @@
-//
-//  MultiPlatformMgr-android.hpp
-//  NiuNiu
-//
-//  Created by zhong on 1/4/16.
-//
-//
+/************************************************************************************
+ * file: 		MultiPlatformMgr-android.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/28 21:33:05
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/28			
+ *
+ ************************************************************************************/
 
-#ifndef MultiPlatformMgr_android_hpp
-#define MultiPlatformMgr_android_hpp
+#ifndef __MULTI_PLATFORM_MGR_ANDROID_H__
+#define __MULTI_PLATFORM_MGR_ANDROID_H__
 
 #include <stdio.h>
-#if  CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#include "MultiPlatformMgr.h"
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+
+#include "../../MultiPlatform/MultiPlatformMgr.h"
 
 class MultiPlatformMgr_android:public MultiPlatformMgr
 {
     friend class MultiPlatformMgr;
+
 public:
     MultiPlatformMgr_android();
     ~MultiPlatformMgr_android();
@@ -37,6 +43,7 @@ public:
     //设备id
     virtual void updateMachineID() override;
 };
+
 #endif
 
 #endif /* MultiPlatformMgr_android_hpp */

@@ -532,7 +532,7 @@ void PersonalScene::userFaceinfoResult(void *pData, WORD wSize)
 void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
 {
     auto presult = (CMD_GP_OperateSuccess *)pData;
-    std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
+    std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescription);
     HallDataMgr::getInstance()->AddpopLayer("系统提示", str, EM_MODE_TYPE_ENSURE);
     HallDataMgr::getInstance()->m_cbGender = m_cbGender;
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
@@ -615,7 +615,7 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
 void PersonalScene::operatefailureResult(void *pData, WORD wSize)
 {
     auto presult = (CMD_GP_OperateFailure *)pData;
-    std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
+    std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescription);
     HallDataMgr::getInstance()->AddpopLayer("错误提示", str, EM_MODE_TYPE_ENSURE);
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
 }

@@ -135,7 +135,7 @@ typedef struct
 typedef struct
 {
 	INT							lErrorCode;								//错误代码
-	TCHAR							szDescribeString[128];				//错误描述
+	TCHAR							szDescription[128];				//错误描述
 }CMD_GR_LogonFailure;
 
 //登录完成
@@ -336,7 +336,7 @@ typedef struct
 typedef struct
 {
 	INT								cbFailureCode;						//错误代码
-	TCHAR							szDescribeString[256];				//描述信息
+	TCHAR							szDescription[256];				//描述信息
 }CMD_GR_RequestFailure;
 
 //用户聊天
@@ -674,7 +674,7 @@ typedef struct
 {
 	BYTE	cbActivityGame;							//游戏动作
 	INT		lErrorCode;								//错误代码
-	TCHAR	szDescribeString[128];					//描述消息
+	TCHAR	szDescription[128];					//描述消息
 }CMD_GR_S_UserInsureFailure;
 
 //用户信息
@@ -690,7 +690,7 @@ typedef struct
 {
     BYTE     cbActivityGame;                        //游戏动作
     BYTE     cbInsureEnabled;                       //使能标识
-    TCHAR    szDescribeString[128];                 //描述消息
+    TCHAR    szDescription[128];                 //描述消息
     
 }CMD_GR_S_UserInsureEnableResult;
 

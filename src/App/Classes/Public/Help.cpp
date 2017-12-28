@@ -1,4 +1,4 @@
-//
+﻿//
 //  Help.cpp
 //  MyGame
 //
@@ -219,15 +219,35 @@ LONGLONG getsystemtomillisecond()
     return time;
 }
 
+//************************************************************************
+// 	Function:	获取当前时间
+//	Privilege:	
+//	Create:		2017/12/28
+//	Author:		Cavan.Liu
+//	Parameter:	
+//	Return:		
+//************************************************************************
 const std::string getCurrentTime()
 {
     struct timeval timeval;
     memset(&timeval, 0, sizeof(timeval));
-    gettimeofday(&timeval, NULL);
+	gettimeofday(&timeval, NULL);
+
+	struct tm *pstTime;
+	time_t timeCur;
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)  
+	time(&timeCur);
+#else  
+	struct cc_timeval stCCTimeval;
+	CCTime::gettimeofdayCocos2d(&stCCTimeval, NULL);
+	timeCur = stCCTimeval.tv_sec;
+#endif
+
+	pstTime = localtime(&timeCur);
     
-    struct tm* ptime;
-    ptime = localtime(&timeval.tv_sec);
-    std::string timestr = cocos2d::__String::createWithFormat("%02d/%02d", ptime->tm_hour, ptime->tm_min)->getCString();
+	std::string timestr = cocos2d::__String::createWithFormat("%02d/%02d", pstTime->tm_hour, pstTime->tm_min)->getCString();
+
     return timestr;
 }
 
@@ -235,15 +255,16 @@ const std::string getCurrentTime()
 const std::string getTimeStr(SCORE timesec)
 {
     time_t _time = timesec;
-    struct tm* ptime;
-    ptime = localtime(&_time);
-    std::string timestr =cocos2d::__String::createWithFormat("%d/%02d/%02d", ptime->tm_year+1900, ptime->tm_mon+1, ptime->tm_mday)->getCString();
+    struct tm* pstTime;
+    pstTime = localtime(&_time);
+
+    std::string timestr =cocos2d::__String::createWithFormat("%d/%02d/%02d", pstTime->tm_year+1900, pstTime->tm_mon+1, pstTime->tm_mday)->getCString();
+
     return timestr;
 }
 
 void getCurrentVersion(WORD kindID)
 {
-    
     struct timeval tv;
     memset(&tv, 0, sizeof(tv));
     gettimeofday(&tv, NULL);
@@ -378,26 +399,34 @@ const std::string MD5Encrypt(const std::string &str)
 
 const std::string getScoreString(LONGLONG score)
 {
-    std::string scorestr;
-    scorestr = cocos2d::__String::createWithFormat("%lld", score)->getCString();
-    if (score < 10000) {
-        return scorestr;
+    std::string strScore;
+
+    strScore = cocos2d::__String::createWithFormat("%lld", score)->getCString();
+
+    if (score < 10000)
+        return strScore;
+
+    int length = (int) strScore.length();
+
+    if (score < 100000000) 
+	{
+        strScore = strScore.substr(0,length-2);
+        strScore.insert(length-4, ".");
+        strScore = strScore.substr(0,5);
+
+        if (strScore.substr(4,1) == ".")
+            strScore = strScore.substr(0,4);
+
+		strScore.append("万");
+
+		return strScore;
     }
-    int length = (int) scorestr.length();
-    if (score < 100000000) {
-        scorestr = scorestr.substr(0,length-2);
-        scorestr.insert(length-4, ".");
-        scorestr = scorestr.substr(0,5);
-        if (scorestr.substr(4,1) == ".") {
-            scorestr = scorestr.substr(0,4);
-        }
-		scorestr.append("万");
-		return scorestr;
-    }
-    scorestr = scorestr.substr(0,length-6);
-    scorestr.insert(length-8, ".");
-    scorestr.append("亿");
-    return scorestr;
+
+    strScore = strScore.substr(0,length-6);
+    strScore.insert(length-8, ".");
+    strScore.append("亿");
+
+    return strScore;
 }
 
 const std::string getScorewithComma(LONGLONG score ,const std::string & plusstr)
@@ -456,8 +485,8 @@ const std::string File(EM_GAME kind,const std::string &res)
     
     if (!_utils->isFileExist(file))
     {
-        DebugLog("文件不存在");
-        assert(false);
+        //DebugLog("文件不存在");
+		assert(false);
     }
     
     return file;

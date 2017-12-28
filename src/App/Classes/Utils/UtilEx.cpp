@@ -1,4 +1,15 @@
-﻿#include "UtilEx.h"
+﻿/************************************************************************************
+ * file: 		UtilEx.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/28 22:08:20
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/28			
+ *
+ ************************************************************************************/
+
+#include "UtilEx.h"
 #include "stdlib.h"
 #include <ctype.h>
 

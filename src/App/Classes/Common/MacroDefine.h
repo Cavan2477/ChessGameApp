@@ -371,8 +371,8 @@ typedef struct _stSysTime
 #define INVALID_IP_ADDRESS(IPAddress)	(((IPAddress==0L)||(IPAddress==INADDR_NONE)))
 
 //跟踪输出
-#define DebugLog(_FORMAT, ...)		cocos2d::log("---------------------------------------------------------COCOS2D: %s",_FORMAT, ##__VA_ARGS__)
-#define DebugFileLine(_FORMAT, ...) cocos2d::log("COCOS2D:%s %d %s",__FILE__,__LINE__,_FORMAT, ##__VA_ARGS__)
+#define DebugLog(_FORMAT, ...)		cocos2d::log("---------------------------------------------------------COCOS2D: %s",_FORMAT,##__VA_ARGS__)
+#define DebugFileLine(_FORMAT, ...) cocos2d::log("COCOS2D:%s %d %s",__FILE__,__LINE__,_FORMAT,##__VA_ARGS__)
 
 #pragma pack(0)
 

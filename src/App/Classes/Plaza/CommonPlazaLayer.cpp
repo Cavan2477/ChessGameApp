@@ -1,41 +1,38 @@
-//
-//  CommonPlazaLayer.cpp
-//  GameProject
-//
-//  Created by zhong on 3/25/16.
-//
-//
+﻿/************************************************************************************
+ * file: 		CommonPlazaLayer.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/28 22:36:04
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/28			
+ *
+ ************************************************************************************/
 
 #include "CommonPlazaLayer.h"
-#include"cocostudio/CocoStudio.h"
-#include "Help.h"
-#include "Notice.h"
-#include "HallDataMgr.h"
-#include "NetworkMgr.h"
-
-#include "BankShow.h"
-#include "Task.h"
-#include "Personal.h"
-#include "Shop.h"
-#include "Rank.h"
-#include "Setting.h"
-#include "Reward.h"
+#include "cocostudio/CocoStudio.h"
+#include "../Public/Help.h"
+#include "../DataMgr/HallDataMgr.h"
+#include "../DataMgr/NetworkMgr.h"
+#include "Notice/Notice.h"
+#include "Bank/BankShowScene.h"
+#include "Task/TaskScene.h"
+#include "Personal/PersonalScene.h"
+#include "Shop/ShopScene.h"
+#include "Rank/RankScene.h"
+#include "Setting/SettingScene.h"
+#include "Reward/RewardScene.h"
 
 USING_NS_CC;
+
 using namespace ui;
 
-enum CommonPlazaTag
-{
-    TAG_MainLayout = 50,
-    TAG_LockMachine,
-    TAG_UnlockMachine
-};
 CommonPlazaLayer::CommonPlazaLayer():
 m_root(nullptr),
-_headSprite(nullptr),
-_UserLevel(nullptr),
-_UserScore(nullptr),
-_UserNikcName(nullptr)
+m_headerRequestSprite(nullptr),
+m_pLabelUserLevel(nullptr),
+m_pLabelUserScore(nullptr),
+m_pLabelUserNickname(nullptr)
 {
     
 }
@@ -48,6 +45,7 @@ CommonPlazaLayer::~CommonPlazaLayer()
 bool CommonPlazaLayer::init()
 {
     bool bRes = false;
+
     do
     {
         CC_BREAK_IF(!Layer::init());
@@ -59,16 +57,16 @@ bool CommonPlazaLayer::init()
         m_root->addChild(rootNode);
         
         //大厅标题
-        m_imageTitle = static_cast<ImageView*>(rootNode->getChildByName("Image_3"));
-        CC_ASSERT(m_imageTitle != nullptr);
+        m_pImageViewTitle = static_cast<ImageView*>(rootNode->getChildByName("Image_3"));
+        CC_ASSERT(m_pImageViewTitle != nullptr);
         char tmpBuf[32] = "";
         
         sprintf(tmpBuf, "%d-title.png",HallDataMgr::getInstance()->m_dwKindID);
         auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(tmpBuf);
         if (nullptr != frame)
         {
-            m_imageTitle->loadTexture(tmpBuf,Widget::TextureResType::PLIST);
-            m_imageTitle->setContentSize(Size(frame->getRect().size.width, frame->getRect().size.height));
+            m_pImageViewTitle->loadTexture(tmpBuf,Widget::TextureResType::PLIST);
+            m_pImageViewTitle->setContentSize(Size(frame->getRect().size.width, frame->getRect().size.height));
         }
         else
         {
@@ -76,143 +74,165 @@ bool CommonPlazaLayer::init()
             auto sp = Sprite::create(tmpBuf);
             if (nullptr != sp)
             {
-                m_imageTitle->loadTexture(tmpBuf);
-                m_imageTitle->setContentSize(Size(sp->getContentSize().width, sp->getContentSize().height));
+                m_pImageViewTitle->loadTexture(tmpBuf);
+                m_pImageViewTitle->setContentSize(Size(sp->getContentSize().width, sp->getContentSize().height));
             }
         }
         
         //背景图片
-        m_imageListBack = static_cast<Sprite*>(rootNode->getChildByName("list_back"));
-        CC_ASSERT(m_imageListBack != nullptr);
+        m_pSpriteImageListBack = static_cast<Sprite*>(rootNode->getChildByName("list_back"));
+        CC_ASSERT(m_pSpriteImageListBack != nullptr);
         
         //大厅用户信息
-        m_infoLayout = static_cast<Layout*>(rootNode->getChildByName("info_panel"));
-        CC_ASSERT(m_infoLayout != nullptr);
+        m_pLayoutUserInfo = static_cast<Layout*>(rootNode->getChildByName("info_panel"));
+        CC_ASSERT(m_pLayoutUserInfo != nullptr);
         
         //奖励按钮动画
         Director::getInstance()->getTextureCache()->addImageAsync("plazz/animate.png", [=](Texture2D *)
         {
             SpriteFrameCache::getInstance()->addSpriteFramesWithFile("plazz/animate.plist");
             readAnimation("%d.png", "plazzAnimate", 14, 0.2);
+
             auto pos = Vec2(160, 585);
-            if ((DWORD)kind_default == HallDataMgr::getInstance()->m_dwKindID)
+
+			if ((DWORD)EM_GAME_DEFALUT == HallDataMgr::getInstance()->m_dwKindID)
             {
                 pos = Vec2(116, 585);
             }
             
             auto pframe = SpriteFrameCache::getInstance()->getSpriteFrameByName("0.png");
             auto sprite = Sprite::createWithSpriteFrame(pframe);
+
             sprite->setAnchorPoint(Vec2(.5, .5));
             sprite->setPosition(pos);
-            m_infoLayout->addChild(sprite,10);
+
+            m_pLayoutUserInfo->addChild(sprite,10);
+
             auto paction = RepeatForever::create(Animate::create(AnimationCache::getInstance()->getAnimation("plazzAnimate")));
+
             sprite->runAction(paction);
             
             auto signBtn = Button::create();
+
             signBtn->setScale9Enabled(true);
             signBtn->setContentSize(Size(100, 100));
             signBtn->setPosition(pos);
             signBtn->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithReward, this));
-            m_infoLayout->addChild(signBtn);
+
+            m_pLayoutUserInfo->addChild(signBtn);
         });
         
-        Button *headBtn = static_cast<Button *>(m_infoLayout->getChildByName("head_back_btn"));
-        if(nullptr != headBtn)
+        Button *pBtnHead = static_cast<Button *>(m_pLayoutUserInfo->getChildByName("head_back_btn"));
+
+        if(nullptr != pBtnHead)
         {            
-            headBtn->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithTouchUser, this));
+            pBtnHead->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithTouchUser, this));
         }
         
         //用户昵称
-        _UserNikcName = Label::createWithSystemFont(HallDataMgr::getInstance()->m_pNickName, FONT_DEFAULT, 24);
-        _UserNikcName->setAnchorPoint(Vec2(.0, .5));
-        _UserNikcName->setDimensions(129, _UserNikcName->getContentSize().height + 1);
-        _UserNikcName->setPosition(Vec2(200, 100));
-        m_infoLayout->addChild(_UserNikcName);
+        m_pLabelUserNickname = Label::createWithSystemFont(HallDataMgr::getInstance()->m_pNickName, FONT_TREBUCHET_MS_BOLD, 24);
+        m_pLabelUserNickname->setAnchorPoint(Vec2(.0, .5));
+        m_pLabelUserNickname->setDimensions(129, m_pLabelUserNickname->getContentSize().height + 1);
+        m_pLabelUserNickname->setPosition(Vec2(200, 100));
+        m_pLayoutUserInfo->addChild(m_pLabelUserNickname);
         
         //用户分数
-        _UserScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_DEFAULT, 24);
-        _UserScore->setTextColor(cocos2d::Color4B::YELLOW);
-        Labellengthdeal(_UserScore, 135);
-        _UserScore->setAnchorPoint(Vec2(.0, .5));
-        _UserScore->setPosition(Vec2(180, 60));
-        m_infoLayout->addChild(_UserScore);
+        m_pLabelUserScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_TREBUCHET_MS_BOLD, 24);
+        m_pLabelUserScore->setTextColor(cocos2d::Color4B::YELLOW);
+
+        Labellengthdeal(m_pLabelUserScore, 135);
+        m_pLabelUserScore->setAnchorPoint(Vec2(.0, .5));
+        m_pLabelUserScore->setPosition(Vec2(180, 60));
+        m_pLayoutUserInfo->addChild(m_pLabelUserScore);
         
-        _UserLevel = Label::createWithCharMap("plazz/level_num.png", 10, 13, '0');
-        _UserLevel->setString(__String::createWithFormat("%d",HallDataMgr::getInstance()->m_levelData.wCurrLevelID)->getCString());
-        _UserLevel->setPosition(Vec2(170, 100));
-        m_infoLayout->addChild(_UserLevel);
+        m_pLabelUserLevel = Label::createWithCharMap("plazz/level_num.png", 10, 13, '0');
+        m_pLabelUserLevel->setString(__String::createWithFormat("%d",HallDataMgr::getInstance()->m_levelData.wCurrLevelID)->getCString());
+        m_pLabelUserLevel->setPosition(Vec2(170, 100));
+        m_pLayoutUserInfo->addChild(m_pLabelUserLevel);
         
         m_root->setScaleX(JUDGE_SCALE);
         this->addChild(m_root);
         
         //购买
-        Button *purchaseBtn = static_cast<Button*>(m_infoLayout->getChildByName("btn_purchase"));
-        if (nullptr != purchaseBtn)
+        Button *pBtnPurchase = static_cast<Button*>(m_pLayoutUserInfo->getChildByName("btn_purchase"));
+
+        if (nullptr != pBtnPurchase)
         {
-            purchaseBtn->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithShop, this));
+            pBtnPurchase->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithShop, this));
         }
         
         //银行
-        Button *bank = static_cast<Button *>(m_infoLayout->getChildByName("bank_btn"));
-        if (nullptr != bank)
+        Button *pBtnBank = static_cast<Button *>(m_pLayoutUserInfo->getChildByName("bank_btn"));
+
+        if (nullptr != pBtnBank)
         {
-            bank->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithBank, this));
+            pBtnBank->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithBank, this));
         }
         
         //任务
-        Button *taskBtn = static_cast<Button*>(m_infoLayout->getChildByName("task_btn"));
-        if (nullptr != taskBtn)
+        Button *pBtnTask = static_cast<Button*>(m_pLayoutUserInfo->getChildByName("task_btn"));
+
+        if (nullptr != pBtnTask)
         {
-            taskBtn->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithTask, this));
+            pBtnTask->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithTask, this));
         }
         
         //商城
-        Button *shopBtn = static_cast<Button*>(m_infoLayout->getChildByName("shop_btn"));
-        if (nullptr != shopBtn)
+        Button *pBtnShop = static_cast<Button*>(m_pLayoutUserInfo->getChildByName("shop_btn"));
+
+        if (nullptr != pBtnShop)
         {
-            shopBtn->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithShop, this));
+            pBtnShop->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithShop, this));
         }
         
         //设置
-        Button *setBtn = static_cast<Button*>(m_infoLayout->getChildByName("set_btn"));
-        if (nullptr != setBtn)
+        Button *pBtnSetting = static_cast<Button*>(m_pLayoutUserInfo->getChildByName("set_btn"));
+
+        if (nullptr != pBtnSetting)
         {
-            setBtn->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithSet, this));
+            pBtnSetting->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithSet, this));
         }
         
         //排行榜
-        Button *rankBtn = static_cast<Button*>(m_infoLayout->getChildByName("rank_btn"));
-        if (nullptr != rankBtn)
+        Button *pBtnRank = static_cast<Button*>(m_pLayoutUserInfo->getChildByName("rank_btn"));
+
+        if (nullptr != pBtnRank)
         {
-            rankBtn->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithRank, this));
+            pBtnRank->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithRank, this));
         }
         
         //分享
-        Button *shareBtn = static_cast<Button*>(m_infoLayout->getChildByName("share_btn"));
-        if (nullptr != shareBtn)
+        Button *pBtnShare = static_cast<Button*>(m_pLayoutUserInfo->getChildByName("share_btn"));
+
+        if (nullptr != pBtnShare)
         {
-            shareBtn->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithShare, this));
+            pBtnShare->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithShare, this));
         }
         
         //锁定机器
         std::string file1 = "plazz/bt_unlock_0.png";
         std::string file2 = "plazz/bt_unlock_1.png";
-        int nTag = TAG_LockMachine;
+
+        int nTag = EM_COMMON_PLAZA_LOCK_MACHINE;
+
         if (HallDataMgr::getInstance()->m_cbMoorMachine)    //已经锁定机器
         {
             file1 = "plazz/bt_lock_0.png";
             file2 = "plazz/bt_lock_1.png";
-            nTag = TAG_UnlockMachine;
+            nTag = EM_COMMON_PLAZA_UNLOCK_MACHINE;
         }
-        Button *lockBtn = Button::create(file1,file2,file1);
-        lockBtn->setName("bind_machine");
-        lockBtn->setPosition(Vec2(1084, 590));
-        lockBtn->setTag(nTag);
-        lockBtn->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithLock, this));
-        m_infoLayout->addChild(lockBtn);
+
+        Button *pBtnLock = Button::create(file1,file2,file1);
+        pBtnLock->setName("bind_machine");
+        pBtnLock->setPosition(Vec2(1084, 590));
+        pBtnLock->setTag(nTag);
+        pBtnLock->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithLock, this));
+
+        m_pLayoutUserInfo->addChild(pBtnLock);
         
         bRes = true;
     } while (false);
+
     return bRes;
 }
 
@@ -221,35 +241,38 @@ void CommonPlazaLayer::onEnterTransitionDidFinish()
     Layer::onEnterTransitionDidFinish();
     
     //用户头像
-    if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_NORMAL
-        || HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_VISITOR)
+	if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_NORMAL || 
+        HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_VISITOR)
     {
-        _headSprite = HeaderRequest::createwithFaceID(HallDataMgr::getInstance()->m_wFaceID,
+        m_headerRequestSprite = HeaderRequest::createwithFaceID(HallDataMgr::getInstance()->m_wFaceID,
                                                       HallDataMgr::getInstance()->m_wCustom,
                                                       HallDataMgr::getInstance()->m_dwUserID,
                                                       HallDataMgr::getInstance()->m_cbGender);
     }
-    else if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_RENREN
-             || HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_SINA)
+	else if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_RENREN ||
+             HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_SINA)
     {
-        _headSprite = HeaderRequest::createwithUrl(HallDataMgr::getInstance()->m_MethodHeadUrl,
+        m_headerRequestSprite = HeaderRequest::createwithUrl(HallDataMgr::getInstance()->m_MethodHeadUrl,
                                                    HallDataMgr::getInstance()->m_dwUserID);
     }
-    if(nullptr != _headSprite)
+
+    if(nullptr != m_headerRequestSprite)
     {
-        _headSprite->setHeadSize(70.0);
-        _headSprite->setPosition(Vec2(102, 80));
-        m_infoLayout->addChild(_headSprite);
+        m_headerRequestSprite->setHeadSize(70.0);
+        m_headerRequestSprite->setPosition(Vec2(102, 80));
+        m_pLayoutUserInfo->addChild(m_headerRequestSprite);
     }
     
     Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(whEvent_User_Data_Change, CC_CALLBACK_1(CommonPlazaLayer::notifyFreshInfo, this)), 1);
     
     //公告
-    Notice *notice = Notice::CreateNotice();
-    notice->setAnchorPoint(Vec2(.5, .5));
-    notice->setContentSize(Size(475, 40));
-    notice->setPosition(Vec2(568, 630));
-    m_root->addChild(notice);
+    Notice *pNotice = Notice::CreateNotice();
+
+    pNotice->setAnchorPoint(Vec2(.5, .5));
+    pNotice->setContentSize(Size(475, 40));
+    pNotice->setPosition(Vec2(568, 630));
+
+    m_root->addChild(pNotice);
 }
 
 void CommonPlazaLayer::onExit()
@@ -286,15 +309,16 @@ void CommonPlazaLayer::buttonEventWithTouchUser(cocos2d::Ref *target, cocos2d::u
         if (this->getChildByTag(PERSONAL))
             return;
         
-        Personal *personal = Personal::create();
-        personal->setTag(PERSONAL);
-        personal->setPosition(Vec2(1136, 0));
-        this->addChild(personal);
+		PersonalScene *pPersonalScene = PersonalScene::create();
+
+        pPersonalScene->setTag(PERSONAL);
+        pPersonalScene->setPosition(Vec2(1136, 0));
+
+        this->addChild(pPersonalScene);
         
-        personal->popPersonal();
+        pPersonalScene->popPersonal();
     }
 }
-
 
 void CommonPlazaLayer::buttonEventWithBank(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
@@ -303,24 +327,29 @@ void CommonPlazaLayer::buttonEventWithBank(cocos2d::Ref *target, cocos2d::ui::Wi
         if (this->getChildByTag(BANK))
             return;
         
-        BankShow *bank = BankShow::create();
-        bank->setTag(BANK);
-        bank->setPosition(Vec2(1136, 0));
-        this->addChild(bank);
-        bank->popBank();
+		BankShowScene *pBankShowScene = BankShowScene::create();
+
+        pBankShowScene->setTag(BANK);
+        pBankShowScene->setPosition(Vec2(1136, 0));
+
+        this->addChild(pBankShowScene);
+
+        pBankShowScene->popBank();
     }
-    
 }
 void CommonPlazaLayer::buttonEventWithReward(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
-        Reward *reward = Reward::create();
-        reward->setScale(0.5f);
-        this->addChild(reward);
+		RewardScene *pRewardScene = RewardScene::create();
+
+        pRewardScene->setScale(0.5f);
+
+        this->addChild(pRewardScene);
         
         Sequence *quence = Sequence::createWithTwoActions(ScaleTo::create(0.2f, 1.05), ScaleTo::create(0.2f, 1.0));
-        reward->runAction(quence);
+
+        pRewardScene->runAction(quence);
     }
 }
 
@@ -331,12 +360,14 @@ void CommonPlazaLayer::buttonEventWithShop(Ref* target,cocos2d::ui::Widget::Touc
         if (this->getChildByTag(SHOP))
             return;
         
-        Shop *shop = Shop::create();
-        shop->setTag(SHOP);
-        shop->setPosition(Vec2(1136, 0));
-        this->addChild(shop);
+		ShopScene *pShopScene = ShopScene::create();
+
+        pShopScene->setTag(SHOP);
+        pShopScene->setPosition(Vec2(1136, 0));
+
+        this->addChild(pShopScene);
         
-        shop->popShop();
+        pShopScene->popShop();
     }
 }
 
@@ -347,21 +378,22 @@ void CommonPlazaLayer::buttonEventWithTask(Ref* target,cocos2d::ui::Widget::Touc
         if (this->getChildByTag(TASK))
             return;
         
-        Task *task = Task::create();
-        task->setTag(TASK);
-        task->setPosition(Vec2(1136, 0));
-        this->addChild(task);
-        task->popTask();
+		TaskScene *pTaskScene = TaskScene::create();
+        pTaskScene->setTag(TASK);
+        pTaskScene->setPosition(Vec2(1136, 0));
+
+        this->addChild(pTaskScene);
+
+        pTaskScene->popTask();
     }
-    
 }
 void CommonPlazaLayer::buttonEventWithSet(Ref* target,cocos2d::ui::Widget::TouchEventType type)
 {
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
-        Setting *set = Setting::create();
+		SettingScene *pSettingScene = SettingScene::create();
         
-        this->addChild(set);
+        this->addChild(pSettingScene);
     }
 }
 void CommonPlazaLayer::buttonEventWithRank(Ref* target,cocos2d::ui::Widget::TouchEventType type)
@@ -371,11 +403,13 @@ void CommonPlazaLayer::buttonEventWithRank(Ref* target,cocos2d::ui::Widget::Touc
         if (this->getChildByTag(RANK))
             return;
         
-        Rank *rank = Rank::create();
-        rank->setTag(RANK);
-        rank->setPosition(Vec2(1136, 0));
-        this->addChild(rank);
-        rank->popRank();
+		RankScene *pRankScene = RankScene::create();
+        pRankScene->setTag(RANK);
+        pRankScene->setPosition(Vec2(1136, 0));
+
+        this->addChild(pRankScene);
+
+        pRankScene->popRank();
     }
 }
 void CommonPlazaLayer::buttonEventWithShare(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
@@ -383,9 +417,11 @@ void CommonPlazaLayer::buttonEventWithShare(cocos2d::Ref *target, cocos2d::ui::W
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
         auto pbg = Button::create();
+
         pbg->setScale9Enabled(true);
         pbg->setContentSize(Size(1136, 640));
         pbg->setPosition(Vec2(568, 320));
+
         pbg->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type)
         {
             if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
@@ -393,9 +429,11 @@ void CommonPlazaLayer::buttonEventWithShare(cocos2d::Ref *target, cocos2d::ui::W
                 pbg->removeFromParent();
             }
         });
+
         m_root->addChild(pbg);
         
         auto shareRoot = CSLoader::createNode("share_res/share.csb");
+
         pbg->addChild(shareRoot);
     }
 }
@@ -403,20 +441,23 @@ void CommonPlazaLayer::buttonEventWithShare(cocos2d::Ref *target, cocos2d::ui::W
 void CommonPlazaLayer::buttonEventWithLock(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType tType)
 {
     Widget *pWidget = static_cast<Widget*>(target);
+
     if (Widget::TouchEventType::ENDED == tType)
     {
         switch (pWidget->getTag())
         {
-            case TAG_LockMachine:
+            case EM_COMMON_PLAZA_LOCK_MACHINE:
             {
                 initBindMachine("请输入银行密码绑定机器");
             }
                 break;
-            case TAG_UnlockMachine:
+
+            case EM_COMMON_PLAZA_UNLOCK_MACHINE:
             {
                 initBindMachine("请输入银行密码解除绑定");
             }
                 break;
+
             default:
                 break;
         }
@@ -426,14 +467,16 @@ void CommonPlazaLayer::buttonEventWithLock(cocos2d::Ref *target, cocos2d::ui::Wi
 //MARK:: 等级信息
 void CommonPlazaLayer::LevelUpgrade(void* pData, WORD wSize)
 {
-    CMD_GP_GrowLevelUpgrade *level = (CMD_GP_GrowLevelUpgrade *)pData;
-    HallDataMgr::getInstance()->m_UserScore = level->lCurrScore;
-    HallDataMgr::getInstance()->m_Ingot = level->lCurrIngot;
+    CMD_GP_GrowLevelUpgrade *pLevelUpgrade = (CMD_GP_GrowLevelUpgrade *)pData;
+
+    HallDataMgr::getInstance()->m_UserScore = pLevelUpgrade->lCurrScore;
+    HallDataMgr::getInstance()->m_Ingot = pLevelUpgrade->lCurrIngot;
     
-    _UserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","));
+    m_pLabelUserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","));
     
-    std::string str = WHConverUnicodeToUtf8WithArray(level->szNotifyContent);
-    HallDataMgr::getInstance()->AddpopLayer("", str, Type_Ensure);
+    std::string strNotifyContent = WHConverUnicodeToUtf8WithArray((WORD*)pLevelUpgrade->szNotifyContent);
+
+	HallDataMgr::getInstance()->AddpopLayer("", strNotifyContent, EM_MODE_TYPE_ENSURE);
 }
 
 //等级信息
@@ -441,7 +484,7 @@ void CommonPlazaLayer::LevelInfo(void* pData, WORD wSize)
 {
     memcpy(&HallDataMgr::getInstance()->m_levelData, pData, sizeof(HallDataMgr::getInstance()->m_levelData));
     
-    _UserLevel->setString(__String::createWithFormat("%d",HallDataMgr::getInstance()->m_levelData.wCurrLevelID)->getCString());
+    m_pLabelUserLevel->setString(__String::createWithFormat("%d",HallDataMgr::getInstance()->m_levelData.wCurrLevelID)->getCString());
     
     auto action = CallFunc::create([]
     {
@@ -455,28 +498,33 @@ void CommonPlazaLayer::notifyFreshInfo(cocos2d::EventCustom *event)
     auto type = (__Integer*)event->getUserData();
     switch (type->getValue())
     {
-        case User_Change_Name:
+		// 修改用户名
+		case EM_USER_DATA_CHANGE_NAME:
         {
-            
-            _UserNikcName->setString(HallDataMgr::getInstance()->m_pNickName);
+            m_pLabelUserNickname->setString(HallDataMgr::getInstance()->m_pNickName);
             
         }
             break;
-        case User_Change_Head:
+
+		// 修改用户头像
+		case EM_USER_DATA_CHANGE_HEAD:
         {
             auto ptexture = HallDataMgr::getInstance()->m_Headlist.at(HallDataMgr::getInstance()->m_dwUserID);
+
             if (ptexture)
-            {
-                _headSprite->setTexture(ptexture);
-            }
+                m_headerRequestSprite->setTexture(ptexture);
         }
             break;            
-        case User_Change_Score:
-        case User_Change_Bean:
+
+		// 变更
+		case EM_USER_DATA_CHANGE_SCORE:
+		case EM_USER_DATA_CHANGE_BEAN:
         {
-            _UserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","));
+            m_pLabelUserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","));
         }
+
             break;
+
         default:
             break;
     }
@@ -484,7 +532,7 @@ void CommonPlazaLayer::notifyFreshInfo(cocos2d::EventCustom *event)
 
 void CommonPlazaLayer::hideUserInfo(bool bHide)
 {
-    m_infoLayout->setVisible(!bHide);
+    m_pLayoutUserInfo->setVisible(!bHide);
     
     SpriteFrame *frame = nullptr;
     if (bHide)
@@ -506,7 +554,7 @@ void CommonPlazaLayer::hideUserInfo(bool bHide)
     
     if (nullptr != frame)
     {
-        m_imageListBack->setSpriteFrame(frame);
+        m_pSpriteImageListBack->setSpriteFrame(frame);
     }
 }
 
@@ -571,7 +619,7 @@ void CommonPlazaLayer::initBindMachine(const std::string &title)
                                        }
                                        std::string str = fieldInput->getText();
                                        NetworkMgr::getInstance()->bindingMachine(cbBind, str);
-                                       HallDataMgr::getInstance()->AddpopLayer("", "", Type_Wait);
+									   HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_WAIT);
                                        
                                        color->removeFromParentAndCleanup(true);
                                    }
@@ -606,15 +654,15 @@ void CommonPlazaLayer::initBindMachine(const std::string &title)
 
 void CommonPlazaLayer::operatesuccessResult(void *pData, WORD wSize)
 {
-    HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+    HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     if (nullptr == pData || 0 == wSize)
     {
         return;
     }
-    auto btn = static_cast<Button*>(m_infoLayout->getChildByName("bind_machine"));
+    auto btn = static_cast<Button*>(m_pLayoutUserInfo->getChildByName("bind_machine"));
     std::string normalfile = "plazz/bt_unlock_0.png";
     std::string prefile = "plazz/bt_unlock_1.png";
-    int nTag = TAG_LockMachine;
+    int nTag = EM_COMMON_PLAZA_LOCK_MACHINE;
     if (HallDataMgr::getInstance()->m_cbMoorMachine)
     {
         HallDataMgr::getInstance()->m_cbMoorMachine = 0;
@@ -625,7 +673,7 @@ void CommonPlazaLayer::operatesuccessResult(void *pData, WORD wSize)
         
         normalfile = "plazz/bt_lock_0.png";
         prefile = "plazz/bt_lock_1.png";
-        nTag = TAG_UnlockMachine;
+        nTag = EM_COMMON_PLAZA_UNLOCK_MACHINE;
     }
     if (nullptr != btn)
     {
@@ -635,9 +683,11 @@ void CommonPlazaLayer::operatesuccessResult(void *pData, WORD wSize)
         btn->setTag(nTag);
     }
     
-    auto presult = (CMD_GP_OperateSuccess *)pData;
-    std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
-    HallDataMgr::getInstance()->AddpopLayer("系统提示", str, Type_Ensure);
+    auto pResult = (CMD_GP_OperateSuccess *)pData;
+
+    std::string strResultDes = WHConverUnicodeToUtf8WithArray((WORD*)pResult->szDescription);
+
+	HallDataMgr::getInstance()->AddpopLayer("系统提示", strResultDes, EM_MODE_TYPE_ENSURE);
     
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_OPERATE_SUCCESS);
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_OPERATE_FAILURE);
@@ -645,14 +695,16 @@ void CommonPlazaLayer::operatesuccessResult(void *pData, WORD wSize)
 
 void CommonPlazaLayer::operatefailureResult(void *pData, WORD wSize)
 {
-    HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+	HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
+
     if (nullptr == pData || 0 == wSize)
-    {
         return;
-    }
-    auto presult = (CMD_GP_OperateFailure *)pData;
-    std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
-    HallDataMgr::getInstance()->AddpopLayer("系统提示", str, Type_Ensure);
+
+    auto pResult = (CMD_GP_OperateFailure *)pData;
+
+    std::string strDes = WHConverUnicodeToUtf8WithArray((WORD*)pResult->szDescription);
+
+	HallDataMgr::getInstance()->AddpopLayer("系统提示", strDes, EM_MODE_TYPE_ENSURE);
     
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_OPERATE_SUCCESS);
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_OPERATE_FAILURE);

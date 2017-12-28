@@ -123,40 +123,46 @@ void HeaderRequest::FaceRequest(WORD customID, DWORD userID)
 
 void HeaderRequest::FaceRequestCallback(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
 {
-    if (response == NULL) {
+    if (response == NULL)
         return;
-    }
-    if (response->isSucceed() == false) {
+
+    if (response->isSucceed() == false)
         return;
-    }
-    std::vector<char> *buffer = response->getResponseData();
-    int nsize = (int)buffer->size();
-    if (nsize == 0) {
+
+    std::vector<char> *vecBuffer = response->getResponseData();
+    int nSize = (int)vecBuffer->size();
+
+    if (nSize == 0)
         return;
-    }
-    std::string backdata;
-    backdata.append(buffer->begin(), buffer->end());
+
+    std::string strResponseData;
+    strResponseData.append(vecBuffer->begin(), vecBuffer->end());
     
-    char bytes[nsize + 1];
-    memset(bytes, 0, buffer->size());
-    for (int i = 0; i < nsize/4; ++i)
+	//char bytes[nSize + 1];
+	char szTextureBuff[2048 * 2048 + 1];
+	memset(szTextureBuff, 0, nSize);
+
+    for (int i = 0; i < nSize/4; ++i)
     {
-        bytes[i*4] = backdata[i*4+2];
-        bytes[i*4+1] = backdata[i*4+1];
-        bytes[i*4+2] = backdata[i*4];
-        bytes[i*4+3] = 0xff;
+        szTextureBuff[i*4] = strResponseData[i*4+2];
+        szTextureBuff[i*4+1] = strResponseData[i*4+1];
+        szTextureBuff[i*4+2] = strResponseData[i*4];
+        szTextureBuff[i*4+3] = 0xff;
     }
     
     Texture2D *texture = new Texture2D();
-    texture->initWithData(bytes, nsize, Texture2D::PixelFormat::RGBA8888, 48, 48, cocos2d::Size(48,48));
+    texture->initWithData(szTextureBuff, nSize, Texture2D::PixelFormat::RGBA8888, 48, 48, cocos2d::Size(48,48));
     
     HallDataMgr::getInstance()->m_Headlist.insert(m_userID, texture);
     texture->release();
+
     EventCustom event(FACE_REQUEST_EVENT);
+
     __Integer *value = __Integer::create(m_userID);
+
     event.setUserData(value);
+
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
-    return;
 }
 
 void HeaderRequest::ThirdRequest(const std::string &url)

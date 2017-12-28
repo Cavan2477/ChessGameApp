@@ -16,7 +16,6 @@
 
 #include "cocos2d.h"
 #include "../Common/GlobalConst.h"
-#include "../BaseUI/Scene/ESScene.h"
 
 class SettingScene : public cocos2d::Layer
 {

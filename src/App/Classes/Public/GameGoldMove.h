@@ -1,4 +1,4 @@
-//
+﻿//
 //  GamePoolScore.h
 //  
 //
@@ -50,7 +50,7 @@ public:
 private:
     cocos2d::Vec2 m_beginvec2;
     //向左走向右走
-    bool m_direction;
+    bool m_bDirection;
     
     float	m_OffSet;				// 偏移
     float   m_Span;					// 跨度

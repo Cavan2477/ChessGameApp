@@ -416,7 +416,7 @@ void RewardScene::checkinresult(void *pData, WORD wSize)
     tipsIMG->setPosition(this->getContentSize()/2);
     this->addChild(tipsIMG);
     
-    auto tips = Label::createWithSystemFont(__String::createWithFormat("恭喜您,获取%lld金币",lRewardScore)->getCString(), FONT_DEFAULT, 28);
+    auto tips = Label::createWithSystemFont(__String::createWithFormat("恭喜您,获取%lld金币",lRewardScore)->getCString(), FONT_TREBUCHET_MS_BOLD, 28);
     tips->setAnchorPoint(Vec2(.5, .5));
     tips->setTextColor(Color4B::YELLOW);
     tips->setPosition(tipsIMG->getContentSize()/2);

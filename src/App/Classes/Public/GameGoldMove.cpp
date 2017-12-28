@@ -1,24 +1,29 @@
-//
-//  GameGoldMove.cpp
-//  
-//
-//  Created by wh on 15/11/30.
-//
-//
+﻿/************************************************************************************
+ * file: 		GameGoldMove.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/28 22:32:54
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/28			
+ *
+ ************************************************************************************/
 
 #include "GameGoldMove.h"
+
 USING_NS_CC;
+
 //MARK::DROP
-GoldDrop *GoldDrop::create(const std::string &filename)
+GoldDrop *GoldDrop::create(const std::string &strFileName)
 {
     
-    auto pframe = SpriteFrameCache::getInstance()->getSpriteFrameByName(filename);
+    auto pframe = SpriteFrameCache::getInstance()->getSpriteFrameByName(strFileName);
     if (!pframe)
     {
         return nullptr;
     }
     GoldDrop *pgold = new (std::nothrow) GoldDrop();
-    if (pgold && pgold->initWithSpriteFrameName(filename))
+    if (pgold && pgold->initWithSpriteFrameName(strFileName))
     {
         pgold->autorelease();
         return pgold;
@@ -76,33 +81,38 @@ GameGoldMove *GameGoldMove::create(const std::string &filename)
     return nullptr;
 }
 
-void GameGoldMove::initData(const cocos2d::Vec2 &point)
+void GameGoldMove::initData(const cocos2d::Vec2 &vec)
 {
     this->schedule(CC_CALLBACK_1(GameGoldMove::update, this), 0.013f, "update");
-    this->setPosition(Vec2(point.x-170+std::rand()%340, point.y+50-std::rand()%200));
+    this->setPosition(Vec2(vec.x-170+std::rand()%340, vec.y+50-std::rand()%200));
+
     m_beginvec2 = this->getPosition();
+
     this->setScale(((std::rand()%500 + 500.f)/1000.f));
-    m_direction = std::rand()%2;
-    m_OffSet = m_direction?10.f:-10.f;
+
+    m_bDirection = (std::rand()%2 == 1) ? true : false;
+    m_OffSet = m_bDirection?10.f:-10.f;
     m_Span = ( std::rand()%150 + 1 ) / 10.f;
     m_Height = ( std::rand()%150 + 100 ) / 100.f;
+
     m_bhide = false;
     
     auto paction = RepeatForever::create(Animate::create(AnimationCache::getInstance()->getAnimation("animgold")));
+
     this->runAction(paction);
 }
 
 void GameGoldMove::update(float t)
 {
     // 基准比较
-    int nBegin = m_direction?10:-10;
+    int nBegin = m_bDirection?10:-10;
     
     // 计算位置
     auto posx = (m_OffSet*m_Span) - (nBegin*m_Span) + m_beginvec2.x;
     auto posy = m_beginvec2.y + (m_Height * nBegin * nBegin) - (m_Height * m_OffSet * m_OffSet);
     this->setPosition(Vec2(posx, posy));
     // 修改偏移
-    m_OffSet += m_direction?-0.5f:0.5f;
+    m_OffSet += m_bDirection?-0.5f:0.5f;
     
     if (std::abs(m_OffSet) > std::abs(nBegin) && m_bhide == false) {
         m_bhide = true;

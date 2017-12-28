@@ -1,22 +1,31 @@
-//
-//  CommonPlazaLayer.hpp
-//  GameProject
-//
-//  Created by zhong on 3/25/16.
-//
-//
+﻿/************************************************************************************
+ * file: 		CommonPlazaLayer.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2017/12/28 22:39:52
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2017/12/28			
+ *
+ ************************************************************************************/
 
-#ifndef CommonPlazaLayer_hpp
-#define CommonPlazaLayer_hpp
+#ifndef __COMMON_PLAZA_LAYER_H__
+#define __COMMON_PLAZA_LAYER_H__
 
 #include <stdio.h>
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "define.h"
-#include "HeaderRequest.h"
+#include "../Common/PublicDefine.h"
+#include "../Public/HeaderRequest.h"
 
-class CommonPlazaLayer:public cocos2d::Layer
-,public cocos2d::ui::EditBoxDelegate
+typedef enum
+{
+	EM_COMMON_PLAZA_MAIN_LAYOUT = 50,
+	EM_COMMON_PLAZA_LOCK_MACHINE,
+	EM_COMMON_PLAZA_UNLOCK_MACHINE
+}EM_COMMON_PLAZA;
+
+class CommonPlazaLayer:public cocos2d::Layer, public cocos2d::ui::EditBoxDelegate
 {
 public:
     CommonPlazaLayer();
@@ -67,19 +76,27 @@ private:
     
 private:
     cocos2d::ui::Layout *m_root;
+
     //大厅标题
-    cocos2d::ui::ImageView *m_imageTitle;
+    cocos2d::ui::ImageView *m_pImageViewTitle;
+
     //列表背景
-    cocos2d::Sprite *m_imageListBack;
+    cocos2d::Sprite *m_pSpriteImageListBack;
+
     //用户头像
-    HeaderRequest *_headSprite;
+    HeaderRequest *m_headerRequestSprite;
+
     //用户昵称
-    cocos2d::Label *_UserNikcName;
+    cocos2d::Label *m_pLabelUserNickname;
+
     //用户分数
-    cocos2d::Label *_UserScore;
+    cocos2d::Label *m_pLabelUserScore;
+
     //用户等级
-    cocos2d::Label *_UserLevel;
+    cocos2d::Label *m_pLabelUserLevel;
+
     //用户信息
-    cocos2d::ui::Layout *m_infoLayout;
+    cocos2d::ui::Layout *m_pLayoutUserInfo;
 };
-#endif /* CommonPlazaLayer_hpp */
+
+#endif /* __COMMON_PLAZA_LAYER_H__ */

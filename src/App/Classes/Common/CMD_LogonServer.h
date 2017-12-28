@@ -497,14 +497,14 @@ typedef struct
     DWORD                           dwRecordIndex;                      //记录编号
     SCORE							lUserScore;							//用户金币
     SCORE							lUserInsure;						//银行金币
-    TCHAR							szDescribeString[128];				//描述消息
+    TCHAR							szDescription[128];					//描述消息
 }CMD_GP_UserInsureSuccess;
 
 //银行失败
 typedef struct _CMD_GP_UserInsureFailure
 {
-    INT							lResultCode;						//错误代码
-    TCHAR							szDescribeString[128];				//描述消息
+    INT								lResultCode;						//错误代码
+    TCHAR							szDescription[128];					//描述消息
 }CMD_GP_UserInsureFailure;
 
 //提取结果
@@ -713,7 +713,7 @@ typedef struct _CMD_GP_ExchangeParameter
     DWORD							wPresentExchangeRate;				//魅力游戏币兑换率
     DWORD							wRateGold;							//游戏豆游戏币兑换率
     WORD							wMemberCount;						//会员数目
-    _stMemberParam				MemberParameter[10];				//会员参数
+    _stMemberParam					MemberParameter[10];				//会员参数
 }CMD_GP_ExchangeParameter;
 
 //兑换游戏币
@@ -751,24 +751,24 @@ typedef struct _CMD_GP_ExchangeResult
 //请求配置
 struct CMD_GP_LotteryConfigReq
 {
-    WORD							wKindID;								//游戏标识
+    WORD							wKindID;							//游戏标识
     DWORD							dwUserID;							//用户标识
-    TCHAR							szLogonPass[LEN_MD5];					//登录密码
+    TCHAR							szLogonPass[LEN_MD5];				//登录密码
 };
 
 //抽奖配置
 struct CMD_GP_LotteryConfig
 {
     WORD							wLotteryCount;						//奖项个数
-    _stLotteryItem					LotteryItem[MAX_LOTTERY];				//奖项内容
+    _stLotteryItem					LotteryItem[MAX_LOTTERY];			//奖项内容
 };
 
 //抽奖信息
 struct CMD_GP_LotteryUserInfo
 {
-    BYTE								cbFreeCount;							//免费次数
-    BYTE								cbAlreadyCount;						//已领次数
-    WORD							wKindID;								//游戏标识
+    BYTE							cbFreeCount;						//免费次数
+    BYTE							cbAlreadyCount;						//已领次数
+    WORD							wKindID;							//游戏标识
     DWORD							dwUserID;							//用户标识
     SCORE							lChargeFee;							//抽奖费用
 };
@@ -776,21 +776,21 @@ struct CMD_GP_LotteryUserInfo
 //开始抽奖
 struct CMD_GP_LotteryStart
 {
-    WORD							wKindID;								//游戏标识
+    WORD							wKindID;							//游戏标识
     DWORD							dwUserID;							//用户标识
-    TCHAR							szLogonPass[LEN_MD5];					//登录密码
-    TCHAR							szMachineID[LEN_MACHINE_ID];			//机器序列
+    TCHAR							szLogonPass[LEN_MD5];				//登录密码
+    TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 };
 
 //抽奖结果
 struct CMD_GP_LotteryResult
 {
-    bool								bWined;								//中奖标识
-    WORD							wKindID;								//游戏标识
+    bool							bWined;								//中奖标识
+    WORD							wKindID;							//游戏标识
     DWORD							dwUserID;							//用户标识
     SCORE							lUserScore;							//用户分数
     DOUBLE							dUserBeans;							//用户游戏豆
-    _stLotteryItem					LotteryItem;							//中奖内容
+    _stLotteryItem					LotteryItem;						//中奖内容
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -799,8 +799,8 @@ struct CMD_GP_LotteryResult
 
 struct CMD_GP_QueryUserGameData
 {
-    WORD							wKindID;					//游戏标识
-    DWORD							dwUserID;					//用户标识
+    WORD							wKindID;							//游戏标识
+    DWORD							dwUserID;							//用户标识
     TCHAR							szDynamicPass[LEN_MD5];				//用户密码
 };
 
@@ -850,15 +850,15 @@ struct CMD_GP_MatchSignupResult
 //操作失败
 typedef struct
 {
-    INT							lResultCode;						//错误代码
-    TCHAR							szDescribeString[128];				//描述消息
+    INT								lResultCode;						//错误代码
+    TCHAR							szDescription[128];				//描述消息
 }CMD_GP_OperateFailure;
 
 //操作成功
 typedef struct
 {
-    INT							lResultCode;						//操作代码
-    TCHAR							szDescribeString[128];				//成功消息
+    INT								lResultCode;						//操作代码
+    TCHAR							szDescription[128];				//成功消息
 }CMD_GP_OperateSuccess;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1025,7 +1025,7 @@ typedef struct
 typedef struct
 {
 	INT	lErrorCode;								//错误代码
-	TCHAR	szDescribeString[128];					//错误消息
+	TCHAR	szDescription[128];					//错误消息
 }CMD_MB_LogonFailure;
 
 //升级提示
