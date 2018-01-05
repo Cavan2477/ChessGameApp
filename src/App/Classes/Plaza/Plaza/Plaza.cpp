@@ -599,11 +599,11 @@ void Plazz::editBoxReturn(cocos2d::ui::EditBox* editBox)
 
 void Plazz::sendPacketWithUserLevelInfo()
 {
-    CMD_GP_GrowLevelQueryInfo levelQueryInfo;
-    memset(&levelQueryInfo, 0, sizeof(CMD_GP_GrowLevelQueryInfo));
+    CMD_GP_GROW_LEVEL_QUERY_INFO levelQueryInfo;
+    memset(&levelQueryInfo, 0, sizeof(CMD_GP_GROW_LEVEL_QUERY_INFO));
     levelQueryInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), levelQueryInfo.szMachineID);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), levelQueryInfo.szPassword);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), levelQueryInfo.szMachineID);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), levelQueryInfo.szPassword);
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_GROWLEVEL_QUERY, &levelQueryInfo, sizeof(levelQueryInfo), NetworkMgr::getInstance()->getSocketOnce());
 }
@@ -612,7 +612,7 @@ void Plazz::sendPacketWithUserLevelInfo()
 void Plazz::LevelUpgrade(void* pData, WORD wSize)
 {
     
-    CMD_GP_GrowLevelUpgrade *level = (CMD_GP_GrowLevelUpgrade *)pData;
+    CMD_GP_GROW_LEVEL_UPGRADE *level = (CMD_GP_GROW_LEVEL_UPGRADE *)pData;
     HallDataMgr::getInstance()->m_UserScore = level->lCurrScore;
     HallDataMgr::getInstance()->m_Ingot = level->lCurrIngot;
     
@@ -833,7 +833,7 @@ void Plazz::operatesuccessResult(void *pData, WORD wSize)
         m_btnBindMachine->setTag(nTag);
     }
     
-    auto presult = (CMD_GP_OperateSuccess *)pData;
+    auto presult = (CMD_GP_OPERATE_SUCC *)pData;
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
     HallDataMgr::getInstance()->AddpopLayer("系统提示", str, Type_Ensure);
     
@@ -848,7 +848,7 @@ void Plazz::operatefailureResult(void *pData, WORD wSize)
     {
         return;
     }
-    auto presult = (CMD_GP_OperateFailure *)pData;
+    auto presult = (CMD_GP_OPERATE_FAILURE *)pData;
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
     HallDataMgr::getInstance()->AddpopLayer("系统提示", str, Type_Ensure);
     

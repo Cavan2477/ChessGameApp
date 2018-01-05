@@ -301,7 +301,7 @@ void BankShowScene::initSaveTake()
     
     //刷新信息
     CallFunc *func = CallFunc::create([this]{
-        HallDataMgr::getInstance()->AddpopLayer("","", Type_Wait);this->sendInsureInfo();});
+        HallDataMgr::getInstance()->AddpopLayer("","", EM_MODE_TYPE_WAIT);this->sendInsureInfo();});
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.4f), func));
 }
 
@@ -448,10 +448,10 @@ void BankShowScene::updateScore()
     {
         
         Label *userInsure = static_cast<Label *>(_presentLayout->getChildByTag(BANK_TAG_USERINSURE));
+
         if (nullptr != userInsure)
         {
             userInsure->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserInsure, ","));
-            
         }
     }
 }
@@ -459,9 +459,9 @@ void BankShowScene::updateScore()
 //MARK::开通银行结果
  void BankShowScene:: InsureEnableResult(void* pData, WORD wSize)
 {
-    HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+    HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     
-    auto result = (CMD_GP_UserInsureEnableResult *)pData;
+    auto result = (CMD_GP_USER_INSURE_ENABLE_RESULT *)pData;
     if (result->cbInsureEnabled == 1)
     {
         HallDataMgr::getInstance()->m_cbInsureEnable = 1;
@@ -477,8 +477,9 @@ void BankShowScene::updateScore()
     {
         DebugLog("开通银行失败");
         
-        auto title = WHConverUnicodeToUtf8WithArray(result->szDescribeString);
-        HallDataMgr::getInstance()->AddpopLayer("系统提示", title, Type_Ensure);
+        auto title = WHConverUnicodeToUtf8WithArray((WORD*)result->szDescribeString);
+
+		HallDataMgr::getInstance()->AddpopLayer("系统提示", title, EM_MODE_TYPE_ENSURE);
         
         auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
         this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
@@ -487,9 +488,9 @@ void BankShowScene::updateScore()
 //MARK::银行资料
  void BankShowScene::InsureInfoResult(void* pData, WORD wSize)
 {
-     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+	 HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     
-    if (wSize != sizeof(CMD_GP_UserInsureInfo))
+    if (wSize != sizeof(CMD_GP_USER_INSURE_INFO))
     {
         return;
     }
@@ -510,12 +511,14 @@ void BankShowScene::updateScore()
 //MARK::操作成功
  void BankShowScene::BankSuccedResult(void* pData, WORD wSize)
 {
-    HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+	HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
+
     auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
+
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
     
-    
-    auto result = (CMD_GP_UserInsureSuccess *)pData;
+    auto result = (CMD_GP_USER_INSURE_SUCC *)pData;
+
     HallDataMgr::getInstance()->m_UserInsure = result->lUserInsure;
     HallDataMgr::getInstance()->m_UserScore = result->lUserScore;
     
@@ -525,8 +528,9 @@ void BankShowScene::updateScore()
     //凭证编号
     DWORD idx = result->dwRecordIndex;
     
-    auto str = WHConverUnicodeToUtf8WithArray(result->szDescription);
-    auto modeLayer = (ModeLayer*)HallDataMgr::getInstance()->AddpopLayer("操作成功", str , Type_Ensure);
+	auto str = WHConverUnicodeToUtf8WithArray((WORD*)result->szDescription);
+    auto modeLayer = (ModeLayer*)HallDataMgr::getInstance()->AddpopLayer("操作成功", str , EM_MODE_TYPE_ENSURE);
+
     if (3 == result->cbOperateType)
     {
         modeLayer->setEnsureCallback([=]()
@@ -551,35 +555,38 @@ void BankShowScene::updateScore()
     //大厅金币更新
     EventCustom event(whEvent_User_Data_Change);
     auto value = __Integer::create(User_Change_Score);
+
     event.setUserData(value);
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
     
-    
     DebugLog("银行操作成功");
 }
+
 //MARK::操作失败
  void BankShowScene::BankFailureResult(void* pData, WORD wSize)
 {
-    HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+    HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
     
-    auto result = (CMD_GP_UserInsureFailure *)pData;
-    auto str = WHConverUnicodeToUtf8WithArray(result->szDescription);
-    HallDataMgr::getInstance()->AddpopLayer("操作失败", str , Type_Ensure);
+    auto result = (CMD_GP_USER_INSURE_FAILURE *)pData;
+	auto str = WHConverUnicodeToUtf8WithArray((WORD*)result->szDescription);
+    HallDataMgr::getInstance()->AddpopLayer("操作失败", str , EM_MODE_TYPE_ENSURE);
     
    
     DebugLog("银行操作失败");
     
 }
+
 //MARK::用户信息
  void BankShowScene::BankUserInfoResult(void* pData, WORD wSize)
 {
     DebugLog("银行用户信息");
-    HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+    HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     
-    auto result = (CMD_GP_UserTransferUserInfo *)pData;
-    auto nickname = WHConverUnicodeToUtf8WithArray(result->szAccounts);
+    auto result = (CMD_GP_USER_TRANSFER_USER_INFO *)pData;
+	auto nickname = WHConverUnicodeToUtf8WithArray((WORD*)result->szAccounts);
+
     if (0 == HallDataMgr::getInstance()->m_tagBankSend.nSendType)       //id赠送
     {
         HallDataMgr::getInstance()->m_tagBankSend.sReceiveUserName = nickname;
@@ -598,13 +605,15 @@ void BankShowScene::queryUserInfo(const BYTE &cbType, const std::string &sTarget
 {
     if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
-        CMD_GP_QueryUserInfoRequest request;
-        memset(&request, 0, sizeof(request));
+        CMD_GP_USER_INFO_QUERY_REQUEST stCmdGpUserInfoQueryRequest;
+        memset(&stCmdGpUserInfoQueryRequest, 0, sizeof(stCmdGpUserInfoQueryRequest));
         
-        request.cbByNickName = cbType;
-        UTF8Str_To_UTF16Str(sTarget.c_str(), request.szAccounts);
+        stCmdGpUserInfoQueryRequest.cbByNickName = cbType;
+
+		Utf8ToUtf16(sTarget.c_str(), (WORD*)stCmdGpUserInfoQueryRequest.szAccounts);
+
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
-        NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_USER_INFO_REQUEST, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
+        NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_USER_INFO_REQUEST, &stCmdGpUserInfoQueryRequest, sizeof(stCmdGpUserInfoQueryRequest),NetworkMgr::getInstance()->getSocketOnce());
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
@@ -612,7 +621,7 @@ void BankShowScene::queryUserInfo(const BYTE &cbType, const std::string &sTarget
         memset(&request, 0, sizeof(request));
         
         request.cbByNickName = cbType;
-        UTF8Str_To_UTF16Str(sTarget.c_str(), request.szAccounts);
+		Utf8ToUtf16(sTarget.c_str(), (WORD*)request.szAccounts);
         
         NetworkMgr::getInstance()->sendData(MDM_GR_INSURE, SUB_GR_QUERY_USER_INFO_REQUEST, &request, sizeof(request));
     }
@@ -815,17 +824,17 @@ void BankShowScene::buttonEventWithTouch(cocos2d::Ref *target, cocos2d::ui::Widg
             {
                 if ((strlen(passwordEdit->getText()) == 0) || (strlen(confirmEdit->getText()) == 0))
                 {
-                    HallDataMgr::getInstance()->AddpopLayer("提示","密码不能为空", Type_Ensure);
+                    HallDataMgr::getInstance()->AddpopLayer("提示","密码不能为空", EM_MODE_TYPE_ENSURE);
                     return;
                 }
                 
                 if (password.compare(confirm) != 0)
                 {
-                    HallDataMgr::getInstance()->AddpopLayer("提示","两次输入的密码不一致", Type_Ensure);
+                    HallDataMgr::getInstance()->AddpopLayer("提示","两次输入的密码不一致", EM_MODE_TYPE_ENSURE);
                     return;
                 }
                 
-                HallDataMgr::getInstance()->AddpopLayer("","", Type_Wait);
+                HallDataMgr::getInstance()->AddpopLayer("","", EM_MODE_TYPE_WAIT);
                 sendInsureEnable(password);
             }
         }else  if (btn->getTag() == BANK_TAG_SAVE) //存款
@@ -835,11 +844,11 @@ void BankShowScene::buttonEventWithTouch(cocos2d::Ref *target, cocos2d::ui::Widg
 
             if (strlen(saveNumEdit->getText()) == 0)
             {
-                HallDataMgr::getInstance()->AddpopLayer("提示","存款不能为0", Type_Ensure);
+                HallDataMgr::getInstance()->AddpopLayer("提示","存款不能为0", EM_MODE_TYPE_ENSURE);
                 return;
             }
             
-            HallDataMgr::getInstance()->AddpopLayer("","", Type_Wait);
+            HallDataMgr::getInstance()->AddpopLayer("","", EM_MODE_TYPE_WAIT);
             SCORE saveScore = 0;
             sscanf(saveNumEdit->getText(), "%lld", &saveScore);
             sendSaveScore(saveScore);
@@ -851,7 +860,7 @@ void BankShowScene::buttonEventWithTouch(cocos2d::Ref *target, cocos2d::ui::Widg
             
             if (strlen(takeNumEdit->getText()) == 0)
             {
-                HallDataMgr::getInstance()->AddpopLayer("提示","取款不能为0", Type_Ensure);
+                HallDataMgr::getInstance()->AddpopLayer("提示","取款不能为0", EM_MODE_TYPE_ENSURE);
                 return;
             }
             
@@ -859,11 +868,11 @@ void BankShowScene::buttonEventWithTouch(cocos2d::Ref *target, cocos2d::ui::Widg
             
             if (strlen(passwordEdit->getText()) == 0)
             {
-                HallDataMgr::getInstance()->AddpopLayer("提示","请输入密码", Type_Ensure);
+                HallDataMgr::getInstance()->AddpopLayer("提示","请输入密码", EM_MODE_TYPE_ENSURE);
                 return;
             }
             
-            HallDataMgr::getInstance()->AddpopLayer("","", Type_Wait);
+            HallDataMgr::getInstance()->AddpopLayer("","", EM_MODE_TYPE_WAIT);
             SCORE takeScore = 0;
             sscanf(takeNumEdit->getText(), "%lld", &takeScore);
             sendTakeScore(takeScore, passwordEdit->getText());
@@ -903,7 +912,7 @@ void BankShowScene::buttonEventWithRecord(cocos2d::Ref *target, cocos2d::ui::Wid
         }
         
         
-        HallDataMgr::getInstance()->AddpopLayer("", "正在获取数据...", Type_Wait);
+        HallDataMgr::getInstance()->AddpopLayer("", "正在获取数据...", EM_MODE_TYPE_WAIT);
         
         
          Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(RECORD_REQUEST_EVENT, CC_CALLBACK_1(BankShowScene::RecordReuqcestEvent, this)), 1);
@@ -938,11 +947,11 @@ void BankShowScene::buttonEventWithPresent(cocos2d::Ref *target, cocos2d::ui::Wi
           {
               if (m_nSendType == 0)
               {
-                  HallDataMgr::getInstance()->AddpopLayer("提示", "请输入玩家id", Type_Ensure);
+                  HallDataMgr::getInstance()->AddpopLayer("提示", "请输入玩家id", EM_MODE_TYPE_ENSURE);
               }
               else
               {
-                   HallDataMgr::getInstance()->AddpopLayer("提示", "请输入玩家昵称", Type_Ensure);
+                   HallDataMgr::getInstance()->AddpopLayer("提示", "请输入玩家昵称", EM_MODE_TYPE_ENSURE);
               }
               
               return;
@@ -950,18 +959,18 @@ void BankShowScene::buttonEventWithPresent(cocos2d::Ref *target, cocos2d::ui::Wi
           
           if (num.length() == 0)
           {
-               HallDataMgr::getInstance()->AddpopLayer("提示", "请输入赠送金币数目", Type_Ensure);
+               HallDataMgr::getInstance()->AddpopLayer("提示", "请输入赠送金币数目", EM_MODE_TYPE_ENSURE);
               
               return;
           }
           
           if (password.length() == 0)
           {
-               HallDataMgr::getInstance()->AddpopLayer("提示", "请输入银行密码", Type_Ensure);
+               HallDataMgr::getInstance()->AddpopLayer("提示", "请输入银行密码", EM_MODE_TYPE_ENSURE);
               return;
           }
           
-          HallDataMgr::getInstance()->AddpopLayer("", "", Type_Wait);
+          HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_WAIT);
           SCORE score = 0;
           sscanf(edNum->getText(), "%lld",&score);
           //sendTransferScore(score, password, m_nSendType, target);
@@ -992,7 +1001,7 @@ bool BankShowScene::checkSpaceStr(const std::string str) const
     if (str.find(" ") != std::string::npos)
     {
         //有空格
-        HallDataMgr::getInstance()->AddpopLayer("提示","密码中不能有空格", Type_Ensure);
+        HallDataMgr::getInstance()->AddpopLayer("提示","密码中不能有空格", EM_MODE_TYPE_ENSURE);
  
         return true;
         
@@ -1020,7 +1029,7 @@ void BankShowScene::RecordReuqcestEvent(cocos2d::EventCustom *event)
 void BankShowScene::RecoreRequestCallBack(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response)
 {
     
-     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+     HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     
     if(this->getReferenceCount() == 0)
     {

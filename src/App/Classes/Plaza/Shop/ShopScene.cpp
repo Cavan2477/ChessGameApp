@@ -1197,12 +1197,12 @@ void ShopScene::sendExchangeParameter()
 void ShopScene::sendExchangeBean(DOUBLE beannum)
 {
     if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD) {
-        CMD_GP_ExchangeScoreByBean request;
+        CMD_GP_EXCHANGE_GAME_COIN_BY_BEAN request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.dExchangeBean = beannum;
-        UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_SCORE_BYBEAN, &request, sizeof(request), NetworkMgr::getInstance()->getSocketOnce());
     }
@@ -1213,7 +1213,7 @@ void ShopScene::sendExchangeBean(DOUBLE beannum)
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.dExchangeBean = beannum;
-        UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
         NetworkMgr::getInstance()->sendData(MDM_GR_EXCHANGE, SUB_GR_EXCHANGE_SCORE_BYBEANS, &request, sizeof(request));
     }
 }
@@ -1221,12 +1221,12 @@ void ShopScene::sendExchangeBean(DOUBLE beannum)
 void ShopScene::sendExchangeIngot(SCORE ingotnum)
 {
     if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD) {
-        CMD_GP_ExchangeScoreByIngot request;
+        CMD_GP_EXCHANGE_GAME_COIN_BY_INGOT request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.lExchangeIngot = ingotnum;
-        UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_SCORE_BYINGOT, &request, sizeof(request), NetworkMgr::getInstance()->getSocketOnce());
     }
@@ -1237,7 +1237,7 @@ void ShopScene::sendExchangeIngot(SCORE ingotnum)
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.lExchangeIngot = ingotnum;
-        UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
         NetworkMgr::getInstance()->sendData(MDM_GR_EXCHANGE, SUB_GR_EXCHANGE_SCORE_BYINGOT, &request, sizeof(request));
         
     }
@@ -1245,7 +1245,7 @@ void ShopScene::sendExchangeIngot(SCORE ingotnum)
 
 void ShopScene::ExchangeParameterResult(void *pData, WORD wSize)
 {
-    auto result = (CMD_GP_ExchangeParameter *)pData;
+    auto result = (CMD_GP_EXCHANGE_PARAM *)pData;
     m_IngotRate = result->wExchangeRate;
     m_BeanRate = result->wRateGold;
     
@@ -1258,7 +1258,7 @@ void ShopScene::ExchangeResult(void *pData, WORD wSize)
 {
      HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
     
-    auto result = (CMD_GP_ExchangeResult *)pData;
+    auto result = (CMD_GP_EXCHANGE_GAME_COIN_RESULT *)pData;
     if (result->bSuccessed)
     {
         HallDataMgr::getInstance()->m_UserScore = result->lCurrScore;

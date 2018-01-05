@@ -154,41 +154,38 @@ void TaskScene::clearTaskStatus()
 
 void TaskScene::initTasklist()
 {
-    
     m_scrollView->removeAllChildren();
-    
     
     for (auto iter : m_TaskList)
     {
-    
         Layout *listLayout = Layout::create();
         listLayout->setTag(iter.second->wTaskID + 1000);
         listLayout->setContentSize(Size(994, 166));
+
         if (listLayout->getContentSize().height > m_scrollView->getContentSize().height)
-        {
             m_scrollView->setInnerContainerSize(cocos2d::Size(m_scrollView->getContentSize().width, listLayout->getContentSize().height));
-        }
         else
-        {
             m_scrollView->setInnerContainerSize(cocos2d::Size(m_scrollView->getContentSize().width, m_scrollView->getContentSize().height));
-            
-        }
         
         auto oneList = CSLoader::createNode("task_res/oneTask.csb");
+
         oneList->setContentSize(Size(994, 166));
         oneList->setTag(1000);
         oneList->setAnchorPoint(Vec2(.5, .5));
         oneList->setPosition(450,listLayout->getContentSize().height/2);
+
         listLayout->addChild(oneList);
         
-        std::string des =  WHConverUnicodeToUtf8WithArray(iter.second->szTaskDesc);
+        std::string des =  WHConverUnicodeToUtf8WithArray((WORD*)iter.second->szTaskDesc);
         log("%s\n",des.c_str());
         
-        std::string taskName = WHConverUnicodeToUtf8WithArray(iter.second->szTaskName);
+		std::string taskName = WHConverUnicodeToUtf8WithArray((WORD*)iter.second->szTaskName);
+
         log("任务名称 %s \n",taskName.c_str());
         
         //按钮
         auto takeTask = static_cast<Button *>(oneList->getChildByName("task_take"));
+
         takeTask->setTag(iter.second->wTaskID);
         takeTask->addTouchEventListener([=](Ref *pSender, Widget::TouchEventType type){
            
@@ -202,7 +199,9 @@ void TaskScene::initTasklist()
         
         //任务类型
         int taskType = iter.second->wTaskType;
+
         std::string taskImage = "";
+
         switch (taskType)
         {
             case TASK_TYPE_FIRST_WIN:
@@ -224,6 +223,7 @@ void TaskScene::initTasklist()
         
         //任务描述
         auto describe = static_cast<Text *>(oneList->getChildByName("Text_taskDes"));
+
         describe->setString(des);
         m_scrollView->pushBackCustomItem(listLayout);
         
@@ -232,16 +232,18 @@ void TaskScene::initTasklist()
         int min = iter.second->dwTimeLimit%3600/60;
         int second = iter.second->dwTimeLimit%3600%60;
         
-        auto hourstr = (hour<10)?__String::createWithFormat("0%d时",hour):__String::createWithFormat("%d时",hour);
-        auto minstr = (min<10)?__String::createWithFormat(": 0%d分",min):__String::createWithFormat(": %d分",min);
-        auto secstr = (second<10)?__String::createWithFormat(": 0%d秒",second):__String::createWithFormat(": %d秒",second);
+        auto hourstr = (hour<10) ? __String::createWithFormat("0%d时",hour) : __String::createWithFormat("%d时", hour);
+        auto minstr = (min<10) ? __String::createWithFormat(": 0%d分",min) : __String::createWithFormat(": %d分", min);
+        auto secstr = (second<10) ? __String::createWithFormat(": 0%d秒",second) : __String::createWithFormat(": %d秒", second);
         
         //时
         auto textHour = static_cast<Text *>(oneList->getChildByName("Text_hour"));
         textHour->setString(hourstr->getCString());
+
         //分
         auto textMin = static_cast<Text *>(oneList->getChildByName("Text_min"));
         textMin->setString(minstr->getCString());
+
         //秒
         auto textSec = static_cast<Text *>(oneList->getChildByName("Text_second"));
         textSec->setString(secstr->getCString());
@@ -260,7 +262,6 @@ void TaskScene::initTasklist()
         auto generIngot = static_cast<Text *>(oneList->getChildByName("Text_gener_ingot"));
         generIngot->setString(__String::createWithFormat("%lld",iter.second->lStandardAwardMedal)->getCString());
         
-        
         //进度条
         auto progressTip = static_cast<Sprite *>(oneList->getChildByName("task_progressTip_6"));
         progressTip->setVisible(false);
@@ -273,14 +274,10 @@ void TaskScene::initTasklist()
         
         auto per = static_cast<Text *>(oneList->getChildByName("task_per"));
         per->setVisible(false);
-        
     }
-    
-    
 }
 void TaskScene::updateTask(ST_TASK_STATUS *pstatus, ST_TASK_PARAM *pinfo)
 {
-    
     //目标任务
     auto _layout = static_cast<Layout *>(m_scrollView->getChildByTag(1000 + pinfo->wTaskID));
     auto oneList = static_cast<Node *>(_layout->getChildByTag(1000));
@@ -374,27 +371,25 @@ void TaskScene::updateTask(ST_TASK_STATUS *pstatus, ST_TASK_PARAM *pinfo)
 void TaskScene::sendLoadTask()
 {
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
-    CMD_GP_TaskLoadInfo taskloadinfo;
+    CMD_GP_TASK_LOAD_INFO taskloadinfo;
     memset(&taskloadinfo, 0, sizeof(taskloadinfo));
     taskloadinfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), taskloadinfo.szPassword);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)taskloadinfo.szPassword);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_TASK_LOAD, &taskloadinfo, sizeof(taskloadinfo),NetworkMgr::getInstance()->getSocketOnce());
-    
 }
+
 //请求领取任务
 void TaskScene::sendTakeTask(int taskID)
 {
-    
     CMD_GP_TaskTake TaskTake ;
     memset(&TaskTake, 0, sizeof(CMD_GP_TaskTake));
     TaskTake.wTaskID = taskID;
     TaskTake.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), TaskTake.szPassword);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), TaskTake.szMachineID);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)TaskTake.szPassword);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)TaskTake.szMachineID);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_TASK_TAKE, &TaskTake, sizeof(TaskTake), NetworkMgr::getInstance()->getSocketOnce());
-    
 }
 //请求任务奖励
 void TaskScene::sendTaskReward(int taskID)
@@ -405,8 +400,8 @@ void TaskScene::sendTaskReward(int taskID)
     
     TaskReward.wTaskID = taskID;
     TaskReward.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), TaskReward.szPassword);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), TaskReward.szMachineID);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)TaskReward.szPassword);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)TaskReward.szMachineID);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_TASK_REWARD, &TaskReward, sizeof(TaskReward), NetworkMgr::getInstance()->getSocketOnce());
@@ -419,7 +414,7 @@ void TaskScene::TaskListResult(void* pData, WORD wSize)
     
     this->clearTaskList();
     
-    HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
+    HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     
     WORD wParemeterSize=0;
     BYTE *pDatabuffer=(BYTE*)pData;
@@ -468,7 +463,7 @@ void TaskScene::TaskListResult(void* pData, WORD wSize)
 void TaskScene::TaskInfoResult(void* pData, WORD wSize)
 {
     
-    auto ptaskinfo = static_cast<CMD_GP_TaskInfo *>(pData);
+    auto ptaskinfo = static_cast<CMD_GP_TASK_INFO *>(pData);
     for (int index=0; index<ptaskinfo->wTaskCount; ++index)
     {
         auto pinfo = new ST_TASK_STATUS();
@@ -491,9 +486,9 @@ void TaskScene::TaskResult(void* pData, WORD wSize)
 
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     
-    auto TaskResult = static_cast<CMD_GP_TaskResult *>(pData);
-    std::string tipstr = WHConverUnicodeToUtf8WithArray(TaskResult->szNotifyContent);
-    HallDataMgr::getInstance()->AddpopLayer("系统提示", tipstr, Type_Ensure);
+    auto TaskResult = static_cast<CMD_GP_TASK_RESULT *>(pData);
+	std::string tipstr = WHConverUnicodeToUtf8WithArray((WORD*)TaskResult->szNotifyContent);
+    HallDataMgr::getInstance()->AddpopLayer("系统提示", tipstr, EM_MODE_TYPE_ENSURE);
     if (TaskResult->bSuccessed)
     {
         this->sendLoadTask();
@@ -512,7 +507,7 @@ void TaskScene::TaskResult(void* pData, WORD wSize)
             
             //金币更新
             EventCustom event(whEvent_User_Data_Change);
-            auto value = __Integer::create(User_Change_Score);
+            auto value = __Integer::create(EM_USER_DATA_CHANGE_SCORE);
             event.setUserData(value);
             Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
         }
@@ -537,7 +532,7 @@ void TaskScene::popTask()
 {
     
     CallFunc *func = CallFunc::create([this]{
-        HallDataMgr::getInstance()->AddpopLayer("", "正在加载任务,请稍后...", Type_Wait_Text);
+        HallDataMgr::getInstance()->AddpopLayer("", "正在加载任务,请稍后...", EM_MODE_TYPE_WAIT_TEXT);
         this->sendLoadTask();
         
     });

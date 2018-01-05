@@ -105,7 +105,7 @@ public:
 private:
     int     m_nSendType;		//发送模式	0 id  1昵称
     
-    CMD_GP_UserInsureInfo  m_sInfo;
+    CMD_GP_USER_INSURE_INFO  m_sInfo;
     
     cocos2d::ui::Layout  *               _layout;
     cocos2d::ui::Layout  *               _applyLayout;

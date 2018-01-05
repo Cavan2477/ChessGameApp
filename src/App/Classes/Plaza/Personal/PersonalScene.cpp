@@ -531,7 +531,7 @@ void PersonalScene::userFaceinfoResult(void *pData, WORD wSize)
 
 void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
 {
-    auto presult = (CMD_GP_OperateSuccess *)pData;
+    auto presult = (CMD_GP_OPERATE_SUCC *)pData;
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescription);
     HallDataMgr::getInstance()->AddpopLayer("系统提示", str, EM_MODE_TYPE_ENSURE);
     HallDataMgr::getInstance()->m_cbGender = m_cbGender;
@@ -614,7 +614,7 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
 
 void PersonalScene::operatefailureResult(void *pData, WORD wSize)
 {
-    auto presult = (CMD_GP_OperateFailure *)pData;
+    auto presult = (CMD_GP_OPERATE_FAILURE *)pData;
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescription);
     HallDataMgr::getInstance()->AddpopLayer("错误提示", str, EM_MODE_TYPE_ENSURE);
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
@@ -1031,7 +1031,7 @@ void PersonalScene::sendSystemFaceInfo(WORD wface)
 {
     CMD_GP_SystemFaceInfo SystemFaceInfo;
     memset(&SystemFaceInfo, 0, sizeof(CMD_GP_SystemFaceInfo));
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword, SystemFaceInfo.szPassword);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, SystemFaceInfo.szPassword);
     SystemFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
     SystemFaceInfo.wFaceID = wface;
@@ -1058,7 +1058,7 @@ void PersonalScene::sendCustomFaceInfo(cocos2d::Image *pImage)
     
     CMD_GP_CustomFaceInfo CustomFaceInfo;
     memset(&CustomFaceInfo, 0, sizeof(CustomFaceInfo));
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword, CustomFaceInfo.szPassword);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, CustomFaceInfo.szPassword);
     CustomFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
     memcpy(CustomFaceInfo.dwCustomFace, byte, length);
@@ -1073,7 +1073,7 @@ void PersonalScene::sendAlterIndividual(const std::string &name, BYTE cbgerder, 
     
     CMD_GP_ModifyIndividual modifyindividual;
     memset(&modifyindividual, 0, sizeof(CMD_GP_ModifyIndividual));
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword, modifyindividual.szPassword);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, modifyindividual.szPassword);
     modifyindividual.cbGender = cbgerder;
     modifyindividual.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
@@ -1092,7 +1092,7 @@ void PersonalScene::sendAlterIndividual(const std::string &name, BYTE cbgerder, 
         
         TCHAR tname[wsize];
         memset(tname, 0, sizeof(tname));
-        UTF8Str_To_UTF16Str(name,tname);
+        Utf8ToUtf16(name,tname);
         memcpy(buffer + size, tname, describe.wDataSize);
         size += describe.wDataSize;
     }
@@ -1106,8 +1106,8 @@ void PersonalScene::sendAlterloginPass(const std::string &oldpass, const std::st
     CMD_GP_ModifyLogonPass request;
     memset(&request, 0, sizeof(request));
     request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    UTF8Str_To_UTF16Str(MD5Encrypt(oldpass), request.szScrPassword);
-    UTF8Str_To_UTF16Str(MD5Encrypt(newpass), request.szDesPassword);
+    Utf8ToUtf16(MD5Encrypt(oldpass), request.szScrPassword);
+    Utf8ToUtf16(MD5Encrypt(newpass), request.szDesPassword);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_LOGON_PASS, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
@@ -1118,8 +1118,8 @@ void PersonalScene::sendAlterBankPass(const std::string &oldpass, const std::str
     CMD_GP_ModifyInsurePass request;
     memset(&request, 0, sizeof(request));
     request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    UTF8Str_To_UTF16Str(MD5Encrypt(oldpass), request.szScrPassword);
-    UTF8Str_To_UTF16Str(MD5Encrypt(newpass), request.szDesPassword);
+    Utf8ToUtf16(MD5Encrypt(oldpass), request.szScrPassword);
+    Utf8ToUtf16(MD5Encrypt(newpass), request.szDesPassword);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INSURE_PASS, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());

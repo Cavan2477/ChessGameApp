@@ -283,7 +283,7 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         
         DebugLog("注册成功");
       
-        CMD_MB_LogonSuccess *success = (CMD_MB_LogonSuccess *)pData;
+        CMD_MB_LOGON_SUCC *success = (CMD_MB_LOGON_SUCC *)pData;
         HallDataMgr::getInstance()->m_wFaceID = success->wFaceID;
         HallDataMgr::getInstance()->m_cbGender = success->cbGender;
         HallDataMgr::getInstance()->m_wCustom = success->cbCustomID;
@@ -319,7 +319,7 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         loading->removeFromParent();
         
      
-        CMD_MB_LogonFailure* failuer = (CMD_MB_LogonFailure *)pData;
+        CMD_MB_LOGON_FAILURE* failuer = (CMD_MB_LOGON_FAILURE *)pData;
         auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
         this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.1f), action));
         

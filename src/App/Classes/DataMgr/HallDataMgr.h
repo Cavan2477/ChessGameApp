@@ -72,7 +72,7 @@ public:
     
     cocos2d::Map<int, UserData *> m_UserList;// 用户列表
     
-    CMD_GP_GrowLevelParameter m_levelData;
+    CMD_GP_GROW_LEVEL_PARAM m_levelData;
     
     cocos2d::Vector<cocos2d::__String *> m_chatlist;//系统消息列表
     

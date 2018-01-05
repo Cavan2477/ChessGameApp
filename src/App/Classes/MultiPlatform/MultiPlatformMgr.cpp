@@ -1,13 +1,17 @@
-//
-//  MultiPlatformMgr.cpp
-//  NiuNiu
-//
-//  Created by zhong on 1/4/16.
-//
-//
+/************************************************************************************
+ * file: 		MultiPlatformMgr.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/05 23:10:42
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/05			
+ *
+ ************************************************************************************/
 
 #include "MultiPlatformMgr.h"
 #include "HallDataMgr.h"
+
 MultiPlatformMgr* MultiPlatformMgr::s_multiInstance = nullptr;
 
 MultiPlatformMgr::MultiPlatformMgr()

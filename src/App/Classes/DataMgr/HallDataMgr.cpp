@@ -67,7 +67,7 @@ HallDataMgr* HallDataMgr::getInstance()
 
 cocos2d::Layer* HallDataMgr::AddpopLayer(const std::string &title, const std::string &content, int type,bool close /* = false*/)
 {
-    if (type == Type_Delete)
+    if (type == EM_MODE_TYPE_REMOVE)
     {
         if (m_popLayer != NULL)
         {

@@ -467,7 +467,7 @@ void CommonPlazaLayer::buttonEventWithLock(cocos2d::Ref *target, cocos2d::ui::Wi
 //MARK:: 等级信息
 void CommonPlazaLayer::LevelUpgrade(void* pData, WORD wSize)
 {
-    CMD_GP_GrowLevelUpgrade *pLevelUpgrade = (CMD_GP_GrowLevelUpgrade *)pData;
+    CMD_GP_GROW_LEVEL_UPGRADE *pLevelUpgrade = (CMD_GP_GROW_LEVEL_UPGRADE *)pData;
 
     HallDataMgr::getInstance()->m_UserScore = pLevelUpgrade->lCurrScore;
     HallDataMgr::getInstance()->m_Ingot = pLevelUpgrade->lCurrIngot;
@@ -683,7 +683,7 @@ void CommonPlazaLayer::operatesuccessResult(void *pData, WORD wSize)
         btn->setTag(nTag);
     }
     
-    auto pResult = (CMD_GP_OperateSuccess *)pData;
+    auto pResult = (CMD_GP_OPERATE_SUCC *)pData;
 
     std::string strResultDes = WHConverUnicodeToUtf8WithArray((WORD*)pResult->szDescription);
 
@@ -700,7 +700,7 @@ void CommonPlazaLayer::operatefailureResult(void *pData, WORD wSize)
     if (nullptr == pData || 0 == wSize)
         return;
 
-    auto pResult = (CMD_GP_OperateFailure *)pData;
+    auto pResult = (CMD_GP_OPERATE_FAILURE *)pData;
 
     std::string strDes = WHConverUnicodeToUtf8WithArray((WORD*)pResult->szDescription);
 

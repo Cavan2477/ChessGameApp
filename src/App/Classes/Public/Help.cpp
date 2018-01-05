@@ -121,14 +121,14 @@ INT UCS4_To_UTF16( DWORD dwUCS4, WORD* pwUTF16 )
 }
 
 // 转换UTF8字符串到UTF16字符串
-void UTF8Str_To_UTF16Str( const std::string &str, WORD* pwszUTF16Str )
+void Utf8ToUtf16( const std::string &str, WORD* pwszUTF16Str )
 {
     std::u16string ptest;
     StringUtils::UTF8ToUTF16(str, ptest);
     memcpy(pwszUTF16Str, ptest.c_str(), ptest.length()*2);
 }
 
-int UTF8Str_To_UTF16Str_BYTE( const BYTE* pbszUTF8Str, WORD* pwszUTF16Str )
+int Utf8ToUtf16Byte( const BYTE* pbszUTF8Str, WORD* pwszUTF16Str )
 {
     INT iNum, iLen;
     DWORD dwUCS4;

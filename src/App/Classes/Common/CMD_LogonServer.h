@@ -440,7 +440,7 @@ typedef struct
 
 
 //银行资料
-typedef struct
+typedef struct _stCmdGpUserInsureInfo
 {
     BYTE							cbEnjoinTransfer;					//转帐开关
     WORD							wRevenueTake;						//税收比例
@@ -450,36 +450,36 @@ typedef struct
     SCORE							lUserScore;							//用户金币
     SCORE							lUserInsure;						//银行金币
     SCORE							lTransferPrerequisite;				//转帐条件
-}CMD_GP_UserInsureInfo;
+}CMD_GP_USER_INSURE_INFO;
 
 //开通银行
-typedef struct _CMD_GP_UserEnableInsure
+typedef struct _stCmdGpUserEnableInsure
 {
     DWORD							dwUserID;							//用户I D
     TCHAR							szLogonPass[LEN_PASSWORD];			//登录密码
     TCHAR							szInsurePass[LEN_PASSWORD];			//银行密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-}CMD_GP_UserEnableInsure;
+}CMD_GP_USER_ENABLE_INSURE;
 
 //存入金币
-typedef struct _CMD_GP_UserSaveScore
+typedef struct _stCmdGpUserSaveGold
 {
     DWORD							dwUserID;							//用户 I D
     SCORE							lSaveScore;							//存入金币
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-}CMD_GP_UserSaveScore;
+}CMD_GP_USER_SAVE_GOLD;
 
 //提取金币
-typedef struct _CMD_GP_UserTakeScore
+typedef struct _stCmdGpUserTakeOutGold
 {
     DWORD							dwUserID;							//用户 I D
     SCORE							lTakeScore;							//提取金币
     TCHAR							szPassword[LEN_MD5];				//银行密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-}CMD_GP_UserTakeScore;
+}CMD_GP_USER_TAKE_OUT_GOLD;
 
 //转帐金币
-typedef struct _CMD_GP_UserTransferScore
+typedef struct _stCmdGpUserTransferGold
 {
     DWORD							dwUserID;							//用户 I D
     SCORE							lTransferScore;						//转帐金币
@@ -487,9 +487,10 @@ typedef struct _CMD_GP_UserTransferScore
     TCHAR							szAccounts[LEN_NICKNAME];			//目标用户
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
     TCHAR							szTransRemark[LEN_TRANS_REMARK];	//转帐备注
-}CMD_GP_UserTransferScore;
+}CMD_GP_USER_TRANSFER_GOLD;
+
 //银行成功
-typedef struct
+typedef struct _stCmdGpUserInsureSucc
 {
     BYTE                            cbOperateType;                      //操作类型
     DWORD							dwUserID;							//用户 I D
@@ -498,94 +499,92 @@ typedef struct
     SCORE							lUserScore;							//用户金币
     SCORE							lUserInsure;						//银行金币
     TCHAR							szDescription[128];					//描述消息
-}CMD_GP_UserInsureSuccess;
+}CMD_GP_USER_INSURE_SUCC;
 
 //银行失败
-typedef struct _CMD_GP_UserInsureFailure
+typedef struct _stCmdGpUserInsureFailure
 {
     INT								lResultCode;						//错误代码
     TCHAR							szDescription[128];					//描述消息
-}CMD_GP_UserInsureFailure;
+}CMD_GP_USER_INSURE_FAILURE;
 
 //提取结果
-
-typedef struct _CMD_GP_UserTakeResult
+typedef struct _stCmdGpUserTakeOutResult
 {
     DWORD							dwUserID;							//用户 I D
     SCORE							lUserScore;							//用户金币
     SCORE							lUserInsure;						//银行金币
-}CMD_GP_UserTakeResult;
+}CMD_GP_USER_TAKE_OUT_RESULT;
 
 //查询银行
-typedef struct _CMD_GP_QueryInsureInfo
+typedef struct _stCmdGpUserQueryInsureInfo
 {
     DWORD							dwUserID;							//用户 I D
     TCHAR							szPassword[LEN_MD5];				//银行密码
-}CMD_GP_QueryInsureInfo;
+}CMD_GP_QUERY_INSURE_INFO;
 
 //查询用户
-typedef struct _CMD_GP_QueryUserInfoRequest
+typedef struct _stCmdGpUserInfoQueryRequest
 {
     BYTE                            cbByNickName;                       //昵称赠送
     TCHAR							szAccounts[LEN_ACCOUNT];			//目标用户
-}CMD_GP_QueryUserInfoRequest;
+}CMD_GP_USER_INFO_QUERY_REQUEST;
 
-//用户信息
-typedef struct _CMD_GP_UserTransferUserInfo
+//用户转账信息
+typedef struct _stCmdGpUserTransferUserInfo
 {
     DWORD							dwTargetGameID;						//目标用户
-    TCHAR							szAccounts[LEN_ACCOUNT];			//目标用户
-}CMD_GP_UserTransferUserInfo;
+    TCHAR							szAccounts[LEN_ACCOUNT];			//目标账户
+}CMD_GP_USER_TRANSFER_USER_INFO;
 
 //开通结果
-typedef struct _CMD_GP_UserInsureEnableResult
+typedef struct _stCmdGpUserInsureEnableResult
 {
-    
     BYTE							cbInsureEnabled;					//使能标识
     TCHAR							szDescribeString[128];				//描述消息
-}CMD_GP_UserInsureEnableResult;
+}CMD_GP_USER_INSURE_ENABLE_RESULT;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //查询签到
-typedef struct _CMD_GP_CheckInQueryInfo
+typedef struct _stCmdGpCheckInQueryInfo
 {
     DWORD							dwUserID;							//用户标识
     TCHAR							szPassword[LEN_PASSWORD];			//登录密码
-}CMD_GP_CheckInQueryInfo;
+}CMD_GP_CHECK_IN_QUERY_INFO;
 
 //签到信息
-typedef struct _CMD_GP_CheckInInfo
+typedef struct _stCmdGpCheckInInfo
 {
     WORD							wSeriesDate;						//连续日期
     bool							bTodayChecked;						//签到标识
     SCORE							lRewardGold[LEN_WEEK];				//奖励金币
-}CMD_GP_CheckInInfo;
+}CMD_GP_CHECK_IN_INFO;
 
 //执行签到
-typedef struct _CMD_GP_CheckInDone
+typedef struct _stCmdGpCheckInDone
 {
     DWORD							dwUserID;							//用户标识
     TCHAR							szPassword[LEN_PASSWORD];			//登录密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-}CMD_GP_CheckInDone;
-
+}CMD_GP_CHECK_IN_DONE;
 
 //签到结果
-typedef struct _CMD_GP_CheckInResult
+typedef struct _stCmdGpCheckInResult
 {
     bool							bSuccessed;							//成功标识
     SCORE							lScore;								//当前金币
     TCHAR							szNotifyContent[128];				//提示内容
-}CMD_GP_CheckInResult;
+}CMD_GP_CHECK_IN_RESULT;
 
 //任务服务
+
 //加载任务
-typedef struct _CMD_GP_TaskLoadInfo
+typedef struct _stCmdGpTaskLoadInfo
 {
     
     DWORD							dwUserID;							//用户标识
     TCHAR							szPassword[LEN_PASSWORD];			//用户密码
-}CMD_GP_TaskLoadInfo;
+}CMD_GP_TASK_LOAD_INFO;
 
 //领取任务
 typedef struct _CMD_GP_TaskTake
@@ -597,23 +596,23 @@ typedef struct _CMD_GP_TaskTake
 }CMD_GP_TaskTake;
 
 //领取奖励
-typedef struct _CMD_GP_TaskReward
+typedef struct _stCmdGpTaskReward
 {
     WORD							wTaskID;							//任务标识
     DWORD							dwUserID;							//用户标识
     TCHAR							szPassword[LEN_PASSWORD];			//登录密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-}CMD_GP_TaskReward;
+}CMD_GP_TASK_REWARD;
 
 //任务信息
-typedef struct _CMD_GP_TaskInfo
+typedef struct _stCmdGpTaskInfo
 {
     WORD							wTaskCount;							//任务数量
     ST_TASK_STATUS					TaskStatus[TASK_MAX_COUNT];			//任务状态
-}CMD_GP_TaskInfo;
+}CMD_GP_TASK_INFO;
 
 //任务结果
-typedef struct _CMD_GP_TaskResult
+typedef struct _stCmdGpTaskResult
 {
     //结果信息
     bool							bSuccessed;							//成功标识
@@ -625,165 +624,168 @@ typedef struct _CMD_GP_TaskResult
     
     //提示信息
     TCHAR							szNotifyContent[128];				//提示内容
-}CMD_GP_TaskResult;
+}CMD_GP_TASK_RESULT;
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //低保服务
 
 //领取低保
-typedef struct _CMD_GP_BaseEnsureTake
+typedef struct _stCmdGpBaseEnsureGet
 {
     DWORD							dwUserID;							//用户 I D
     TCHAR							szPassword[LEN_PASSWORD];			//登录密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-}CMD_GP_BaseEnsureTake;
+}CMD_GP_BASE_ENSURE_GET;
 
 //低保参数
-typedef struct _CMD_GP_BaseEnsureParamter
+typedef struct _stCmdGpBaseEnsureParam
 {
     SCORE							lScoreCondition;					//游戏币条件
     SCORE							lScoreAmount;						//游戏币数量
     BYTE							cbTakeTimes;						//领取次数
-}CMD_GP_BaseEnsureParamter;
+}CMD_GP_BASE_ENSURE_PARAM;
 
 //低保结果
-typedef struct _CMD_GP_BaseEnsureResult
+typedef struct _stCmdGpBaseEnsureResult
 {
     bool							bSuccessed;							//成功标识
     SCORE							lGameScore;							//当前游戏币
     TCHAR							szNotifyContent[128];				//提示内容
-}CMD_GP_BaseEnsureResult;
+}CMD_GP_BASE_ENSURE_RESULT;
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 //推广服务
 
 //推广查询
-struct CMD_GP_UserSpreadQuery
+typedef struct _stCmdGpUserSpreadQuery
 {
     DWORD							dwUserID;							//用户标识
-};
+}CMD_GP_USER_SPREAD_QUERY;
+
 //推广参数
-struct CMD_GP_UserSpreadInfo
+typedef struct _stCmdGpUserSpreadParam
 {
     DWORD							dwSpreadCount;						//推广人数
     SCORE							lSpreadReward;						//推广奖励
-};
+}CMD_GP_USER_SPREAD_PARAM;
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 //等级服务
 
 //查询等级
-typedef struct _CMD_GP_GrowLevelQueryInfo
+typedef struct _stCmdGpGrowLevelQueryInfo
 {
     DWORD							dwUserID;							//用户标识
     TCHAR							szPassword[LEN_PASSWORD];			//用户密码
     
     //附加信息
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-}CMD_GP_GrowLevelQueryInfo;
+}CMD_GP_GROW_LEVEL_QUERY_INFO;
 
 //等级配置
-struct CMD_GP_GrowLevelConfig
+typedef struct _stCmdGpGrowLevelConfig
 {
     WORD							wLevelCount;						//等级数目
     _stGrowLevelConfig				GrowLevelItem[60];					//等级配置
-};
+}CMD_GP_GROW_LEVEL_CONFIG;
+
 //等级参数
-typedef struct _CMD_GP_GrowLevelParameter
+typedef struct _stCmdGpGrowLevelParam
 {
     WORD							wCurrLevelID;						//当前等级
     DWORD							dwExperience;						//当前经验
     DWORD							dwUpgradeExperience;				//下级经验
     SCORE							lUpgradeRewardGold;					//升级奖励
     SCORE							lUpgradeRewardIngot;				//升级奖励
-}CMD_GP_GrowLevelParameter;
+}CMD_GP_GROW_LEVEL_PARAM;
 
 //等级升级
-typedef struct _CMD_GP_GrowLevelUpgrade
+typedef struct _stCmdGpGrowLevelUpgrade
 {
     SCORE							lCurrScore;							//当前游戏币
     SCORE							lCurrIngot;							//当前元宝
     TCHAR							szNotifyContent[128];				//提示内容
-}CMD_GP_GrowLevelUpgrade;
+}CMD_GP_GROW_LEVEL_UPGRADE;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 //兑换服务
 
 //查询参数
-typedef struct _CMD_GP_ExchangeParameter
+typedef struct _stCmdGpExchangeParam
 {
     DWORD							wExchangeRate;						//元宝游戏币兑换比率
     DWORD							wPresentExchangeRate;				//魅力游戏币兑换率
     DWORD							wRateGold;							//游戏豆游戏币兑换率
     WORD							wMemberCount;						//会员数目
     _stMemberParam					MemberParameter[10];				//会员参数
-}CMD_GP_ExchangeParameter;
+}CMD_GP_EXCHANGE_PARAM;
 
 //兑换游戏币
-typedef struct _CMD_GP_ExchangeScoreByIngot
+typedef struct _stCmdGpExchangeGameCoinByIngot
 {
-    
     DWORD							dwUserID;							//用户标识
     SCORE							lExchangeIngot;						//兑换元宝
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器标识
-}CMD_GP_ExchangeScoreByIngot;
+}CMD_GP_EXCHANGE_GAME_COIN_BY_INGOT;
 
 //兑换游戏币
-typedef struct _CMD_GP_ExchangeScoreByBean
+typedef struct _stCmdGpExchangeGameCoinByBean
 {
     
     DWORD							dwUserID;							//用户标识
     double							dExchangeBean;						//兑换元宝
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器标识
-}CMD_GP_ExchangeScoreByBean;
+}CMD_GP_EXCHANGE_GAME_COIN_BY_BEAN;
 
 //兑换结果
-typedef struct _CMD_GP_ExchangeResult
+typedef struct _stCmdGpExchangeGameCoinResult
 {
     bool							bSuccessed;							//成功标识
     SCORE							lCurrScore;							//当前游戏币
     SCORE							lCurrIngot;							//当前元宝
     double                          dCurrBeans;                         //当前游戏豆
     TCHAR							szNotifyContent[128];				//提示内容
-}CMD_GP_ExchangeResult;
-
+}CMD_GP_EXCHANGE_GAME_COIN_RESULT;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //抽奖服务
 
 //请求配置
-struct CMD_GP_LotteryConfigReq
+typedef struct _stCmdGpLotteryConfigRequest
 {
     WORD							wKindID;							//游戏标识
     DWORD							dwUserID;							//用户标识
     TCHAR							szLogonPass[LEN_MD5];				//登录密码
-};
+}CMD_GP_LOTTERY_CONFIG_REQUEST;
 
 //抽奖配置
-struct CMD_GP_LotteryConfig
+typedef struct _stCmdGpLotteryConfig
 {
     WORD							wLotteryCount;						//奖项个数
     _stLotteryItem					LotteryItem[MAX_LOTTERY];			//奖项内容
-};
+}CMD_GP_LOTTERY_CONFIG;
 
 //抽奖信息
-struct CMD_GP_LotteryUserInfo
+typedef struct _stCmdGpLotteryUserInfo
 {
     BYTE							cbFreeCount;						//免费次数
     BYTE							cbAlreadyCount;						//已领次数
     WORD							wKindID;							//游戏标识
     DWORD							dwUserID;							//用户标识
     SCORE							lChargeFee;							//抽奖费用
-};
+}CMD_GP_LOTTERY_USER_INFO;
 
 //开始抽奖
-struct CMD_GP_LotteryStart
+typedef struct _stCmdGpLotteryStart
 {
     WORD							wKindID;							//游戏标识
     DWORD							dwUserID;							//用户标识
     TCHAR							szLogonPass[LEN_MD5];				//登录密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-};
+}CMD_GP_LOTTERY_START;
 
 //抽奖结果
-struct CMD_GP_LotteryResult
+typedef struct _stCmdGpLotteryResult
 {
     bool							bWined;								//中奖标识
     WORD							wKindID;							//游戏标识
@@ -791,25 +793,25 @@ struct CMD_GP_LotteryResult
     SCORE							lUserScore;							//用户分数
     DOUBLE							dUserBeans;							//用户游戏豆
     _stLotteryItem					LotteryItem;						//中奖内容
-};
+}CMD_GP_LOTTERY_RESULT;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //游戏服务
 //#pragma once
 
-struct CMD_GP_QueryUserGameData
+typedef struct _stCmdGpQueryUserGameData
 {
     WORD							wKindID;							//游戏标识
     DWORD							dwUserID;							//用户标识
     TCHAR							szDynamicPass[LEN_MD5];				//用户密码
-};
+}CMD_GP_QUERY_USER_GAEM_DATA;
 
 //附加信息
 #define DTP_GP_UI_USER_GAME_DATA	1									//游戏数据
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 //比赛报名
-struct CMD_GP_MatchSignup
+typedef struct _stCmdGpMatchSignUp
 {
     //比赛信息
     WORD							wServerID;							//房间标识
@@ -822,10 +824,10 @@ struct CMD_GP_MatchSignup
     
     //机器信息
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-};
+}CMD_GP_MATCH_SIGN_UP;
 
 //取消报名
-struct CMD_GP_MatchUnSignup
+typedef struct _stCmdGpMatchUnSignUp
 {
     //比赛信息
     WORD							wServerID;							//房间标识
@@ -837,29 +839,30 @@ struct CMD_GP_MatchUnSignup
     
     //机器信息
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-};
+}CMD_GP_MATCH_UN_SIGN_UP;
 
 //报名结果
-struct CMD_GP_MatchSignupResult
+typedef struct _stCmdGpMatchSignUpResult
 {
     bool							bSignup;							//报名标识
     bool							bSuccessed;							//成功标识
     TCHAR							szDescribeString[128];				//描述信息
-};
+}CMD_GP_MATCH_SIGN_UP_RESULT;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //操作失败
-typedef struct
+typedef struct _stCmdGpOperateFailure
 {
     INT								lResultCode;						//错误代码
-    TCHAR							szDescription[128];				//描述消息
-}CMD_GP_OperateFailure;
+    TCHAR							szDescription[128];					//描述消息
+}CMD_GP_OPERATE_FAILURE;
 
 //操作成功
-typedef struct
+typedef struct _stCmdGpOperateSucc
 {
     INT								lResultCode;						//操作代码
-    TCHAR							szDescription[128];				//成功消息
-}CMD_GP_OperateSuccess;
+    TCHAR							szDescription[128];					//成功消息
+}CMD_GP_OPERATE_SUCC;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //远程服务
@@ -874,25 +877,20 @@ typedef struct
 #define SUB_GP_S_SEARCH_CORRESPOND	201									//协调查找
 
 //协调查找
-struct CMD_GP_C_SearchCorrespond
+typedef struct _stCmdGpSearchCorrespondClient
 {
     DWORD							dwGameID;							//游戏标识
     TCHAR							szNickName[LEN_NICKNAME];			//用户昵称
-};
+}CMD_GP_SEARCH_CORRESPOND_CLIENT;
 
 //协调查找
-struct CMD_GP_S_SearchCorrespond
+typedef struct _stCmdGpSearchCorrespondServer
 {
     WORD							wUserCount;							//用户数目
     _stUserRemoteInfo				UserRemoteInfo[16];					//用户信息
-};
-
+}CMD_GP_SEARCH_CORRESPOND_SERVER;
 
 //////////////////////////////////////////////////////////////////////////////////
-
-
-
-
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -902,7 +900,7 @@ struct CMD_GP_S_SearchCorrespond
 //登陆模式
 #define SUB_MB_LOGON_GAMEID			1				//I D登陆
 #define SUB_MB_LOGON_ACCOUNTS		2				//帐号登陆
-#define SUB_MB_REGISITER_ACCOUNTS  3               //注册帐号
+#define SUB_MB_REGISITER_ACCOUNTS	3               //注册帐号
 #define SUB_MB_LOGON_OTHERPLATFORM	4               //其他登陆
 #define SUB_MB_LOGON_VISITOR        5               //游客登录
 #define SUB_MB_ONLINE_CHECK         6               //在线检测
@@ -914,8 +912,10 @@ struct CMD_GP_S_SearchCorrespond
 
 //升级提示
 #define SUB_MB_UPDATE_NOTIFY		200				//升级提示
+
 //游客登录
-typedef struct {
+typedef struct _stCmdMbLogonVisitor
+{
     //系统消息
     WORD                wModuleID;                  //模块标识
     DWORD               dwPlazaVersion;             //广场版本
@@ -924,15 +924,16 @@ typedef struct {
     //连接信息
     TCHAR	szMachineID[LEN_MACHINE_ID];			//机器标识
     TCHAR	szMobilePhone[LEN_MOBILE_PHONE];		//电话号码
-}CMD_MB_LogonVisitor;
+}CMD_MB_LOGON_VISITOR;
 
 //游客验证
-typedef struct {
+typedef struct _stCmdMbOnlineCheck
+{
     DWORD               dwUserID;                   //用户ID
-}CMD_MB_OnlineCheck;
+}CMD_MB_ONLINE_CHECK;
 
 //帐号登陆
-typedef struct
+typedef struct _stCmdMbLogonAccounts
 {
     //系统信息
     WORD	wModuleID;								//模块标识
@@ -946,11 +947,10 @@ typedef struct
     //连接信息
     TCHAR	szMachineID[LEN_MACHINE_ID];			//机器标识
     TCHAR	szMobilePhone[LEN_MOBILE_PHONE];		//电话号码
-    
-}CMD_MB_LogonAccounts;
+}CMD_MB_LOGON_ACCOUNTS;
 
 //注册帐号
-typedef struct
+typedef struct _stCmdMbRegAccounts
 {
     //系统信息
     WORD		wModuleID;							//模块标识
@@ -969,11 +969,10 @@ typedef struct
     //连接信息
     TCHAR		szMachineID[LEN_MACHINE_ID];		//机器标识
     TCHAR		szMobilePhone[LEN_MOBILE_PHONE];	//电话号码
-    
-}CMD_MB_RegisterAccounts;
+}CMD_MB_REG_ACCOUNTS;
 
-//其他登陆
-typedef struct
+//其他平台登陆
+typedef struct _stCmdMbLogonOtherPlatform
 {
     //系统信息
     WORD		wModuleID;							//模块标识
@@ -990,13 +989,10 @@ typedef struct
     //连接信息
     TCHAR		szMachineID[LEN_MACHINE_ID];		//机器标识
     TCHAR		szMobilePhone[LEN_MOBILE_PHONE];	//电话号码
-    
-}CMD_MB_LogonOtherPlatform;
-
-
+}CMD_MB_LOGON_OTHER_PLATFORM;
 
 //登陆成功
-typedef struct
+typedef struct _stCmdMbLogonSucc
 {
     WORD	wFaceID;								//头像标识
     BYTE	cbGender;								//用户性别
@@ -1018,24 +1014,22 @@ typedef struct
     
     //扩展信息
     BYTE    cbInsureEnable;                         //使能标示
-    
-}CMD_MB_LogonSuccess;
+}CMD_MB_LOGON_SUCC;
 
 //登陆失败
-typedef struct
+typedef struct _stCmdMbLogonFailure
 {
-	INT	lErrorCode;								//错误代码
-	TCHAR	szDescription[128];					//错误消息
-}CMD_MB_LogonFailure;
+	INT		lErrorCode;								//错误代码
+	TCHAR	szDescription[128];						//错误消息
+}CMD_MB_LOGON_FAILURE;
 
 //升级提示
-typedef struct
+typedef struct _stCmdMbUpdateNotify
 {
 	BYTE	cbMustUpdate;							//强行升级
 	BYTE	cbAdviceUpdate;							//建议版本
 	DWORD	dwCurrentVersion;						//当前版本
-}CMD_MB_UpdateNotify;
-
+}CMD_MB_UPDATE_NOTIFY;
 
 /////////////////////////////////////////////////////////////////////
 //列表命令
@@ -1045,32 +1039,33 @@ typedef struct
 #define SUB_MB_LIST_SERVER			101				//房间列表
 #define SUB_MB_MATCH_SERVER         102             //比赛列表
 #define SUB_GP_LIST_MATCH			105				//比赛列表
+
 #define SUB_MB_LIST_FINISH			200				//列表完成
 
-#define SUB_MB_GET_ONLINE			300									//获取在线
-#define SUB_MB_KINE_ONLINE			301									//类型在线
-#define SUB_MB_SERVER_ONLINE		302									//房间在线
+#define SUB_MB_ONLINE_GET			300				//获取在线
+#define SUB_MB_ONLINE_GAME_TYPE		301				//类型在线
+#define SUB_MB_ONLINE_GAME_ROOM		302				//房间在线
 
 //获取在线
-typedef struct
+typedef struct _stCmdMbOnlineGet
 {
-    WORD							wServerCount;						//房间数目
+    WORD							wCount;								//房间数目
     WORD							wOnLineServerID[MAX_SERVER];		//房间标识
-}CMD_MB_GetOnline;
+}CMD_MB_ONLINE_GET;
 
 //类型在线
-typedef struct
+typedef struct _stCmdMbOnlineGameType
 {
-    WORD							wKindCount;							//类型数目
+    WORD							wCount;								//类型数目
     _stOnlineInfoType				OnLineInfoKind[MAX_KIND];			//类型在线
-}CMD_MB_KindOnline;
+}CMD_MB_ONLINE_GAME_TYPE;
 
 //房间在线
-typedef struct
+typedef struct _stCmdMbOnlineGameRoom
 {
-    WORD							wServerCount;						//房间数目
-    _stOnlineInfoRoomServer				OnLineInfoServer[MAX_SERVER];		//房间在线
-}CMD_MB_ServerOnline;
+    WORD							wCount;								//房间数目
+    _stOnlineInfoRoomServer			OnLineInfoServer[MAX_SERVER];		//房间在线
+}CMD_MB_ONLINE_GAME_ROOM;
 
 #pragma pack()
 

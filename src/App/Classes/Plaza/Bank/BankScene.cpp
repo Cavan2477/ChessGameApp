@@ -50,22 +50,25 @@ void BankScene::onExit()
 }
 
 //发送开通银行
-void BankScene::sendInsureEnable(const std::string &pass)
+void BankScene::sendInsureEnable(const std::string &strPass)
 {
-    std::string bankpass = MD5Encrypt(pass);
+    std::string bankpass = MD5Encrypt(strPass);
+
     if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
-        CMD_GP_UserEnableInsure insuer;
-        memset(&insuer, 0, sizeof(insuer));
+        CMD_GP_USER_ENABLE_INSURE cmdGPUserEnableInsure;
+
+        memset(&cmdGPUserEnableInsure, 0, sizeof(cmdGPUserEnableInsure));
         
         
-        insuer.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-        UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), insuer.szLogonPass);
-        UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), insuer.szMachineID);
-        UTF8Str_To_UTF16Str(bankpass.c_str(), insuer.szInsurePass);
+        cmdGPUserEnableInsure.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
+
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)cmdGPUserEnableInsure.szLogonPass);
+		Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)cmdGPUserEnableInsure.szMachineID);
+		Utf8ToUtf16(bankpass.c_str(), (WORD*)cmdGPUserEnableInsure.szInsurePass);
         
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
-        NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_ENABLE_INSURE, &insuer, sizeof(insuer),NetworkMgr::getInstance()->getSocketOnce());
+        NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_ENABLE_INSURE, &cmdGPUserEnableInsure, sizeof(cmdGPUserEnableInsure),NetworkMgr::getInstance()->getSocketOnce());
     }
 }
 
@@ -74,11 +77,11 @@ void BankScene::sendInsureInfo()
 {
     if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
-        CMD_GP_QueryInsureInfo info;
+        CMD_GP_QUERY_INSURE_INFO info;
         memset(&info, 0, sizeof(info));
         
         info.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-        UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), info.szPassword);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)info.szPassword);
         
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_INSURE_INFO, &info, sizeof(info),NetworkMgr::getInstance()->getSocketOnce());
@@ -89,7 +92,7 @@ void BankScene::sendInsureInfo()
         memset(&info,0,sizeof(info));
         
         info.cbActivityGame = SUB_GR_QUERY_INSURE_INFO;
-        UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword.c_str(), info.szInsurePass);
+		Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)info.szInsurePass);
         NetworkMgr::getInstance()->sendData(MDM_GR_INSURE, SUB_GR_QUERY_INSURE_INFO, &info, sizeof(info));
     }
 }
@@ -99,12 +102,12 @@ void BankScene::sendSaveScore(SCORE score)
 {
     if(HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
-        CMD_GP_UserSaveScore request;
+        CMD_GP_USER_SAVE_GOLD request;
         memset(&request, 0, sizeof(request));
         
         request.lSaveScore = score;
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-        UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), request.szMachineID);
+		Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)request.szMachineID);
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_SAVE_SCORE, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
     }
@@ -124,14 +127,14 @@ void BankScene::sendTakeScore(SCORE score, const std::string &pass)
 {
     if(HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
-        CMD_GP_UserTakeScore request;
+        CMD_GP_USER_TAKE_OUT_GOLD request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.lTakeScore = score;
         auto md5pass = MD5Encrypt(pass);
-        UTF8Str_To_UTF16Str(md5pass.c_str(), request.szPassword);
-        UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), request.szMachineID);
+		Utf8ToUtf16(md5pass.c_str(), (WORD*)request.szPassword);
+		Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)request.szMachineID);
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_TAKE_SCORE, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
     }
@@ -143,7 +146,7 @@ void BankScene::sendTakeScore(SCORE score, const std::string &pass)
         request.cbAvtivityGame = SUB_GR_TAKE_SCORE_REQUEST;
         request.lTakeScore = score;
         auto md5pass = MD5Encrypt(pass);
-        UTF8Str_To_UTF16Str(md5pass.c_str(), request.szInsurePass);
+		Utf8ToUtf16(md5pass.c_str(), (WORD*)request.szInsurePass);
         NetworkMgr::getInstance()->sendData(MDM_GR_INSURE, SUB_GR_TAKE_SCORE_REQUEST, &request, sizeof(request));
     }
 }
@@ -169,16 +172,16 @@ void BankScene::sendTransferScore(SCORE score, const std::string &pass, int type
             return;
         }
          */
-        CMD_GP_UserTransferScore request;
+        CMD_GP_USER_TRANSFER_GOLD request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.lTransferScore = score;
         auto md5pass = MD5Encrypt(pass);
     
-        UTF8Str_To_UTF16Str(md5pass.c_str(), request.szPassword);
-        UTF8Str_To_UTF16Str(nickname.c_str(), request.szAccounts);
-        UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine.c_str(), request.szMachineID);
+		Utf8ToUtf16(md5pass.c_str(), (WORD*)request.szPassword);
+		Utf8ToUtf16(nickname.c_str(), (WORD*)request.szAccounts);
+		Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)request.szMachineID);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_TRANSFER_SCORE, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
@@ -203,9 +206,11 @@ void BankScene::sendTransferScore(SCORE score, const std::string &pass, int type
         
         request.cbActivityGame = SUB_GR_TRANSFER_SCORE_REQUEST;
         request.lTransferScore = score;
+
         auto md5pass = MD5Encrypt(pass);
-        UTF8Str_To_UTF16Str(md5pass.c_str(), request.szInsurePass);
-        UTF8Str_To_UTF16Str(nickname.c_str(), request.szAccounts);
+
+		Utf8ToUtf16(md5pass.c_str(), (WORD*)request.szInsurePass);
+		Utf8ToUtf16(nickname.c_str(), (WORD*)request.szAccounts);
         NetworkMgr::getInstance()->sendData(MDM_GR_INSURE, SUB_GR_TRANSFER_SCORE_REQUEST, &request, sizeof(request));
     } 
 }

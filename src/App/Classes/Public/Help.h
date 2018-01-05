@@ -30,9 +30,9 @@ extern "C"
 extern "C"
 {
     // 转换UTF8字符串到UTF16字符串
-    void UTF8Str_To_UTF16Str( const std::string &str, WORD* pwszUTF16Str );
+    void Utf8ToUtf16( const std::string &str, WORD* pwszUTF16Str );
     
-    int UTF8Str_To_UTF16Str_BYTE( const BYTE* pbszUTF8Str, WORD* pwszUTF16Str );
+    int Utf8ToUtf16Byte( const BYTE* pbszUTF8Str, WORD* pwszUTF16Str );
     
     //获取当前时间，单位为毫秒
     LONGLONG getsystemtomillisecond();

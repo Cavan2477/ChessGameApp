@@ -65,7 +65,7 @@ public:
     //发送签到
     void sendCheckinDone();
     //发送领取
-    void sendEnsureTake();
+    void sendEnsureGet();
     
     //签到信息
     void checkininfo(void* pData, WORD wSize);

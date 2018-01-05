@@ -732,7 +732,7 @@ void NetworkMgr::sendPacket_Compilatio(CTCPSocket *socket)
 {
     _stTcpValidate validate;
     memset(&validate, 0, sizeof(_stTcpValidate));
-    UTF8Str_To_UTF16Str(szCompilatio,validate.szValidateKey);
+    Utf8ToUtf16(szCompilatio,validate.szValidateKey);
     
     this->sendData(MDM_KN_COMMAND, SUB_KN_VALIDATE_SOCKET, &validate, sizeof(_stTcpValidate),socket);
     
@@ -742,23 +742,23 @@ void NetworkMgr::sendPacket_Compilatio(CTCPSocket *socket)
 void NetworkMgr::sendAccountLogin()
 {
     //变量定义
-    CMD_MB_LogonAccounts loginaccounts;
-    memset(&loginaccounts,0,sizeof(CMD_MB_LogonAccounts));
+    CMD_MB_LOGON_ACCOUNTS loginaccounts;
+    memset(&loginaccounts,0,sizeof(CMD_MB_LOGON_ACCOUNTS));
     loginaccounts.dwPlazaVersion = VERSION_MOBILE;
     loginaccounts.wModuleID = INVALID_WORD/*HallDataMgr::getInstance()->m_dwKindID*/;
     loginaccounts.cbDeviceType = HallDataMgr::getInstance()->m_cbDevice;
     
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pAccounts, loginaccounts.szAccounts);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword, loginaccounts.szPassword);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, loginaccounts.szMachineID);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPhoneNum, loginaccounts.szMobilePhone);
-    this->sendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &loginaccounts, sizeof(CMD_MB_LogonAccounts),this->m_pSocketOnce);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pAccounts, loginaccounts.szAccounts);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, loginaccounts.szPassword);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, loginaccounts.szMachineID);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPhoneNum, loginaccounts.szMobilePhone);
+    this->sendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &loginaccounts, sizeof(CMD_MB_LOGON_ACCOUNTS),this->m_pSocketOnce);
     CCLOG("%s","发送帐号登录");
 }
 
 void NetworkMgr::sendMethodLogin(int platform)
 {
-    CMD_MB_LogonOtherPlatform otherPlatform;
+    CMD_MB_LOGON_OTHER_PLATFORM otherPlatform;
     memset(&otherPlatform, 0, sizeof(otherPlatform));
     
     otherPlatform.cbPlatformID = platform;
@@ -767,9 +767,9 @@ void NetworkMgr::sendMethodLogin(int platform)
     otherPlatform.cbDeviceType = HallDataMgr::getInstance()->m_cbDevice;
     otherPlatform.cbGender = HallDataMgr::getInstance()->m_cbGender;
     
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pAccounts, otherPlatform.szUserUin);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, otherPlatform.szMachineID);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pNickName, otherPlatform.szNickName);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pAccounts, otherPlatform.szUserUin);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, otherPlatform.szMachineID);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pNickName, otherPlatform.szNickName);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_MB_LOGON, SUB_MB_LOGON_OTHERPLATFORM, &otherPlatform, sizeof(otherPlatform), NetworkMgr::getInstance()->getSocketOnce());
@@ -778,20 +778,20 @@ void NetworkMgr::sendMethodLogin(int platform)
 void NetworkMgr::sendRegister()
 {
     //帐号注册
-    CMD_MB_RegisterAccounts registerAccount;
-    memset(&registerAccount,0,sizeof(CMD_MB_RegisterAccounts));
+    CMD_MB_REG_ACCOUNTS registerAccount;
+    memset(&registerAccount,0,sizeof(CMD_MB_REG_ACCOUNTS));
     registerAccount.wModuleID = INVALID_WORD/*HallDataMgr::getInstance()->m_dwKindID*/;
     registerAccount.dwPlazaVersion = VERSION_MOBILE;
     registerAccount.cbDeviceType = HallDataMgr::getInstance()->m_cbDevice;
     registerAccount.wFaceID = HallDataMgr::getInstance()->m_wFaceID;
     registerAccount.cbGender = HallDataMgr::getInstance()->m_cbGender;
     
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pAccounts, registerAccount.szAccounts);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword, registerAccount.szLogonPass);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, registerAccount.szMachineID);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPhoneNum, registerAccount.szMobilePhone);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pAccounts, registerAccount.szNickName);
-    this->sendData(MDM_MB_LOGON, SUB_MB_REGISITER_ACCOUNTS, &registerAccount, sizeof(CMD_MB_RegisterAccounts),this->m_pSocketOnce);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pAccounts, registerAccount.szAccounts);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, registerAccount.szLogonPass);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, registerAccount.szMachineID);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPhoneNum, registerAccount.szMobilePhone);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pAccounts, registerAccount.szNickName);
+    this->sendData(MDM_MB_LOGON, SUB_MB_REGISITER_ACCOUNTS, &registerAccount, sizeof(CMD_MB_REG_ACCOUNTS),this->m_pSocketOnce);
 }
 
 void NetworkMgr::sendRoomLogin(const std::string &roompass)
@@ -806,9 +806,9 @@ void NetworkMgr::sendRoomLogin(const std::string &roompass)
     lm.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     lm.cbDeviceType = HallDataMgr::getInstance()->m_cbDevice;
     
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, lm.szMachineID);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_dynamicpass, lm.szDynamicPassword);
-    UTF8Str_To_UTF16Str(roompass, lm.szServerPasswd);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, lm.szMachineID);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_dynamicpass, lm.szDynamicPassword);
+    Utf8ToUtf16(roompass, lm.szServerPasswd);
     
     NetworkMgr::getInstance()->sendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &lm, sizeof(lm));
     log("%s","房间登录");
@@ -835,7 +835,7 @@ void NetworkMgr::sendEncrypt(const std::string &pass)
     int length = (int)pass.size()+1;
     TCHAR describe[length];
     memset(describe, 0, length);
-    UTF8Str_To_UTF16Str_BYTE((BYTE*)pass.c_str(), describe);
+    Utf8ToUtf16Byte((BYTE*)pass.c_str(), describe);
     
     BYTE *tbuffer = buffer+size;
     _stUserDataExt* datadescribe=(_stUserDataExt*)tbuffer;
@@ -878,7 +878,7 @@ void NetworkMgr::sendSitDown(WORD tableID, WORD chairID, const std::string &pass
     
     request.wChairID = chairID;
     request.wTableID = tableID;
-    UTF8Str_To_UTF16Str(pass, request.szPassword);
+    Utf8ToUtf16(pass, request.szPassword);
     
     this->sendData(MDM_GR_USER, SUB_GR_USER_SITDOWN, &request, sizeof(request));
 }
@@ -913,7 +913,7 @@ void NetworkMgr::sendCustomFaceInfo(cocos2d::Image *pimage)
     
     CMD_GP_CustomFaceInfo CustomFaceInfo;
     memset(&CustomFaceInfo, 0, sizeof(CustomFaceInfo));
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_pPassword, CustomFaceInfo.szPassword);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, CustomFaceInfo.szPassword);
     CustomFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
     memcpy(CustomFaceInfo.dwCustomFace, byte, length);
@@ -926,8 +926,8 @@ void NetworkMgr::bindingMachine(const BYTE &cbBind, const std::string &strpass)
     CMD_GP_ModifyMachine cmd = {};
     cmd.cbBind = cbBind;
     cmd.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    UTF8Str_To_UTF16Str(MD5Encrypt(strpass), cmd.szPassword);
-    UTF8Str_To_UTF16Str(HallDataMgr::getInstance()->m_Machine, cmd.szMachineID);
+    Utf8ToUtf16(MD5Encrypt(strpass), cmd.szPassword);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, cmd.szMachineID);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_MACHINE, &cmd, sizeof(CMD_GP_ModifyMachine),NetworkMgr::getInstance()->getSocketOnce());
