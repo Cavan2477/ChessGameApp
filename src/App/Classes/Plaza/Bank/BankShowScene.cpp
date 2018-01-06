@@ -617,7 +617,7 @@ void BankShowScene::queryUserInfo(const BYTE &cbType, const std::string &sTarget
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
-        CMD_GR_CLIENT_QUERY_USER_INFO_REQ request;
+        ST_CMD_GR_CLIENT_QUERY_USER_INFO_REQ request;
         memset(&request, 0, sizeof(request));
         
         request.cbByNickName = cbType;

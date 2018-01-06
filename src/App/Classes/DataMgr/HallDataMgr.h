@@ -125,7 +125,7 @@ public:
     
     int                         m_TableCount;                   //总的桌子数
     int							m_ChairCount;                   //桌子椅子数  每页:默认 6
-    CMD_GR_TABLE_INFO            m_Tableinfo;
+    ST_CMD_GR_TABLE_INFO            m_Tableinfo;
     
     std::string                 m_MethodHeadUrl;                //第三方头像地址
     

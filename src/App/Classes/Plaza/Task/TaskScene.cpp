@@ -393,8 +393,8 @@ void TaskScene::sendTakeTask(int taskID)
 void TaskScene::sendTaskReward(int taskID)
 {
     //领取奖励
-    CMD_GR_CLIENT_TAKE_REWARD TaskReward;
-    memset(&TaskReward, 0, sizeof(CMD_GR_CLIENT_TAKE_REWARD));
+    ST_CMD_GR_CLIENT_TASK_REWARD TaskReward;
+    memset(&TaskReward, 0, sizeof(ST_CMD_GR_CLIENT_TASK_REWARD));
     
     TaskReward.wTaskID = taskID;
     TaskReward.dwUserID = HallDataMgr::getInstance()->m_dwUserID;

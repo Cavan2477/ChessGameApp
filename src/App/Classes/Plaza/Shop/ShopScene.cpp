@@ -1208,7 +1208,7 @@ void ShopScene::sendExchangeBean(DOUBLE beannum)
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
-        CMD_GR_EXCHANGE_GAME_COIN_BY_BEAN request;
+        ST_CMD_GR_EXCHANGE_GAME_COIN_BY_BEAN request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
@@ -1232,7 +1232,7 @@ void ShopScene::sendExchangeIngot(LONGLONG ingotnum)
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
-        CMD_GR_EXCHANGE_GAME_GOIN request;
+        ST_CMD_GR_EXCHANGE_GAME_GOIN request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;

@@ -43,23 +43,23 @@ public:
         }
     }
     
-    void UpdateData(CMD_GR_USER_STATUS *pdata)
+    void UpdateData(ST_CMD_GR_USER_STATUS *pdata)
     {
-        m_date.wTableID = pdata->UserStatus.wTableID;
-        m_date.wChairID = pdata->UserStatus.wChairID;
-        m_date.cbUserStatus = pdata->UserStatus.cbUserStatus;
+        m_date.wTableID = pdata->stUserStatus.wTableID;
+        m_date.wChairID = pdata->stUserStatus.wChairID;
+        m_date.cbUserStatus = pdata->stUserStatus.cbUserStatus;
     }
     
-    void UpdateData(CMD_GR_MOBILE_USER_SCORE *pdata)
+    void UpdateData(ST_CMD_GR_MOBILE_USER_SCORE *pdata)
     {
-        m_date.llGameCoin = pdata->UserScore.llGameCoin;
-        m_date.dBean = pdata->UserScore.dBean;
-        m_date.dwWinCount = pdata->UserScore.dwWinCount;
-        m_date.dwLostCount = pdata->UserScore.dwLostCount;
-        m_date.dwDrawCount = pdata->UserScore.dwDrawCount;
-        m_date.dwLostCount = pdata->UserScore.dwLostCount;
-        m_date.dwFleeCount = pdata->UserScore.dwFleeCount;
-        m_date.dwExperience = pdata->UserScore.dwExperience;
+        m_date.llGameCoin = pdata->stUserScore.llGameCoin;
+        m_date.dBean = pdata->stUserScore.dBean;
+        m_date.dwWinCount = pdata->stUserScore.dwWinCount;
+        m_date.dwLostCount = pdata->stUserScore.dwLostCount;
+        m_date.dwDrawCount = pdata->stUserScore.dwDrawCount;
+        m_date.dwLostCount = pdata->stUserScore.dwLostCount;
+        m_date.dwFleeCount = pdata->stUserScore.dwFleeCount;
+        m_date.dwExperience = pdata->stUserScore.dwExperience;
     }
     
     _stMobileUserHeadInfo  m_date;
