@@ -265,7 +265,7 @@ void BankShowScene::initSaveTake()
     
     //携带
     Text *pText = static_cast<Text *>(saveTake->getChildByName("Text_0"));
-    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     score->setAnchorPoint(Vec2(.0, .5));
     score->setTag(BANK_TAG_USERSCORE);
     score->setPosition(Vec2(pText->getPosition().x + 50, pText->getPosition().y));
@@ -275,7 +275,7 @@ void BankShowScene::initSaveTake()
     
     //银行存款
     Text *_pText = static_cast<Text *>(saveTake->getChildByName("Text_1"));
-    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserInsure, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserInsureGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     insureScore->setAnchorPoint(Vec2(.0, .5));
     insureScore->setTag(BANK_TAG_USERINSURE);
     insureScore->setPosition(Vec2(_pText->getPosition().x + 50, _pText->getPosition().y));
@@ -318,7 +318,7 @@ void BankShowScene::initPresent()
     
     //银行存款
     Text *_pText = static_cast<Text *>(presentNode->getChildByName("Text_0"));
-    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserInsure, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserInsureGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     insureScore->setAnchorPoint(Vec2(.0, .5));
     insureScore->setTag(BANK_TAG_USERINSURE);
     insureScore->setPosition(Vec2(_pText->getPosition().x + 50, _pText->getPosition().y));
@@ -432,14 +432,14 @@ void BankShowScene::updateScore()
         if (nullptr != userScore)
         {
             
-            userScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","));
+            userScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
         }
         
         
         Label *userInsure = static_cast<Label *>(_saveLayout->getChildByTag(BANK_TAG_USERINSURE));
         if (nullptr != userInsure)
         {
-            userInsure->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserInsure, ","));
+            userInsure->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserInsureGold, ","));
             
         }
     }
@@ -451,7 +451,7 @@ void BankShowScene::updateScore()
 
         if (nullptr != userInsure)
         {
-            userInsure->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserInsure, ","));
+            userInsure->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserInsureGold, ","));
         }
     }
 }
@@ -497,8 +497,8 @@ void BankShowScene::updateScore()
     
     memset(&m_sInfo, 0, sizeof(m_sInfo));
     memcpy(&m_sInfo, pData, wSize);
-    HallDataMgr::getInstance()->m_UserScore = m_sInfo.lUserScore;
-    HallDataMgr::getInstance()->m_UserInsure = m_sInfo.lUserInsure;
+    HallDataMgr::getInstance()->m_lUserGold = m_sInfo.lUserGold;
+    HallDataMgr::getInstance()->m_lUserInsureGold = m_sInfo.lUserInsureGold;
     
     updateScore();
     
@@ -519,8 +519,8 @@ void BankShowScene::updateScore()
     
     auto result = (CMD_GP_USER_INSURE_SUCC *)pData;
 
-    HallDataMgr::getInstance()->m_UserInsure = result->lUserInsure;
-    HallDataMgr::getInstance()->m_UserScore = result->lUserScore;
+    HallDataMgr::getInstance()->m_lUserInsureGold = result->lUserInsure;
+    HallDataMgr::getInstance()->m_lUserGold = result->lUserScore;
     
     //更新显示
     updateScore();
@@ -635,8 +635,8 @@ void BankShowScene::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std:
     {
         if (m_eType == type_savetake)
         {
-            auto score = MAX(HallDataMgr::getInstance()->m_UserInsure, HallDataMgr::getInstance()->m_UserScore);
-            LONG_LONG editscore = 0;
+            auto score = MAX(HallDataMgr::getInstance()->m_lUserInsureGold, HallDataMgr::getInstance()->m_lUserGold);
+            LONGLONG editscore = 0;
             sscanf(text.c_str(), "%lld[0-9]", &editscore);
             
             if (editscore > score)
@@ -668,8 +668,8 @@ void BankShowScene::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std:
 //            }
 //            
             
-            auto score = HallDataMgr::getInstance()->m_UserInsure;
-            LONG_LONG editscore = 0;
+            auto score = HallDataMgr::getInstance()->m_lUserInsureGold;
+            LONGLONG editscore = 0;
             sscanf(text.c_str(), "%lld[0-9]", &editscore);
             if (editscore > score)
             {
@@ -849,7 +849,7 @@ void BankShowScene::buttonEventWithTouch(cocos2d::Ref *target, cocos2d::ui::Widg
             }
             
             HallDataMgr::getInstance()->AddpopLayer("","", EM_MODE_TYPE_WAIT);
-            LONG_LONG saveScore = 0;
+            LONGLONG saveScore = 0;
             sscanf(saveNumEdit->getText(), "%lld", &saveScore);
             sendSaveScore(saveScore);
             
@@ -873,7 +873,7 @@ void BankShowScene::buttonEventWithTouch(cocos2d::Ref *target, cocos2d::ui::Widg
             }
             
             HallDataMgr::getInstance()->AddpopLayer("","", EM_MODE_TYPE_WAIT);
-            LONG_LONG takeScore = 0;
+            LONGLONG takeScore = 0;
             sscanf(takeNumEdit->getText(), "%lld", &takeScore);
             sendTakeScore(takeScore, passwordEdit->getText());
         }
@@ -917,7 +917,7 @@ void BankShowScene::buttonEventWithRecord(cocos2d::Ref *target, cocos2d::ui::Wid
         
          Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(RECORD_REQUEST_EVENT, CC_CALLBACK_1(BankShowScene::RecordReuqcestEvent, this)), 1);
         
-        LONG_LONG _time = getsystemtomillisecond() - HallDataMgr::getInstance()->m_Logintime;
+        LONGLONG _time = getsystemtomillisecond() - HallDataMgr::getInstance()->m_Logintime;
         auto prequest = new HttpRequest;
         auto purl = __String::createWithFormat("%s/WS/MobileInterface.ashx?action=GetBankRecord&userid=%u%s", ADDRESS_WHhttp6603,HallDataMgr::getInstance()->m_dwUserID,HallDataMgr::getInstance()->getSignature(_time).c_str());
         
@@ -971,7 +971,7 @@ void BankShowScene::buttonEventWithPresent(cocos2d::Ref *target, cocos2d::ui::Wi
           }
           
           HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_WAIT);
-          LONG_LONG score = 0;
+          LONGLONG score = 0;
           sscanf(edNum->getText(), "%lld",&score);
           //sendTransferScore(score, password, m_nSendType, target);
           
@@ -1068,7 +1068,7 @@ void BankShowScene::RecoreRequestCallBack(cocos2d::network::HttpClient *sender, 
         pcheckdata->autorelease();
         
         std::string datestr = DICTOOL->getStringValue_json(checkdata, "CollectDate");
-        LONG_LONG timevalue = 0;
+        LONGLONG timevalue = 0;
         sscanf(datestr.c_str(), "\/Date(%lld)\/", &timevalue);
         pcheckdata->setDate(getTimeStr(timevalue/1000));
         pcheckdata->setType(DICTOOL->getStringValue_json(checkdata, "TradeTypeDescription"));

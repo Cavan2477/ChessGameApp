@@ -333,7 +333,7 @@ typedef struct _stCmdGrUserStatus
 typedef struct _stCmdGrReqFailure
 {
 	INT								cbFailureCode;						//错误代码
-	TCHAR							szDescription[256];					//描述信息
+	TCHAR							szDes[256];							//描述信息
 }CMD_GR_REQ_FAILURE;
 
 //用户聊天
@@ -603,14 +603,14 @@ typedef struct _stCmdGrClientQueryInsureReq
 typedef struct _stCmdGrClientSaveGoldReq
 {
 	BYTE							cbActivityGame;						//游戏动作
-	LONG_LONG						lSaveGold;							//存款数目
+	LONGLONG						lSaveGold;							//存款数目
 }CMD_GR_CLIENT_SAVE_GOLD_REQ;
 
 //取款请求
 typedef struct _stCmdGrClientTakeOutGoldReq
 {
 	BYTE							cbAvtivityGame;						//游戏动作
-	LONG_LONG						lTakeOutGold;						//取款数目
+	LONGLONG						lTakeOutGold;						//取款数目
 	TCHAR							szInsurePwd[LEN_PWD];				//银行密码
 }CMD_GR_CLIENT_TAKE_OUT_GOLD_REQ;
 
@@ -626,7 +626,7 @@ typedef struct _stCmdGrClientQueryUserInfoReq
 typedef struct _stCmdGrClientTransferGoldReq
 {
 	BYTE							cbActivityGame;						//游戏动作
-	LONG_LONG						lTransferGold;						//转帐金币
+	LONGLONG						lTransferGold;						//转帐金币
 	TCHAR							szAccounts[LEN_ACCOUNT];			//目标用户
 	TCHAR							szInsurePwd[LEN_PWD];				//银行密码
 	TCHAR							szTransRemark[LEN_TRANS_REMARK];    //转帐备注
@@ -641,11 +641,11 @@ typedef struct _stCmdGrServerUserInsureInfo
 	BYTE							cbEnjoinTransfer;                   //转帐开关
 	WORD							wRevenueTake;						//税收比例
 	WORD							wRevenueTransfer;					//税收比例
-	WORD							wRevenueTransferMember;             //税收比例
-	WORD							wServerID;							//房间标识
-	LONG_LONG						lUserGold;							//用户金币
-	LONG_LONG						lUserInsureGold;					//银行金币
-	LONG_LONG						lTransferPrerequisite;				//转帐条件
+	WORD							wRevenueTransferVip;				//税收比例
+	WORD							wGameRoomID;						//房间标识
+	LONGLONG						lUserGold;							//用户金币
+	LONGLONG						lUserInsureGold;					//银行金币
+	LONGLONG						lTransferPrerequisite;				//转帐条件
 }CMD_GR_SERVER_USER_INSURE_INFO;
 
 //银行成功
@@ -655,8 +655,8 @@ typedef struct _stCmdGrServerUserInsureSucc
     BYTE							cbOperateType;                      //操作类型
     DWORD							dwUserMedal;                        //用户奖牌
     DWORD							dwRecordNo;							//记录编号
-	LONG_LONG						lUserGold;							//用户金币
-	LONG_LONG						lUserInsure;						//银行金币
+	LONGLONG						lUserGold;							//用户金币
+	LONGLONG						lUserInsureGold;					//银行金币
 	TCHAR							szDes[128];							//描述信息
 }CMD_GR_SERVER_USER_INSURE_SUCC;		
 
@@ -664,7 +664,7 @@ typedef struct _stCmdGrServerUserInsureSucc
 typedef struct _stCmdGrServerUserInsureFailure
 {
 	BYTE							cbActivityGame;						//游戏动作
-	INT								lErrorCode;							//错误代码
+	INT								nErrorCode;							//错误代码
 	TCHAR							szDes[128];							//描述消息
 }CMD_GR_SERVER_USER_INSURE_FAILURE;
 
@@ -710,8 +710,8 @@ typedef struct _stCmdGrClientTakeTask
 {
 	WORD							wTaskID;                            //任务标识
 	DWORD							dwUserID;                           //用户标识
-    TCHAR							szPwd[LEN_PWD];						//登录密码
-    TCHAR							szMachineID[LEN_MACHINE_ID];                     //机器序列
+    TCHAR							szLogonPwd[LEN_PWD];				//登录密码
+    TCHAR							szMachineID[LEN_MACHINE_ID];        //机器序列
 }CMD_GR_CLIENT_TAKE_TASK;
 
 //领取奖励
@@ -719,7 +719,7 @@ typedef struct _stCmdGrClientTakeReward
 {
 	WORD							wTaskID;                            //任务标识
 	DWORD							dwUserID;                           //用户标识
-	TCHAR							szPwd[LEN_PWD];						//登录密码
+	TCHAR							szLogonPwd[LEN_PWD];				//登录密码
 	TCHAR							szMachineID[LEN_MACHINE_ID];        //机器序列
 }CMD_GR_CLIENT_TAKE_REWARD;
 
@@ -727,7 +727,7 @@ typedef struct _stCmdGrClientTakeReward
 typedef struct _stCmdGrServerTaskInfo
 {
     WORD							wTaskCount;							//任务数量
-    ST_TASK_STATUS					stTaskStatus[TASK_MAX_COUNT];		//任务状态
+    ST_TASK_STATUS					stTaskStatusArray[TASK_MAX_COUNT];	//任务状态
 }CMD_GR_SERVER_TASK_INFO;
 
 //任务完成
@@ -745,8 +745,8 @@ typedef struct _stCmdGrServerTaskResult
     WORD							wCommandID;                         //命令标识
     
     //财富信息
-    LONG_LONG						lCurrGameCoin;                      //当前金币
-    LONG_LONG						lCurIngot;                          //当前元宝
+    LONGLONG						lCurrGameCoin;                      //当前游戏币
+    LONGLONG						lCurGold;							//当前金币
     
     //提示信息
     TCHAR							szNotifyContent[128];               //提示内容
@@ -761,26 +761,26 @@ typedef struct _stCmdGrServerTaskResult
 #define  SUB_GR_EXCHANGE_PARAM_INFO         401                         //兑换参数
 #define  SUB_GR_PURCHASE_MEMBER             402                         //购买会员
 #define  SUB_GR_PURCHASE_RESULT             403                         //购买结果
-#define  SUB_GR_EXCHANGE_SCORE_BYINGOT      404                         //兑换游戏币
-#define  SUB_GR_EXCHANGE_SCORE_BYBEANS      405
+#define  SUB_GR_EXCHANGE_GAME_COIN_BY_GOLD  404                         //金币兑换游戏币
+#define  SUB_GR_EXCHANGE_GAME_COIN_BY_BEAN  405							//游戏豆兑换游戏币
 #define  SUB_GR_EXCHANGE_RESULT             406                         //兑换结果
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //查询参数
 typedef struct _stCmdGrExchangeParam
 {
-    DWORD							wExchangeRate;						//元宝游戏币兑换比率
-    DWORD							wPresentExchangeRate;				//魅力游戏币兑换率
-    DWORD							wRateGold;							//游戏豆游戏币兑换率
+    DWORD							wGoldExchangeGameCoinRate;			//金币→游戏币兑换比率
+    DWORD							wPresentExchangeGameCoinRate;		//魅力→游戏币兑换率
+    DWORD							wRateBeanExchangeGameCoin;			//游戏豆→游戏币兑换率
     WORD							wVipCount;							//会员数目
-    _stVipParam						stVipParam[10];						//会员参数
+    _stVipParam						stVipParamArray[10];				//会员参数
 }CMD_GR_EXCHANGE_PARAM;
 
 //兑换游戏币
 typedef struct _stCmdGrExchangeGameCoin
 {
     DWORD                           dwUserID;                           //用户标识
-    LONG_LONG                       lExchangeIngot;                     //兑换游戏币
+    LONGLONG                       lExchangedGold;                     //待兑换金币
     TCHAR                           szMachineID[LEN_MACHINE_ID];        //机器标识
 }CMD_GR_EXCHANGE_GAME_GOIN;
 
@@ -788,7 +788,7 @@ typedef struct _stCmdGrExchangeGameCoin
 typedef struct _stCmdGrExchangeGameCoinByBean
 {
     DWORD							dwUserID;							//用户标识
-    double							dExchangeBean;						//兑换元宝
+    double							dExchangedBean;						//待兑换游戏豆
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器标识
 }CMD_GR_EXCHANGE_GAME_COIN_BY_BEAN;
 
@@ -796,8 +796,8 @@ typedef struct _stCmdGrExchangeGameCoinByBean
 typedef struct _stCmdGrExchangeResult
 {
     bool                            bSucc;								//成功标识
-    LONG_LONG                       lCurrGameCoin;                      //当前游戏币
-    LONG_LONG                       lCurIngot;                          //当前元宝
+    LONGLONG                       lCurrGameCoin;                      //当前游戏币
+    LONGLONG                       lCurGold;							//当前金币
     TCHAR                           szNotifyContent[128];               //提示内容
 }CMD_GR_EXCHANGE_RESULT;
 
@@ -815,8 +815,8 @@ typedef struct _stCmdGrPurchaseResult
 {
 	bool                            bSucc;								//成功标识
 	BYTE                            cbVipOrder;							//会员系列
-	LONG_LONG                       lCurrGameCoin;                      //当前游戏币
-	DWORD                           dCurrBeans;                         //当前游戏豆
+	LONGLONG                       lCurrGameCoin;                      //当前游戏币
+	DWORD                           dCurrBean;							//当前游戏豆
 	TCHAR                           szNotifyContent[128];               //提示内容
 }CMD_GR_PURCHASE_RESULT;
 
@@ -958,13 +958,13 @@ typedef struct _stCmdGrUserLimitChat
 #define SUB_GR_MATCH_RESULT			405									//比赛结果
 #define SUB_GR_MATCH_STATUS			406									//比赛状态
 #define SUB_GR_MATCH_DESC			408									//比赛描述
-#define SUB_GR_MATCH_GOLDUPDATE     409                                 //金币更新
+#define SUB_GR_MATCH_GOLD_UPDATE     409                                //金币更新
 #define SUB_GR_MATCH_ELIMINATE      410                                 //比赛淘汰
 
 //比赛费用
 typedef struct _stCmdGrMatchFee
 {
-    LONG_LONG                       lSignUpFee;                         //报名费用
+    LONGLONG                       lSignUpFee;                         //报名费用
     TCHAR                           szNotifyContent[128];               //提示内容
 }CMD_GR_MATCH_FEE;
 
@@ -985,7 +985,7 @@ typedef struct _stCmdGrMatchInfo
 //提示信息
 typedef struct _stCmdGrMatchWaitTip
 {
-	LONG_LONG						lScore;								//当前积分
+	LONGLONG						lScore;								//当前积分
 	WORD							wRank;								//当前名次
 	WORD							wCurTableRank;						//本桌名次
 	WORD							wUserCount;							//当前人数
@@ -998,10 +998,10 @@ typedef struct _stCmdGrMatchWaitTip
 //比赛结果
 typedef struct _stCmdGrMatchResult
 {
-    LONG_LONG                       lGold;								//金币奖励
-    DWORD							dwIngot;							//元宝奖励
+    LONGLONG                       lGameCoin;							//游戏币奖励
+    DWORD							dwGold;								//金币奖励
     DWORD							dwExp;								//经验奖励
-    TCHAR							szDescribe[256];					//得奖描述
+    TCHAR							szDes[256];							//得奖描述
 }CMD_GR_MATCH_RESULT;
 
 #define MAX_MATCH_DESC				4									//最多描述
@@ -1018,8 +1018,8 @@ typedef struct _stCmdGrMatchDesc
 //金币更新
 typedef struct _stCmdGrMatchGoldUpdate
 {
-    LONG_LONG                       lCurrGold;							//当前金币
-    LONG_LONG                       lCurIngot;							//当前元宝
+    LONGLONG                       lCurrGameCoin;						//当前游戏币
+    LONGLONG                       lCurGold;							//当前金币
     DWORD                           dwCurrExp;							//当前经验
 }CMD_GR_MATCH_GOLD_UPDATE;
 
@@ -1119,7 +1119,7 @@ typedef struct _stCmdGfUserServerExpression
 #define MDM_GF_GAME					200									//游戏命令
 
 //其他信息
-#define DTP_GR_TABLE_PASSWORD		1									//桌子密码
+#define DTP_GR_TABLE_PWD			1									//桌子密码
 
 //用户属性
 #define DTP_GR_NICK_NAME			10									//用户昵称
@@ -1135,7 +1135,7 @@ typedef struct _stCmdGfUserServerExpression
 //请求错误
 #define REQ_FAILURE_NORMAL			0									//常规原因
 #define REQ_FAILURE_NO_GOLD			1									//金币不足
-#define REQ_FAILURE_NO_SCORE		2									//积分不足
+#define REQ_FAILURE_NO_GAME_COIN	2									//游戏币不足
 #define REQ_FAILURE_PWD				3									//密码错误
 #define REQ_FAILURE_ACCOUNTS		7									//昵称错误
 

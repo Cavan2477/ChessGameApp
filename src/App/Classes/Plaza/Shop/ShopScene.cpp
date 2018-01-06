@@ -104,7 +104,7 @@ void ShopList::setData(ListData *data)
     this->addChild(clipName);
     //商品价格
     
-    //元宝数目
+    //金币数目
     auto ingotIcon = ImageView::create("shop_res/shop_ingot.png");
     ingotIcon->setPosition(Vec2(60, 30));
     this->addChild(ingotIcon);
@@ -296,8 +296,8 @@ bool ShopScene::init()
      _rootNode = CSLoader::createNode("shop_res/ShopScene.csb");
     layout->addChild(_rootNode);
     
-    //用户金币
-    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    //用户携带金币
+    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserScore(coin);
     _userScore->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userScore, 145);
@@ -305,8 +305,8 @@ bool ShopScene::init()
     _userScore->setPosition(Vec2(200, 595));
     layout->addChild(_userScore);
     
-    //用户元宝
-    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_Ingot, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    //用户金币
+    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserIngot(ingot);
     _userIngot->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userIngot, 145);
@@ -315,7 +315,7 @@ bool ShopScene::init()
     layout->addChild(_userIngot);
     
     //用户游戏豆
-    Label *bean = Label::createWithSystemFont(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_Bean)->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *bean = Label::createWithSystemFont(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_dBean)->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
     setUserBean(bean);
     _userBean->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userBean, 145);
@@ -622,7 +622,7 @@ void ShopScene::initShop()
     }
     
  
-    //元宝兑换
+    //金币兑换
     for (int i = 0; i < 9; i++)
     {
         if (i%3==0)
@@ -846,16 +846,16 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
     _realExchangeLayout->addChild(node);
     
     
-    //所需元宝
+    //所需金币
     auto needIngot =  Label::createWithCharMap("shop_res/shop_num_yellow.png", 16, 22, '0');
     needIngot->setString(__String::createWithFormat("%d",(int)data->_price)->getCString());
     needIngot->setAnchorPoint(Vec2(.0, .5));
     needIngot->setPosition(Vec2(460, 385));
     node->addChild(needIngot);
     
-    //剩余元宝
+    //剩余金币
     auto restIngot =  Label::createWithCharMap("shop_res/shop_num_yellow.png", 16, 22, '0');
-    restIngot->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_Ingot)->getCString());
+    restIngot->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_lGold)->getCString());
     restIngot->setAnchorPoint(Vec2(.0, .5));
     restIngot->setPosition(Vec2(910, 385));
     node->addChild(restIngot);
@@ -878,10 +878,10 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
             if (type == Widget::TouchEventType::ENDED)
             {
                
-                if ((m_nExchangeCount+1) * data->_price > HallDataMgr::getInstance()->m_Ingot)
+                if ((m_nExchangeCount+1) * data->_price > HallDataMgr::getInstance()->m_lGold)
                 {
                     
-                    HallDataMgr::getInstance()->AddpopLayer("提示", "您的元宝不足", Type_Ensure);
+                    HallDataMgr::getInstance()->AddpopLayer("提示", "您的金币不足", Type_Ensure);
                     return ;
                 }
                 
@@ -985,7 +985,7 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
     listDetail->addChild(clipName);
     //商品价格
     
-    //元宝数目
+    //金币数目
     auto ingotIcon = ImageView::create("shop_res/shop_ingot.png");
     ingotIcon->setPosition(Vec2(60, 30));
     listDetail->addChild(ingotIcon);
@@ -1176,9 +1176,9 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
 
 void ShopScene::updateInfo()
 {
-    _userScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","));
-    _userBean->setString(getScorewithComma(HallDataMgr::getInstance()->m_Bean, ","));
-    _userIngot->setString(getScorewithComma(HallDataMgr::getInstance()->m_Ingot, ","));
+    _userScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
+    _userBean->setString(getScorewithComma(HallDataMgr::getInstance()->m_dBean, ","));
+    _userIngot->setString(getScorewithComma(HallDataMgr::getInstance()->m_lGold, ","));
     
 }
 void ShopScene::sendExchangeParameter()
@@ -1197,14 +1197,14 @@ void ShopScene::sendExchangeParameter()
 void ShopScene::sendExchangeBean(DOUBLE beannum)
 {
     if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD) {
-        CMD_GP_EXCHANGE_GAME_COIN_BY_BEAN request;
+        ST_CMD_GP_EXCHANGE_GAME_COIN_BY_BEAN request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-        request.dExchangeBean = beannum;
+        request.dExchangedBean = beannum;
         Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
-        NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_SCORE_BYBEAN, &request, sizeof(request), NetworkMgr::getInstance()->getSocketOnce());
+        NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_GAME_COIN_BY_BEAN, &request, sizeof(request), NetworkMgr::getInstance()->getSocketOnce());
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
@@ -1212,23 +1212,23 @@ void ShopScene::sendExchangeBean(DOUBLE beannum)
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-        request.dExchangeBean = beannum;
+        request.dExchangedBean = beannum;
         Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
-        NetworkMgr::getInstance()->sendData(MDM_GR_EXCHANGE, SUB_GR_EXCHANGE_SCORE_BYBEANS, &request, sizeof(request));
+        NetworkMgr::getInstance()->sendData(MDM_GR_EXCHANGE, SUB_GR_EXCHANGE_GAME_COIN_BY_BEAN, &request, sizeof(request));
     }
 }
 
-void ShopScene::sendExchangeIngot(LONG_LONG ingotnum)
+void ShopScene::sendExchangeIngot(LONGLONG ingotnum)
 {
     if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD) {
-        CMD_GP_EXCHANGE_GAME_COIN_BY_INGOT request;
+        ST_CMD_GP_EXCHANGE_GAME_COIN_BY_GOLD request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-        request.lExchangeIngot = ingotnum;
+        request.lExchangedGold = ingotnum;
         Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
-        NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_SCORE_BYINGOT, &request, sizeof(request), NetworkMgr::getInstance()->getSocketOnce());
+        NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_GAME_COIN_BY_GOLD, &request, sizeof(request), NetworkMgr::getInstance()->getSocketOnce());
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
@@ -1236,18 +1236,18 @@ void ShopScene::sendExchangeIngot(LONG_LONG ingotnum)
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-        request.lExchangeIngot = ingotnum;
+        request.lExchangedGold = ingotnum;
         Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
-        NetworkMgr::getInstance()->sendData(MDM_GR_EXCHANGE, SUB_GR_EXCHANGE_SCORE_BYINGOT, &request, sizeof(request));
+        NetworkMgr::getInstance()->sendData(MDM_GR_EXCHANGE, SUB_GR_EXCHANGE_GAME_COIN_BY_GOLD, &request, sizeof(request));
         
     }
 }
 
 void ShopScene::ExchangeParameterResult(void *pData, WORD wSize)
 {
-    auto result = (CMD_GP_EXCHANGE_PARAM *)pData;
-    m_IngotRate = result->wExchangeRate;
-    m_BeanRate = result->wRateGold;
+    auto result = (ST_CMD_GP_EXCHANGE_PARAM *)pData;
+    m_IngotRate = result->wGoldExchangeGameCoinRate;
+    m_BeanRate = result->wRateBeanExchangeGameCoin;
     
     HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
     this->initShop();
@@ -1258,12 +1258,12 @@ void ShopScene::ExchangeResult(void *pData, WORD wSize)
 {
      HallDataMgr::getInstance()->AddpopLayer("", "", Type_Delete);
     
-    auto result = (CMD_GP_EXCHANGE_GAME_COIN_RESULT *)pData;
-    if (result->bSuccessed)
+    auto result = (ST_CMD_GP_EXCHANGE_GAME_COIN_RESULT *)pData;
+    if (result->bSucc)
     {
-        HallDataMgr::getInstance()->m_UserScore = result->lCurrScore;
-        HallDataMgr::getInstance()->m_Bean = result->dCurrBeans;
-        HallDataMgr::getInstance()->m_Ingot = result->lCurrIngot;
+        HallDataMgr::getInstance()->m_lUserGold = result->lCurrGameCoin;
+        HallDataMgr::getInstance()->m_dBean = result->dCurrBean;
+        HallDataMgr::getInstance()->m_lGold = result->lCurrGold;
         
         //金币更新
         EventCustom event(whEvent_User_Data_Change);
@@ -1480,7 +1480,7 @@ void ShopScene::buttoneEventWithRealExchange(cocos2d::Ref *ref, cocos2d::ui::Wid
         
         std::string postData = "";
         
-         LONG_LONG _time = getsystemtomillisecond() - HallDataMgr::getInstance()->m_Logintime;
+         LONGLONG _time = getsystemtomillisecond() - HallDataMgr::getInstance()->m_Logintime;
         postData += __String::createWithFormat("userID=%u%s",
                                                HallDataMgr::getInstance()->m_dwUserID,
                                                HallDataMgr::getInstance()->getSignature(_time).c_str())->getCString();

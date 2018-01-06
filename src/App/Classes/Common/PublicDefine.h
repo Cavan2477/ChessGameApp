@@ -129,7 +129,7 @@ typedef struct _stBankGiftInfo
 	int		nSendType;					// 0:id; 1:昵称
 	string	sReceiveUserName;
 	DWORD	dwReceiveUserId;
-	LONG_LONG	llSendCount;
+	LONGLONG	llSendCount;
 }ST_BANK_GIFT_INFO, *PST_BANK_GIFT_INFO;
 
 // 喇叭数据类

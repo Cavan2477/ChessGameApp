@@ -26,7 +26,7 @@ typedef unsigned short		WORD;
 typedef DWORD               COLORREF;
 
 typedef	long long			LONGLONG;
-typedef long long			LONG_LONG;
+typedef long long			LONGLONG;
 typedef double              DOUBLE;
 typedef short               SHORT;
 typedef int                 INT;
@@ -81,8 +81,8 @@ typedef struct _stSysTime
 #define MAX_CHAIR_GENERAL   8                       //最大椅子
 
 //裂表定义
-#define MAX_KIND			256						//最大类型
-#define MAX_SERVER			1024					//最大房间
+#define MAX_GAME_TYPE		256						//最大类型
+#define MAX_GAME_ROOM		1024					//最大房间
 
 //参数定义
 #define	INVALID_CHAIR		0xFFFF					//无效椅子
@@ -180,6 +180,7 @@ typedef struct _stSysTime
 #define CP_ERIEND			1						//好友关系
 #define CP_DETEST			2						//厌恶关系
 #define CP_SHIELD           3                       //屏蔽聊天
+
 
 #pragma mark 性别定义
 #define GENDER_FRMALE		0						//女性性别

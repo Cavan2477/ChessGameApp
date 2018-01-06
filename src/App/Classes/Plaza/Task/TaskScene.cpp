@@ -46,8 +46,8 @@ bool TaskScene::init()
         log("%s",node->getName().c_str());
     }
     
-    //用户金币
-    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    //用户游戏币
+    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserScore(coin);
     _userScore->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userScore, 145);
@@ -55,8 +55,8 @@ bool TaskScene::init()
     _userScore->setPosition(Vec2(170, 595));
     _layout->addChild(_userScore);
     
-    //用户元宝
-    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_Ingot, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    //用户金币
+    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserIngot(ingot);
     _userIngot->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userIngot, 145);
@@ -65,7 +65,7 @@ bool TaskScene::init()
     _layout->addChild(_userIngot);
     
     //用户游戏豆
-    Label *bean = Label::createWithSystemFont(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_Bean)->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *bean = Label::createWithSystemFont(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_dBean)->getCString(), FONT_TREBUCHET_MS_BOLD, 24);
     setUserBean(bean);
     _userBean->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userBean, 145);
@@ -75,11 +75,9 @@ bool TaskScene::init()
     
     //关闭按钮
     Button *closeBtn = static_cast<Button *>(rootNode->getChildByName("button_return"));
+
     if (closeBtn != nullptr)
-    {
         closeBtn->addTouchEventListener(CC_CALLBACK_2(TaskScene::buttonEventWithClose, this));
-    }
-    
     
     //滑动
     m_scrollView =  ListView::create();
@@ -374,18 +372,18 @@ void TaskScene::sendLoadTask()
     CMD_GP_TASK_LOAD_INFO taskloadinfo;
     memset(&taskloadinfo, 0, sizeof(taskloadinfo));
     taskloadinfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)taskloadinfo.szPassword);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)taskloadinfo.szPwd);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_TASK_LOAD, &taskloadinfo, sizeof(taskloadinfo),NetworkMgr::getInstance()->getSocketOnce());
 }
 
 //请求领取任务
 void TaskScene::sendTakeTask(int taskID)
 {
-    CMD_GP_TaskTake TaskTake ;
-    memset(&TaskTake, 0, sizeof(CMD_GP_TaskTake));
+    ST_CMD_GP_TASK_GET TaskTake ;
+    memset(&TaskTake, 0, sizeof(ST_CMD_GP_TASK_GET));
     TaskTake.wTaskID = taskID;
     TaskTake.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)TaskTake.szPassword);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)TaskTake.szPwd);
 	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)TaskTake.szMachineID);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
@@ -400,7 +398,7 @@ void TaskScene::sendTaskReward(int taskID)
     
     TaskReward.wTaskID = taskID;
     TaskReward.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)TaskReward.szPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)TaskReward.szLogonPwd);
 	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)TaskReward.szMachineID);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
@@ -463,12 +461,12 @@ void TaskScene::TaskListResult(void* pData, WORD wSize)
 void TaskScene::TaskInfoResult(void* pData, WORD wSize)
 {
     
-    auto ptaskinfo = static_cast<CMD_GP_TASK_INFO *>(pData);
+    auto ptaskinfo = static_cast<ST_CMD_GP_TASK_INFO *>(pData);
     for (int index=0; index<ptaskinfo->wTaskCount; ++index)
     {
         auto pinfo = new ST_TASK_STATUS();
         memset(pinfo, 0, sizeof(ST_TASK_STATUS));
-        memcpy(pinfo, &ptaskinfo->TaskStatus[index], sizeof(ST_TASK_STATUS));
+        memcpy(pinfo, &ptaskinfo->stTaskStatusArray[index], sizeof(ST_TASK_STATUS));
         auto ptask = m_TaskList.at(pinfo->wTaskID);
         if (ptask)
         {
@@ -486,23 +484,23 @@ void TaskScene::TaskResult(void* pData, WORD wSize)
 
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     
-    auto TaskResult = static_cast<CMD_GP_TASK_RESULT *>(pData);
+    auto TaskResult = static_cast<ST_CMD_GP_TASK_RESULT *>(pData);
 	std::string tipstr = WHConverUnicodeToUtf8WithArray((WORD*)TaskResult->szNotifyContent);
     HallDataMgr::getInstance()->AddpopLayer("系统提示", tipstr, EM_MODE_TYPE_ENSURE);
-    if (TaskResult->bSuccessed)
+    if (TaskResult->bSucc)
     {
         this->sendLoadTask();
         
-        if (TaskResult->lCurrScore > 0)
+        if (TaskResult->lCurrGameCoin > 0)
         {
-            HallDataMgr::getInstance()->m_UserScore = TaskResult->lCurrScore;
-            HallDataMgr::getInstance()->m_Ingot = TaskResult->lCurrIngot;
+            HallDataMgr::getInstance()->m_lUserGold = TaskResult->lCurrGameCoin;
+            HallDataMgr::getInstance()->m_lGold = TaskResult->lCurrGold;
             
             auto puser = HallDataMgr::getInstance()->m_UserList.at(HallDataMgr::getInstance()->m_dwUserID);
             if (puser)
             {
-                puser->m_date.lScore = TaskResult->lCurrScore;
-                puser->m_date.lIngot = TaskResult->lCurrIngot;
+                puser->m_date.llGameCoin = TaskResult->lCurrGameCoin;
+                puser->m_date.llGold = TaskResult->lCurrGold;
             }
             
             //金币更新

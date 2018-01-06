@@ -277,19 +277,19 @@ void RewardScene::updateReward(void *data)
 void RewardScene::updateBaseen(void *data)
 {
     
-    auto result = (CMD_GP_BASE_ENSURE_PARAM *)data;
+    auto result = (ST_CMD_GP_BASE_ENSURE_PARAM *)data;
     
     //低保限制金币
     auto limitNum = static_cast<Text *>(_BaseenLayout->getChildByTag(BASE_NODE)->getChildByTag(LOW_LIMIT_NUM));
-    limitNum->setString(__String::createWithFormat("%lld",result->lScoreCondition)->getCString());
+    limitNum->setString(__String::createWithFormat("%lld",result->lGameCoinCondition)->getCString());
     
     //领取次数
     auto takeTimes = static_cast<Text *>(_BaseenLayout->getChildByTag(BASE_NODE)->getChildByTag(TAKE_TIMES));
-    takeTimes->setString(__String::createWithFormat("%d",result->cbTakeTimes)->getCString());
+    takeTimes->setString(__String::createWithFormat("%d",result->cbGetTimes)->getCString());
     
     //领取金额
     auto takeNum = static_cast<Text *>(_BaseenLayout->getChildByTag(BASE_NODE)->getChildByTag(GET_NUMS));
-    takeNum->setString(__String::createWithFormat("%lld",result->lScoreAmount)->getCString());
+    takeNum->setString(__String::createWithFormat("%lld",result->lGameCoinAmount)->getCString());
     
     
 }
@@ -323,12 +323,12 @@ void RewardScene::sendCheckinDone()
 
 void RewardScene::sendEnsureGet()
 {
-    CMD_GP_BASE_ENSURE_GET  stCmdGpBaseEnsureGet;
-    memset(&stCmdGpBaseEnsureGet, 0, sizeof(CMD_GP_BASE_ENSURE_GET));
+    ST_CMD_GP_BASE_ENSURE_GET  stCmdGpBaseEnsureGet;
+    memset(&stCmdGpBaseEnsureGet, 0, sizeof(ST_CMD_GP_BASE_ENSURE_GET));
     
     stCmdGpBaseEnsureGet.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
 
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)stCmdGpBaseEnsureGet.szPassword);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)stCmdGpBaseEnsureGet.szLogonPwd);
 	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)stCmdGpBaseEnsureGet.szMachineID);
 
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
@@ -389,8 +389,8 @@ void RewardScene::checkinresult(void *pData, WORD wSize)
     }
     
     
-    LONG_LONG lRewardScore = result->lScore - HallDataMgr::getInstance()->m_UserScore;
-    HallDataMgr::getInstance()->m_UserScore = result->lScore;
+    LONGLONG lRewardScore = result->lCurrGold - HallDataMgr::getInstance()->m_lUserGold;
+    HallDataMgr::getInstance()->m_lUserGold = result->lCurrGold;
     EventCustom event(whEvent_User_Data_Change);
 
     auto value = __Integer::create(EM_USER_DATA_CHANGE_SCORE);
@@ -445,10 +445,10 @@ void RewardScene::checkinresult(void *pData, WORD wSize)
 
 void RewardScene::baseensureparamter(void *pData, WORD wSize)
 {
-    auto result = (CMD_GP_BASE_ENSURE_PARAM *)pData;
+    auto result = (ST_CMD_GP_BASE_ENSURE_PARAM *)pData;
 
-    m_lowbase = result->lScoreCondition;
-    if (HallDataMgr::getInstance()->m_UserScore + HallDataMgr::getInstance()->m_UserInsure > m_lowbase)
+    m_lowbase = result->lGameCoinCondition;
+    if (HallDataMgr::getInstance()->m_lUserGold + HallDataMgr::getInstance()->m_lUserInsureGold > m_lowbase)
     {
         
         Button *baseenbtn = static_cast<Button *>(_BaseenLayout->getChildByTag(BASE_NODE)->getChildByTag(TAKE_BTN));
@@ -470,11 +470,11 @@ void RewardScene::baseensureparamter(void *pData, WORD wSize)
 
 void RewardScene::baseensureresult(void *pData, WORD wSize)
 {
-    auto result = (CMD_GP_BASE_ENSURE_RESULT *)pData;
+    auto result = (ST_CMD_GP_BASE_ENSURE_RESULT *)pData;
 	auto str = WHConverUnicodeToUtf8WithArray((WORD*)result->szNotifyContent);
 
     HallDataMgr::getInstance()->AddpopLayer("系统提示", str, EM_MODE_TYPE_ENSURE);
-    HallDataMgr::getInstance()->m_UserScore = result->lGameScore;
+    HallDataMgr::getInstance()->m_lUserGold = result->lCurrGameCoin;
     
     EventCustom event(whEvent_User_Data_Change);
     auto value = __Integer::create(EM_USER_DATA_CHANGE_SCORE);
@@ -484,7 +484,7 @@ void RewardScene::baseensureresult(void *pData, WORD wSize)
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     
-    if (m_lowbase < HallDataMgr::getInstance()->m_UserScore) 
+    if (m_lowbase < HallDataMgr::getInstance()->m_lUserGold) 
 	{
         auto BaseenNode = _BaseenLayout->getChildByTag(BASE_NODE);
 

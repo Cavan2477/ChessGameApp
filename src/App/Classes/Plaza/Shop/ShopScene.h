@@ -101,7 +101,7 @@ public:
     
     void sendExchangeBean(DOUBLE beannum);
     
-    void sendExchangeIngot(LONG_LONG ingotnum);
+    void sendExchangeIngot(LONGLONG ingotnum);
     
     //大厅消息回包处理
     //兑换数据
@@ -127,7 +127,7 @@ private:
     cocos2d::ui::Layout         *_realExchangeLayout;
     
     
-    DWORD m_IngotRate;  //元宝兑换比率
+    DWORD m_IngotRate;  //金币兑换比率
     
     DWORD m_BeanRate;   //游戏豆兑换比率
     

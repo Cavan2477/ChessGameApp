@@ -200,11 +200,11 @@ bool PersonalScene::init()
         ID->setTextColor(cocos2d::Color4B(36,236,250,255));
     }
     
-    //元宝
+    //金币
     auto ingot = static_cast<Text *>(personalRoot->getChildByName("Text_ingot"));
     if (ingot != nullptr)
     {
-        ingot->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_Ingot)->getCString());
+        ingot->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_lGold)->getCString());
         ingot->setTextColor(cocos2d::Color4B(228,235,55,255));
         
     }
@@ -213,7 +213,7 @@ bool PersonalScene::init()
     auto score = static_cast<Text *>(personalRoot->getChildByName("Text_coin"));
     if (score != nullptr)
     {
-        score->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_UserScore)->getCString());
+        score->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_lUserGold)->getCString());
         score->setTextColor(cocos2d::Color4B(228,235,55,255));
     }
     
@@ -221,7 +221,7 @@ bool PersonalScene::init()
     auto bean = static_cast<Text *>(personalRoot->getChildByName("Text_bean"));
     if (bean != nullptr)
     {
-        bean->setString(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_Bean)->getCString());
+        bean->setString(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_dBean)->getCString());
         bean->setTextColor(cocos2d::Color4B(228,235,55,255));
     }
     
@@ -378,8 +378,8 @@ bool PersonalScene::init()
     auto barFull = static_cast<Sprite *>(personalRoot->getChildByName("level_bar_full"));
     if (nullptr != barFull)
     {
-        float percent =  (HallDataMgr::getInstance()->m_levelData.dwUpgradeExperience > 0) ?
-        HallDataMgr::getInstance()->m_levelData.dwExperience/(float) HallDataMgr::getInstance()->m_levelData.dwUpgradeExperience : 0;
+        float percent =  (HallDataMgr::getInstance()->m_levelData.dwNextLevelExp > 0) ?
+        HallDataMgr::getInstance()->m_levelData.dwCurrExp/(float) HallDataMgr::getInstance()->m_levelData.dwNextLevelExp : 0;
         percent = MIN(percent, 1.0);
         
         barFull->setScaleX(percent);
@@ -403,22 +403,23 @@ bool PersonalScene::init()
         if (HallDataMgr::getInstance()->m_levelData.wCurrLevelID == 60)
         {
             
-            upgrade->setString("您已经是满级");
+            upgrade->setString("您已经达到最高等级");
             upgrade->setTextColor(cocos2d::Color4B::YELLOW);
             reward->setVisible(false);
             
         }else
         {
-            upgrade->setString(__String::createWithFormat("下次升级还需要%d经验",HallDataMgr::getInstance()->m_levelData.dwUpgradeExperience -
-                                                          HallDataMgr::getInstance()->m_levelData.dwExperience)->getCString());
+            upgrade->setString(__String::createWithFormat("下次升级还需要%d经验",HallDataMgr::getInstance()->m_levelData.dwNextLevelExp -
+                                                          HallDataMgr::getInstance()->m_levelData.dwCurrExp)->getCString());
             upgrade->setTextColor(cocos2d::Color4B::YELLOW);
             
-            reward->setString(__String::createWithFormat("奖励%lld游戏币+%lld元宝",HallDataMgr::getInstance()->m_levelData.lUpgradeRewardGold,
-                                                         HallDataMgr::getInstance()->m_levelData.lUpgradeRewardIngot)->getCString());
+            reward->setString(__String::createWithFormat("奖励%lld游戏币+%lld金币",HallDataMgr::getInstance()->m_levelData.lUpgradeRewardGameCoin,
+                                                         HallDataMgr::getInstance()->m_levelData.lUpgradeRewardGold)->getCString());
             reward->setTextColor(cocos2d::Color4B::YELLOW);
             
         }
     }
+
     return true;
 }
 
@@ -426,7 +427,6 @@ bool PersonalScene::init()
 void PersonalScene::onEnter()
 {
     Layer::onEnter();
-    
 }
 
 void PersonalScene::onEnterTransitionDidFinish()
@@ -435,7 +435,6 @@ void PersonalScene::onEnterTransitionDidFinish()
     NetworkMgr::getInstance()->registeruserfunction(SUB_GP_USER_FACE_INFO, CC_CALLBACK_2(PersonalScene::userFaceinfoResult, this));
     NetworkMgr::getInstance()->registeruserfunction(SUB_GP_OPERATE_SUCCESS, CC_CALLBACK_2(PersonalScene::operatesuccessResult, this));
     NetworkMgr::getInstance()->registeruserfunction(SUB_GP_OPERATE_FAILURE, CC_CALLBACK_2(PersonalScene::operatefailureResult, this));
-    
 }
 
 void PersonalScene::onExit()
@@ -445,55 +444,44 @@ void PersonalScene::onExit()
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_OPERATE_FAILURE);
     
     Layer::onExit();
-    
 }
 
 void PersonalScene::popPersonal()
 {
-    
     auto run = MoveTo::create(0.2f, Vec2(.0,.0));
     this->runAction(run);
-    
 }
 void PersonalScene::initModify()
 {
-    
     auto modify = (m_eType == Type_ModifyLoginPass)  ? static_cast<Node *>(_modifyLoginLayout->getChildByTag(2)) :
                                                        static_cast<Node *>(_modifyBankLayout->getChildByTag(3))  ;
     
     if (modify->getChildByTag(100))
-    {
         return;
-    }
+
     for (int i = 0 ; i < 3 ; i++)
     {
-        __String str;
+        __String strResult;
         
         if ( 0 == i)
         {
-            
             if (m_eType == Type_ModifyLoginPass)
-            {
-               str = "请输入您的登录密码";
-            }else
-            {
-                str = "请输入您的银行密码";
-            }
-        }else if (1 == i)
-        {
-            
-           str = "请输入您的新密码";
-        }else
-        {
-            
-            str = "请重复您刚才输入的新密码";
+               strResult = "请输入您的登录密码";
+            else
+                strResult = "请输入您的银行密码";
         }
+		else if (1 == i)
+			strResult = "请输入您的新密码";
+        else
+            strResult = "请重复您刚才输入的新密码";
         
         assert(modify);
+
         Text *text = static_cast<Text *>(modify->getChildByName(__String::createWithFormat("Text_%d",i)->getCString()));
         
         EditBox *edit = EditBox::create(Size(318, 58), "personal_res/info_commonText.png");
-        edit->setDelegate(this);
+        
+		edit->setDelegate(this);
         edit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
         edit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
         edit->setPosition(cocos2d::Point(text->getPositionX() + 60, text->getPositionY()));
@@ -503,9 +491,10 @@ void PersonalScene::initModify()
         edit->setReturnType(EditBox::KeyboardReturnType::DONE);
         edit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 24);
         edit->setPlaceholderFontColor(cocos2d::Color3B(36,236,250));
-        edit->setPlaceHolder(str.getCString());
+        edit->setPlaceHolder(strResult.getCString());
         edit->setTag(100 + i);
         edit->setFontColor(Color3B::YELLOW);
+
         modify->addChild(edit);
     }
 }
@@ -513,7 +502,7 @@ void PersonalScene::initModify()
 //MARK::Notify
 void PersonalScene::userFaceinfoResult(void *pData, WORD wSize)
 {
-    auto result = (CMD_GP_UserFaceInfo *)pData;
+    auto result = (_stCmdGpUserFaceInfo *)pData;
     HallDataMgr::getInstance()->m_wFaceID = result->wFaceID;
     HallDataMgr::getInstance()->m_wCustom = result->dwCustomID;
     
@@ -524,18 +513,21 @@ void PersonalScene::userFaceinfoResult(void *pData, WORD wSize)
     
     //更新
     EventCustom event(whEvent_User_Data_Change);
+
     auto value = __Integer::create(EM_USER_DATA_CHANGE_HEAD);
     event.setUserData(value);
+
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 }
 
 void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
 {
-    auto presult = (CMD_GP_OPERATE_SUCC *)pData;
-    std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescription);
+    auto presult = (ST_CMD_GP_OPERATE_SUCC *)pData;
+    std::string str = WHConverUnicodeToUtf8WithArray((WORD*)presult->szDes);
     HallDataMgr::getInstance()->AddpopLayer("系统提示", str, EM_MODE_TYPE_ENSURE);
     HallDataMgr::getInstance()->m_cbGender = m_cbGender;
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
+
     if (m_eType == Type_PersonalInfo)
     {
         
@@ -614,8 +606,8 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
 
 void PersonalScene::operatefailureResult(void *pData, WORD wSize)
 {
-    auto presult = (CMD_GP_OPERATE_FAILURE *)pData;
-    std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescription);
+    auto presult = (ST_CMD_GP_OPERATE_FAILURE *)pData;
+    std::string str = WHConverUnicodeToUtf8WithArray(presult->szDes);
     HallDataMgr::getInstance()->AddpopLayer("错误提示", str, EM_MODE_TYPE_ENSURE);
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
 }
@@ -1029,14 +1021,14 @@ void PersonalScene::photocomplete(cocos2d::Image *pimage)
 //MARK::NetWork
 void PersonalScene::sendSystemFaceInfo(WORD wface)
 {
-    CMD_GP_SystemFaceInfo SystemFaceInfo;
-    memset(&SystemFaceInfo, 0, sizeof(CMD_GP_SystemFaceInfo));
-    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, SystemFaceInfo.szPassword);
+    _stCmdGpSysFaceInfo SystemFaceInfo;
+    memset(&SystemFaceInfo, 0, sizeof(_stCmdGpSysFaceInfo));
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, SystemFaceInfo.szPwd);
     SystemFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
     SystemFaceInfo.wFaceID = wface;
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
-    NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_SYSTEM_FACE_INFO, &SystemFaceInfo, sizeof(CMD_GP_SystemFaceInfo),NetworkMgr::getInstance()->getSocketOnce());
+    NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_SYSTEM_FACE_INFO, &SystemFaceInfo, sizeof(_stCmdGpSysFaceInfo),NetworkMgr::getInstance()->getSocketOnce());
     
     
 }
@@ -1056,14 +1048,14 @@ void PersonalScene::sendCustomFaceInfo(cocos2d::Image *pImage)
         byte[i*4+3]=255;
     }
     
-    CMD_GP_CustomFaceInfo CustomFaceInfo;
+    _stCmdGpCustomFaceInfo CustomFaceInfo;
     memset(&CustomFaceInfo, 0, sizeof(CustomFaceInfo));
-    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, CustomFaceInfo.szPassword);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, CustomFaceInfo.szPwd);
     CustomFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
     memcpy(CustomFaceInfo.dwCustomFace, byte, length);
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
-    NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_CUSTOM_FACE_INFO, &CustomFaceInfo, sizeof(CMD_GP_CustomFaceInfo),NetworkMgr::getInstance()->getSocketOnce());
+    NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_CUSTOM_FACE_INFO, &CustomFaceInfo, sizeof(_stCmdGpCustomFaceInfo),NetworkMgr::getInstance()->getSocketOnce());
 }
 
 void PersonalScene::sendAlterIndividual(const std::string &name, BYTE cbgerder, int type)
@@ -1071,14 +1063,14 @@ void PersonalScene::sendAlterIndividual(const std::string &name, BYTE cbgerder, 
     BYTE buffer[256];
     memset(buffer, 0, sizeof(buffer));
     
-    CMD_GP_ModifyIndividual modifyindividual;
-    memset(&modifyindividual, 0, sizeof(CMD_GP_ModifyIndividual));
-    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, modifyindividual.szPassword);
+    _stCmdGpModifyIndividual modifyindividual;
+    memset(&modifyindividual, 0, sizeof(_stCmdGpModifyIndividual));
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, modifyindividual.szPwd);
     modifyindividual.cbGender = cbgerder;
     modifyindividual.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
-    memcpy(buffer, &modifyindividual, sizeof(CMD_GP_ModifyIndividual));
-    int size = sizeof(CMD_GP_ModifyIndividual);
+    memcpy(buffer, &modifyindividual, sizeof(_stCmdGpModifyIndividual));
+    int size = sizeof(_stCmdGpModifyIndividual);
     //if (type)
     {
         int wsize = (int)name.size()+1;
@@ -1103,11 +1095,11 @@ void PersonalScene::sendAlterIndividual(const std::string &name, BYTE cbgerder, 
 
 void PersonalScene::sendAlterloginPass(const std::string &oldpass, const std::string &newpass)
 {
-    CMD_GP_ModifyLogonPass request;
+    _stCmdGpModifyLogonPwd request;
     memset(&request, 0, sizeof(request));
     request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    Utf8ToUtf16(MD5Encrypt(oldpass), request.szScrPassword);
-    Utf8ToUtf16(MD5Encrypt(newpass), request.szDesPassword);
+    Utf8ToUtf16(MD5Encrypt(oldpass), request.szOldPwd);
+    Utf8ToUtf16(MD5Encrypt(newpass), request.szNewPwd);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_LOGON_PASS, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
@@ -1115,11 +1107,11 @@ void PersonalScene::sendAlterloginPass(const std::string &oldpass, const std::st
 
 void PersonalScene::sendAlterBankPass(const std::string &oldpass, const std::string &newpass)
 {
-    CMD_GP_ModifyInsurePass request;
+    _stCmdGpModifyInsurePwd request;
     memset(&request, 0, sizeof(request));
     request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    Utf8ToUtf16(MD5Encrypt(oldpass), request.szScrPassword);
-    Utf8ToUtf16(MD5Encrypt(newpass), request.szDesPassword);
+    Utf8ToUtf16(MD5Encrypt(oldpass), request.szOldPwd);
+    Utf8ToUtf16(MD5Encrypt(newpass), request.szNewPwd);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INSURE_PASS, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());

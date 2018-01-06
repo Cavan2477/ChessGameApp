@@ -283,18 +283,18 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         
         DebugLog("注册成功");
       
-        CMD_MB_LOGON_SUCC *success = (CMD_MB_LOGON_SUCC *)pData;
+        ST_CMD_MB_LOGON_SUCC *success = (ST_CMD_MB_LOGON_SUCC *)pData;
         HallDataMgr::getInstance()->m_wFaceID = success->wFaceID;
         HallDataMgr::getInstance()->m_cbGender = success->cbGender;
-        HallDataMgr::getInstance()->m_wCustom = success->cbCustomID;
+        HallDataMgr::getInstance()->m_wCustom = success->cbCustomFaceID;
         HallDataMgr::getInstance()->m_dwUserID = success->dwUserID;
         HallDataMgr::getInstance()->m_dwGameID = success->dwGameID;
         HallDataMgr::getInstance()->m_pNickName = WHConverUnicodeToUtf8WithArray(success->szNickName);
-        HallDataMgr::getInstance()->m_dynamicpass = WHConverUnicodeToUtf8WithArray(success->szDynamicPasswd);
-        HallDataMgr::getInstance()->m_Ingot = success->lUserIngot;
-        HallDataMgr::getInstance()->m_Bean = success->dUserBeans;
-        HallDataMgr::getInstance()->m_UserInsure = success->lUserInsure;
-        HallDataMgr::getInstance()->m_UserScore = success->lUserScore;
+        HallDataMgr::getInstance()->m_dynamicpass = WHConverUnicodeToUtf8WithArray(success->szDynamicPwd);
+        HallDataMgr::getInstance()->m_lGold = success->lUserGold;
+        HallDataMgr::getInstance()->m_dBean = success->dUserBean;
+        HallDataMgr::getInstance()->m_lUserInsureGold = success->lUserInsure;
+        HallDataMgr::getInstance()->m_lUserGold = success->lUserGameCoin;
         HallDataMgr::getInstance()->m_cbInsureEnable = success->cbInsureEnable;
         
         if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_NORMAL)
@@ -319,7 +319,7 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         loading->removeFromParent();
         
      
-        CMD_MB_LOGON_FAILURE* failuer = (CMD_MB_LOGON_FAILURE *)pData;
+        ST_CMD_MB_LOGON_FAILURE* failuer = (ST_CMD_MB_LOGON_FAILURE *)pData;
         auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
         this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.1f), action));
         
@@ -331,7 +331,7 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         }
         else
         {
-            std::string str = WHConverUnicodeToUtf8WithArray(failuer->szDescription);
+            std::string str = WHConverUnicodeToUtf8WithArray(failuer->szDes);
             HallDataMgr::getInstance()->AddpopLayer("", str, Type_Ensure);
         }
       

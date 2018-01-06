@@ -85,7 +85,7 @@ typedef enum
 typedef enum 
 {
     EM_EXCHANGE_UI_BTN			= EM_UI_MSG::EM_UI_MSG_EXCHANGE + 1,					// 兑换
-    EM_EXCHANGE_UI_INGOT,
+    EM_EXCHANGE_UI_GOLD,
     EM_EXCHANGE_UI_BEAN,
     EM_EXCHANGE_UI_VIEW_MODE,
 }EM_EXCHANGE_UI;

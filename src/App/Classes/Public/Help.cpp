@@ -252,7 +252,7 @@ const std::string getCurrentTime()
 }
 
 //获取时间
-const std::string getTimeStr(LONG_LONG timesec)
+const std::string getTimeStr(LONGLONG timesec)
 {
     time_t _time = timesec;
     struct tm* pstTime;

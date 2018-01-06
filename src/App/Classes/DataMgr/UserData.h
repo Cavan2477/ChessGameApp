@@ -52,7 +52,7 @@ public:
     
     void UpdateData(CMD_GR_MOBILE_USER_SCORE *pdata)
     {
-        m_date.lScore = pdata->UserScore.lScore;
+        m_date.llGameCoin = pdata->UserScore.llGameCoin;
         m_date.dBean = pdata->UserScore.dBean;
         m_date.dwWinCount = pdata->UserScore.dwWinCount;
         m_date.dwLostCount = pdata->UserScore.dwLostCount;

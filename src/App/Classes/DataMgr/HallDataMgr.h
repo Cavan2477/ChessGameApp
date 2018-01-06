@@ -62,7 +62,7 @@ public:
     void roomlistclear();
     
     //获取签名验证
-    std::string getSignature(LONG_LONG times);
+    std::string getSignature(LONGLONG times);
     
     cocos2d::Map<int , cocos2d::Texture2D *> m_Headlist;//头像
     
@@ -72,7 +72,7 @@ public:
     
     cocos2d::Map<int, UserData *> m_UserList;// 用户列表
     
-    CMD_GP_GROW_LEVEL_PARAM m_levelData;
+    ST_CMD_GP_GROW_LEVEL_PARAM m_levelData;
     
     cocos2d::Vector<cocos2d::__String *> m_chatlist;//系统消息列表
     
@@ -132,7 +132,7 @@ public:
     bool                        m_isEnterBack;                  //游戏是否退到后台，退到后台子弹发射消息不处理
     LONGLONG                    m_enterbacktime;                //进入后台时间
     
-    LONG_LONG                       m_Logintime;//登录成功时间
+    LONGLONG                       m_Logintime;//登录成功时间
     
     bool                        m_IsLogin;                      //是否是登录界面
     

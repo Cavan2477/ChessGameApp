@@ -304,7 +304,7 @@ bool Plazz::init()
     layout->addChild(_UserNikcName);
     
     //用户分数
-    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserScore(score);
     _UserScore->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_UserScore, 135);
@@ -599,11 +599,11 @@ void Plazz::editBoxReturn(cocos2d::ui::EditBox* editBox)
 
 void Plazz::sendPacketWithUserLevelInfo()
 {
-    CMD_GP_GROW_LEVEL_QUERY_INFO levelQueryInfo;
-    memset(&levelQueryInfo, 0, sizeof(CMD_GP_GROW_LEVEL_QUERY_INFO));
+    ST_CMD_GP_GROW_LEVEL_QUERY_INFO levelQueryInfo;
+    memset(&levelQueryInfo, 0, sizeof(ST_CMD_GP_GROW_LEVEL_QUERY_INFO));
     levelQueryInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), levelQueryInfo.szMachineID);
-    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), levelQueryInfo.szPassword);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), levelQueryInfo.szPwd);
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_GROWLEVEL_QUERY, &levelQueryInfo, sizeof(levelQueryInfo), NetworkMgr::getInstance()->getSocketOnce());
 }
@@ -612,11 +612,11 @@ void Plazz::sendPacketWithUserLevelInfo()
 void Plazz::LevelUpgrade(void* pData, WORD wSize)
 {
     
-    CMD_GP_GROW_LEVEL_UPGRADE *level = (CMD_GP_GROW_LEVEL_UPGRADE *)pData;
-    HallDataMgr::getInstance()->m_UserScore = level->lCurrScore;
-    HallDataMgr::getInstance()->m_Ingot = level->lCurrIngot;
+    ST_CMD_GP_GROW_LEVEL_UPGRADE *level = (ST_CMD_GP_GROW_LEVEL_UPGRADE *)pData;
+    HallDataMgr::getInstance()->m_lUserGold = level->lCurrGameCoin;
+    HallDataMgr::getInstance()->m_lGold = level->lCurrGold;
     
-    _UserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","));
+    _UserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
     
     std::string str = WHConverUnicodeToUtf8WithArray(level->szNotifyContent);
     HallDataMgr::getInstance()->AddpopLayer("", str, Type_Ensure);
@@ -665,7 +665,7 @@ void Plazz::notifyFreshInfo(cocos2d::EventCustom *event)
         case User_Change_Score:
         case User_Change_Bean:
         {
-            _UserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","));
+            _UserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
             
         }
             break;
@@ -833,7 +833,7 @@ void Plazz::operatesuccessResult(void *pData, WORD wSize)
         m_btnBindMachine->setTag(nTag);
     }
     
-    auto presult = (CMD_GP_OPERATE_SUCC *)pData;
+    auto presult = (ST_CMD_GP_OPERATE_SUCC *)pData;
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
     HallDataMgr::getInstance()->AddpopLayer("系统提示", str, Type_Ensure);
     
@@ -848,7 +848,7 @@ void Plazz::operatefailureResult(void *pData, WORD wSize)
     {
         return;
     }
-    auto presult = (CMD_GP_OPERATE_FAILURE *)pData;
+    auto presult = (ST_CMD_GP_OPERATE_FAILURE *)pData;
     std::string str = WHConverUnicodeToUtf8WithArray(presult->szDescribeString);
     HallDataMgr::getInstance()->AddpopLayer("系统提示", str, Type_Ensure);
     

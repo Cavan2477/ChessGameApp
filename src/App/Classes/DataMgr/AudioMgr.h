@@ -69,7 +69,7 @@ public:
      * @param[dwUser] 用户
      * @param[llScore] 下注、加分数目
      */
-    void playAddScoreAudio(DWORD dwUser,LONG_LONG llScore);
+    void playAddScoreAudio(DWORD dwUser,LONGLONG llScore);
     
     //播放游戏开始
     void playGameStartAudio();
@@ -131,7 +131,7 @@ public:
      * @brief 播放下注、加分音效
      * @param[llScore] 下注、加分数目
      */
-    void playNiuNiuAddScoreAudio(LONG_LONG llScore);
+    void playNiuNiuAddScoreAudio(LONGLONG llScore);
     
     /*
      * @brief 播放牛牛音效

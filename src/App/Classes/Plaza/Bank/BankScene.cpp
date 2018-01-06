@@ -63,9 +63,9 @@ void BankScene::sendInsureEnable(const std::string &strPass)
         
         cmdGPUserEnableInsure.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
 
-        Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)cmdGPUserEnableInsure.szLogonPass);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)cmdGPUserEnableInsure.szLogonPwd);
 		Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)cmdGPUserEnableInsure.szMachineID);
-		Utf8ToUtf16(bankpass.c_str(), (WORD*)cmdGPUserEnableInsure.szInsurePass);
+		Utf8ToUtf16(bankpass.c_str(), (WORD*)cmdGPUserEnableInsure.szInsurePwd);
         
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_ENABLE_INSURE, &cmdGPUserEnableInsure, sizeof(cmdGPUserEnableInsure),NetworkMgr::getInstance()->getSocketOnce());
@@ -98,7 +98,7 @@ void BankScene::sendInsureInfo()
 }
 
 //存款
-void BankScene::sendSaveScore(LONG_LONG score)
+void BankScene::sendSaveScore(LONGLONG score)
 {
     if(HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
@@ -123,7 +123,7 @@ void BankScene::sendSaveScore(LONG_LONG score)
 }
 
 //取款
-void BankScene::sendTakeScore(LONG_LONG score, const std::string &pass)
+void BankScene::sendTakeScore(LONGLONG score, const std::string &pass)
 {
     if(HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
@@ -152,7 +152,7 @@ void BankScene::sendTakeScore(LONG_LONG score, const std::string &pass)
 }
 
 //转帐
-void BankScene::sendTransferScore(LONG_LONG score, const std::string &pass, int type, const std::string &nickname)
+void BankScene::sendTransferScore(LONGLONG score, const std::string &pass, int type, const std::string &nickname)
 {
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     

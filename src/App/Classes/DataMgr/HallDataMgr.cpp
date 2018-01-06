@@ -42,7 +42,7 @@ HallDataMgr::HallDataMgr()
     m_dwKindID = LOGON_KIND_ID;
     memset(&m_Tableinfo, 0, sizeof(m_Tableinfo));
     memset(&m_levelData, 0, sizeof(m_levelData));
-    m_levelData.dwUpgradeExperience = 1;
+    m_levelData.dwNextLevelExp = 1;
     
     m_tagSubParam = tagSubSystemParam();
     
@@ -227,9 +227,9 @@ void HallDataMgr::roomlistclear()
     m_roomList.shrink_to_fit();
 }
 
-std::string HallDataMgr::getSignature(LONG_LONG times)
+std::string HallDataMgr::getSignature(LONGLONG times)
 {
-    LONG_LONG timevalue = times;
+    LONGLONG timevalue = times;
     log("验证时间%lld", timevalue);
     auto timestr = __String::createWithFormat("%lld", timevalue)->getCString();
     std::string pstr = __String::createWithFormat("%d", m_dwUserID)->getCString();

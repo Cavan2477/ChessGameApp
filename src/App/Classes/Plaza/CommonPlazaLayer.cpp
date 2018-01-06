@@ -137,7 +137,7 @@ bool CommonPlazaLayer::init()
         m_pLayoutUserInfo->addChild(m_pLabelUserNickname);
         
         //用户分数
-        m_pLabelUserScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","), FONT_TREBUCHET_MS_BOLD, 24);
+        m_pLabelUserScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
         m_pLabelUserScore->setTextColor(cocos2d::Color4B::YELLOW);
 
         Labellengthdeal(m_pLabelUserScore, 135);
@@ -467,12 +467,12 @@ void CommonPlazaLayer::buttonEventWithLock(cocos2d::Ref *target, cocos2d::ui::Wi
 //MARK:: 等级信息
 void CommonPlazaLayer::LevelUpgrade(void* pData, WORD wSize)
 {
-    CMD_GP_GROW_LEVEL_UPGRADE *pLevelUpgrade = (CMD_GP_GROW_LEVEL_UPGRADE *)pData;
+    ST_CMD_GP_GROW_LEVEL_UPGRADE *pLevelUpgrade = (ST_CMD_GP_GROW_LEVEL_UPGRADE *)pData;
 
-    HallDataMgr::getInstance()->m_UserScore = pLevelUpgrade->lCurrScore;
-    HallDataMgr::getInstance()->m_Ingot = pLevelUpgrade->lCurrIngot;
+    HallDataMgr::getInstance()->m_lUserGold = pLevelUpgrade->lCurrGameCoin;
+    HallDataMgr::getInstance()->m_lGold = pLevelUpgrade->lCurrGold;
     
-    m_pLabelUserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","));
+    m_pLabelUserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
     
     std::string strNotifyContent = WHConverUnicodeToUtf8WithArray((WORD*)pLevelUpgrade->szNotifyContent);
 
@@ -520,7 +520,7 @@ void CommonPlazaLayer::notifyFreshInfo(cocos2d::EventCustom *event)
 		case EM_USER_DATA_CHANGE_SCORE:
 		case EM_USER_DATA_CHANGE_BEAN:
         {
-            m_pLabelUserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_UserScore, ","));
+            m_pLabelUserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
         }
 
             break;
@@ -683,9 +683,9 @@ void CommonPlazaLayer::operatesuccessResult(void *pData, WORD wSize)
         btn->setTag(nTag);
     }
     
-    auto pResult = (CMD_GP_OPERATE_SUCC *)pData;
+    auto pResult = (ST_CMD_GP_OPERATE_SUCC *)pData;
 
-    std::string strResultDes = WHConverUnicodeToUtf8WithArray((WORD*)pResult->szDescription);
+    std::string strResultDes = WHConverUnicodeToUtf8WithArray((WORD*)pResult->szDes);
 
 	HallDataMgr::getInstance()->AddpopLayer("系统提示", strResultDes, EM_MODE_TYPE_ENSURE);
     
@@ -700,9 +700,9 @@ void CommonPlazaLayer::operatefailureResult(void *pData, WORD wSize)
     if (nullptr == pData || 0 == wSize)
         return;
 
-    auto pResult = (CMD_GP_OPERATE_FAILURE *)pData;
+    auto pResult = (ST_CMD_GP_OPERATE_FAILURE *)pData;
 
-    std::string strDes = WHConverUnicodeToUtf8WithArray((WORD*)pResult->szDescription);
+    std::string strDes = WHConverUnicodeToUtf8WithArray((WORD*)pResult->szDes);
 
 	HallDataMgr::getInstance()->AddpopLayer("系统提示", strDes, EM_MODE_TYPE_ENSURE);
     

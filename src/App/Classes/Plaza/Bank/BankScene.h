@@ -39,13 +39,13 @@ public:
     void sendInsureInfo();
 
     //存款
-    void sendSaveScore(LONG_LONG score);
+    void sendSaveScore(LONGLONG score);
 
     //取款
-    void sendTakeScore(LONG_LONG score, const std::string &pass);
+    void sendTakeScore(LONGLONG score, const std::string &pass);
 
     //转帐
-    void sendTransferScore(LONG_LONG score, const std::string &pass, int type, const std::string &nickname);
+    void sendTransferScore(LONGLONG score, const std::string &pass, int type, const std::string &nickname);
     
     //大厅消息回包处理
     //开通银行结果
@@ -67,7 +67,7 @@ public:
     virtual void BankInsureResult(WORD  wSubCmdID, void* pData, WORD wSize){};
     
 protected:
-    LONG_LONG   m_TransferScore;    //转帐金额
+    LONGLONG   m_TransferScore;    //转帐金额
     
     std::string m_BankPass;     //转帐输入密码
 };
