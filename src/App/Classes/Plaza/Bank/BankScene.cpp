@@ -88,17 +88,17 @@ void BankScene::sendInsureInfo()
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
-        CMD_GR_C_QueryInsureInfoRequest info;
+        CMD_GR_CLIENT_QUERY_INSURE_INFO_REQ info;
         memset(&info,0,sizeof(info));
         
         info.cbActivityGame = SUB_GR_QUERY_INSURE_INFO;
-		Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)info.szInsurePass);
+		Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)info.szInsurePwd);
         NetworkMgr::getInstance()->sendData(MDM_GR_INSURE, SUB_GR_QUERY_INSURE_INFO, &info, sizeof(info));
     }
 }
 
 //存款
-void BankScene::sendSaveScore(SCORE score)
+void BankScene::sendSaveScore(LONG_LONG score)
 {
     if(HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
@@ -113,17 +113,17 @@ void BankScene::sendSaveScore(SCORE score)
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
-        CMD_GR_C_SaveScoreRequest request;
+        CMD_GR_CLIENT_SAVE_GOLD_REQ request;
         memset(&request, 0, sizeof(request));
         
         request.cbActivityGame = SUB_GR_SAVE_SCORE_REQUEST;
-        request.lSaveScore = score;
+        request.lSaveGold = score;
         NetworkMgr::getInstance()->sendData(MDM_GR_INSURE, SUB_GR_SAVE_SCORE_REQUEST, &request, sizeof(request));
     }
 }
 
 //取款
-void BankScene::sendTakeScore(SCORE score, const std::string &pass)
+void BankScene::sendTakeScore(LONG_LONG score, const std::string &pass)
 {
     if(HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
@@ -140,19 +140,19 @@ void BankScene::sendTakeScore(SCORE score, const std::string &pass)
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
-        CMD_GR_C_TakeScoreRequest request;
+        CMD_GR_CLIENT_TAKE_OUT_GOLD_REQ request;
         memset(&request, 0, sizeof(request));
         
         request.cbAvtivityGame = SUB_GR_TAKE_SCORE_REQUEST;
-        request.lTakeScore = score;
+        request.lTakeOutGold = score;
         auto md5pass = MD5Encrypt(pass);
-		Utf8ToUtf16(md5pass.c_str(), (WORD*)request.szInsurePass);
+		Utf8ToUtf16(md5pass.c_str(), (WORD*)request.szInsurePwd);
         NetworkMgr::getInstance()->sendData(MDM_GR_INSURE, SUB_GR_TAKE_SCORE_REQUEST, &request, sizeof(request));
     }
 }
 
 //转帐
-void BankScene::sendTransferScore(SCORE score, const std::string &pass, int type, const std::string &nickname)
+void BankScene::sendTransferScore(LONG_LONG score, const std::string &pass, int type, const std::string &nickname)
 {
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     
@@ -201,15 +201,15 @@ void BankScene::sendTransferScore(SCORE score, const std::string &pass, int type
         }
          */
         
-        CMD_GR_C_TransferScoreRequest request;
+        CMD_GR_CLIENT_TRANSFER_GOLD_REQ request;
         memset(&request, 0, sizeof(request));
         
         request.cbActivityGame = SUB_GR_TRANSFER_SCORE_REQUEST;
-        request.lTransferScore = score;
+        request.lTransferGold = score;
 
         auto md5pass = MD5Encrypt(pass);
 
-		Utf8ToUtf16(md5pass.c_str(), (WORD*)request.szInsurePass);
+		Utf8ToUtf16(md5pass.c_str(), (WORD*)request.szInsurePwd);
 		Utf8ToUtf16(nickname.c_str(), (WORD*)request.szAccounts);
         NetworkMgr::getInstance()->sendData(MDM_GR_INSURE, SUB_GR_TRANSFER_SCORE_REQUEST, &request, sizeof(request));
     } 

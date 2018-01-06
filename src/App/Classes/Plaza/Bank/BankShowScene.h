@@ -26,10 +26,10 @@ public:
     CC_SYNTHESIZE(std::string, m_Type, Type)
     
     //交易金额
-    CC_SYNTHESIZE(SCORE, m_SwapScore, SwapScore)
+    CC_SYNTHESIZE(LONG_LONG, m_SwapScore, SwapScore)
     
     //服务费
-    CC_SYNTHESIZE(SCORE, m_Revenue, Revenue)
+    CC_SYNTHESIZE(LONG_LONG, m_Revenue, Revenue)
 };
 
 class BankShowScene : public BankScene , public cocos2d::ui::EditBoxDelegate

@@ -84,7 +84,7 @@ private:
     
     DWORD m_wSeriesDate;
     
-    SCORE m_lowbase;//低保领取标准
+    LONG_LONG m_lowbase;//低保领取标准
     
 private:
     EventListenerTouchOneByOne* _touchListener;

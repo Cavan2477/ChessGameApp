@@ -41,7 +41,7 @@ public:
         CC_SYNTHESIZE(std::string, _nickName, NickName);
         
         //金币
-        CC_SYNTHESIZE(SCORE, _userScore,UserScore);
+        CC_SYNTHESIZE(LONG_LONG, _userScore,UserScore);
         
         //排行
         CC_SYNTHESIZE(int, _rankIndex, RankIndex);

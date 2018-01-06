@@ -69,7 +69,7 @@ bool RegistScene::init()
     m_pPasswordEdit = EditBox::create(Size(318, 58), "common_res/common_edit_textIcon.png");
     m_pPasswordEdit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     m_pPasswordEdit->setPosition(cocos2d::Point(password->getPositionX()+80, password->getPositionY()));
-    m_pPasswordEdit->setMaxLength(LEN_PASSWORD);
+    m_pPasswordEdit->setMaxLength(LEN_PWD);
     m_pPasswordEdit->setFontSize(28);
     m_pPasswordEdit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     m_pPasswordEdit->setPlaceholderFontColor(cocos2d::Color3B(214,246,255));
@@ -85,7 +85,7 @@ bool RegistScene::init()
     m_pPWDConfirmEdit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     m_pPWDConfirmEdit->setPosition(cocos2d::Point(confirm->getPositionX()+80, confirm->getPositionY()));
     m_pPWDConfirmEdit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
-    m_pPWDConfirmEdit->setMaxLength(LEN_PASSWORD);
+    m_pPWDConfirmEdit->setMaxLength(LEN_PWD);
     m_pPWDConfirmEdit->setFontSize(28);
     m_pPWDConfirmEdit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     m_pPWDConfirmEdit->setPlaceholderFontColor(cocos2d::Color3B(214,246,255));
@@ -134,7 +134,7 @@ bool RegistScene::checkLength(int len) const
         HallDataMgr::getInstance()->AddpopLayer("提示", "用户名或密码长度小于6位，请重新输入", Type_Ensure);
         return  false;
     }
-    else if (len > LEN_PASSWORD)
+    else if (len > LEN_PWD)
     {
         HallDataMgr::getInstance()->AddpopLayer("提示", "用户名或密码长度超过32位，请重新输入", Type_Ensure);
         return false;

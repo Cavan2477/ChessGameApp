@@ -71,7 +71,7 @@ const std::string WHGetMacAddress();
 const std::string getCurrentTime();
 
 //获取时间
-const std::string getTimeStr(SCORE timesec);
+const std::string getTimeStr(LONG_LONG timesec);
 
 //由数据创建纹理，对GIF数据做了额外处理
 cocos2d::Texture2D *CreatewithImageData(unsigned char *pdata, DWORD wsize);

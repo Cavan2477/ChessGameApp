@@ -22,7 +22,7 @@ typedef struct _stReceipt
     DWORD dwSendUserId;             //赠送人id
     std::string strRecUserName;     //接收人昵称
     DWORD dwRecUserId;              //接收人id
-    SCORE llSendCount;              //赠送数额
+    LONG_LONG llSendCount;              //赠送数额
 }ST_RECEIPT, *PST_RECEIPT;
 
 class BankSendReceiptLayer: public UILayer

@@ -617,7 +617,7 @@ void BankShowScene::queryUserInfo(const BYTE &cbType, const std::string &sTarget
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
-        CMD_GR_C_QueryUserInfoRequest request;
+        CMD_GR_CLIENT_QUERY_USER_INFO_REQ request;
         memset(&request, 0, sizeof(request));
         
         request.cbByNickName = cbType;
@@ -636,7 +636,7 @@ void BankShowScene::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std:
         if (m_eType == type_savetake)
         {
             auto score = MAX(HallDataMgr::getInstance()->m_UserInsure, HallDataMgr::getInstance()->m_UserScore);
-            SCORE editscore = 0;
+            LONG_LONG editscore = 0;
             sscanf(text.c_str(), "%lld[0-9]", &editscore);
             
             if (editscore > score)
@@ -669,7 +669,7 @@ void BankShowScene::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std:
 //            
             
             auto score = HallDataMgr::getInstance()->m_UserInsure;
-            SCORE editscore = 0;
+            LONG_LONG editscore = 0;
             sscanf(text.c_str(), "%lld[0-9]", &editscore);
             if (editscore > score)
             {
@@ -849,7 +849,7 @@ void BankShowScene::buttonEventWithTouch(cocos2d::Ref *target, cocos2d::ui::Widg
             }
             
             HallDataMgr::getInstance()->AddpopLayer("","", EM_MODE_TYPE_WAIT);
-            SCORE saveScore = 0;
+            LONG_LONG saveScore = 0;
             sscanf(saveNumEdit->getText(), "%lld", &saveScore);
             sendSaveScore(saveScore);
             
@@ -873,7 +873,7 @@ void BankShowScene::buttonEventWithTouch(cocos2d::Ref *target, cocos2d::ui::Widg
             }
             
             HallDataMgr::getInstance()->AddpopLayer("","", EM_MODE_TYPE_WAIT);
-            SCORE takeScore = 0;
+            LONG_LONG takeScore = 0;
             sscanf(takeNumEdit->getText(), "%lld", &takeScore);
             sendTakeScore(takeScore, passwordEdit->getText());
         }
@@ -917,7 +917,7 @@ void BankShowScene::buttonEventWithRecord(cocos2d::Ref *target, cocos2d::ui::Wid
         
          Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(RECORD_REQUEST_EVENT, CC_CALLBACK_1(BankShowScene::RecordReuqcestEvent, this)), 1);
         
-        SCORE _time = getsystemtomillisecond() - HallDataMgr::getInstance()->m_Logintime;
+        LONG_LONG _time = getsystemtomillisecond() - HallDataMgr::getInstance()->m_Logintime;
         auto prequest = new HttpRequest;
         auto purl = __String::createWithFormat("%s/WS/MobileInterface.ashx?action=GetBankRecord&userid=%u%s", ADDRESS_WHhttp6603,HallDataMgr::getInstance()->m_dwUserID,HallDataMgr::getInstance()->getSignature(_time).c_str());
         
@@ -971,7 +971,7 @@ void BankShowScene::buttonEventWithPresent(cocos2d::Ref *target, cocos2d::ui::Wi
           }
           
           HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_WAIT);
-          SCORE score = 0;
+          LONG_LONG score = 0;
           sscanf(edNum->getText(), "%lld",&score);
           //sendTransferScore(score, password, m_nSendType, target);
           
@@ -1068,7 +1068,7 @@ void BankShowScene::RecoreRequestCallBack(cocos2d::network::HttpClient *sender, 
         pcheckdata->autorelease();
         
         std::string datestr = DICTOOL->getStringValue_json(checkdata, "CollectDate");
-        SCORE timevalue = 0;
+        LONG_LONG timevalue = 0;
         sscanf(datestr.c_str(), "\/Date(%lld)\/", &timevalue);
         pcheckdata->setDate(getTimeStr(timevalue/1000));
         pcheckdata->setType(DICTOOL->getStringValue_json(checkdata, "TradeTypeDescription"));

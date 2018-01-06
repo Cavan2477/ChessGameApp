@@ -159,7 +159,7 @@ void RankScene::rankRequestCallBack(cocos2d::network::HttpClient *sender, cocos2
             data->setRankIndex(index);
         }
         
-        SCORE score = 0;
+        LONG_LONG score = 0;
         if (val.HasMember("Score") && val["Score"].IsInt64())
         {
             score = val["Score"].GetInt64();

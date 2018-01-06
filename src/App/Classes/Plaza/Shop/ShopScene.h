@@ -101,7 +101,7 @@ public:
     
     void sendExchangeBean(DOUBLE beannum);
     
-    void sendExchangeIngot(SCORE ingotnum);
+    void sendExchangeIngot(LONG_LONG ingotnum);
     
     //大厅消息回包处理
     //兑换数据

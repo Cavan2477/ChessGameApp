@@ -127,10 +127,10 @@ public:
     WORD            m_wCustom;                              //自定义头像
     BYTE			m_cbGender;                             //用户性别 0为女，1为男
     
-    SCORE           m_Ingot;                                //元宝
+    LONG_LONG           m_Ingot;                                //元宝
     DOUBLE          m_Bean;                                 //游戏豆
-    SCORE           m_UserInsure;                           //银行金币
-    SCORE           m_UserScore;                            //携带金币
+    LONG_LONG           m_UserInsure;                           //银行金币
+    LONG_LONG           m_UserScore;                            //携带金币
 };
 
 //MARK::域名数据

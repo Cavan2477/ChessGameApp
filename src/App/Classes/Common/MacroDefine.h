@@ -26,7 +26,7 @@ typedef unsigned short		WORD;
 typedef DWORD               COLORREF;
 
 typedef	long long			LONGLONG;
-typedef long long			SCORE;
+typedef long long			LONG_LONG;
 typedef double              DOUBLE;
 typedef short               SHORT;
 typedef int                 INT;
@@ -145,7 +145,7 @@ typedef struct _stSysTime
 #define LEN_ACCOUNT		32						//备注长度
 #define LEN_NICENAME		32						//帐号长度	
 #define LEN_NICKNAME		32						//昵称长度
-#define LEN_PASSWORD		33						//密码长度	
+#define LEN_PWD		33						//密码长度	
 #define LEN_GROUP_NAME		32						//社团名字	
 #define LEN_UNDER_WRITE		32						//个性签名
 

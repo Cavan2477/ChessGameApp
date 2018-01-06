@@ -73,12 +73,12 @@ typedef struct _tagPropertyInfo
 	WORD							wIssueArea;							//发布范围
     
 	//销售价格
-	SCORE							lPropertyGold;						//道具金币
+	LONG_LONG							lPropertyGold;						//道具金币
 	DOUBLE							dPropertyCash;						//道具价格
     
 	//赠送魅力
-	SCORE							lSendLoveLiness;					//赠送魅力
-	SCORE							lRecvLoveLiness;					//接受魅力
+	LONG_LONG							lSendLoveLiness;					//赠送魅力
+	LONG_LONG							lRecvLoveLiness;					//接受魅力
 }tagPropertyInfo;
 
 //道具属性

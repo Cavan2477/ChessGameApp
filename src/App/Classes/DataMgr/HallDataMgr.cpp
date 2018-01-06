@@ -227,9 +227,9 @@ void HallDataMgr::roomlistclear()
     m_roomList.shrink_to_fit();
 }
 
-std::string HallDataMgr::getSignature(SCORE times)
+std::string HallDataMgr::getSignature(LONG_LONG times)
 {
-    SCORE timevalue = times;
+    LONG_LONG timevalue = times;
     log("验证时间%lld", timevalue);
     auto timestr = __String::createWithFormat("%lld", timevalue)->getCString();
     std::string pstr = __String::createWithFormat("%d", m_dwUserID)->getCString();

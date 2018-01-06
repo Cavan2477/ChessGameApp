@@ -204,7 +204,7 @@ void AudioMgr::playSelectCardAudio()
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SELECTCARD_AUDIO.c_str());
 }
 
-void AudioMgr::playAddScoreAudio(DWORD dwUser,SCORE llScore)
+void AudioMgr::playAddScoreAudio(DWORD dwUser,LONG_LONG llScore)
 {
     if (filterAudio())
     {
@@ -391,7 +391,7 @@ void AudioMgr::playGameConcludeAudio()
 }
 
 #pragma mark 牛牛音效
-void AudioMgr::playNiuNiuAddScoreAudio(SCORE llScore)
+void AudioMgr::playNiuNiuAddScoreAudio(LONG_LONG llScore)
 {
     if (filterAudio())
     {

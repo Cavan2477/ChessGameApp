@@ -1208,7 +1208,7 @@ void ShopScene::sendExchangeBean(DOUBLE beannum)
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
-        CMD_GR_ExchangeScoreByBean request;
+        CMD_GR_EXCHANGE_GAME_COIN_BY_BEAN request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
@@ -1218,7 +1218,7 @@ void ShopScene::sendExchangeBean(DOUBLE beannum)
     }
 }
 
-void ShopScene::sendExchangeIngot(SCORE ingotnum)
+void ShopScene::sendExchangeIngot(LONG_LONG ingotnum)
 {
     if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD) {
         CMD_GP_EXCHANGE_GAME_COIN_BY_INGOT request;
@@ -1232,7 +1232,7 @@ void ShopScene::sendExchangeIngot(SCORE ingotnum)
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
-        CMD_GR_ExchangeScore request;
+        CMD_GR_EXCHANGE_GAME_GOIN request;
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
@@ -1480,7 +1480,7 @@ void ShopScene::buttoneEventWithRealExchange(cocos2d::Ref *ref, cocos2d::ui::Wid
         
         std::string postData = "";
         
-         SCORE _time = getsystemtomillisecond() - HallDataMgr::getInstance()->m_Logintime;
+         LONG_LONG _time = getsystemtomillisecond() - HallDataMgr::getInstance()->m_Logintime;
         postData += __String::createWithFormat("userID=%u%s",
                                                HallDataMgr::getInstance()->m_dwUserID,
                                                HallDataMgr::getInstance()->getSignature(_time).c_str())->getCString();

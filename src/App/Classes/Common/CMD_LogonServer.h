@@ -118,9 +118,9 @@ typedef struct _stCMD_GP_LogonSuccess
     DWORD							dwLoveLiness;       			//用户魅力
     
     //用户成绩
-    SCORE							lUserScore;         			//用户金币
-    SCORE							lUserInsure;        			//用户银行
-    SCORE							lUserIngot;						//用户元宝
+    LONG_LONG							lUserScore;         			//用户金币
+    LONG_LONG							lUserInsure;        			//用户银行
+    LONG_LONG							lUserIngot;						//用户元宝
     DOUBLE							dUserBeans;						//用户游戏豆
     
     //用户信息
@@ -128,7 +128,7 @@ typedef struct _stCMD_GP_LogonSuccess
     BYTE							cbMoorMachine;					//锁定机器
     TCHAR							szAccounts[LEN_ACCOUNT];		//登录帐号
     TCHAR							szNickName[LEN_ACCOUNT];		//用户昵称
-    TCHAR							szDynamicPass[LEN_PASSWORD];	//动态密码
+    TCHAR							szDynamicPass[LEN_PWD];	//动态密码
     TCHAR							szGroupName[LEN_GROUP_NAME];	//社团名字
     
     //配置信息
@@ -343,23 +343,23 @@ typedef struct CMD_GP_ServerOnline
 typedef struct
 {
     DWORD							dwUserID;							//用户 I D
-    TCHAR							szDesPassword[LEN_PASSWORD];		//用户密码
-    TCHAR							szScrPassword[LEN_PASSWORD];		//用户密码
+    TCHAR							szDesPassword[LEN_PWD];		//用户密码
+    TCHAR							szScrPassword[LEN_PWD];		//用户密码
 }CMD_GP_ModifyLogonPass;
 
 //修改密码
 typedef struct
 {
     DWORD							dwUserID;							//用户 I D
-    TCHAR							szDesPassword[LEN_PASSWORD];		//用户密码
-    TCHAR							szScrPassword[LEN_PASSWORD];		//用户密码
+    TCHAR							szDesPassword[LEN_PWD];		//用户密码
+    TCHAR							szScrPassword[LEN_PWD];		//用户密码
 }CMD_GP_ModifyInsurePass;
 
 //修改签名
 struct CMD_GP_ModifyUnderWrite
 {
     DWORD							dwUserID;							//用户 I D
-    TCHAR							szPassword[LEN_PASSWORD];			//用户密码
+    TCHAR							szPassword[LEN_PWD];			//用户密码
     TCHAR							szUnderWrite[LEN_UNDER_WRITE];		//个性签名
 };
 
@@ -377,7 +377,7 @@ struct CMD_GP_SystemFaceInfo
 {
     WORD							wFaceID;							//头像标识
     DWORD							dwUserID;							//用户 I D
-    TCHAR							szPassword[LEN_PASSWORD];			//用户密码
+    TCHAR							szPassword[LEN_PWD];			//用户密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 };
 
@@ -385,7 +385,7 @@ struct CMD_GP_SystemFaceInfo
 typedef struct
 {
     DWORD							dwUserID;							//用户 I D
-    TCHAR							szPassword[LEN_PASSWORD];			//用户密码
+    TCHAR							szPassword[LEN_PWD];			//用户密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
     DWORD							dwCustomFace[FACE_CX*FACE_CY];		//图片信息
 }CMD_GP_CustomFaceInfo;
@@ -396,7 +396,7 @@ struct CMD_GP_ModifyMachine
 {
     BYTE							cbBind;								//绑定标志
     DWORD							dwUserID;							//用户标识
-    TCHAR							szPassword[LEN_PASSWORD];			//用户密码
+    TCHAR							szPassword[LEN_PWD];			//用户密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 };
 
@@ -411,7 +411,7 @@ struct CMD_GP_UserIndividual
 struct CMD_GP_QueryIndividual
 {
     DWORD							dwUserID;							//用户 I D
-    TCHAR							szPassword[LEN_PASSWORD];			//用户密码
+    TCHAR							szPassword[LEN_PWD];			//用户密码
 };
 
 //修改资料
@@ -419,7 +419,7 @@ typedef struct
 {
     BYTE							cbGender;							//用户性别
     DWORD							dwUserID;							//用户 I D
-    TCHAR							szPassword[LEN_PASSWORD];			//用户密码
+    TCHAR							szPassword[LEN_PWD];			//用户密码
 }CMD_GP_ModifyIndividual;
 
 
@@ -447,17 +447,17 @@ typedef struct _stCmdGpUserInsureInfo
     WORD							wRevenueTransfer;					//税收比例
     WORD							wRevenueTransferMember;				//税收比例
     WORD							wServerID;							//房间标识
-    SCORE							lUserScore;							//用户金币
-    SCORE							lUserInsure;						//银行金币
-    SCORE							lTransferPrerequisite;				//转帐条件
+    LONG_LONG							lUserScore;							//用户金币
+    LONG_LONG							lUserInsure;						//银行金币
+    LONG_LONG							lTransferPrerequisite;				//转帐条件
 }CMD_GP_USER_INSURE_INFO;
 
 //开通银行
 typedef struct _stCmdGpUserEnableInsure
 {
     DWORD							dwUserID;							//用户I D
-    TCHAR							szLogonPass[LEN_PASSWORD];			//登录密码
-    TCHAR							szInsurePass[LEN_PASSWORD];			//银行密码
+    TCHAR							szLogonPass[LEN_PWD];			//登录密码
+    TCHAR							szInsurePass[LEN_PWD];			//银行密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 }CMD_GP_USER_ENABLE_INSURE;
 
@@ -465,7 +465,7 @@ typedef struct _stCmdGpUserEnableInsure
 typedef struct _stCmdGpUserSaveGold
 {
     DWORD							dwUserID;							//用户 I D
-    SCORE							lSaveScore;							//存入金币
+    LONG_LONG							lSaveScore;							//存入金币
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 }CMD_GP_USER_SAVE_GOLD;
 
@@ -473,7 +473,7 @@ typedef struct _stCmdGpUserSaveGold
 typedef struct _stCmdGpUserTakeOutGold
 {
     DWORD							dwUserID;							//用户 I D
-    SCORE							lTakeScore;							//提取金币
+    LONG_LONG							lTakeScore;							//提取金币
     TCHAR							szPassword[LEN_MD5];				//银行密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 }CMD_GP_USER_TAKE_OUT_GOLD;
@@ -482,7 +482,7 @@ typedef struct _stCmdGpUserTakeOutGold
 typedef struct _stCmdGpUserTransferGold
 {
     DWORD							dwUserID;							//用户 I D
-    SCORE							lTransferScore;						//转帐金币
+    LONG_LONG							lTransferScore;						//转帐金币
     TCHAR							szPassword[LEN_MD5];				//银行密码
     TCHAR							szAccounts[LEN_NICKNAME];			//目标用户
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
@@ -496,8 +496,8 @@ typedef struct _stCmdGpUserInsureSucc
     DWORD							dwUserID;							//用户 I D
     DWORD                           dwUserMedal;                        //用户奖牌
     DWORD                           dwRecordIndex;                      //记录编号
-    SCORE							lUserScore;							//用户金币
-    SCORE							lUserInsure;						//银行金币
+    LONG_LONG							lUserScore;							//用户金币
+    LONG_LONG							lUserInsure;						//银行金币
     TCHAR							szDescription[128];					//描述消息
 }CMD_GP_USER_INSURE_SUCC;
 
@@ -512,8 +512,8 @@ typedef struct _stCmdGpUserInsureFailure
 typedef struct _stCmdGpUserTakeOutResult
 {
     DWORD							dwUserID;							//用户 I D
-    SCORE							lUserScore;							//用户金币
-    SCORE							lUserInsure;						//银行金币
+    LONG_LONG							lUserScore;							//用户金币
+    LONG_LONG							lUserInsure;						//银行金币
 }CMD_GP_USER_TAKE_OUT_RESULT;
 
 //查询银行
@@ -549,7 +549,7 @@ typedef struct _stCmdGpUserInsureEnableResult
 typedef struct _stCmdGpCheckInQueryInfo
 {
     DWORD							dwUserID;							//用户标识
-    TCHAR							szPassword[LEN_PASSWORD];			//登录密码
+    TCHAR							szPassword[LEN_PWD];			//登录密码
 }CMD_GP_CHECK_IN_QUERY_INFO;
 
 //签到信息
@@ -557,14 +557,14 @@ typedef struct _stCmdGpCheckInInfo
 {
     WORD							wSeriesDate;						//连续日期
     bool							bTodayChecked;						//签到标识
-    SCORE							lRewardGold[LEN_WEEK];				//奖励金币
+    LONG_LONG							lRewardGold[LEN_WEEK];				//奖励金币
 }CMD_GP_CHECK_IN_INFO;
 
 //执行签到
 typedef struct _stCmdGpCheckInDone
 {
     DWORD							dwUserID;							//用户标识
-    TCHAR							szPassword[LEN_PASSWORD];			//登录密码
+    TCHAR							szPassword[LEN_PWD];			//登录密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 }CMD_GP_CHECK_IN_DONE;
 
@@ -572,7 +572,7 @@ typedef struct _stCmdGpCheckInDone
 typedef struct _stCmdGpCheckInResult
 {
     bool							bSuccessed;							//成功标识
-    SCORE							lScore;								//当前金币
+    LONG_LONG							lScore;								//当前金币
     TCHAR							szNotifyContent[128];				//提示内容
 }CMD_GP_CHECK_IN_RESULT;
 
@@ -583,7 +583,7 @@ typedef struct _stCmdGpTaskLoadInfo
 {
     
     DWORD							dwUserID;							//用户标识
-    TCHAR							szPassword[LEN_PASSWORD];			//用户密码
+    TCHAR							szPassword[LEN_PWD];			//用户密码
 }CMD_GP_TASK_LOAD_INFO;
 
 //领取任务
@@ -591,7 +591,7 @@ typedef struct _CMD_GP_TaskTake
 {
     WORD							wTaskID;							//任务标识
     DWORD							dwUserID;							//用户标识
-    TCHAR							szPassword[LEN_PASSWORD];			//登录密码
+    TCHAR							szPassword[LEN_PWD];			//登录密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 }CMD_GP_TaskTake;
 
@@ -600,7 +600,7 @@ typedef struct _stCmdGpTaskReward
 {
     WORD							wTaskID;							//任务标识
     DWORD							dwUserID;							//用户标识
-    TCHAR							szPassword[LEN_PASSWORD];			//登录密码
+    TCHAR							szPassword[LEN_PWD];			//登录密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 }CMD_GP_TASK_REWARD;
 
@@ -619,8 +619,8 @@ typedef struct _stCmdGpTaskResult
     WORD							wCommandID;							//命令标识
     
     //财富信息
-    SCORE							lCurrScore;							//当前金币
-    SCORE							lCurrIngot;							//当前元宝
+    LONG_LONG							lCurrScore;							//当前金币
+    LONG_LONG							lCurrIngot;							//当前元宝
     
     //提示信息
     TCHAR							szNotifyContent[128];				//提示内容
@@ -633,15 +633,15 @@ typedef struct _stCmdGpTaskResult
 typedef struct _stCmdGpBaseEnsureGet
 {
     DWORD							dwUserID;							//用户 I D
-    TCHAR							szPassword[LEN_PASSWORD];			//登录密码
+    TCHAR							szPassword[LEN_PWD];			//登录密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 }CMD_GP_BASE_ENSURE_GET;
 
 //低保参数
 typedef struct _stCmdGpBaseEnsureParam
 {
-    SCORE							lScoreCondition;					//游戏币条件
-    SCORE							lScoreAmount;						//游戏币数量
+    LONG_LONG							lScoreCondition;					//游戏币条件
+    LONG_LONG							lScoreAmount;						//游戏币数量
     BYTE							cbTakeTimes;						//领取次数
 }CMD_GP_BASE_ENSURE_PARAM;
 
@@ -649,7 +649,7 @@ typedef struct _stCmdGpBaseEnsureParam
 typedef struct _stCmdGpBaseEnsureResult
 {
     bool							bSuccessed;							//成功标识
-    SCORE							lGameScore;							//当前游戏币
+    LONG_LONG							lGameScore;							//当前游戏币
     TCHAR							szNotifyContent[128];				//提示内容
 }CMD_GP_BASE_ENSURE_RESULT;
 
@@ -666,7 +666,7 @@ typedef struct _stCmdGpUserSpreadQuery
 typedef struct _stCmdGpUserSpreadParam
 {
     DWORD							dwSpreadCount;						//推广人数
-    SCORE							lSpreadReward;						//推广奖励
+    LONG_LONG							lSpreadReward;						//推广奖励
 }CMD_GP_USER_SPREAD_PARAM;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -676,7 +676,7 @@ typedef struct _stCmdGpUserSpreadParam
 typedef struct _stCmdGpGrowLevelQueryInfo
 {
     DWORD							dwUserID;							//用户标识
-    TCHAR							szPassword[LEN_PASSWORD];			//用户密码
+    TCHAR							szPassword[LEN_PWD];			//用户密码
     
     //附加信息
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
@@ -695,15 +695,15 @@ typedef struct _stCmdGpGrowLevelParam
     WORD							wCurrLevelID;						//当前等级
     DWORD							dwExperience;						//当前经验
     DWORD							dwUpgradeExperience;				//下级经验
-    SCORE							lUpgradeRewardGold;					//升级奖励
-    SCORE							lUpgradeRewardIngot;				//升级奖励
+    LONG_LONG							lUpgradeRewardGold;					//升级奖励
+    LONG_LONG							lUpgradeRewardIngot;				//升级奖励
 }CMD_GP_GROW_LEVEL_PARAM;
 
 //等级升级
 typedef struct _stCmdGpGrowLevelUpgrade
 {
-    SCORE							lCurrScore;							//当前游戏币
-    SCORE							lCurrIngot;							//当前元宝
+    LONG_LONG							lCurrScore;							//当前游戏币
+    LONG_LONG							lCurrIngot;							//当前元宝
     TCHAR							szNotifyContent[128];				//提示内容
 }CMD_GP_GROW_LEVEL_UPGRADE;
 
@@ -717,14 +717,14 @@ typedef struct _stCmdGpExchangeParam
     DWORD							wPresentExchangeRate;				//魅力游戏币兑换率
     DWORD							wRateGold;							//游戏豆游戏币兑换率
     WORD							wMemberCount;						//会员数目
-    _stMemberParam					MemberParameter[10];				//会员参数
+    _stVipParam					MemberParameter[10];				//会员参数
 }CMD_GP_EXCHANGE_PARAM;
 
 //兑换游戏币
 typedef struct _stCmdGpExchangeGameCoinByIngot
 {
     DWORD							dwUserID;							//用户标识
-    SCORE							lExchangeIngot;						//兑换元宝
+    LONG_LONG							lExchangeIngot;						//兑换元宝
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器标识
 }CMD_GP_EXCHANGE_GAME_COIN_BY_INGOT;
 
@@ -741,8 +741,8 @@ typedef struct _stCmdGpExchangeGameCoinByBean
 typedef struct _stCmdGpExchangeGameCoinResult
 {
     bool							bSuccessed;							//成功标识
-    SCORE							lCurrScore;							//当前游戏币
-    SCORE							lCurrIngot;							//当前元宝
+    LONG_LONG							lCurrScore;							//当前游戏币
+    LONG_LONG							lCurrIngot;							//当前元宝
     double                          dCurrBeans;                         //当前游戏豆
     TCHAR							szNotifyContent[128];				//提示内容
 }CMD_GP_EXCHANGE_GAME_COIN_RESULT;
@@ -772,7 +772,7 @@ typedef struct _stCmdGpLotteryUserInfo
     BYTE							cbAlreadyCount;						//已领次数
     WORD							wKindID;							//游戏标识
     DWORD							dwUserID;							//用户标识
-    SCORE							lChargeFee;							//抽奖费用
+    LONG_LONG							lChargeFee;							//抽奖费用
 }CMD_GP_LOTTERY_USER_INFO;
 
 //开始抽奖
@@ -790,7 +790,7 @@ typedef struct _stCmdGpLotteryResult
     bool							bWined;								//中奖标识
     WORD							wKindID;							//游戏标识
     DWORD							dwUserID;							//用户标识
-    SCORE							lUserScore;							//用户分数
+    LONG_LONG							lUserScore;							//用户分数
     DOUBLE							dUserBeans;							//用户游戏豆
     _stLotteryItem					LotteryItem;						//中奖内容
 }CMD_GP_LOTTERY_RESULT;
@@ -1004,12 +1004,12 @@ typedef struct _stCmdMbLogonSucc
     DWORD	dwLoveLiness;							//用户魅力
     TCHAR	szAccounts[LEN_ACCOUNT];				//用户帐号
     TCHAR	szNickName[LEN_ACCOUNT];				//用户昵称
-    TCHAR   szDynamicPasswd[LEN_PASSWORD];          //动态密码
+    TCHAR   szDynamicPasswd[LEN_PWD];          //动态密码
     
     //用户成绩
-    SCORE   lUserScore;                             //用户游戏币
-    SCORE   lUserIngot;                             //用户元宝
-    SCORE   lUserInsure;                            //用户银行
+    LONG_LONG   lUserScore;                             //用户游戏币
+    LONG_LONG   lUserIngot;                             //用户元宝
+    LONG_LONG   lUserInsure;                            //用户银行
     DOUBLE  dUserBeans;                             //用户游戏豆
     
     //扩展信息

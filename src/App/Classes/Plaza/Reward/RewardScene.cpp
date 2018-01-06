@@ -389,7 +389,7 @@ void RewardScene::checkinresult(void *pData, WORD wSize)
     }
     
     
-    SCORE lRewardScore = result->lScore - HallDataMgr::getInstance()->m_UserScore;
+    LONG_LONG lRewardScore = result->lScore - HallDataMgr::getInstance()->m_UserScore;
     HallDataMgr::getInstance()->m_UserScore = result->lScore;
     EventCustom event(whEvent_User_Data_Change);
 

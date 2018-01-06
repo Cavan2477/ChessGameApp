@@ -395,12 +395,12 @@ void TaskScene::sendTakeTask(int taskID)
 void TaskScene::sendTaskReward(int taskID)
 {
     //领取奖励
-    CMD_GR_C_TakeReward TaskReward;
-    memset(&TaskReward, 0, sizeof(CMD_GR_C_TakeReward));
+    CMD_GR_CLIENT_TAKE_REWARD TaskReward;
+    memset(&TaskReward, 0, sizeof(CMD_GR_CLIENT_TAKE_REWARD));
     
     TaskReward.wTaskID = taskID;
     TaskReward.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)TaskReward.szPassword);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)TaskReward.szPwd);
 	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)TaskReward.szMachineID);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);

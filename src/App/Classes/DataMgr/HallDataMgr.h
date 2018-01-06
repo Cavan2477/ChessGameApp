@@ -62,7 +62,7 @@ public:
     void roomlistclear();
     
     //获取签名验证
-    std::string getSignature(SCORE times);
+    std::string getSignature(LONG_LONG times);
     
     cocos2d::Map<int , cocos2d::Texture2D *> m_Headlist;//头像
     
@@ -125,14 +125,14 @@ public:
     
     int                         m_TableCount;                   //总的桌子数
     int							m_ChairCount;                   //桌子椅子数  每页:默认 6
-    CMD_GR_TableInfo            m_Tableinfo;
+    CMD_GR_TABLE_INFO            m_Tableinfo;
     
     std::string                 m_MethodHeadUrl;                //第三方头像地址
     
     bool                        m_isEnterBack;                  //游戏是否退到后台，退到后台子弹发射消息不处理
     LONGLONG                    m_enterbacktime;                //进入后台时间
     
-    SCORE                       m_Logintime;//登录成功时间
+    LONG_LONG                       m_Logintime;//登录成功时间
     
     bool                        m_IsLogin;                      //是否是登录界面
     

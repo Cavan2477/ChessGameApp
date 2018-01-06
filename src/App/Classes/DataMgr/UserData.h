@@ -43,14 +43,14 @@ public:
         }
     }
     
-    void UpdateData(CMD_GR_UserStatus *pdata)
+    void UpdateData(CMD_GR_USER_STATUS *pdata)
     {
         m_date.wTableID = pdata->UserStatus.wTableID;
         m_date.wChairID = pdata->UserStatus.wChairID;
         m_date.cbUserStatus = pdata->UserStatus.cbUserStatus;
     }
     
-    void UpdateData(CMD_GR_MobileUserScore *pdata)
+    void UpdateData(CMD_GR_MOBILE_USER_SCORE *pdata)
     {
         m_date.lScore = pdata->UserScore.lScore;
         m_date.dBean = pdata->UserScore.dBean;

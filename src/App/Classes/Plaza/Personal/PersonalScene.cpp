@@ -497,7 +497,7 @@ void PersonalScene::initModify()
         edit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
         edit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
         edit->setPosition(cocos2d::Point(text->getPositionX() + 60, text->getPositionY()));
-        edit->setMaxLength(LEN_PASSWORD);
+        edit->setMaxLength(LEN_PWD);
         edit->setFontSize(28);
         edit->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
         edit->setReturnType(EditBox::KeyboardReturnType::DONE);
