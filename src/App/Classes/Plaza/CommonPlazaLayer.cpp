@@ -125,12 +125,10 @@ bool CommonPlazaLayer::init()
         Button *pBtnHead = static_cast<Button *>(m_pLayoutUserInfo->getChildByName("head_back_btn"));
 
         if(nullptr != pBtnHead)
-        {            
             pBtnHead->addTouchEventListener(CC_CALLBACK_2(CommonPlazaLayer::buttonEventWithTouchUser, this));
-        }
         
         //用户昵称
-        m_pLabelUserNickname = Label::createWithSystemFont(HallDataMgr::getInstance()->m_pNickName, FONT_TREBUCHET_MS_BOLD, 24);
+        m_pLabelUserNickname = Label::createWithSystemFont(HallDataMgr::getInstance()->m_strNickName, FONT_TREBUCHET_MS_BOLD, 24);
         m_pLabelUserNickname->setAnchorPoint(Vec2(.0, .5));
         m_pLabelUserNickname->setDimensions(129, m_pLabelUserNickname->getContentSize().height + 1);
         m_pLabelUserNickname->setPosition(Vec2(200, 100));
@@ -501,7 +499,7 @@ void CommonPlazaLayer::notifyFreshInfo(cocos2d::EventCustom *event)
 		// 修改用户名
 		case EM_USER_DATA_CHANGE_NAME:
         {
-            m_pLabelUserNickname->setString(HallDataMgr::getInstance()->m_pNickName);
+            m_pLabelUserNickname->setString(HallDataMgr::getInstance()->m_strNickName);
             
         }
             break;

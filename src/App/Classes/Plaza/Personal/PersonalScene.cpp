@@ -1,4 +1,4 @@
-/************************************************************************************
+﻿/************************************************************************************
  * file: 		Personal.cpp
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
@@ -151,7 +151,7 @@ bool PersonalScene::init()
     auto account = static_cast<Text *>(personalRoot->getChildByName("Text_account"));
     if (account != nullptr)
     {
-        account->setString(HallDataMgr::getInstance()->m_pAccounts);
+        account->setString(HallDataMgr::getInstance()->m_strAccounts);
         account->setTextColor(cocos2d::Color4B(36,236,250,255));
         account->setTextAreaSize(Size(200, account->getContentSize().height ));
     }
@@ -160,7 +160,7 @@ bool PersonalScene::init()
     auto nick = static_cast<Text *>(personalRoot->getChildByName("Text_nick"));
     if (nick != nullptr)
     {
-        nick->setString(HallDataMgr::getInstance()->m_pNickName);
+        nick->setString(HallDataMgr::getInstance()->m_strNickName);
         nick->setTextColor(cocos2d::Color4B(36,236,250,255));
         nick->setTextAreaSize(Size(200, account->getContentSize().height));
         nick->setTag(INFO_NICK);
@@ -551,7 +551,7 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
         }else if (m_eModify == modify_nick)
         {
             auto editBox = static_cast<EditBox *>(personalRoot->getChildByTag(INFO_NICKEDIT));
-            HallDataMgr::getInstance()->m_pNickName = editBox->getText();
+            HallDataMgr::getInstance()->m_strNickName = editBox->getText();
             
             auto nick = static_cast<Text *>(personalRoot->getChildByTag(INFO_NICK));
             nick->setString(editBox->getText());
@@ -575,8 +575,8 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
         EditBox *confirmPass = static_cast<EditBox *>(modify->getChildByTag(102));
       
         
-        HallDataMgr::getInstance()->m_pPassword = MD5Encrypt(newPass->getText());
-        CFramList::getInstance()->addAccountListWithString(HallDataMgr::getInstance()->m_pAccounts, HallDataMgr::getInstance()->m_pPassword);
+        HallDataMgr::getInstance()->m_strPwd = MD5Encrypt(newPass->getText());
+        CFramList::getInstance()->addAccountListWithString(HallDataMgr::getInstance()->m_strAccounts, HallDataMgr::getInstance()->m_strPwd);
         
         orignalPass->setText("");
         newPass->setText("");
@@ -595,31 +595,27 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
         EditBox *newPass = static_cast<EditBox *>(modify->getChildByTag(101));
         EditBox *confirmPass = static_cast<EditBox *>(modify->getChildByTag(102));
         
-        HallDataMgr::getInstance()->m_pBankword = MD5Encrypt(newPass->getText());
+        HallDataMgr::getInstance()->m_strBankPwd = MD5Encrypt(newPass->getText());
         
         orignalPass->setText("");
         newPass->setText("");
         confirmPass->setText("");
     }
-    
 }
 
 void PersonalScene::operatefailureResult(void *pData, WORD wSize)
 {
     auto presult = (ST_CMD_GP_OPERATE_FAILURE *)pData;
-    std::string str = WHConverUnicodeToUtf8WithArray(presult->szDes);
+    std::string str = WHConverUnicodeToUtf8WithArray((WORD*)presult->szDes);
     HallDataMgr::getInstance()->AddpopLayer("错误提示", str, EM_MODE_TYPE_ENSURE);
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
 }
 
-
 //MARK::按钮事件
 void PersonalScene::buttonEventWithMenu(cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type)
 {
-    
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
-        
         auto btn = static_cast<Button *>(target);
         auto mainLayout = static_cast<Layout *>(this->getChildByTag(INFO_MAINLAYOUT));
         auto mainRoot = static_cast<Node *>(mainLayout->getChildByTag(INFO_MAINROOT));
@@ -722,7 +718,7 @@ void PersonalScene::buttonEventWithGender(cocos2d::Ref *target, cocos2d::ui::Wid
             HallDataMgr::getInstance()->AddpopLayer("", "发送资料中...", EM_MODE_TYPE_WAIT_TEXT);
             m_cbGender = 1;
             
-            this->sendAlterIndividual(HallDataMgr::getInstance()->m_pNickName, m_cbGender);
+            this->sendAlterIndividual(HallDataMgr::getInstance()->m_strNickName, m_cbGender);
         }
         
         if (btn == womanBtn)
@@ -734,7 +730,7 @@ void PersonalScene::buttonEventWithGender(cocos2d::Ref *target, cocos2d::ui::Wid
             HallDataMgr::getInstance()->AddpopLayer("", "发送资料中...", EM_MODE_TYPE_WAIT_TEXT);
             m_cbGender = 0;
             
-            this->sendAlterIndividual(HallDataMgr::getInstance()->m_pNickName, m_cbGender);
+            this->sendAlterIndividual(HallDataMgr::getInstance()->m_strNickName, m_cbGender);
         }
         
 
@@ -823,7 +819,7 @@ void PersonalScene::buttonEventWithUploadRes(cocos2d::Ref *target, cocos2d::ui::
                 }
                 m_photo->openPhoto();
                 m_photo->setChoiceType(0);
-                m_photo->m_completecallback = CC_CALLBACK_1(PersonalScene::photocomplete, this);
+                m_photo->m_completeCallback = CC_CALLBACK_1(PersonalScene::photocomplete, this);
                 HallDataMgr::getInstance()->m_completecallback = CC_CALLBACK_1(PersonalScene::photocomplete, this);
                 
             }
@@ -936,7 +932,7 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
         if (m_eType == Type_ModifyLoginPass)
         {
         
-            if (std::strcmp(MD5Encrypt(std::string(orignalPass->getText())).c_str() , HallDataMgr::getInstance()->m_pPassword.c_str()) != 0)
+            if (std::strcmp(MD5Encrypt(std::string(orignalPass->getText())).c_str() , HallDataMgr::getInstance()->m_strPwd.c_str()) != 0)
             {
                 
                 HallDataMgr::getInstance()->AddpopLayer("提示", "您输入的原始密码有误", EM_MODE_TYPE_ENSURE);
@@ -945,7 +941,7 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
             }
         }else
         {
-            if (std::strcmp(MD5Encrypt(std::string(orignalPass->getText())).c_str() , HallDataMgr::getInstance()->m_pBankword.c_str()) != 0)
+            if (std::strcmp(MD5Encrypt(std::string(orignalPass->getText())).c_str() , HallDataMgr::getInstance()->m_strBankPwd.c_str()) != 0)
             {
                 
                 HallDataMgr::getInstance()->AddpopLayer("提示", "您输入的原始密码有误", EM_MODE_TYPE_ENSURE);
@@ -1023,15 +1019,14 @@ void PersonalScene::sendSystemFaceInfo(WORD wface)
 {
     _stCmdGpSysFaceInfo SystemFaceInfo;
     memset(&SystemFaceInfo, 0, sizeof(_stCmdGpSysFaceInfo));
-    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, SystemFaceInfo.szPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd, (WORD*)SystemFaceInfo.szPwd);
     SystemFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
     SystemFaceInfo.wFaceID = wface;
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_SYSTEM_FACE_INFO, &SystemFaceInfo, sizeof(_stCmdGpSysFaceInfo),NetworkMgr::getInstance()->getSocketOnce());
-    
-    
 }
+
 void PersonalScene::sendCustomFaceInfo(cocos2d::Image *pImage)
 {
     auto pdate = pImage->getData();
@@ -1050,7 +1045,7 @@ void PersonalScene::sendCustomFaceInfo(cocos2d::Image *pImage)
     
     _stCmdGpCustomFaceInfo CustomFaceInfo;
     memset(&CustomFaceInfo, 0, sizeof(CustomFaceInfo));
-    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, CustomFaceInfo.szPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd, (WORD*)CustomFaceInfo.szPwd);
     CustomFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
     memcpy(CustomFaceInfo.dwCustomFace, byte, length);
@@ -1065,7 +1060,7 @@ void PersonalScene::sendAlterIndividual(const std::string &name, BYTE cbgerder, 
     
     _stCmdGpModifyIndividual modifyindividual;
     memset(&modifyindividual, 0, sizeof(_stCmdGpModifyIndividual));
-    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, modifyindividual.szPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd, (WORD*)modifyindividual.szPwd);
     modifyindividual.cbGender = cbgerder;
     modifyindividual.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
@@ -1086,7 +1081,8 @@ void PersonalScene::sendAlterIndividual(const std::string &name, BYTE cbgerder, 
         memset(tname, 0, sizeof(tname));
         Utf8ToUtf16(name,tname);
         memcpy(buffer + size, tname, describe.wDataSize);
-        size += describe.wDataSize;
+
+		size += (INT)describe.wDataSize;
     }
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
@@ -1098,8 +1094,8 @@ void PersonalScene::sendAlterloginPass(const std::string &oldpass, const std::st
     _stCmdGpModifyLogonPwd request;
     memset(&request, 0, sizeof(request));
     request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    Utf8ToUtf16(MD5Encrypt(oldpass), request.szOldPwd);
-    Utf8ToUtf16(MD5Encrypt(newpass), request.szNewPwd);
+	Utf8ToUtf16(MD5Encrypt(oldpass), (WORD*)request.szOldPwd);
+	Utf8ToUtf16(MD5Encrypt(newpass), (WORD*)request.szNewPwd);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_LOGON_PASS, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
@@ -1110,8 +1106,8 @@ void PersonalScene::sendAlterBankPass(const std::string &oldpass, const std::str
     _stCmdGpModifyInsurePwd request;
     memset(&request, 0, sizeof(request));
     request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    Utf8ToUtf16(MD5Encrypt(oldpass), request.szOldPwd);
-    Utf8ToUtf16(MD5Encrypt(newpass), request.szNewPwd);
+	Utf8ToUtf16(MD5Encrypt(oldpass), (WORD*)request.szOldPwd);
+	Utf8ToUtf16(MD5Encrypt(newpass), (WORD*)request.szNewPwd);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INSURE_PASS, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());

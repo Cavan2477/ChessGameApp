@@ -1,16 +1,19 @@
-﻿//
-//  Help.cpp
-//  MyGame
-//
-//  Created by wh on 15/4/27.
-//
-//
+﻿/************************************************************************************
+ * file: 		Help.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/07 21:48:56
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/07			
+ *
+ ************************************************************************************/
 
 #include "Help.h"
+#include "cocostudio/DictionaryHelper.h"
 #include "../Utils/MD5/md5.h"
 #include "../Utils/Gif/gif_lib.h"
 #include "../DataMgr/HallDataMgr.h"
-#include "cocostudio/DictionaryHelper.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	#include <CommonCrypto/CommonDigest.h>
@@ -470,9 +473,10 @@ void Labellengthdeal(cocos2d::Label *plabel , float length)
 }
 const std::string File(EM_GAME kind,const std::string &res)
 {
-    
-    std::string file = "";
+    std::string strFile = "";
+
     FileUtils *_utils = FileUtils::getInstance();
+
     switch (kind)
     {
         /*case LandLord:
@@ -483,13 +487,13 @@ const std::string File(EM_GAME kind,const std::string &res)
             break;
     }
     
-    if (!_utils->isFileExist(file))
+    if (!_utils->isFileExist(strFile))
     {
         //DebugLog("文件不存在");
 		assert(false);
     }
     
-    return file;
+    return strFile;
 }
 
 //mac address

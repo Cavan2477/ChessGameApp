@@ -372,7 +372,7 @@ void TaskScene::sendLoadTask()
     CMD_GP_TASK_LOAD_INFO taskloadinfo;
     memset(&taskloadinfo, 0, sizeof(taskloadinfo));
     taskloadinfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)taskloadinfo.szPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd.c_str(), (WORD*)taskloadinfo.szPwd);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_TASK_LOAD, &taskloadinfo, sizeof(taskloadinfo),NetworkMgr::getInstance()->getSocketOnce());
 }
 
@@ -383,8 +383,8 @@ void TaskScene::sendTakeTask(int taskID)
     memset(&TaskTake, 0, sizeof(ST_CMD_GP_TASK_GET));
     TaskTake.wTaskID = taskID;
     TaskTake.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)TaskTake.szPwd);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)TaskTake.szMachineID);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd.c_str(), (WORD*)TaskTake.szPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID.c_str(), (WORD*)TaskTake.szMachineID);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_TASK_TAKE, &TaskTake, sizeof(TaskTake), NetworkMgr::getInstance()->getSocketOnce());
@@ -398,8 +398,8 @@ void TaskScene::sendTaskReward(int taskID)
     
     TaskReward.wTaskID = taskID;
     TaskReward.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)TaskReward.szLogonPwd);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)TaskReward.szMachineID);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd.c_str(), (WORD*)TaskReward.szLogonPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID.c_str(), (WORD*)TaskReward.szMachineID);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_TASK_REWARD, &TaskReward, sizeof(TaskReward), NetworkMgr::getInstance()->getSocketOnce());

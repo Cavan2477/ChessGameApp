@@ -60,8 +60,8 @@ void BankScene::sendInsureEnable(const std::string &strPwd)
         
         cmdGPUserEnableInsure.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
 
-        Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)cmdGPUserEnableInsure.szLogonPwd);
-		Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)cmdGPUserEnableInsure.szMachineID);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd.c_str(), (WORD*)cmdGPUserEnableInsure.szLogonPwd);
+		Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID.c_str(), (WORD*)cmdGPUserEnableInsure.szMachineID);
 		Utf8ToUtf16(strBankPwd.c_str(), (WORD*)cmdGPUserEnableInsure.szBankPwd);
         
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
@@ -78,7 +78,7 @@ void BankScene::sendInsureInfo()
         
         stCmdGpQueryInsureInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
 
-        Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)stCmdGpQueryInsureInfo.szPwd);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd.c_str(), (WORD*)stCmdGpQueryInsureInfo.szPwd);
         
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_INSURE_INFO, &stCmdGpQueryInsureInfo, sizeof(stCmdGpQueryInsureInfo),NetworkMgr::getInstance()->getSocketOnce());
@@ -89,7 +89,7 @@ void BankScene::sendInsureInfo()
         
         stCmdGrClientQueryInsureInfoReq.cbActivityGame = SUB_GR_REQ_BANK_QUERY;
 
-		Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)stCmdGrClientQueryInsureInfoReq.szInsurePwd);
+		Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd.c_str(), (WORD*)stCmdGrClientQueryInsureInfoReq.szInsurePwd);
 
         NetworkMgr::getInstance()->sendData(MDM_GR_BANK, SUB_GR_REQ_BANK_QUERY, &stCmdGrClientQueryInsureInfoReq, sizeof(stCmdGrClientQueryInsureInfoReq));
     }
@@ -105,7 +105,7 @@ void BankScene::sendSaveScore(LONGLONG llGold)
         stCmdGpUserSaveGold.llSaveGold = llGold;
         stCmdGpUserSaveGold.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
 
-		Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)stCmdGpUserSaveGold.szMachineID);
+		Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID.c_str(), (WORD*)stCmdGpUserSaveGold.szMachineID);
 
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_SAVE_SCORE, &stCmdGpUserSaveGold, sizeof(stCmdGpUserSaveGold),NetworkMgr::getInstance()->getSocketOnce());
@@ -134,7 +134,7 @@ void BankScene::sendTakeScore(LONGLONG llGold, const std::string &strPwd)
         auto md5pass = MD5Encrypt(strPwd);
 
 		Utf8ToUtf16(md5pass.c_str(), (WORD*)stCmdGpUserTakeOutGold.szBankPwd);
-		Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)stCmdGpUserTakeOutGold.szMachineID);
+		Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID.c_str(), (WORD*)stCmdGpUserTakeOutGold.szMachineID);
 
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_TAKE_SCORE, &stCmdGpUserTakeOutGold, sizeof(stCmdGpUserTakeOutGold),NetworkMgr::getInstance()->getSocketOnce());
@@ -184,7 +184,7 @@ void BankScene::sendTransferScore(LONGLONG llGold, const std::string &pass, int 
     
 		Utf8ToUtf16(md5pass.c_str(), (WORD*)stCmdGpUserTransferGold.szInsurePwd);
 		Utf8ToUtf16(nickname.c_str(), (WORD*)stCmdGpUserTransferGold.szAccounts);
-		Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)stCmdGpUserTransferGold.szMachineID);
+		Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID.c_str(), (WORD*)stCmdGpUserTransferGold.szMachineID);
 
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_USER_TRANSFER_SCORE, &stCmdGpUserTransferGold, sizeof(stCmdGpUserTransferGold),NetworkMgr::getInstance()->getSocketOnce());
     }

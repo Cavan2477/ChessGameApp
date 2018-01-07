@@ -1,4 +1,4 @@
-/************************************************************************************
+﻿/************************************************************************************
  * file: 		PhotoBridge.cpp
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
@@ -25,7 +25,7 @@ USING_NS_CC;
 }
 @property(assign)PhotoDelegate *m_delegate;
 
-@property(assign)ChoiceType m_type;
+@property(assign)EM_CHOOSE_TYPE m_type;
 @end
 
 @implementation ChoiceDelegate
@@ -43,7 +43,7 @@ USING_NS_CC;
 {
     [picker dismissModalViewControllerAnimated:YES];
     NSData *imageData = NULL;
-    if(_m_type == Type_Head)
+    if(_m_type == EM_CHOOSE_TYPE_HEAD)
     {
         UIImage *pimage = [ChoiceDelegate reSizeImage:image toSize:CGSizeMake(48.0, 48.0)];
         imageData = UIImagePNGRepresentation(pimage);
@@ -73,7 +73,7 @@ USING_NS_CC;
 #endif
 
 PhotoBridge::PhotoBridge()
-:m_type(Type_Head)
+:m_type(EM_CHOOSE_TYPE_HEAD)
 ,m_completecallback(nullptr)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -109,26 +109,32 @@ void PhotoBridge::onExit()
 void PhotoBridge::notifyAndroidPhotoImage(cocos2d::EventCustom *event)
 {
     auto imagepath = static_cast<__String *>(event->getUserData());
+
     log("图片路径:%s ",imagepath->getCString());
     Image * pimage = new Image();
+
     if (pimage->initWithImageFile(imagepath->getCString()))
     {
         log("path:%s  length:%zd",imagepath->getCString(), pimage->getDataLen());
-        if (pimage->getDataLen() < 9216) {
-            HallDataMgr::getInstance()->AddpopLayer("", "选择图片太小。。", Type_Ensure);
+
+        if (pimage->getDataLen() < 9216) 
+		{
+			HallDataMgr::getInstance()->AddpopLayer("", "选择的图片太小", EM_MODE_TYPE_ENSURE);
             pimage->release();
+
             return;
         }
-        if (m_completecallback) {
-            m_completecallback(pimage);
-        }
+
+        if (m_completeCallback)
+            m_completeCallback(pimage);
     }
+
     pimage->release();
 }
 
 void PhotoBridge::setChoiceType(int type)
 {
-    m_type = (ChoiceType)type;
+    m_emChooseType = (EM_CHOOSE_TYPE)type;
 }
 
 void PhotoBridge::openPhoto()
@@ -136,11 +142,12 @@ void PhotoBridge::openPhoto()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     ChoiceDelegate *delegate = [[ChoiceDelegate alloc] init];
     delegate.m_delegate = this;
-    delegate.m_type = m_type;
+    delegate.m_type = m_emChooseType;
     ((UIImagePickerController *)pickerImage).delegate = delegate;
     AppController * pApp = (AppController*)[[UIApplication sharedApplication] delegate];
     [pApp.viewController presentViewController:((UIImagePickerController *)pickerImage) animated:YES completion:nil];
 #endif
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     JniMethodInfo minfo;
     jobject jobj;
@@ -153,9 +160,8 @@ void PhotoBridge::openPhoto()
 #endif
 }
 
-void PhotoBridge::choiceComplete(cocos2d::Image *pimage)
+void PhotoBridge::choiceComplete(cocos2d::Image *pImage)
 {
-    if (m_completecallback) {
-        m_completecallback(pimage);
-    }
+    if (m_completeCallback)
+        m_completeCallback(pImage);
 }

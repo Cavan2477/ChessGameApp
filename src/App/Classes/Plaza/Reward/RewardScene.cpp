@@ -299,7 +299,7 @@ void RewardScene::sendCheckinQueryInfo()
     memset(&info, 0, sizeof(info));
     
     info.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)info.szPassword);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd.c_str(), (WORD*)info.szPassword);
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_CHECKIN_QUERY, &info, sizeof(info),NetworkMgr::getInstance()->getSocketOnce());
 }
@@ -311,8 +311,8 @@ void RewardScene::sendCheckinDone()
     
     stCmdGpCheckInDone.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
 
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)stCmdGpCheckInDone.szPassword);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)stCmdGpCheckInDone.szMachineID);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd.c_str(), (WORD*)stCmdGpCheckInDone.szPassword);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID.c_str(), (WORD*)stCmdGpCheckInDone.szMachineID);
 
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_CHECKIN_DONE,
@@ -328,8 +328,8 @@ void RewardScene::sendEnsureGet()
     
     stCmdGpBaseEnsureGet.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
 
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), (WORD*)stCmdGpBaseEnsureGet.szLogonPwd);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), (WORD*)stCmdGpBaseEnsureGet.szMachineID);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd.c_str(), (WORD*)stCmdGpBaseEnsureGet.szLogonPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID.c_str(), (WORD*)stCmdGpBaseEnsureGet.szMachineID);
 
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_BASEENSURE_TAKE, &stCmdGpBaseEnsureGet,

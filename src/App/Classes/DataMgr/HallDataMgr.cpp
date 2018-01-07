@@ -38,7 +38,7 @@ HallDataMgr::HallDataMgr()
 ,_versionCheckcallback(nullptr)
 {
 
-    m_Machine = WHGetMacAddress();
+    m_strMachineID = WHGetMacAddress();
     m_dwKindID = LOGON_KIND_ID;
     memset(&m_Tableinfo, 0, sizeof(m_Tableinfo));
     memset(&m_levelData, 0, sizeof(m_levelData));
@@ -65,7 +65,7 @@ HallDataMgr* HallDataMgr::getInstance()
     return s_SharedHallData;
 }
 
-cocos2d::Layer* HallDataMgr::AddpopLayer(const std::string &title, const std::string &content, int type,bool close /* = false*/)
+cocos2d::Layer* HallDataMgr::AddpopLayer(const std::string &title, const std::string &content, int type, bool close /* = false*/)
 {
     if (type == EM_MODE_TYPE_REMOVE)
     {
@@ -202,7 +202,7 @@ void HallDataMgr::readTablepass()
         //游戏数据不存在
         return;
     }
-    m_Tablepass = userCongfig->getStringForKey(__String::createWithFormat("User_%d_enterpass", m_dwUserID)->getCString());
+    m_strTablePwd = userCongfig->getStringForKey(__String::createWithFormat("User_%d_enterpass", m_dwUserID)->getCString());
 }
 
 void HallDataMgr::saveTablepass(const std::string &pass)
@@ -233,7 +233,7 @@ std::string HallDataMgr::getSignature(LONGLONG times)
     log("验证时间%lld", timevalue);
     auto timestr = __String::createWithFormat("%lld", timevalue)->getCString();
     std::string pstr = __String::createWithFormat("%d", m_dwUserID)->getCString();
-    pstr += m_dynamicpass;
+    pstr += m_strDynamicPwd;
     pstr += timestr;
     pstr += "JDSyncLoginKey";
     pstr = MD5Encrypt(pstr);

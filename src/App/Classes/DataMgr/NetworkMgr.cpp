@@ -764,10 +764,10 @@ void NetworkMgr::sendAccountLogin()
     stCmdMbLogonAccounts.wModuleID = INVALID_WORD/*HallDataMgr::getInstance()->m_dwKindID*/;
     stCmdMbLogonAccounts.cbDeviceType = HallDataMgr::getInstance()->m_cbDevice;
     
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pAccounts, (WORD*)stCmdMbLogonAccounts.szLogonAccounts);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, (WORD*)stCmdMbLogonAccounts.szLogonPwd);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, (WORD*)stCmdMbLogonAccounts.szMachineID);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPhoneNum, (WORD*)stCmdMbLogonAccounts.szMobilePhone);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strAccounts, (WORD*)stCmdMbLogonAccounts.szLogonAccounts);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd, (WORD*)stCmdMbLogonAccounts.szLogonPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID, (WORD*)stCmdMbLogonAccounts.szMachineID);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPhone, (WORD*)stCmdMbLogonAccounts.szMobilePhone);
 
     this->sendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &stCmdMbLogonAccounts, sizeof(ST_CMD_MB_LOGON_ACCOUNTS),this->m_pSocketOnce);
 
@@ -785,9 +785,9 @@ void NetworkMgr::sendMethodLogin(int platform)
     otherPlatform.cbDeviceType = HallDataMgr::getInstance()->m_cbDevice;
     otherPlatform.cbGender = HallDataMgr::getInstance()->m_cbGender;
     
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pAccounts, (WORD*)otherPlatform.szUserUin);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, (WORD*)otherPlatform.szMachineID);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pNickName, (WORD*)otherPlatform.szNickName);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strAccounts, (WORD*)otherPlatform.szUserUin);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID, (WORD*)otherPlatform.szMachineID);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strNickName, (WORD*)otherPlatform.szNickName);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_MB_LOGON, SUB_MB_LOGON_OTHERPLATFORM, &otherPlatform, sizeof(otherPlatform), NetworkMgr::getInstance()->getSocketOnce());
@@ -805,11 +805,11 @@ void NetworkMgr::sendRegister()
     stCmdMbRegAccounts.wFaceID = HallDataMgr::getInstance()->m_wFaceID;
     stCmdMbRegAccounts.cbGender = HallDataMgr::getInstance()->m_cbGender;
     
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pAccounts, (WORD*)stCmdMbRegAccounts.szAccounts);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, (WORD*)stCmdMbRegAccounts.szLogonPwd);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, (WORD*)stCmdMbRegAccounts.szMachineID);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPhoneNum, (WORD*)stCmdMbRegAccounts.szMobilePhone);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pAccounts, (WORD*)stCmdMbRegAccounts.szNickName);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strAccounts, (WORD*)stCmdMbRegAccounts.szAccounts);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd, (WORD*)stCmdMbRegAccounts.szLogonPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID, (WORD*)stCmdMbRegAccounts.szMachineID);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPhone, (WORD*)stCmdMbRegAccounts.szMobilePhone);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strAccounts, (WORD*)stCmdMbRegAccounts.szNickName);
 
     this->sendData(MDM_MB_LOGON, SUB_MB_REGISITER_ACCOUNTS, &stCmdMbRegAccounts, sizeof(ST_CMD_MB_REG_ACCOUNTS),this->m_pSocketOnce);
 }
@@ -826,8 +826,8 @@ void NetworkMgr::sendRoomLogin(const std::string &roompass)
     stCmdGrLogonMobile.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     stCmdGrLogonMobile.cbDeviceType = HallDataMgr::getInstance()->m_cbDevice;
     
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, (WORD*)stCmdGrLogonMobile.szMachineID);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_dynamicpass, (WORD*)stCmdGrLogonMobile.szDynamicPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID, (WORD*)stCmdGrLogonMobile.szMachineID);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strDynamicPwd, (WORD*)stCmdGrLogonMobile.szDynamicPwd);
 	Utf8ToUtf16(roompass, (WORD*)stCmdGrLogonMobile.szGameRoomPwd);
     
     NetworkMgr::getInstance()->sendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &stCmdGrLogonMobile, sizeof(stCmdGrLogonMobile));
@@ -940,7 +940,7 @@ void NetworkMgr::sendCustomFaceInfo(cocos2d::Image *pimage)
     
 	_stCmdGpCustomFaceInfo stCmdGpCustomFaceInfo = { 0 };
 
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword, (WORD*)stCmdGpCustomFaceInfo.szPwd);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd, (WORD*)stCmdGpCustomFaceInfo.szPwd);
 
     stCmdGpCustomFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
@@ -958,7 +958,7 @@ void NetworkMgr::bindingMachine(const BYTE &cbBind, const std::string &strpass)
     cmd.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
 
 	Utf8ToUtf16(MD5Encrypt(strpass), (WORD*)cmd.szPwd);
-	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, (WORD*)cmd.szMachineID);
+	Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID, (WORD*)cmd.szMachineID);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_MACHINE, &cmd, sizeof(_stCmdGpModifyMachine),NetworkMgr::getInstance()->getSocketOnce());

@@ -1,4 +1,4 @@
-/************************************************************************************
+﻿/************************************************************************************
  * file: 		MacroDefine.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
@@ -49,8 +49,8 @@ typedef struct _stSysTime
 
 //兼容PC函数
 #define ASSERT(e)                       assert(e)
-#define CopyMemory(des,src,size_t)      memcpy(des,src,size_t)
-#define ZeroMemory(des,size)            memset(des,0,size)
+//#define CopyMemory(des,src,size_t)      memcpy(des,src,size_t)
+//#define ZeroMemory(des,size)            memset(des,0,size)
 #define VERIFY(e)                       assert(e)
 
 #pragma mark 数值定义

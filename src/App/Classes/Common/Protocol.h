@@ -96,24 +96,22 @@ class CAccountData
 public:
     CAccountData()
     :m_cbDevice(DEVICE_TYPE_DEFAULT),m_dwUserID(0),m_wTableID(0),m_wChairID(0),m_dwGameID(0),m_cbStatus(US_NULL),
-    m_pAccounts(""),m_pNickName(""),m_pPassword(""),m_pBankword(""),m_llGold(0),m_dBean(0),m_llUserBankGold(0),
-    m_llUserGold(0),m_Tablepass("")
+    m_strAccounts(""),m_strNickName(""),m_strPwd(""),m_strBankPwd(""),m_llGold(0),m_dBean(0),m_llUserBankGold(0),
+    m_llUserGold(0),m_strTablePwd("")
     {
     }
     
     ~CAccountData(){}
+
 public:
-    std::string     m_pAccounts;                            //帐号
-    std::string     m_pPassword;                            //密码
-    std::string     m_pBankword;                            //银行密码
-    std::string     m_pNickName;                            //用户昵称
-    std::string     m_dynamicpass;                          //动态密码
-    
-    std::string     m_Tablepass;                            //桌子密码
-    
-    std::string     m_Machine;                              //硬件标识
-    
-    std::string     m_pPhoneNum;                            //电话
+    std::string     m_strAccounts;                          //帐号
+    std::string     m_strPwd;								//密码
+    std::string     m_strBankPwd;                           //银行密码
+    std::string     m_strNickName;                          //用户昵称
+    std::string     m_strDynamicPwd;                        //动态密码
+    std::string     m_strTablePwd;                          //桌子密码
+    std::string     m_strMachineID;                         //硬件标识
+    std::string     m_strPhone;								//电话
     
 public:
     BYTE            m_cbDevice;                             //设备I D

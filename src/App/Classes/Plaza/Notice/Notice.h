@@ -1,4 +1,4 @@
-/************************************************************************************
+﻿/************************************************************************************
  * file: 		Notice.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
@@ -9,8 +9,8 @@
  *
  ************************************************************************************/
 
-#ifndef __Notice_h__
-#define __Notice_h__
+#ifndef __NOTICE_H__
+#define __NOTICE_H__
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
@@ -30,8 +30,7 @@ public:
     static Notice* CreateNotice();
     
     bool   initNotice();
-    
-public:
+
     void NoticeReuqcestEvent(cocos2d::EventCustom *event);
     void RequestNoticeContent();
     void NoticeRequestCallback(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response);
@@ -40,7 +39,8 @@ public:
 
 private:
     CC_SYNTHESIZE_RETAIN(Label *, _noticeText, NoticeText);
+
     bool m_bGetNotice;
 };
 
-#endif
+#endif //__NOTICE_H__

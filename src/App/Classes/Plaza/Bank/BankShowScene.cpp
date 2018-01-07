@@ -545,7 +545,7 @@ void BankShowScene::updateScore()
                                          rec.llSendCount = info.llSendCount;
                                          rec.dwSendUserId = HallDataMgr::getInstance()->m_dwGameID;
                                          rec.strRecUserName = info.sReceiveUserName;
-                                         rec.strSendUserName = HallDataMgr::getInstance()->m_pNickName;
+                                         rec.strSendUserName = HallDataMgr::getInstance()->m_strNickName;
                                          p->refreshReceipt(rec);
                                          
                                          HallDataMgr::getInstance()->m_tagBankSend = {};

@@ -1,4 +1,4 @@
-//
+﻿//
 //  Photo_Bridge.cpp
 //  
 //

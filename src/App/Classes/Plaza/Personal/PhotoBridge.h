@@ -1,4 +1,4 @@
-/************************************************************************************
+﻿/************************************************************************************
  * file: 		PhotoBridge.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
@@ -9,17 +9,16 @@
  *
  ************************************************************************************/
 
-#ifndef __PhotoBridge_h__
-#define __PhotoBridge_h__
+#ifndef __PHOTO_BRIDGE_H__
+#define __PHOTO_BRIDGE_H__
 
 #include <stdio.h>
 #include "cocos2d.h"
 
-enum ChoiceType
+enum EM_CHOOSE_TYPE
 {
-    Type_Head = 0,//头像选择
-    
-    Type_Image,// 图片选择
+    EM_CHOOSE_TYPE_HEAD = 0,	//头像选择
+    EM_CHOOSE_TYPE_IMAGE,		// 图片选择
 };
 
 typedef std::function<void(cocos2d::Image *pimage)> PhotoCallback; // 获取图片回调
@@ -34,11 +33,9 @@ class PhotoBridge : public cocos2d::Node, public PhotoDelegate
 {
 public:
     PhotoBridge();
-    
     ~PhotoBridge();
     
     virtual void onEnter();
-    
     virtual void onExit();
     
     //android相册图片选择完成
@@ -52,9 +49,9 @@ public:
     
     void *pickerImage;
     
-    ChoiceType m_type;
+    EM_CHOOSE_TYPE m_emChooseType;
     
-    PhotoCallback m_completecallback;
+    PhotoCallback m_completeCallback;
 };
 
 #endif

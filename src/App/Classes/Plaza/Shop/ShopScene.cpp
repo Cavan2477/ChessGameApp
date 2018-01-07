@@ -1202,7 +1202,7 @@ void ShopScene::sendExchangeBean(DOUBLE beannum)
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.dExchangedBean = beannum;
-        Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID, request.szMachineID);
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_GAME_COIN_BY_BEAN, &request, sizeof(request), NetworkMgr::getInstance()->getSocketOnce());
     }
@@ -1213,7 +1213,7 @@ void ShopScene::sendExchangeBean(DOUBLE beannum)
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.dExchangedBean = beannum;
-        Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID, request.szMachineID);
         NetworkMgr::getInstance()->sendData(MDM_GR_EXCHANGE, SUB_GR_EXCHANGE_GAME_COIN_BY_BEAN, &request, sizeof(request));
     }
 }
@@ -1226,7 +1226,7 @@ void ShopScene::sendExchangeIngot(LONGLONG ingotnum)
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.lExchangedGold = ingotnum;
-        Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID, request.szMachineID);
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
         NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_GAME_COIN_BY_GOLD, &request, sizeof(request), NetworkMgr::getInstance()->getSocketOnce());
     }
@@ -1237,7 +1237,7 @@ void ShopScene::sendExchangeIngot(LONGLONG ingotnum)
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
         request.llExchangedGold = ingotnum;
-        Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
+        Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID, request.szMachineID);
         NetworkMgr::getInstance()->sendData(MDM_GR_EXCHANGE, SUB_GR_EXCHANGE_GAME_COIN_BY_GOLD, &request, sizeof(request));
         
     }

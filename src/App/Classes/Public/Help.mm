@@ -1,4 +1,4 @@
-//
+﻿//
 //  Help.cpp
 //  MyGame
 //

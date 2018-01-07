@@ -296,7 +296,7 @@ bool Plazz::init()
     }
     
     //用户昵称
-    Label *nick = Label::createWithSystemFont(HallDataMgr::getInstance()->m_pNickName, FONT_TREBUCHET_MS_BOLD, 24);
+    Label *nick = Label::createWithSystemFont(HallDataMgr::getInstance()->m_strNickName, FONT_TREBUCHET_MS_BOLD, 24);
     setUserNickName(nick);
     _UserNikcName->setAnchorPoint(Vec2(.0, .5));
     _UserNikcName->setDimensions(129, _UserNikcName->getContentSize().height + 1);
@@ -602,8 +602,8 @@ void Plazz::sendPacketWithUserLevelInfo()
     ST_CMD_GP_GROW_LEVEL_QUERY_INFO levelQueryInfo;
     memset(&levelQueryInfo, 0, sizeof(ST_CMD_GP_GROW_LEVEL_QUERY_INFO));
     levelQueryInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-    Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine.c_str(), levelQueryInfo.szMachineID);
-    Utf8ToUtf16(HallDataMgr::getInstance()->m_pPassword.c_str(), levelQueryInfo.szPwd);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_strMachineID.c_str(), levelQueryInfo.szMachineID);
+    Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd.c_str(), levelQueryInfo.szPwd);
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_GROWLEVEL_QUERY, &levelQueryInfo, sizeof(levelQueryInfo), NetworkMgr::getInstance()->getSocketOnce());
 }
@@ -648,7 +648,7 @@ void Plazz::notifyFreshInfo(cocos2d::EventCustom *event)
         case User_Change_Name:
         {
             
-            _UserNikcName->setString(HallDataMgr::getInstance()->m_pNickName);
+            _UserNikcName->setString(HallDataMgr::getInstance()->m_strNickName);
             
         }
             break;

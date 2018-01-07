@@ -238,8 +238,8 @@ void RegistScene::buttonEventWithRegist(cocos2d::Ref *target, cocos2d::ui::Widge
             if (password.compare(confirmPwd) == 0)
             {
                 HallDataMgr::getInstance()->m_loadtype = EM_LOAD_TYPE_NORMAL;
-                HallDataMgr::getInstance()->m_pAccounts = account;
-                HallDataMgr::getInstance()->m_pPassword = MD5Encrypt(password);
+                HallDataMgr::getInstance()->m_strAccounts = account;
+                HallDataMgr::getInstance()->m_strPwd = MD5Encrypt(password);
                 HallDataMgr::getInstance()->m_cbGender  = 1;
                 HallDataMgr::getInstance()->m_loadtype = EM_LOAD_TYPE_NORMAL;
                 
@@ -289,8 +289,8 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         HallDataMgr::getInstance()->m_wCustom = success->cbCustomFaceID;
         HallDataMgr::getInstance()->m_dwUserID = success->dwUserID;
         HallDataMgr::getInstance()->m_dwGameID = success->dwGameID;
-        HallDataMgr::getInstance()->m_pNickName = WHConverUnicodeToUtf8WithArray(success->szNickName);
-        HallDataMgr::getInstance()->m_dynamicpass = WHConverUnicodeToUtf8WithArray(success->szDynamicPwd);
+        HallDataMgr::getInstance()->m_strNickName = WHConverUnicodeToUtf8WithArray(success->szNickName);
+        HallDataMgr::getInstance()->m_strDynamicPwd = WHConverUnicodeToUtf8WithArray(success->szDynamicPwd);
         HallDataMgr::getInstance()->m_llGold = success->lUserGold;
         HallDataMgr::getInstance()->m_dBean = success->dUserBean;
         HallDataMgr::getInstance()->m_llUserBankGold = success->lUserInsure;
@@ -299,12 +299,12 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         
         if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_NORMAL)
         {
-            CFramList::getInstance()->addAccountListWithString(HallDataMgr::getInstance()->m_pAccounts, HallDataMgr::getInstance()->m_pPassword);
+            CFramList::getInstance()->addAccountListWithString(HallDataMgr::getInstance()->m_strAccounts, HallDataMgr::getInstance()->m_strPwd);
             HallDataMgr::getInstance()->saveConfig();
         }
         if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_VISITOR)
         {
-            HallDataMgr::getInstance()->m_pAccounts = HallDataMgr::getInstance()->m_pNickName;
+            HallDataMgr::getInstance()->m_strAccounts = HallDataMgr::getInstance()->m_strNickName;
         }
         
         HallDataMgr::getInstance()->m_Logintime = getsystemtomillisecond();
