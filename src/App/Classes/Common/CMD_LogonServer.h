@@ -270,13 +270,13 @@ typedef struct _stCmdGpServerOnline
 #define SUB_GP_USER_SAVE_SCORE				161							//存款操作
 #define SUB_GP_USER_TAKE_SCORE				162							//取款操作
 #define SUB_GP_USER_TRANSFER_SCORE			163							//转帐操作
-#define SUB_GP_USER_INSURE_INFO				164							//银行资料
+#define SUB_GP_REQ_BANK_QUERY_BANK				164							//银行资料
 #define SUB_GP_QUERY_INSURE_INFO			165							//查询银行
-#define SUB_GP_USER_INSURE_SUCCESS			166							//银行成功
-#define SUB_GP_USER_INSURE_FAILURE			167							//银行失败
+#define SUB_GP_REQ_BANK_ENABLE_SUCC			166							//银行成功
+#define SUB_GP_REQ_BANK_ENABLE_FAILURE			167							//银行失败
 #define SUB_GP_QUERY_USER_INFO_REQUEST		168							//查询用户
-#define SUB_GP_QUERY_USER_INFO_RESULT		169							//用户信息
-#define SUB_GP_USER_INSURE_ENABLE_RESULT	170							//开通结果
+#define SUB_GP_REQ_BANK_QUERY_USER_INFO		169							//用户信息
+#define SUB_GP_REQ_BANK_ENABLE	170							//开通结果
 
 //比赛服务
 #define SUB_GP_MATCH_SIGNUP					200							//比赛报名
@@ -437,46 +437,46 @@ typedef struct _stCmdGpModifyIndividual
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //银行资料
-typedef struct _stCmdGpUserInsureInfo
+typedef struct _stCmdGpUserBankInfo
 {
     BYTE							cbEnjoinTransfer;					//转帐开关
     WORD							wRevenueTake;						//税收比例
     WORD							wRevenueTransfer;					//税收比例
-    WORD							wRevenueTransferMember;				//税收比例
-    WORD							wServerID;							//房间标识
-	LONGLONG						lUserGold;							//用户金币
-	LONGLONG						lUserInsureGold;					//银行金币
-	LONGLONG						lTransferPrerequisite;				//转帐条件
-}ST_CMD_GP_USER_INSURE_INFO, *PST_CMD_GP_USER_INSURE_INFO;
+    WORD							wRevenueTransferVip;				//税收比例
+    WORD							wGameRoomID;						//房间标识
+	LONGLONG						llUserGold;							//用户金币
+	LONGLONG						llUserBankGold;						//银行金币
+	LONGLONG						llTransferCondition;				//转帐条件
+}ST_CMD_GP_USER_BANK_INFO, *PST_CMD_GP_USER_BANK_INFO;
 
 //开通银行
-typedef struct _stCmdGpUserEnableInsure
+typedef struct _stCmdGpUserBankEnable
 {
     DWORD							dwUserID;							//用户I D
     TCHAR							szLogonPwd[LEN_PWD];				//登录密码
-    TCHAR							szInsurePwd[LEN_PWD];				//银行密码
+    TCHAR							szBankPwd[LEN_PWD];					//银行密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-}ST_CMD_GP_USER_ENABLE_INSURE, *PST_CMD_GP_USER_ENABLE_INSURE;
+}ST_CMD_GP_USER_BANK_ENABLE, *PST_CMD_GP_USER_BANK_ENABLE;
 
 //存入金币
-typedef struct _stCmdGpUserSaveGold
+typedef struct _stCmdGpUserGoldSave
 {
     DWORD							dwUserID;							//用户 I D
-    LONGLONG						lSaveGold;							//存入金币
+    LONGLONG						llSaveGold;							//存入金币
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-}ST_CMD_GP_USER_SAVE_GOLD, *PST_CMD_GP_USER_SAVE_GOLD;
+}ST_CMD_GP_USER_GOLD_SAVE, *PST_CMD_GP_USER_GOLD_SAVE;
 
 //提取金币
 typedef struct _stCmdGpUserTakeOutGold
 {
     DWORD							dwUserID;							//用户 I D
-    LONGLONG						lTakeOutGold;						//提取金币
-    TCHAR							szInsurePwd[LEN_MD5];				//银行密码
+    LONGLONG						llTakeOutGold;						//提取金币
+    TCHAR							szBankPwd[LEN_MD5];					//银行密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-}ST_CMD_GP_USER_TAKE_OUT_GOLD, *PST_CMD_GP_USER_TAKE_OUT_GOLD;
+}ST_CMD_GP_USER_GOLD_TAKE_OUT, *PST_CMD_GP_USER_GOLD_TAKE_OUT;
 
 //转帐金币
-typedef struct _stCmdGpUserTransferGold
+typedef struct _stCmdGpUserGoldTransfer
 {
     DWORD							dwUserID;							//用户 I D
     LONGLONG						lTransferGold;						//转帐金币
@@ -484,41 +484,41 @@ typedef struct _stCmdGpUserTransferGold
     TCHAR							szAccounts[LEN_NICKNAME];			//目标用户
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
     TCHAR							szTransRemark[LEN_TRANS_REMARK];	//转帐备注
-}ST_CMD_GP_USER_TRANSFER_GOLD, *PST_CMD_GP_USER_TRANSFER_GOLD;
+}ST_CMD_GP_USER_GOLD_TRANSFER, *PST_CMD_GP_USER_GOLD_TRANSFER;
 
 //银行成功
-typedef struct _stCmdGpUserInsureSucc
+typedef struct _stCmdGpUserBankSucc
 {
     BYTE                            cbOperateType;                      //操作类型
     DWORD							dwUserID;							//用户 I D
     DWORD                           dwUserMedal;                        //用户奖牌
     DWORD                           dwRecordIndex;                      //记录编号
-	LONGLONG						lUserGold;							//用户金币
-	LONGLONG						lUserInsureGold;					//银行金币
+	LONGLONG						llUserGold;							//用户金币
+	LONGLONG						llUserBankGold;						//银行金币
     TCHAR							szDes[128];							//描述消息
-}ST_CMD_GP_USER_INSURE_SUCC, *PST_CMD_GP_USER_INSURE_SUCC;
+}ST_CMD_GP_USER_BANK_SUCC, *PST_CMD_GP_USER_BANK_SUCC;
 
 //银行失败
-typedef struct _stCmdGpUserInsureFailure
+typedef struct _stCmdGpUserBankFailure
 {
-    INT								lErrorCode;							//错误代码
-    TCHAR							szDes[128];							//描述消息
-}ST_CMD_GP_USER_INSURE_FAILURE, *PST_CMD_GP_USER_INSURE_FAILURE;
+    INT								nErrorCode;							//错误代码
+    TCHAR							szDes[LEN_DES];						//描述消息
+}ST_CMD_GP_USER_BANK_FAILURE, *PST_CMD_GP_USER_BANK_FAILURE;
 
 //提取结果
-typedef struct _stCmdGpUserTakeOutResult
+typedef struct _stCmdGpUserGoldTakeOutResult
 {
     DWORD							dwUserID;							//用户 I D
-	LONGLONG						lUserGold;							//用户金币
-	LONGLONG						lUserInsureGold;					//银行金币
-}ST_CMD_GP_USER_TAKE_OUT_RESULT, *PST_CMD_GP_USER_TAKE_OUT_RESULT;
+	LONGLONG						llUserGold;							//用户金币
+	LONGLONG						llUserBankGold;						//银行金币
+}ST_CMD_GP_USER_GOLD_TAKE_OUT_RESULT, *PST_CMD_GP_USER_GOLD_TAKE_OUT_RESULT;
 
 //查询银行
-typedef struct _stCmdGpUserQueryInsureInfo
+typedef struct _stCmdGpUserBankQueryInfo
 {
     DWORD							dwUserID;							//用户 I D
     TCHAR							szPwd[LEN_MD5];						//银行密码
-}ST_CMD_GP_QUERY_INSURE_INFO, *PST_CMD_GP_QUERY_INSURE_INFO;
+}ST_CMD_GP_USER_BANK_QUERY_INFO, *PST_CMD_GP_USER_BANK_QUERY_INFO;
 
 //查询用户
 typedef struct _stCmdGpUserInfoQueryReq

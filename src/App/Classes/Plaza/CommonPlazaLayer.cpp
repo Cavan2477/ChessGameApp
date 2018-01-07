@@ -137,7 +137,7 @@ bool CommonPlazaLayer::init()
         m_pLayoutUserInfo->addChild(m_pLabelUserNickname);
         
         //用户分数
-        m_pLabelUserScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
+        m_pLabelUserScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_llUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
         m_pLabelUserScore->setTextColor(cocos2d::Color4B::YELLOW);
 
         Labellengthdeal(m_pLabelUserScore, 135);
@@ -469,10 +469,10 @@ void CommonPlazaLayer::LevelUpgrade(void* pData, WORD wSize)
 {
     ST_CMD_GP_GROW_LEVEL_UPGRADE *pLevelUpgrade = (ST_CMD_GP_GROW_LEVEL_UPGRADE *)pData;
 
-    HallDataMgr::getInstance()->m_lUserGold = pLevelUpgrade->lCurrGameCoin;
-    HallDataMgr::getInstance()->m_lGold = pLevelUpgrade->lCurrGold;
+    HallDataMgr::getInstance()->m_llUserGold = pLevelUpgrade->lCurrGameCoin;
+    HallDataMgr::getInstance()->m_llGold = pLevelUpgrade->lCurrGold;
     
-    m_pLabelUserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
+    m_pLabelUserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_llUserGold, ","));
     
     std::string strNotifyContent = WHConverUnicodeToUtf8WithArray((WORD*)pLevelUpgrade->szNotifyContent);
 
@@ -520,7 +520,7 @@ void CommonPlazaLayer::notifyFreshInfo(cocos2d::EventCustom *event)
 		case EM_USER_DATA_CHANGE_SCORE:
 		case EM_USER_DATA_CHANGE_BEAN:
         {
-            m_pLabelUserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
+            m_pLabelUserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_llUserGold, ","));
         }
 
             break;

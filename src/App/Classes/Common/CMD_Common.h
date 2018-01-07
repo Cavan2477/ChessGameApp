@@ -42,7 +42,7 @@ typedef struct _stCmdSysMsg
 {
 	WORD								wType;							//消息类型
 	WORD								wLength;						//消息长度
-	TCHAR								szMsgContent[1024];				//消息内容
+	TCHAR								szMsg[1024];					//消息内容
 }ST_CMD_SYS_MSG, *PST_CMD_SYS_MSG;
 
 #pragma pack()

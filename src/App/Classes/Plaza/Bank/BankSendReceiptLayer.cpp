@@ -1,4 +1,4 @@
-/************************************************************************************
+﻿/************************************************************************************
  * file: 		BankSendReceiptLayer.cpp
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
@@ -28,6 +28,7 @@ BankSendReceiptLayer::~BankSendReceiptLayer()
 bool BankSendReceiptLayer::init()
 {
     bool bRes = false;
+
     do
     {
         CC_BREAK_IF(!Layer::init());
@@ -93,30 +94,30 @@ bool BankSendReceiptLayer::init()
     return bRes;
 }
 
-void BankSendReceiptLayer::refreshReceipt(const _stReceipt &tagRec)
+void BankSendReceiptLayer::refreshReceipt(const _stReceipt &stReceipt)
 {
     char buf[128] = "";
     
     //编号
-    sprintf(buf, "编号:%d",tagRec.dwRecordIndex);
+    sprintf(buf, "编号:%d", stReceipt.dwRecordIndex);
     m_textCode->setString(buf);
     
     //昵称
-    m_textSendUserName->setString(tagRec.strSendUserName);
+    m_textSendUserName->setString(stReceipt.strSendUserName);
     
     //id
-    sprintf(buf,"%d",tagRec.dwSendUserId);
+    sprintf(buf, "%d", stReceipt.dwSendUserId);
     m_textSendUserId->setString(buf);
     
     //昵称
-    m_textRecUserName->setString(tagRec.strRecUserName);
+    m_textRecUserName->setString(stReceipt.strRecUserName);
     
     //id
-    sprintf(buf, "%d",tagRec.dwRecUserId);
+    sprintf(buf, "%d",stReceipt.dwRecUserId);
     m_textRecUserId->setString(buf);
     
     //赠送数额
-    sprintf(buf,"%lld",tagRec.llSendCount);
+    sprintf(buf, "%lld", stReceipt.llSendCount);
     m_textSendCount->setString(buf);
     
     //大写
@@ -145,7 +146,7 @@ std::string BankSendReceiptLayer::numberTransiform(const std::string &strCount)
     
     auto len = strCount.length();
 
-    for (int i = 0; i < len; ++i)
+    for (int i=0; i<len; ++i)
     {
         str = str + big_num[strCount[i] - 48] + unit[len - i - 1];
     }
@@ -163,13 +164,12 @@ std::string BankSendReceiptLayer::replaceAll(std::string &src, const std::string
     return src;
 }
 
-std::string BankSendReceiptLayer::cleanZero(std::string &s)
+std::string BankSendReceiptLayer::cleanZero(std::string &str)
 {
     // 如果传入的是空串则继续返回空串
-    if("" == s)
-    {
+    if ("" == str)
         return "";
-    }
+
     // 字符串中存在多个'零'在一起的时候只读出一个'零'，并省略多余的单位
     
     std::string regex1[] = {"零仟", "零佰", "零拾"};
@@ -179,29 +179,30 @@ std::string BankSendReceiptLayer::cleanZero(std::string &s)
     
     // 第一轮转换把 "零仟", 零佰","零拾"等字符串替换成一个"零"
     for(int i = 0; i < 3; i ++)
-    {
-        s = replaceAll(s, regex1[i], "零");
-    }
+        str = replaceAll(str, regex1[i], "零");
+
     // 第二轮转换考虑 "零亿","零万","零元"等情况
     // "亿","万","元"这些单位有些情况是不能省的，需要保留下来
     for(int i = 0; i < 3; i ++)
     {
         // 当第一轮转换过后有可能有很多个零叠在一起
         // 要把很多个重复的零变成一个零
-        s = replaceAll(s, "零零零", "零");
-        s = replaceAll(s, "零零", "零");
-        s = replaceAll(s, regex2[i], regex3[i]);
+        str = replaceAll(str, "零零零", "零");
+        str = replaceAll(str, "零零", "零");
+        str = replaceAll(str, regex2[i], regex3[i]);
     }
+
     // 第三轮转换把"零角","零分"字符串省略
     for(int i = 0; i < 2; i ++)
     {
-        s = replaceAll(s, regex4[i], "");
+        str = replaceAll(str, regex4[i], "");
     }
+
     // 当"万"到"亿"之间全部是"零"的时候，忽略"亿万"单位，只保留一个"亿"
-    s = replaceAll(s, "亿万", "亿");
+    str = replaceAll(str, "亿万", "亿");
     
     //去掉单位
-    s = replaceAll(s, "元", "");
+    str = replaceAll(str, "元", "");
 
-    return s;
+    return str;
 }

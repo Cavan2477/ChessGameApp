@@ -47,7 +47,7 @@ bool TaskScene::init()
     }
     
     //用户游戏币
-    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_llUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserScore(coin);
     _userScore->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userScore, 145);
@@ -56,7 +56,7 @@ bool TaskScene::init()
     _layout->addChild(_userScore);
     
     //用户金币
-    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_llGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserIngot(ingot);
     _userIngot->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userIngot, 145);
@@ -174,7 +174,7 @@ void TaskScene::initTasklist()
 
         listLayout->addChild(oneList);
         
-        std::string des =  WHConverUnicodeToUtf8WithArray((WORD*)iter.second->szTaskDesc);
+        std::string des =  WHConverUnicodeToUtf8WithArray((WORD*)iter.second->szTaskDes);
         log("%s\n",des.c_str());
         
 		std::string taskName = WHConverUnicodeToUtf8WithArray((WORD*)iter.second->szTaskName);
@@ -248,17 +248,17 @@ void TaskScene::initTasklist()
         
         //奖励  会员用户
         auto vipCoin = static_cast<Text *>(oneList->getChildByName("Text_hy_coin"));
-        vipCoin->setString(__String::createWithFormat("%lld",iter.second->lMemberAwardGold)->getCString());
+        vipCoin->setString(__String::createWithFormat("%lld",iter.second->llVipAwardGold)->getCString());
         
         auto vipIngot = static_cast<Text *>(oneList->getChildByName("Text_hy_ingot"));
-        vipIngot->setString(__String::createWithFormat("%lld",iter.second->lMemberAwardMedal)->getCString());
+        vipIngot->setString(__String::createWithFormat("%lld",iter.second->llVipAwardMedal)->getCString());
         
         //普通用户
         auto generCoin = static_cast<Text *>(oneList->getChildByName("Text_gener_coin"));
-        generCoin->setString(__String::createWithFormat("%lld",iter.second->lStandardAwardGold)->getCString());
+        generCoin->setString(__String::createWithFormat("%lld",iter.second->llStandardAwardGold)->getCString());
         
         auto generIngot = static_cast<Text *>(oneList->getChildByName("Text_gener_ingot"));
-        generIngot->setString(__String::createWithFormat("%lld",iter.second->lStandardAwardMedal)->getCString());
+        generIngot->setString(__String::createWithFormat("%lld",iter.second->llStandardAwardMedal)->getCString());
         
         //进度条
         auto progressTip = static_cast<Sprite *>(oneList->getChildByName("task_progressTip_6"));
@@ -493,8 +493,8 @@ void TaskScene::TaskResult(void* pData, WORD wSize)
         
         if (TaskResult->lCurrGameCoin > 0)
         {
-            HallDataMgr::getInstance()->m_lUserGold = TaskResult->lCurrGameCoin;
-            HallDataMgr::getInstance()->m_lGold = TaskResult->lCurrGold;
+            HallDataMgr::getInstance()->m_llUserGold = TaskResult->lCurrGameCoin;
+            HallDataMgr::getInstance()->m_llGold = TaskResult->lCurrGold;
             
             auto puser = HallDataMgr::getInstance()->m_UserList.at(HallDataMgr::getInstance()->m_dwUserID);
             if (puser)

@@ -104,7 +104,7 @@ typedef struct _stCmdGrLogonMobile
 	//登录信息
 	DWORD							dwUserID;							//用户 I D
 	TCHAR							szDynamicPwd[LEN_MD5];				//登录密码
-    TCHAR                           szServerPwd[LEN_PWD];				//房间密码
+    TCHAR                           szGameRoomPwd[LEN_PWD];				//房间密码
 	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器标识
 }ST_CMD_GR_LOGON_MOBILE, *PST_CMD_GR_LOGON_MOBILE;
 
@@ -118,22 +118,22 @@ typedef struct _stCmdGrLogonAccounts
 	
 	//登录信息
 	TCHAR							szAccounts[LEN_ACCOUNT];			//登录帐号
-	TCHAR							szPassword[LEN_MD5];				//登录密码
+	TCHAR							szLogonPwd[LEN_MD5];				//登录密码
 	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
 }ST_CMD_GR_LOGON_ACCOUNTS, *PST_CMD_GR_LOGON_ACCOUNTS;
 
 //登录成功
 typedef struct _stCmdGrLogonSucc
 {
-	DWORD							dwUserRight;						//用户权限
-	DWORD							dwMasterRight;						//管理权限
+	DWORD							dwUserPriview;						//用户权限
+	DWORD							dwMasterPriview;					//管理权限
 }ST_CMD_GR_LOGON_SUCC, *PST_CMD_GR_LOGON_SUCC;
 
 //登录失败
 typedef struct _stCmdGrLogonFailure
 {
-	INT								lErrorCode;							//错误代码
-	TCHAR							szDescription[128];					//错误描述
+	INT								nErrorCode;							//错误代码
+	TCHAR							szDes[128];							//错误描述
 }ST_CMD_GR_LOGON_FAILURE, *PST_CMD_GR_LOGON_FAILURE;
 
 //登录完成
@@ -151,9 +151,9 @@ typedef struct _stCmdUpdateNotify
 	BYTE							cbAdviceUpdateClient;				//建议升级
 	
 	//当前版本
-	DWORD							dwCurrentPlazaVersion;				//当前版本
-	DWORD							dwCurrentFrameVersion;				//当前版本
-	DWORD							dwCurrentClientVersion;				//当前版本
+	DWORD							dwCurrPlazaVersion;					//当前版本
+	DWORD							dwCurrFrameVersion;					//当前版本
+	DWORD							dwCurrClientVersion;				//当前版本
 }ST_CMD_GR_UPDATE_NOTIFY, *PST_CMD_GR_UPDATE_NOTIFY;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -175,7 +175,7 @@ typedef struct _stCmdUpdateNotify
 typedef struct _stCmdGrConfigColumn
 {
 	BYTE							cbColumnCount;						//列表数目
-	_stColumnItem					ColumnItem[MAX_COLUMN];				//列表描述
+	_stColumnItem					stColumnItemArray[MAX_COLUMN];		//列表描述
 }ST_CMD_GR_CONFIG_COLUMN, *PST_CMD_GR_CONFIG_COLUMN;
 
 //房间配置
@@ -186,21 +186,21 @@ typedef struct _stCmdGrConfigGameRoom
 	WORD							wChairCount;						//椅子数目
 	
 	//房间配置
-	WORD							wServerType;						//房间类型
-	DWORD							dwServerRule;						//房间规则
+	WORD							wGameRoomType;						//房间类型
+	DWORD							dwGameRoomRule;						//房间规则
 }ST_CMD_GR_CONFIG_GAME_ROOM, *PST_CMD_GR_CONFIG_GAME_ROOM;
 
 //道具配置
 typedef struct _stCmdGrConfigProperty
 {
 	BYTE							cbPropertyCount;					//道具数目
-	tagPropertyInfo					PropertyInfo[MAX_PROPORTY];			//道具描述
+	ST_PROPERTY_INFO				stPropertyInfoArray[MAX_PROPORTY];	//道具描述
 }ST_CMD_GR_CONFIG_PROPERTY, *PST_CMD_GR_CONFIG_PROPERTY;
 
 //玩家权限
 typedef struct _stCmdGrConfigUserPriview
 {
-    DWORD                           dwUserRight;                        //玩家权限
+    DWORD                           dwUserPriview;                      //玩家权限
 }ST_CMD_GR_CONFIG_USER_PRIVIEW, *PST_CMD_GR_CONFIG_USER_PRIVIEW;
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -211,9 +211,9 @@ typedef struct _stCmdGrConfigUserPriview
 
 //用户动作
 #define SUB_GR_USER_RULE			1									//用户规则
-#define	SUB_GR_USER_LOOKON			2									//旁观请求
-#define	SUB_GR_USER_SITDOWN			3									//坐下请求
-#define	SUB_GR_USER_STANDUP			4									//起立请求
+#define	SUB_GR_USER_LOOK_ON			2									//旁观请求
+#define	SUB_GR_USER_SIT_DOWN		3									//坐下请求
+#define	SUB_GR_USER_STAND_UP		4									//起立请求
 #define SUB_GR_USER_INVITE			5									//用户邀请
 #define SUB_GR_USER_INVITE_REQ		6									//邀请请求
 #define SUB_GR_USER_REPULSE_SIT  	7									//拒绝玩家坐下
@@ -225,10 +225,10 @@ typedef struct _stCmdGrConfigUserPriview
 
 //用户状态
 #define	SUB_GR_USER_ENTER			100									//用户进入
-#define	SUB_GR_USER_SCORE			101									//用户分数
+#define	SUB_GR_USER_GAME_COIN		101									//用户游戏币
 #define SUB_GR_USER_STATUS			102									//用户状态
 
-#define	SUB_GR_REQUEST_FAILURE		103									//请求失败
+#define	SUB_GR_REQ_FAILURE			103									//请求失败
 
 //聊天命令
 #define	SUB_GR_USER_CHAT			201									//聊天信息
@@ -266,7 +266,7 @@ typedef struct _stCmdGrUserSitDown
 {
 	WORD							wTableID;							//桌子位置
 	WORD							wChairID;							//椅子位置
-	TCHAR							szPwd[LEN_PWD];						//桌子密码
+	TCHAR							szTablePwd[LEN_PWD];				//桌子密码
 }ST_CMD_GR_USER_SIT_DOWN, *PST_CMD_GR_USER_SIT_DOWN;
 
 //起立请求
@@ -313,12 +313,12 @@ typedef struct _stCmdGrUserScore
 }ST_CMD_GR_USER_SCORE, *PST_CMD_GR_USER_SCORE;
 
 #pragma mark -
-#pragma mark 用户分数
-typedef struct _stCmdGrMobileUserScore
+#pragma mark 用户游戏币
+typedef struct _stCmdGrMobileUserGameCoin
 {
 	DWORD							dwUserID;							//用户标识
-	_stMobileUserScore				stUserScore;						//积分信息
-}ST_CMD_GR_MOBILE_USER_SCORE, *PST_CMD_GR_MOBILE_USER_SCORE;
+	_stMobileUserGameCoin			stMobileUserGameCoin;				//手机用户游戏币信息
+}ST_CMD_GR_MOBILE_USER_GAME_COIN, *PST_CMD_GR_MOBILE_USER_GAME_COIN;
 
 //用户状态
 typedef struct _stCmdGrUserStatus
@@ -340,7 +340,7 @@ typedef struct _stCmdGrUserClientChat
 	WORD							wChatLength;						//信息长度
 	DWORD							dwChatColor;						//信息颜色
 	DWORD							dwTargerUserID;						//目标用户
-	TCHAR							szChatString[LEN_USER_CHAT];		//聊天信息
+	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//聊天信息
 }ST_CMD_GR_USER_CLIENT_CHAT, *PST_CMD_GR_USER_CLIENT_CHAT;
 
 //用户聊天
@@ -350,7 +350,7 @@ typedef struct _stCmdGrUserServerChat
 	DWORD							dwChatColor;						//信息颜色
 	DWORD							dwSendUserID;						//发送用户
 	DWORD							dwTargetUserID;						//目标用户
-	TCHAR							szChatString[LEN_USER_CHAT];		//聊天信息
+	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//聊天信息
 }ST_CMD_GR_USER_SERVER_CHAT, *PST_CMD_GR_USER_SERVER_CHAT;
 
 //用户表情
@@ -375,7 +375,7 @@ typedef struct _stCmdGrUserClientWisperChat
 	DWORD							dwChatColor;						//信息颜色
     DWORD                           dwSendUserID;                       //发送用户
 	DWORD							dwTargetUserID;						//目标用户
-	TCHAR							szChatString[LEN_USER_CHAT];		//聊天信息
+	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//聊天信息
 }ST_CMD_GR_USER_CLIENT_WISPER_CHAT, *PST_CMD_GR_USER_CLIENT_WISPER_CHAT;
 
 //用户私聊
@@ -385,7 +385,7 @@ typedef struct _stCmdGrUserServerWisperChat
 	DWORD							dwChatColor;						//信息颜色
 	DWORD							dwSendUserID;						//发送用户
 	DWORD							dwTargetUserID;						//目标用户
-	TCHAR							szChatString[LEN_USER_CHAT];		//聊天信息
+	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//聊天信息
 }ST_CMD_GR_USER_SERVER_WISPER_CHAT, *PST_CMD_GR_USER_SERVER_WISPER_CHAT;
 
 //私聊表情
@@ -412,7 +412,7 @@ typedef struct _stCmdGrGrColloquyChat
 	DWORD							dwSendUserID;						//发送用户
 	DWORD							dwConversationID;					//会话标识
 	DWORD							dwTargetUserID[16];					//目标用户
-	TCHAR							szChatString[LEN_USER_CHAT];		//聊天信息
+	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//聊天信息
 }ST_CMD_GR_GR_COLLOQUY_CHAT, *PST_CMD_GR_GR_COLLOQUY_CHAT;
 
 //邀请用户
@@ -452,7 +452,7 @@ typedef struct _stCmdGrServerPropertySucc
 typedef struct _stCmdGrServerPropertyFailure
 {
     WORD							wReqArea;							//请求区域
-	INT								lErrorCode;							//错误代码
+	INT								nErrorCode;							//错误代码
 	TCHAR               			szDes[256];							//描述信息
 }ST_CMD_GR_SERVER_PROPERTY_FAILURE, *PST_CMD_GR_SERVER_PROPERTY_FAILURE;
 
@@ -486,7 +486,7 @@ typedef struct _stCmdGrServerSendTrumpet
 {
 	WORD							wPropertyIndex;
 	DWORD							dwSendUserID;
-	DWORD							TrumpetColor;
+	DWORD							dwTrumpetColor;
 	TCHAR							szSendNickName[32];
 	TCHAR							szTrumpetContent[TRUMPET_MAX_CHAR];
 }ST_CMD_GR_SERVER_SEND_TRUMPET, *PST_CMD_GR_SERVER_SEND_TRUMPET;
@@ -527,8 +527,8 @@ typedef struct _stCmdGrUserRule
 	BYTE							cbRuleMask;							//规则掩码
 	WORD							wMinWinRate;						//最低胜率
 	WORD							wMaxFleeRate;						//最高逃率
-	INT								lMaxGameScore;						//最高分数
-	INT								lMinGameScore;						//最低分数
+	INT								nMaxGameGameCoin;					//最高分数
+	INT								nMinGameGameCoin;					//最低分数
 }ST_CMD_GR_USER_RULE, *PST_CMD_GR_USER_RULE;
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -557,83 +557,82 @@ typedef struct _stCmdGrTableStatus
 /////////////////////////////////////////////////////////////////////////////////
 //银行命令
 
-#define MDM_GR_INSURE							5						//用户信息
+#define MDM_GR_BANK								5						//用户信息
 
 //银行命令
-#define SUB_GR_ENABLE_INSURE_REQUEST            1						//开通银行
-#define SUB_GR_QUERY_INSURE_INFO                2						//查询银行
-#define SUB_GR_SAVE_SCORE_REQUEST               3						//存款操作
-#define SUB_GR_TAKE_SCORE_REQUEST               4						//取款操作
-#define SUB_GR_TRANSFER_SCORE_REQUEST           5						//取款操作
-#define SUB_GR_QUERY_USER_INFO_REQUEST          6						//查询用户
+#define SUB_GR_REQ_BANK_ENABLE					1						//开通银行
+#define SUB_GR_REQ_BANK_QUERY					2						//查询银行
+#define SUB_GR_REQ_BANK_GOLD_SAVE				3						//金币存入操作
+#define SUB_GR_REQ_BANK_GOLD_TAKE_OUT			4						//金币取出操作
+#define SUB_GR_REQ_BANK_GOLD_TRANSFER			5						//转账操作
+#define SUB_GR_REQ_BANK_QUERY_USER_INFO			6						//查询用户
 
-
-#define SUB_GR_USER_INSURE_INFO                 100						//银行资料
-#define SUB_GR_USER_INSURE_SUCCESS              101						//银行成功
-#define SUB_GR_USER_INSURE_FAILURE              102						//银行失败
-#define SUB_GR_USER_TRANSFER_USER_INFO          103						//用户资料
-#define SUB_GR_USER_INSURE_ENABLE_RESULT        104						//开通结果
+#define SUB_GR_USER_BANK_INFO					100						//银行资料
+#define SUB_GR_USER_BANK_SUCC					101						//银行成功
+#define SUB_GR_USER_BANK_FAILURE				102						//银行失败
+#define SUB_GR_USER_BANK_TRANSFER_USER_INFO     103						//用户资料
+#define SUB_GR_USER_BANK_ENABLE_RESULT			104						//开通结果
 
 //操作方式
-#define INSURE_SAVE								0						//存取方式
-#define INSURE_TRANSFER							1						//转帐方式
+#define BANK_SAVE								0						//存取方式
+#define BANK_TRANSFER							1						//转帐方式
 
 //开通银行
-typedef struct _stCmdGrClientEnableInsureReq
+typedef struct _stCmdGrClientReqBankEnable
 {
     BYTE							cbActivityGame;						//游戏动作
     DWORD							dwUserID;							//用户id
     TCHAR							szLogonPwd[LEN_PWD];				//登录密码
-    TCHAR							szInsurePwd[LEN_PWD];				//银行密码
+    TCHAR							szBankPwd[LEN_PWD];					//银行密码
     TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-}ST_CMD_GR_CLIENT_ENABLE_INSURE_REQ, *PST_CMD_GR_CLIENT_ENABLE_INSURE_REQ;
+}ST_CMD_GR_CLIENT_REQ_BANK_ENABLE, *PST_CMD_GR_CLIENT_REQ_BANK_ENABLE;
 
 #pragma mark -
 #pragma mark 客户端结构体
 //查询银行
-typedef struct _stCmdGrClientQueryInsureReq
+typedef struct _stCmdGrClientReqBankQuery
 {
 	BYTE							cbActivityGame;						//游戏动作
-	TCHAR							szInsurePwd[LEN_PWD];				//银行密码
-}ST_CMD_GR_CLIENT_QUERY_INSURE_INFO_REQ, *PST_CMD_GR_CLIENT_QUERY_INSURE_INFO_REQ;
+	TCHAR							szBankPwd[LEN_PWD];					//银行密码
+}ST_CMD_GR_CLIENT_REQ_BANK_QUERY, *PST_CMD_GR_CLIENT_REQ_BANK_QUERY;
 
 //存款请求
-typedef struct _stCmdGrClientSaveGoldReq
+typedef struct _stCmdGrClientReqBankGoldSave
 {
 	BYTE							cbActivityGame;						//游戏动作
-	LONGLONG						lSaveGold;							//存款数目
-}ST_CMD_GR_CLIENT_SAVE_GOLD_REQ, *PST_CMD_GR_CLIENT_SAVE_GOLD_REQ;
+	LONGLONG						llGoldSave;							//存款数目
+}ST_CMD_GR_CLIENT_REQ_BANK_GOLD_SAVE, *PST_CMD_GR_CLIENT_REQ_BANK_GOLD_SAVE;
 
 //取款请求
-typedef struct _stCmdGrClientTakeOutGoldReq
+typedef struct _stCmdGrClientReqBankGoldTakeOut
 {
 	BYTE							cbAvtivityGame;						//游戏动作
-	LONGLONG						lTakeOutGold;						//取款数目
-	TCHAR							szInsurePwd[LEN_PWD];				//银行密码
-}ST_CMD_GR_CLIENT_TAKE_OUT_GOLD_REQ, *PST_CMD_GR_CLIENT_TAKE_OUT_GOLD_REQ;
+	LONGLONG						llGoldTakeOut;						//取款数目
+	TCHAR							szBankPwd[LEN_PWD];					//银行密码
+}ST_CMD_GR_CLIENT_REQ_BANK_GOLD_TAKE_OUT, *PST_CMD_GR_CLIENT_REQ_BANK_GOLD_TAKE_OUT;
 
 //查询用户
-typedef struct _stCmdGrClientQueryUserInfoReq
+typedef struct _stCmdGrClientReqBankQueryUserInfo
 {
     BYTE							cbActivityGame;                     //游戏动作
     BYTE							cbByNickName;                       //昵称赠送
     TCHAR							szAccounts[LEN_ACCOUNT];			//目标用户
-}ST_CMD_GR_CLIENT_QUERY_USER_INFO_REQ, *PST_CMD_GR_CLIENT_QUERY_USER_INFO_REQ;
+}ST_CMD_GR_CLIENT_REQ_BANK_QUERY_USER_INFO, *PST_CMD_GR_CLIENT_REQ_BANK_QUERY_USER_INFO;
 
 //转帐金币
-typedef struct _stCmdGrClientTransferGoldReq
+typedef struct _stCmdGrClientReqBankGoldTransfer
 {
 	BYTE							cbActivityGame;						//游戏动作
 	LONGLONG						lTransferGold;						//转帐金币
 	TCHAR							szAccounts[LEN_ACCOUNT];			//目标用户
 	TCHAR							szInsurePwd[LEN_PWD];				//银行密码
 	TCHAR							szTransRemark[LEN_TRANS_REMARK];    //转帐备注
-}ST_CMD_GR_CLIENT_TRANSFER_GOLD_REQ, *PST_CMD_GR_CLIENT_TRANSFER_GOLD_REQ;
+}ST_CMD_GR_CLIENT_REQ_BANK_GOLD_TRANSFER, *PST_CMD_GR_CLIENT_REQ_BANK_GOLD_TRANSFER;
 
 #pragma mark -
 #pragma mark 服务器发送结构体
 //银行资料
-typedef struct _stCmdGrServerUserInsureInfo
+typedef struct _stCmdGrServerUserBankInfo
 {
 	BYTE							cbActivityGame;						//游戏动作
 	BYTE							cbEnjoinTransfer;                   //转帐开关
@@ -641,30 +640,30 @@ typedef struct _stCmdGrServerUserInsureInfo
 	WORD							wRevenueTransfer;					//税收比例
 	WORD							wRevenueTransferVip;				//税收比例
 	WORD							wGameRoomID;						//房间标识
-	LONGLONG						lUserGold;							//用户金币
-	LONGLONG						lUserInsureGold;					//银行金币
-	LONGLONG						lTransferPrerequisite;				//转帐条件
-}ST_CMD_GR_SERVER_USER_INSURE_INFO, *PST_CMD_GR_SERVER_USER_INSURE_INFO;
+	LONGLONG						llUserGold;							//用户金币
+	LONGLONG						llUserBankGold;						//银行金币
+	LONGLONG						llTransferCondition;				//转帐条件
+}ST_CMD_GR_SERVER_USER_BANK_INFO, *PST_CMD_GR_SERVER_USER_BANK_INFO;
 
 //银行成功
-typedef struct _stCmdGrServerUserInsureSucc
+typedef struct _stCmdGrServerUserBankSucc
 {
 	BYTE							cbActivityGame;						//游戏动作
     BYTE							cbOperateType;                      //操作类型
     DWORD							dwUserMedal;                        //用户奖牌
     DWORD							dwRecordNo;							//记录编号
-	LONGLONG						lUserGold;							//用户金币
-	LONGLONG						lUserInsureGold;					//银行金币
+	LONGLONG						llUserGold;							//用户金币
+	LONGLONG						llUserBankGold;						//银行金币
 	TCHAR							szDes[128];							//描述信息
-}ST_CMD_GR_SERVER_USER_INSURE_SUCC, *PST_CMD_GR_SERVER_USER_INSURE_SUCC;
+}ST_CMD_GR_SERVER_USER_BANK_SUCC, *PST_CMD_GR_SERVER_USER_BANK_SUCC;
 
 //银行失败
-typedef struct _stCmdGrServerUserInsureFailure
+typedef struct _stCmdGrServerUserBankFailure
 {
 	BYTE							cbActivityGame;						//游戏动作
 	INT								nErrorCode;							//错误代码
 	TCHAR							szDes[128];							//描述消息
-}ST_CMD_GR_SERVER_USER_INSURE_FAILURE, *PST_CMD_GR_SERVER_USER_INSURE_FAILURE;
+}ST_CMD_GR_SERVER_USER_BANK_FAILURE, *PST_CMD_GR_SERVER_USER_BANK_FAILURE;
 
 //用户信息
 typedef struct _stCmdGrServerUserTransferUserInfo
@@ -675,12 +674,12 @@ typedef struct _stCmdGrServerUserTransferUserInfo
 }ST_CMD_GR_SERVER_USER_TRANSFER_USRE_INFO, *PST_CMD_GR_SERVER_USER_TRANSFER_USRE_INFO;
 
 //开通结果
-typedef struct _stCmdGrServerUserInsureEnableResult
+typedef struct _stCmdGrServerUserBankEnableResult
 {
 	BYTE							cbActivityGame;						//游戏动作
 	BYTE							cbInsureEnabled;					//使能标识
 	TCHAR							szDes[128];							//描述消息
-}ST_CMD_GR_SERVER_USER_INSURE_ENABLE_RESULT, *PST_CMD_GR_SERVER_USER_INSURE_ENABLE_RESULT;
+}ST_CMD_GR_SERVER_USER_BANK_ENABLE_RESULT, *PST_CMD_GR_SERVER_USER_BANK_ENABLE_RESULT;
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -700,7 +699,7 @@ typedef struct _stCmdGrServerUserInsureEnableResult
 typedef struct _stCmdGrClientLoadTaskInfo
 {
     DWORD							dwUserID;
-    TCHAR							szPwd[LEN_PWD];						//用户密码
+    TCHAR							szLogonPwd[LEN_PWD];				//登录密码
 }ST_CMD_GR_CLIENT_LOAD_TASK_INFO, *PST_CMD_GR_CLIENT_LOAD_TASK_INFO;
 
 //领取任务
@@ -731,7 +730,7 @@ typedef struct _stCmdGrServerTaskInfo
 //任务完成
 typedef struct _stCmdGrServerTaskFinish
 {
-	WORD							wFinishTaskID;                      //任务标识
+	WORD							wTaskID;							//任务标识
 	TCHAR							szTaskName[LEN_TASK_NAME];          //任务名称
 }ST_CMD_GR_SERVER_TASK_FINISH, *PST_CMD_GR_SERVER_TASK_FINISH;
 
@@ -743,8 +742,8 @@ typedef struct _stCmdGrServerTaskResult
     WORD							wCommandID;                         //命令标识
     
     //财富信息
-    LONGLONG						lCurrGameCoin;                      //当前游戏币
-    LONGLONG						lCurGold;							//当前金币
+    LONGLONG						llCurrGameCoin;						//当前游戏币
+    LONGLONG						llCurGold;							//当前金币
     
     //提示信息
     TCHAR							szNotifyContent[128];               //提示内容
@@ -767,9 +766,9 @@ typedef struct _stCmdGrServerTaskResult
 //查询参数
 typedef struct _stCmdGrExchangeParam
 {
-    DWORD							wGoldExchangeGameCoinRate;			//金币→游戏币兑换比率
-    DWORD							wPresentExchangeGameCoinRate;		//魅力→游戏币兑换率
-    DWORD							wRateBeanExchangeGameCoin;			//游戏豆→游戏币兑换率
+    DWORD							dwGoldExchangeGameCoinRate;			//金币→游戏币兑换比率
+    DWORD							dwPresentExchangeGameCoinRate;		//魅力→游戏币兑换率
+    DWORD							dwRateBeanExchangeGameCoin;			//游戏豆→游戏币兑换率
     WORD							wVipCount;							//会员数目
     _stVipParam						stVipParamArray[10];				//会员参数
 }ST_CMD_GR_EXCHANGE_PARAM, *PST_CMD_GR_EXCHANGE_PARAM;
@@ -778,7 +777,7 @@ typedef struct _stCmdGrExchangeParam
 typedef struct _stCmdGrExchangeGameCoin
 {
     DWORD                           dwUserID;                           //用户标识
-    LONGLONG						lExchangedGold;                     //待兑换金币
+    LONGLONG						llExchangedGold;                    //待兑换金币
     TCHAR                           szMachineID[LEN_MACHINE_ID];        //机器标识
 }ST_CMD_GR_EXCHANGE_GAME_GOIN, *PST_CMD_GR_EXCHANGE_GAME_GOIN;
 
@@ -794,16 +793,16 @@ typedef struct _stCmdGrExchangeGameCoinByBean
 typedef struct _stCmdGrExchangeResult
 {
     bool                            bSucc;								//成功标识
-    LONGLONG						lCurrGameCoin;                      //当前游戏币
-    LONGLONG						lCurGold;							//当前金币
-    TCHAR                           szNotifyContent[128];               //提示内容
+    LONGLONG						llCurrGameCoin;                     //当前游戏币
+    LONGLONG						llCurGold;							//当前金币
+    TCHAR                           szNotifyMsg[128];					//提示信息
 }ST_CMD_GR_EXCHANGE_RESULT, *PST_CMD_GR_EXCHANGE_RESULT;
 
 //购买会员
 typedef struct _stCmdGrPurchaseVip
 {
 	DWORD                           dwUserID;                           //用户标识
-	BYTE                            cbVipOrder;							//会员标识
+	BYTE                            cbVipFlag;							//会员标识
 	WORD                            wPurchaseTime;                      //购买时间
 	TCHAR                           szMachineID[LEN_MACHINE_ID];        //机器标识
 }ST_CMD_GR_PURCHASE_VIP, *PST_CMD_GR_PURCHASE_VIP;
@@ -813,9 +812,9 @@ typedef struct _stCmdGrPurchaseResult
 {
 	bool                            bSucc;								//成功标识
 	BYTE                            cbVipOrder;							//会员系列
-	LONGLONG						lCurrGameCoin;                      //当前游戏币
-	DWORD                           dCurrBean;							//当前游戏豆
-	TCHAR                           szNotifyContent[128];               //提示内容
+	LONGLONG						llCurrGameCoin;                     //当前游戏币
+	DWORD                           dwCurrBean;							//当前游戏豆
+	TCHAR                           szNotifyMsg[128];					//提示信息
 }ST_CMD_GR_PURCHASE_RESULT, *PST_CMD_GR_PURCHASE_RESULT;
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -845,7 +844,7 @@ typedef struct _stCmdGrSendWarning
 {
     WORD                            wLen;								//信息长度
     DWORD                           dwUserID;							//目标用户
-    TCHAR                           szWarningMsg[LEN_USER_CHAT];		//警告消息
+	TCHAR                           szWarningMsg[LEN_MSG];				//警告消息
 }ST_CMD_GR_SEND_WARNING, *PST_CMD_GR_SEND_WARNING;
 
 //系统消息
@@ -856,9 +855,9 @@ typedef struct _stCmdGrSendMsg
 	BYTE                            cbAllRoom;                          //游戏消息
 	BYTE                            cbLoop;                             //循环标识
 	DWORD                           dwTimeRate;                         //循环间隔
-	INT								lEndTime;							//结束时间
+	INT								nEndTime;							//结束时间
 	WORD                            wLen;								//信息长度
-	TCHAR                           szSysMsg[LEN_USER_CHAT];			//系统消息
+	TCHAR                           szSysMsg[LEN_MSG];					//系统消息
 }ST_CMD_GR_SEND_MSG, *PST_CMD_GR_SEND_MSG;
 
 //查看地址
@@ -913,7 +912,7 @@ typedef struct _stCmdGrGameRoomConfig
 //剔出所有用户
 typedef struct _stCmdGrUserKickOutAll
 {
-    TCHAR                           szMsg[LEN_USER_CHAT];				//剔出提示
+	TCHAR                           szMsg[LEN_MSG];						//踢出提示
 }ST_CMD_GR_USER_KICK_OUT_ALL, *PST_CMD_GR_USER_KICK_OUT_ALL;
 
 typedef struct _stCmdGrDissmissGame
@@ -956,14 +955,14 @@ typedef struct _stCmdGrUserLimitChat
 #define SUB_GR_MATCH_RESULT			405									//比赛结果
 #define SUB_GR_MATCH_STATUS			406									//比赛状态
 #define SUB_GR_MATCH_DESC			408									//比赛描述
-#define SUB_GR_MATCH_GOLD_UPDATE     409                                //金币更新
+#define SUB_GR_MATCH_GOLD_UPDATE    409									//金币更新
 #define SUB_GR_MATCH_ELIMINATE      410                                 //比赛淘汰
 
 //比赛费用
 typedef struct _stCmdGrMatchFee
 {
-    LONGLONG                       lSignUpFee;                         //报名费用
-    TCHAR                           szNotifyContent[128];               //提示内容
+    LONGLONG                       llSignUpFee;                         //报名费用
+	TCHAR                          szNotifyMsg[LEN_MSG];				//提示内容
 }ST_CMD_GR_MATCH_FEE, *PST_CMD_GR_MATCH_FEE;
 
 //比赛人数
@@ -976,21 +975,21 @@ typedef struct _stCmdGrMatchUserNum
 //赛事信息
 typedef struct _stCmdGrMatchInfo
 {
-	TCHAR							szTitle[4][64];						//信息标题
-    WORD							wGameCount;							//游戏局数
+	TCHAR							szTitleArray[4][LEN_TITLE_MSG];		//信息标题
+    WORD							wGameOfNum;							//游戏局数
 }ST_CMD_GR_MATCH_INFO, *PST_CMD_GR_MATCH_INFO;
 
 //提示信息
 typedef struct _stCmdGrMatchWaitTip
 {
-	LONGLONG						lScore;								//当前积分
-	WORD							wRank;								//当前名次
-	WORD							wCurTableRank;						//本桌名次
-	WORD							wUserCount;							//当前人数
-    WORD                            wCurGameCount;                      //当前局数
-    WORD                            wGameCount;                         //总共局数
+	LONGLONG						llCurrGameCoin;						//当前游戏币
+	WORD							wCurrRank;							//当前名次
+	WORD							wCurrTableRank;						//本桌名次
+	WORD							wUserOfNum;							//当前人数
+    WORD                            wCurrGameOfNum;                     //当前局数
+    WORD                            wGameTotal;                         //总共局数
 	WORD							wPlayingTable;						//游戏桌数
-    TCHAR							szMatchName[LEN_SERVER];			//比赛名称
+    TCHAR							szMatchName[LEN_GAME_ROOM];			//比赛名称
 }ST_CMD_GR_MATCH_WAIT_TIP, *PST_CMD_GR_MATCH_WAIT_TIP;
 
 //比赛结果
@@ -999,7 +998,7 @@ typedef struct _stCmdGrMatchResult
     LONGLONG						llGameCoin;							//游戏币奖励
     DWORD							dwGold;								//金币奖励
     DWORD							dwExp;								//经验奖励
-    TCHAR							szDes[256];							//得奖描述
+	TCHAR							szDes[LEN_DES];						//得奖描述
 }ST_CMD_GR_MATCH_RESULT, *PST_CMD_GR_MATCH_RESULT;
 
 #define MAX_MATCH_DES				4									//最多描述
@@ -1007,17 +1006,17 @@ typedef struct _stCmdGrMatchResult
 //比赛描述
 typedef struct _stCmdGrMatchDes
 {
-    TCHAR							szTitle[MAX_MATCH_DES][16];			//信息标题
-    TCHAR							szDes[MAX_MATCH_DES][64];			//描述内容
-    DWORD                           crTitleColor;						//标题颜色
-    DWORD                           crDesColor;							//描述颜色
+    TCHAR							szTitleArray[MAX_MATCH_DES][16];	//信息标题
+	TCHAR							szDes[MAX_MATCH_DES][LEN_MATCH_DES];//描述内容
+    DWORD                           dwTitleColor;						//标题颜色
+    DWORD                           dwDesColor;							//描述颜色
 }ST_CMD_GR_MATCH_DES, *PST_CMD_GR_MATCH_DES;
 
 //金币更新
 typedef struct _stCmdGrMatchGoldUpdate
 {
     LONGLONG                       llCurrGameCoin;						//当前游戏币
-    LONGLONG                       llCurGold;							//当前金币
+    LONGLONG                       llCurrGold;							//当前金币
     DWORD                          dwCurrExp;							//当前经验
 }ST_CMD_GR_MATCH_GOLD_UPDATE, *PST_CMD_GR_MATCH_GOLD_UPDATE;
 
@@ -1084,7 +1083,7 @@ typedef struct _stCmdGfUserClientChat
 	DWORD                           dwUserID;							//用户ID
     WORD                            wLen;
     DWORD                           dwChatColor;						//聊天背景
-    TCHAR                           szChatString[LEN_USER_CHAT];
+    TCHAR                           szChatMsg[LEN_USER_CHAT_MSG];		//聊天信息
 }ST_CMD_GF_USER_CLIENT_CHAT, *PST_CMD_GF_USER_CLIENT_CHAT;
 
 typedef struct _stCmdGfUserServerChat
@@ -1093,7 +1092,7 @@ typedef struct _stCmdGfUserServerChat
     DWORD                           dwChatColor;
     DWORD                           dwSendUserID;
 	DWORD                           dwRecvUserID;
-    TCHAR                           szChatString[LEN_USER_CHAT];
+    TCHAR                           szChatMsg[LEN_USER_CHAT_MSG];
 }ST_CMD_GF_USER_SERVER_CHAT, *PST_CMD_GF_USER_SERVER_CHAT;
 
 //用户表情
@@ -1110,9 +1109,7 @@ typedef struct _stCmdGfUserServerExpression
     DWORD                           dwUserID;
 }ST_CMD_GF_USER_SERVER_EXPRESSION, *PST_CMD_GF_USER_SERVER_EXPRESSION;
 
-//...
 /////////////////////////////////////////////////////////////////////////////////
-
 //游戏命令
 #define MDM_GF_GAME					200									//游戏命令
 
@@ -1129,7 +1126,6 @@ typedef struct _stCmdGfUserServerExpression
 #define DTP_GR_CUSTOM_FACE			21									//自定头像
 
 /////////////////////////////////////////////////////////////////////////////////
-
 //请求错误
 #define REQ_FAILURE_NORMAL			0									//常规原因
 #define REQ_FAILURE_NO_GOLD			1									//金币不足

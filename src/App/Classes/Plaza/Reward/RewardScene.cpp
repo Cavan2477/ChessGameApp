@@ -389,8 +389,8 @@ void RewardScene::checkinresult(void *pData, WORD wSize)
     }
     
     
-    LONGLONG lRewardScore = result->lCurrGold - HallDataMgr::getInstance()->m_lUserGold;
-    HallDataMgr::getInstance()->m_lUserGold = result->lCurrGold;
+    LONGLONG lRewardScore = result->lCurrGold - HallDataMgr::getInstance()->m_llUserGold;
+    HallDataMgr::getInstance()->m_llUserGold = result->lCurrGold;
     EventCustom event(whEvent_User_Data_Change);
 
     auto value = __Integer::create(EM_USER_DATA_CHANGE_SCORE);
@@ -448,7 +448,7 @@ void RewardScene::baseensureparamter(void *pData, WORD wSize)
     auto result = (ST_CMD_GP_BASE_ENSURE_PARAM *)pData;
 
     m_lowbase = result->lGameCoinCondition;
-    if (HallDataMgr::getInstance()->m_lUserGold + HallDataMgr::getInstance()->m_lUserInsureGold > m_lowbase)
+    if (HallDataMgr::getInstance()->m_llUserGold + HallDataMgr::getInstance()->m_llUserBankGold > m_lowbase)
     {
         
         Button *baseenbtn = static_cast<Button *>(_BaseenLayout->getChildByTag(BASE_NODE)->getChildByTag(TAKE_BTN));
@@ -474,7 +474,7 @@ void RewardScene::baseensureresult(void *pData, WORD wSize)
 	auto str = WHConverUnicodeToUtf8WithArray((WORD*)result->szNotifyContent);
 
     HallDataMgr::getInstance()->AddpopLayer("系统提示", str, EM_MODE_TYPE_ENSURE);
-    HallDataMgr::getInstance()->m_lUserGold = result->lCurrGameCoin;
+    HallDataMgr::getInstance()->m_llUserGold = result->lCurrGameCoin;
     
     EventCustom event(whEvent_User_Data_Change);
     auto value = __Integer::create(EM_USER_DATA_CHANGE_SCORE);
@@ -484,7 +484,7 @@ void RewardScene::baseensureresult(void *pData, WORD wSize)
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
     
-    if (m_lowbase < HallDataMgr::getInstance()->m_lUserGold) 
+    if (m_lowbase < HallDataMgr::getInstance()->m_llUserGold) 
 	{
         auto BaseenNode = _BaseenLayout->getChildByTag(BASE_NODE);
 

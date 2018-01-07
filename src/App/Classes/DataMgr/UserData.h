@@ -50,16 +50,16 @@ public:
         m_date.cbUserStatus = pdata->stUserStatus.cbUserStatus;
     }
     
-    void UpdateData(ST_CMD_GR_MOBILE_USER_SCORE *pdata)
+    void UpdateData(ST_CMD_GR_MOBILE_USER_GAME_COIN *pdata)
     {
-        m_date.llGameCoin = pdata->stUserScore.llGameCoin;
-        m_date.dBean = pdata->stUserScore.dBean;
-        m_date.dwWinCount = pdata->stUserScore.dwWinCount;
-        m_date.dwLostCount = pdata->stUserScore.dwLostCount;
-        m_date.dwDrawCount = pdata->stUserScore.dwDrawCount;
-        m_date.dwLostCount = pdata->stUserScore.dwLostCount;
-        m_date.dwFleeCount = pdata->stUserScore.dwFleeCount;
-        m_date.dwExperience = pdata->stUserScore.dwExperience;
+        m_date.llGameCoin = pdata->stMobileUserGameCoin.llGameCoin;
+        m_date.dBean = pdata->stMobileUserGameCoin.dBean;
+        m_date.dwWinCount = pdata->stMobileUserGameCoin.dwWinCount;
+        m_date.dwLostCount = pdata->stMobileUserGameCoin.dwLostCount;
+        m_date.dwDrawCount = pdata->stMobileUserGameCoin.dwDrawCount;
+        m_date.dwLostCount = pdata->stMobileUserGameCoin.dwLostCount;
+        m_date.dwEscapeCount = pdata->stMobileUserGameCoin.dwEscapeCount;
+        m_date.dwExp = pdata->stMobileUserGameCoin.dwExp;
     }
     
     _stMobileUserHeadInfo  m_date;

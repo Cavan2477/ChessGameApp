@@ -9,20 +9,20 @@
  *
  ************************************************************************************/
 
-#ifndef __BankSendReceiptLayer_h__
-#define __BankSendReceiptLayer_h__
+#ifndef __BANK_SEND_RECEIPT_LAYER_H__
+#define __BANK_SEND_RECEIPT_LAYER_H__
 
 #include <stdio.h>
 #include "CocosHeader.h"
 
 typedef struct _stReceipt
 {
-    DWORD dwRecordIndex;            //记录编号
-    std::string strSendUserName;    //赠送人昵称
-    DWORD dwSendUserId;             //赠送人id
-    std::string strRecUserName;     //接收人昵称
-    DWORD dwRecUserId;              //接收人id
-    LONGLONG llSendCount;              //赠送数额
+    DWORD		dwRecordIndex;				//记录编号
+    std::string strSendUserName;			//赠送人昵称
+    DWORD		dwSendUserId;				//赠送人id
+    std::string strRecUserName;				//接收人昵称
+    DWORD		dwRecUserId;				//接收人id
+    LONGLONG	llSendCount;				//赠送数额
 }ST_RECEIPT, *PST_RECEIPT;
 
 class BankSendReceiptLayer: public UILayer

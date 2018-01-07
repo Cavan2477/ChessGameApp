@@ -1,4 +1,4 @@
-/************************************************************************************
+﻿/************************************************************************************
  * file: 		BankShow.cpp
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
@@ -265,7 +265,7 @@ void BankShowScene::initSaveTake()
     
     //携带
     Text *pText = static_cast<Text *>(saveTake->getChildByName("Text_0"));
-    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_llUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     score->setAnchorPoint(Vec2(.0, .5));
     score->setTag(BANK_TAG_USERSCORE);
     score->setPosition(Vec2(pText->getPosition().x + 50, pText->getPosition().y));
@@ -275,7 +275,7 @@ void BankShowScene::initSaveTake()
     
     //银行存款
     Text *_pText = static_cast<Text *>(saveTake->getChildByName("Text_1"));
-    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserInsureGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_llUserBankGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     insureScore->setAnchorPoint(Vec2(.0, .5));
     insureScore->setTag(BANK_TAG_USERINSURE);
     insureScore->setPosition(Vec2(_pText->getPosition().x + 50, _pText->getPosition().y));
@@ -318,7 +318,7 @@ void BankShowScene::initPresent()
     
     //银行存款
     Text *_pText = static_cast<Text *>(presentNode->getChildByName("Text_0"));
-    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserInsureGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *insureScore = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_llUserBankGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     insureScore->setAnchorPoint(Vec2(.0, .5));
     insureScore->setTag(BANK_TAG_USERINSURE);
     insureScore->setPosition(Vec2(_pText->getPosition().x + 50, _pText->getPosition().y));
@@ -432,14 +432,14 @@ void BankShowScene::updateScore()
         if (nullptr != userScore)
         {
             
-            userScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
+            userScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_llUserGold, ","));
         }
         
         
         Label *userInsure = static_cast<Label *>(_saveLayout->getChildByTag(BANK_TAG_USERINSURE));
         if (nullptr != userInsure)
         {
-            userInsure->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserInsureGold, ","));
+            userInsure->setString(getScorewithComma(HallDataMgr::getInstance()->m_llUserBankGold, ","));
             
         }
     }
@@ -451,17 +451,17 @@ void BankShowScene::updateScore()
 
         if (nullptr != userInsure)
         {
-            userInsure->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserInsureGold, ","));
+            userInsure->setString(getScorewithComma(HallDataMgr::getInstance()->m_llUserBankGold, ","));
         }
     }
 }
 
 //MARK::开通银行结果
- void BankShowScene:: InsureEnableResult(void* pData, WORD wSize)
+ void BankShowScene:: ReqBankEnable(void* pData, WORD wSize)
 {
     HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     
-    auto result = (CMD_GP_USER_INSURE_ENABLE_RESULT *)pData;
+	auto result = (ST_CMD_GP_USER_INSURE_ENABLE_RESULT *)pData;
     if (result->cbInsureEnabled == 1)
     {
         HallDataMgr::getInstance()->m_cbInsureEnable = 1;
@@ -477,7 +477,7 @@ void BankShowScene::updateScore()
     {
         DebugLog("开通银行失败");
         
-        auto title = WHConverUnicodeToUtf8WithArray((WORD*)result->szDescribeString);
+        auto title = WHConverUnicodeToUtf8WithArray((WORD*)result->szDes);
 
 		HallDataMgr::getInstance()->AddpopLayer("系统提示", title, EM_MODE_TYPE_ENSURE);
         
@@ -486,30 +486,30 @@ void BankShowScene::updateScore()
     }
 }
 //MARK::银行资料
- void BankShowScene::InsureInfoResult(void* pData, WORD wSize)
+ void BankShowScene::ReqBankQueryBank(void* pData, WORD wSize)
 {
 	 HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     
-    if (wSize != sizeof(CMD_GP_USER_INSURE_INFO))
+	if (wSize != sizeof(ST_CMD_GP_USER_BANK_INFO))
     {
         return;
     }
     
-    memset(&m_sInfo, 0, sizeof(m_sInfo));
-    memcpy(&m_sInfo, pData, wSize);
-    HallDataMgr::getInstance()->m_lUserGold = m_sInfo.lUserGold;
-    HallDataMgr::getInstance()->m_lUserInsureGold = m_sInfo.lUserInsureGold;
+	memset(&m_stCmdGpUserInsureInfo, 0, sizeof(m_stCmdGpUserInsureInfo));
+	memcpy(&m_stCmdGpUserInsureInfo, pData, wSize);
+
+	HallDataMgr::getInstance()->m_llUserGold = m_stCmdGpUserInsureInfo.llUserGold;
+	HallDataMgr::getInstance()->m_llUserBankGold = m_stCmdGpUserInsureInfo.llUserBankGold;
     
     updateScore();
     
     auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
     
-    
     DebugLog("银行资料");
 }
 //MARK::操作成功
- void BankShowScene::BankSuccedResult(void* pData, WORD wSize)
+ void BankShowScene::ReqBankEnableSucc(void* pData, WORD wSize)
 {
 	HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
 
@@ -517,10 +517,10 @@ void BankShowScene::updateScore()
 
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
     
-    auto result = (CMD_GP_USER_INSURE_SUCC *)pData;
+	auto result = (ST_CMD_GP_USER_BANK_SUCC *)pData;
 
-    HallDataMgr::getInstance()->m_lUserInsureGold = result->lUserInsure;
-    HallDataMgr::getInstance()->m_lUserGold = result->lUserScore;
+    HallDataMgr::getInstance()->m_llUserBankGold = result->llUserBankGold;
+    HallDataMgr::getInstance()->m_llUserGold = result->llUserGold;
     
     //更新显示
     updateScore();
@@ -528,7 +528,7 @@ void BankShowScene::updateScore()
     //凭证编号
     DWORD idx = result->dwRecordIndex;
     
-	auto str = WHConverUnicodeToUtf8WithArray((WORD*)result->szDescription);
+	auto str = WHConverUnicodeToUtf8WithArray((WORD*)result->szDes);
     auto modeLayer = (ModeLayer*)HallDataMgr::getInstance()->AddpopLayer("操作成功", str , EM_MODE_TYPE_ENSURE);
 
     if (3 == result->cbOperateType)
@@ -563,28 +563,27 @@ void BankShowScene::updateScore()
 }
 
 //MARK::操作失败
- void BankShowScene::BankFailureResult(void* pData, WORD wSize)
+ void BankShowScene::ReqBankEnableFailure(void* pData, WORD wSize)
 {
     HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
+
     auto action = CallFunc::create([]{NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);});
     this->runAction(Sequence::createWithTwoActions(DelayTime::create(0.05f), action));
     
-    auto result = (CMD_GP_USER_INSURE_FAILURE *)pData;
-	auto str = WHConverUnicodeToUtf8WithArray((WORD*)result->szDescription);
+	auto result = (ST_CMD_GP_USER_BANK_FAILURE *)pData;
+	auto str = WHConverUnicodeToUtf8WithArray((WORD*)result->szDes);
     HallDataMgr::getInstance()->AddpopLayer("操作失败", str , EM_MODE_TYPE_ENSURE);
     
-   
     DebugLog("银行操作失败");
-    
 }
 
 //MARK::用户信息
- void BankShowScene::BankUserInfoResult(void* pData, WORD wSize)
+ void BankShowScene::ReqBankQueryUserInfo(void* pData, WORD wSize)
 {
     DebugLog("银行用户信息");
     HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     
-    auto result = (CMD_GP_USER_TRANSFER_USER_INFO *)pData;
+	auto result = (ST_CMD_GP_USER_TRANSFER_USER_INFO *)pData;
 	auto nickname = WHConverUnicodeToUtf8WithArray((WORD*)result->szAccounts);
 
     if (0 == HallDataMgr::getInstance()->m_tagBankSend.nSendType)       //id赠送
@@ -605,37 +604,34 @@ void BankShowScene::queryUserInfo(const BYTE &cbType, const std::string &sTarget
 {
     if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_LOAD)
     {
-        CMD_GP_USER_INFO_QUERY_REQUEST stCmdGpUserInfoQueryRequest;
-        memset(&stCmdGpUserInfoQueryRequest, 0, sizeof(stCmdGpUserInfoQueryRequest));
+		ST_CMD_GP_USER_INFO_QUERY_REQ stCmdGpUserInfoQueryReq = { 0 };
         
-        stCmdGpUserInfoQueryRequest.cbByNickName = cbType;
+        stCmdGpUserInfoQueryReq.cbByNickName = cbType;
 
-		Utf8ToUtf16(sTarget.c_str(), (WORD*)stCmdGpUserInfoQueryRequest.szAccounts);
+		Utf8ToUtf16(sTarget.c_str(), (WORD*)stCmdGpUserInfoQueryReq.szAccounts);
 
         NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
-        NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_USER_INFO_REQUEST, &stCmdGpUserInfoQueryRequest, sizeof(stCmdGpUserInfoQueryRequest),NetworkMgr::getInstance()->getSocketOnce());
+        NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_USER_INFO_REQUEST, &stCmdGpUserInfoQueryReq, sizeof(stCmdGpUserInfoQueryReq),NetworkMgr::getInstance()->getSocketOnce());
     }
     else if (HallDataMgr::getInstance()->m_RoomType == EM_DATA_TYPE_ROOM)
     {
-        ST_CMD_GR_CLIENT_QUERY_USER_INFO_REQ request;
-        memset(&request, 0, sizeof(request));
+		ST_CMD_GR_CLIENT_REQ_BANK_QUERY_USER_INFO request = { 0 };
         
         request.cbByNickName = cbType;
 		Utf8ToUtf16(sTarget.c_str(), (WORD*)request.szAccounts);
         
-        NetworkMgr::getInstance()->sendData(MDM_GR_INSURE, SUB_GR_QUERY_USER_INFO_REQUEST, &request, sizeof(request));
+        NetworkMgr::getInstance()->sendData(MDM_GR_BANK, SUB_GR_REQ_BANK_QUERY_USER_INFO, &request, sizeof(request));
     }
 }
 
 //MARK::EditBoxDelegate
 void BankShowScene::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)
 {
-
     if (editBox->getTag() == 1)
     {
         if (m_eType == type_savetake)
         {
-            auto score = MAX(HallDataMgr::getInstance()->m_lUserInsureGold, HallDataMgr::getInstance()->m_lUserGold);
+            auto score = MAX(HallDataMgr::getInstance()->m_llUserBankGold, HallDataMgr::getInstance()->m_llUserGold);
             LONGLONG editscore = 0;
             sscanf(text.c_str(), "%lld[0-9]", &editscore);
             
@@ -668,7 +664,7 @@ void BankShowScene::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std:
 //            }
 //            
             
-            auto score = HallDataMgr::getInstance()->m_lUserInsureGold;
+            auto score = HallDataMgr::getInstance()->m_llUserBankGold;
             LONGLONG editscore = 0;
             sscanf(text.c_str(), "%lld[0-9]", &editscore);
             if (editscore > score)

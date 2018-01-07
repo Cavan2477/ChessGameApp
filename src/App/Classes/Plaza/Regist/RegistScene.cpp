@@ -291,10 +291,10 @@ void RegistScene::loginResult(WORD  wSubCmdID, void* pData, WORD wSize)
         HallDataMgr::getInstance()->m_dwGameID = success->dwGameID;
         HallDataMgr::getInstance()->m_pNickName = WHConverUnicodeToUtf8WithArray(success->szNickName);
         HallDataMgr::getInstance()->m_dynamicpass = WHConverUnicodeToUtf8WithArray(success->szDynamicPwd);
-        HallDataMgr::getInstance()->m_lGold = success->lUserGold;
+        HallDataMgr::getInstance()->m_llGold = success->lUserGold;
         HallDataMgr::getInstance()->m_dBean = success->dUserBean;
-        HallDataMgr::getInstance()->m_lUserInsureGold = success->lUserInsure;
-        HallDataMgr::getInstance()->m_lUserGold = success->lUserGameCoin;
+        HallDataMgr::getInstance()->m_llUserBankGold = success->lUserInsure;
+        HallDataMgr::getInstance()->m_llUserGold = success->lUserGameCoin;
         HallDataMgr::getInstance()->m_cbInsureEnable = success->cbInsureEnable;
         
         if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_NORMAL)

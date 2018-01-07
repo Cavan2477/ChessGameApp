@@ -204,7 +204,7 @@ bool PersonalScene::init()
     auto ingot = static_cast<Text *>(personalRoot->getChildByName("Text_ingot"));
     if (ingot != nullptr)
     {
-        ingot->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_lGold)->getCString());
+        ingot->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_llGold)->getCString());
         ingot->setTextColor(cocos2d::Color4B(228,235,55,255));
         
     }
@@ -213,7 +213,7 @@ bool PersonalScene::init()
     auto score = static_cast<Text *>(personalRoot->getChildByName("Text_coin"));
     if (score != nullptr)
     {
-        score->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_lUserGold)->getCString());
+        score->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_llUserGold)->getCString());
         score->setTextColor(cocos2d::Color4B(228,235,55,255));
     }
     

@@ -83,7 +83,7 @@ typedef struct _stGameRoomServer
     DWORD               dwAndroidCount;             //机器人数
 	DWORD				dwFullCount;				//满员人数
 	TCHAR				szServerAddr[32];			//房间地址
-	TCHAR				szServerName[LEN_SERVER];	//房间名称
+	TCHAR				szServerName[LEN_GAME_ROOM];	//房间名称
 }ST_GAME_ROOM_SERVER, *PST_GAME_ROOM_SERVER;
 
 //比赛报名
@@ -189,7 +189,7 @@ typedef	struct _stUserScore
 	DWORD				dwWinCount;					//胜利盘数
 	DWORD				dwLostCount;				//失败盘数
 	DWORD				dwDrawCount;				//和局盘数
-	DWORD				dwFleeCount;				//逃跑盘数
+	DWORD				dwEscapeCount;				//逃跑盘数
 	
 	//全局信息
 	DWORD				dwUserMedal;				//用户奖牌
@@ -200,7 +200,7 @@ typedef	struct _stUserScore
 
 #pragma mark -
 #pragma mark 用户积分
-typedef struct _stMobileUserScore
+typedef struct _stMobileUserGameCoin
 {
 	//积分信息
 	LONGLONG			llGameCoin;					//用户游戏币
@@ -210,17 +210,17 @@ typedef struct _stMobileUserScore
 	DWORD				dwWinCount;					//胜利盘数
 	DWORD				dwLostCount;				//失败盘数
 	DWORD				dwDrawCount;				//和局盘数
-	DWORD				dwFleeCount;				//逃跑盘数
+	DWORD				dwEscapeCount;				//逃跑盘数
 	
 	//全局信息
-	DWORD				dwExperience;				//用户经验
+	DWORD				dwExp;						//用户经验
 }ST_MOBILE_USER_SCORE, *PST_MOBILE_USER_SCORE;
 
 //道具使用
 typedef struct _stUsePropInfo
 {
     WORD                wPropCount;					//道具数目
-    WORD                dwValidNum;                 //有效次数
+    WORD                wValidNum;					//有效次数
     DWORD               dwEffectTime;               //生效时间
 }ST_USER_PROP_INFO, *PST_USER_PROP_INFO;
 
@@ -228,7 +228,7 @@ typedef struct _stUsePropInfo
 typedef struct _stUserProp
 {
 	WORD                wPropUseFlag;				//道具使用标示
-	ST_USER_PROP_INFO	stPropInfo[MAX_PT_MARK];	//使用信息
+	ST_USER_PROP_INFO	stUserPropInfoArray[MAX_PT_MARK];//使用信息
 }ST_USER_PROP, *PST_USER_PROP;
 
 //道具包裹
@@ -260,7 +260,7 @@ typedef struct _stUserInfo
 	TCHAR				szUnderWrite[LEN_UNDER_WRITE];	//个性签名
 	
 	//头像信息
-	DWORD				wFaceID;						//头像索引
+	DWORD				dwFaceID;						//头像索引
 	DWORD				dwCustomID;						//自定标识
 	
 	//用户资料
@@ -275,17 +275,17 @@ typedef struct _stUserInfo
 	BYTE				cbUserStatus;					//用户状态
 	
 	//积分信息
-	LONGLONG			llGameCoin;						//用户分数
+	LONGLONG			llGameCoin;						//用户游戏币
 	LONGLONG			llGrade;						//用户成绩
-	LONGLONG			llInsureGold;					//银行金币
+	LONGLONG			llBankGold;						//银行金币
 	LONGLONG            llGold;                         //用户金币
     
 	//游戏信息
 	DWORD				dwWinCount;						//胜利盘数
 	DWORD				dwLostCount;					//失败盘数
 	DWORD				dwDrawCount;					//和局盘数
-	DWORD				dwFleeCount;					//逃跑盘数
-	DWORD				dwExperience;					//用户经验
+	DWORD				dwEscapeCount;					//逃跑盘数
+	DWORD				dwExp;							//用户经验
 	DWORD				dwLoveLiness;					//用户魅力
     
     //时间信息
@@ -297,9 +297,9 @@ typedef struct _stUserInfoHead
 {
 public:
 	_stUserInfoHead()
-    :dwGameID(0.0),dwUserID(0.0),wFaceID(0.0),dwCustomID(0.0),cbGender('0'),cbMemberOrder('0'),
+    :dwGameID(0.0),dwUserID(0.0),dwFaceID(0.0),dwCustomID(0.0),cbGender('0'),cbVipLevel('0'),
     wTableID(0.0),wChairID(0.0),cbUserStatus('0'),llGameCoin(0.0),dwWinCount(0.0),dwLostCount(0.0),
-    dwDrawCount(0.0),dwFleeCount(0.0),dwExperience(0.0)
+    dwDrawCount(0.0),dwEscapeCount(0.0),dwExp(0.0)
     {
         
     }
@@ -313,14 +313,14 @@ public:
     DWORD               dwGroupID;                      //社团id
 	
 	//头像信息
-	WORD				wFaceID;						//头像索引
+	DWORD				dwFaceID;						//头像索引
 	DWORD				dwCustomID;						//自定标识
 	
 	//用户属性
-    bool                BIsAndroid;                     //机器标示
+    bool                bIsAndroid;                     //OS标示
 	BYTE				cbGender;						//用户性别
-	BYTE				cbMemberOrder;					//会员等级
-    BYTE                cbMasterOrder;                  //管理等级
+	BYTE				cbVipLevel;						//会员等级
+    BYTE                cbMasterLevel;                  //管理等级
 	
 	//用户状态
 	WORD				wTableID;						//桌子索引
@@ -330,15 +330,15 @@ public:
 	//积分信息
 	LONGLONG			llGameCoin;						//用户游戏币
 	LONGLONG            llGrade;                        //用户成绩
-	LONGLONG            llInsureGold;                   //用户银行金币
+	LONGLONG            llBankGold;						//用户银行金币
 	LONGLONG            llGold;                         //用户金币
 	
 	//游戏信息
 	DWORD				dwWinCount;						//胜利盘数
 	DWORD				dwLostCount;					//失败盘数
 	DWORD				dwDrawCount;					//和局盘数
-	DWORD				dwFleeCount;					//逃跑盘数
-	DWORD				dwExperience;					//用户经验
+	DWORD				dwEscapeCount;					//逃跑盘数
+	DWORD				dwExp;							//用户经验
 	DWORD				dwLoveliness;					//用户魅力
 }ST_USER_INFO_HEAD, *PST_USER_INFO_HEAD;
 
@@ -366,13 +366,13 @@ typedef struct _stUserRemoteInfo
 
 	//等级信息
 	BYTE				cbGender;						//用户性别
-	BYTE				cbMemberOrder;					//会员等级
-	BYTE				cbMasterOrder;					//管理等级
+	BYTE				cbVipLevel;						//会员等级
+	BYTE				cbMasterLevel;					//管理等级
 
 	//位置信息
-	WORD				wKindID;						//类型标识
-	WORD				wServerID;						//房间标识
-	TCHAR				szGameServer[LEN_SERVER];		//房间位置
+	WORD				wGameTypeID;					//游戏类型标识
+	WORD				wGameRoomID;					//游戏房间标识
+	TCHAR				szGameRoom[LEN_GAME_ROOM];		//房间位置
 }ST_USER_REMOTE_INFO, *PST_USER_REMOTE_INFO;
 
 //任务参数
@@ -387,14 +387,14 @@ typedef struct _stTaskParam
 	DWORD				dwTimeLimit;					//时间限制
 
 	//奖励信息
-	LONGLONG				lStandardAwardGold;				//奖励金币
-	LONGLONG				lStandardAwardMedal;			//奖励奖牌
-	LONGLONG				lMemberAwardGold;				//奖励金币
-	LONGLONG				lMemberAwardMedal;				//奖励奖牌
+	LONGLONG			llStandardAwardGold;			//奖励金币
+	LONGLONG			llStandardAwardMedal;			//奖励奖牌
+	LONGLONG			llVipAwardGold;					//奖励金币
+	LONGLONG			llVipAwardMedal;				//奖励奖牌
 
 	//描述信息
 	TCHAR				szTaskName[LEN_TASK_NAME];		//任务名称
-	TCHAR				szTaskDesc[320];				//任务描述
+	TCHAR				szTaskDes[LEN_TASK_DES];		//任务描述
 }ST_TASK_PARAM, *PST_TASK_PARAM;
 
 //任务状态
@@ -408,8 +408,8 @@ typedef struct _stTaskStatus
 //低保参数
 typedef struct _stBaseEnsureParam
 {
-	LONGLONG				lScoreCondition;				//游戏币条件
-	LONGLONG				lScoreAmount;					//游戏币数量
+	LONGLONG			llGameCoinCondition;			//游戏币条件
+	LONGLONG			llGameCoinAmount;				//游戏币数量
 	BYTE				cbTakeTimes;					//领取次数
 }ST_BASE_ENSURE_PARAM, *PST_BASE_ENSURE_PARAM;
 
@@ -417,33 +417,33 @@ typedef struct _stBaseEnsureParam
 typedef struct _stUserSpreadInfo
 {
 	DWORD				dwSpreadCount;					//推广人数
-	LONGLONG				lSpreadReward;					//推广奖励
+	LONGLONG			llSpreadReward;					//推广奖励
 }ST_USER_SPREAD_INFO, *PST_USER_SPREAD_INFO;
 
 //等级配置
 typedef struct _stGrowLevelConfig
 {
-	WORD				wLevelID;						//等级ID
-	DWORD				dwExperience;					//相应经验
+	WORD				wLevel;							//等级ID
+	DWORD				dwExp;							//相应经验
 }ST_GROW_LEVEL_CONFIG, *PST_GROW_LEVEL_CONFIG;
 
 //等级参数
-typedef struct _stGrowLevelParam
+typedef struct _stLevelUpParam
 {
-	WORD				wCurrLevelID;					//当前等级
-	DWORD				dwExperience;					//当前经验
-	DWORD				dwUpgradeExperience;			//下级经验
-	LONGLONG			lUpgradeRewardGold;				//升级奖励
-	LONGLONG			lUpgradeRewardIngot;			//升级奖励
-}ST_GROW_LEVEL_PARAM, *PST_GROW_LEVEL_PARAM;
+	WORD				wCurrLevel;						//当前等级
+	DWORD				dwCurrExp;						//当前经验
+	DWORD				dwNextLevelExp;					//下级经验
+	LONGLONG			llLevelUpRewardGameCoin;		//升级奖励游戏币
+	LONGLONG			llLevelUpRewardGold;			//升级奖励金币
+}ST_LEVEL_UP_PARAM, *PST_LEVEL_UP_PARAM;
 
 //会员参数
 typedef struct _stVipParam
 {
-	BYTE				cbMemberOrder;					//会员标识
-	TCHAR				szMemberName[16];				//会员名称
-	LONGLONG			lMemberPrice;					//会员价格
-	LONGLONG			lPresentScore;					//赠送游戏币
+	BYTE				cbVipFlag;						//会员标识
+	TCHAR				szVipName[16];					//会员名称
+	LONGLONG			llVipPrice;						//会员价格
+	LONGLONG			llPresentGameCoin;				//赠送游戏币
 }ST_VIP_PARAM, *PST_VIP_PARAM;
 
 //房间配置
@@ -456,21 +456,21 @@ typedef struct _stGameRoomConfig
 
 	//税收配置
 	WORD				wRevenueRatio;					//税收比例
-	LONGLONG			lServiceScore;					//服务费用
+	LONGLONG			llServiceGameCoin;				//服务费用:游戏币
 
 	//房间配置
-	LONGLONG			lRestrictScore;					//限制积分
-	LONGLONG			lMinTableScore;					//最低积分
-	LONGLONG			lMinEnterScore;					//最低积分
-	LONGLONG			lMaxEnterScore;					//最高积分
+	LONGLONG			llLimitGameCoin;				//限制游戏币
+	LONGLONG			lMinTableGameCoin;				//最低同桌游戏币
+	LONGLONG			lMinEnterGameCoin;				//最低进入游戏币
+	LONGLONG			lMaxEnterGameCoin;				//最高进入游戏币
 	
 	//会员限制
-	BYTE				cbMinEnterMember;				//最低会员
-	BYTE				cbMaxEnterMember;				//最高会员
+	BYTE				cbMinEnterVipLevel;				//最低进入Vip等级
+	BYTE				cbMaxEnterVipLevel;				//最高进入Vip等级
 
 	//房间属性
-	DWORD				dwServerRule;					//房间规则
-	TCHAR				szServerName[LEN_SERVER];		//房间名称
+	DWORD				dwGameRoomRule;					//游戏房间规则
+	TCHAR				szGameRoomName[LEN_GAME_ROOM];	//游戏房间名称
 }ST_GAME_ROOM_CONFIG, *PST_GAME_ROOM_CONFIG;
 
 //用户信息
@@ -481,12 +481,12 @@ typedef struct _stMobileUserHeadInfo
 	DWORD				dwUserID;						//用户 I D
     
 	//头像信息
-	WORD				wFaceID;						//头像索引
+	DWORD				dwFaceID;						//头像索引
 	DWORD				dwCustomID;						//自定标识
     
 	//用户属性
 	BYTE				cbGender;						//用户性别
-	BYTE				cbMemberOrder;					//会员等级
+	BYTE				cbVipLevel;						//会员等级
 
 	//用户状态
 	WORD				wTableID;						//桌子索引
@@ -502,8 +502,8 @@ typedef struct _stMobileUserHeadInfo
 	DWORD				dwWinCount;						//胜利盘数
 	DWORD				dwLostCount;					//失败盘数
 	DWORD				dwDrawCount;					//和局盘数
-	DWORD				dwFleeCount;					//逃跑盘数
-	DWORD				dwExperience;					//用户经验
+	DWORD				dwEscapeCount;					//逃跑盘数
+	DWORD				dwExp;							//用户经验
 }ST_MOBILE_USER_HEAD_INFO, *PST_MOBILE_USER_HEAD_INFO;
 
 
@@ -518,22 +518,22 @@ typedef struct _stGamePlaza
 //级别子项
 typedef struct _stLevelItem
 {
-	INT					lLevelScore;					//级别积分
-	TCHAR				szLevelName[16];				//级别描述
+	INT					nLevelGameCoin;					//级别游戏币
+	TCHAR				szLevelDes[16];					//级别描述
 }ST_LEVEL_ITEM, *PST_LEVEL_ITEM;
 
 //会员子项
 typedef struct _stMemberItem
 {
-	BYTE				cbMemberOrder;					//等级标识
-	TCHAR				szMemberName[16];				//等级名字
+	BYTE				cbVipLevel;						//会员等级
+	TCHAR				szVipName[16];					//会员等级名称
 }ST_MEMBER_ITEM, *PST_MEMBER_ITEM;
 
 //管理子项
 typedef struct _stMasterItem
 {
-	BYTE				cbMasterOrder;					//等级标识
-	TCHAR				szMasterName[16];				//等级名字
+	BYTE				cbMasterLevel;					//管理等级标识
+	TCHAR				szMasterName[16];				//管理等级名字
 }ST_MASTER_ITEM, *PST_MASTER_ITEM;
 
 //列表子项
@@ -547,25 +547,25 @@ typedef struct _stColumnItem
 //地址信息
 typedef struct _stAddressInfo
 {
-	TCHAR				szAddress[32];					//服务器地址
+	TCHAR				szAddr[32];						//服务器地址
 }ST_ADDRESS_INFO, *PST_ADDRESS_INFO;
 
 //数据库信息
-typedef struct _stDataBaseParam
+typedef struct _stDbConfig
 {
-	WORD				wDataBasePort;					//数据库端口
-	TCHAR				szDataBaseAddr[32];				//数据库地址
-	TCHAR				szDataBaseUser[32];				//数据库用户
-	TCHAR				szDataBasePwd[32];				//数据库密码
-	TCHAR				szDataBaseName[32];				//数据库名字
-}ST_DATABASE_PARAM, *PST_DATABASE_PARAM;
+	WORD				wPort;							//数据库端口
+	TCHAR				szAddr[32];						//数据库地址
+	TCHAR				szUser[32];						//数据库用户
+	TCHAR				szPwd[32];						//数据库密码
+	TCHAR				szName[32];						//数据库名字
+}ST_DB_CONFIG, *PST_DB_CONFIG;
 
 //转盘奖励，奖项子项
 typedef struct _stLotteryItem
 {
     BYTE				cbItemIndex;					//奖项索引(1-N)
     BYTE				cbItemType;						//奖励类型(0游戏币，1游戏豆)
-    LONGLONG               lItemQuota;						//奖励额度
+    LONGLONG            llItemQuota;					//奖励额度
 }ST_LOTTERY_ITEM, *PST_LOTTERY_ITEM;
 
 #pragma pack()

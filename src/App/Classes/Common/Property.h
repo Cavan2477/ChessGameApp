@@ -65,7 +65,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 //道具信息
-typedef struct _tagPropertyInfo
+typedef struct _stPropertyInfo
 {
 	//道具信息
 	WORD							wIndex;								//道具标识
@@ -73,16 +73,16 @@ typedef struct _tagPropertyInfo
 	WORD							wIssueArea;							//发布范围
     
 	//销售价格
-	LONGLONG							lPropertyGold;						//道具金币
+	LONGLONG						lPropertyGold;						//道具金币
 	DOUBLE							dPropertyCash;						//道具价格
     
 	//赠送魅力
-	LONGLONG							lSendLoveLiness;					//赠送魅力
-	LONGLONG							lRecvLoveLiness;					//接受魅力
-}tagPropertyInfo;
+	LONGLONG						lSendLoveLiness;					//赠送魅力
+	LONGLONG						lRecvLoveLiness;					//接受魅力
+}ST_PROPERTY_INFO, PST_PROPERTY_INFO;
 
 //道具属性
-typedef struct _tagPropertyAttrib
+typedef struct _stPropertyAttr
 {
 	WORD							wIndex;								//道具标识
 	WORD                            wPropertyType;                      //道具类型
@@ -90,14 +90,14 @@ typedef struct _tagPropertyAttrib
 	TCHAR                           szMeasuringunit[8];					//计量单位
 	TCHAR							szPropertyName[32];					//道具名字
 	TCHAR							szRegulationsInfo[256];				//使用信息
-}tagPropertyAttrib;
+}ST_PROPERTY_ATTR, *PST_PROPERTY_ATTR;
 
 //道具子项
-typedef struct _tagPropertyItem
+typedef struct _stPropertyItem
 {
-	tagPropertyInfo					PropertyInfo;						//道具信息
-	tagPropertyAttrib				PropertyAttrib;						//道具属性
-}tagPropertyItem;
+	ST_PROPERTY_INFO				stPropertyInfo;						//道具信息
+	ST_PROPERTY_ATTR				stPropertyAttr;						//道具属性
+}ST_PROPERTY_ITEM, *PST_PROPERTY_ITEM;
 
 //////////////////////////////////////////////////////////////////////////////////
 

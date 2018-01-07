@@ -96,8 +96,8 @@ class CAccountData
 public:
     CAccountData()
     :m_cbDevice(DEVICE_TYPE_DEFAULT),m_dwUserID(0),m_wTableID(0),m_wChairID(0),m_dwGameID(0),m_cbStatus(US_NULL),
-    m_pAccounts(""),m_pNickName(""),m_pPassword(""),m_pBankword(""),m_lGold(0),m_dBean(0),m_lUserInsureGold(0),
-    m_lUserGold(0),m_Tablepass("")
+    m_pAccounts(""),m_pNickName(""),m_pPassword(""),m_pBankword(""),m_llGold(0),m_dBean(0),m_llUserBankGold(0),
+    m_llUserGold(0),m_Tablepass("")
     {
     }
     
@@ -127,10 +127,10 @@ public:
     WORD            m_wCustom;                              //自定义头像
     BYTE			m_cbGender;                             //用户性别 0为女，1为男
     
-    LONGLONG       m_lGold;									//金币
-    DOUBLE         m_dBean;									//游戏豆
-    LONGLONG       m_lUserInsureGold;						//银行金币
-    LONGLONG       m_lUserGold;								//携带金币
+    LONGLONG		m_llGold;								//金币
+    DOUBLE			m_dBean;								//游戏豆
+    LONGLONG		m_llUserBankGold;						//银行金币
+    LONGLONG		m_llUserGold;							//携带金币
 };
 
 //MARK::域名数据

@@ -297,7 +297,7 @@ bool ShopScene::init()
     layout->addChild(_rootNode);
     
     //用户携带金币
-    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *coin = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_llUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserScore(coin);
     _userScore->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userScore, 145);
@@ -306,7 +306,7 @@ bool ShopScene::init()
     layout->addChild(_userScore);
     
     //用户金币
-    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *ingot = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_llGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserIngot(ingot);
     _userIngot->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_userIngot, 145);
@@ -855,7 +855,7 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
     
     //剩余金币
     auto restIngot =  Label::createWithCharMap("shop_res/shop_num_yellow.png", 16, 22, '0');
-    restIngot->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_lGold)->getCString());
+    restIngot->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_llGold)->getCString());
     restIngot->setAnchorPoint(Vec2(.0, .5));
     restIngot->setPosition(Vec2(910, 385));
     node->addChild(restIngot);
@@ -878,7 +878,7 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
             if (type == Widget::TouchEventType::ENDED)
             {
                
-                if ((m_nExchangeCount+1) * data->_price > HallDataMgr::getInstance()->m_lGold)
+                if ((m_nExchangeCount+1) * data->_price > HallDataMgr::getInstance()->m_llGold)
                 {
                     
                     HallDataMgr::getInstance()->AddpopLayer("提示", "您的金币不足", Type_Ensure);
@@ -1176,9 +1176,9 @@ void ShopScene::initDetail(ListData *data,ShopList *list)
 
 void ShopScene::updateInfo()
 {
-    _userScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
+    _userScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_llUserGold, ","));
     _userBean->setString(getScorewithComma(HallDataMgr::getInstance()->m_dBean, ","));
-    _userIngot->setString(getScorewithComma(HallDataMgr::getInstance()->m_lGold, ","));
+    _userIngot->setString(getScorewithComma(HallDataMgr::getInstance()->m_llGold, ","));
     
 }
 void ShopScene::sendExchangeParameter()
@@ -1236,7 +1236,7 @@ void ShopScene::sendExchangeIngot(LONGLONG ingotnum)
         memset(&request, 0, sizeof(request));
         
         request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-        request.lExchangedGold = ingotnum;
+        request.llExchangedGold = ingotnum;
         Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, request.szMachineID);
         NetworkMgr::getInstance()->sendData(MDM_GR_EXCHANGE, SUB_GR_EXCHANGE_GAME_COIN_BY_GOLD, &request, sizeof(request));
         
@@ -1261,9 +1261,9 @@ void ShopScene::ExchangeResult(void *pData, WORD wSize)
     auto result = (ST_CMD_GP_EXCHANGE_GAME_COIN_RESULT *)pData;
     if (result->bSucc)
     {
-        HallDataMgr::getInstance()->m_lUserGold = result->lCurrGameCoin;
+        HallDataMgr::getInstance()->m_llUserGold = result->lCurrGameCoin;
         HallDataMgr::getInstance()->m_dBean = result->dCurrBean;
-        HallDataMgr::getInstance()->m_lGold = result->lCurrGold;
+        HallDataMgr::getInstance()->m_llGold = result->lCurrGold;
         
         //金币更新
         EventCustom event(whEvent_User_Data_Change);

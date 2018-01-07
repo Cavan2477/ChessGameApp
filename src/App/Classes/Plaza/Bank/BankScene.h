@@ -9,8 +9,8 @@
  *
  ************************************************************************************/
 
-#ifndef __BankScene_h__
-#define __BankScene_h__
+#ifndef __BANK_SCENE_H__
+#define __BANK_SCENE_H__
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
@@ -49,19 +49,19 @@ public:
     
     //大厅消息回包处理
     //开通银行结果
-    virtual void InsureEnableResult(void* pData, WORD wSize){};
+    virtual void ReqBankEnable(void* pData, WORD wSize){};
 
     //银行资料
-    virtual void InsureInfoResult(void* pData, WORD wSize){};
+    virtual void ReqBankQueryBank(void* pData, WORD wSize){};
 
     //操作成功
-    virtual void BankSuccedResult(void* pData, WORD wSize){};
+    virtual void ReqBankEnableSucc(void* pData, WORD wSize){};
 
     //操作失败
-    virtual void BankFailureResult(void* pData, WORD wSize){};
+    virtual void ReqBankEnableFailure(void* pData, WORD wSize){};
 
     //用户信息
-    virtual void BankUserInfoResult(void* pData, WORD wSize){};
+    virtual void ReqBankQueryUserInfo(void* pData, WORD wSize){};
     
     //游戏消息回包
     virtual void BankInsureResult(WORD  wSubCmdID, void* pData, WORD wSize){};

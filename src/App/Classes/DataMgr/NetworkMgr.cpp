@@ -248,8 +248,8 @@ void NetworkMgr::roomconfigResult(WORD wSubCmdID, void *pData, WORD wSize)
             return;
         }
         auto server = (ST_CMD_GR_CONFIG_GAME_ROOM *)pData;
-        HallDataMgr::getInstance()->m_RoomRule = server->dwServerRule;
-        HallDataMgr::getInstance()->m_Gametype = server->wServerType;
+        HallDataMgr::getInstance()->m_RoomRule = server->dwGameRoomRule;
+        HallDataMgr::getInstance()->m_Gametype = server->wGameRoomType;
         
         HallDataMgr::getInstance()->m_TableCount = server->wTableCount;
         HallDataMgr::getInstance()->m_ChairCount = server->wChairCount;
@@ -274,7 +274,7 @@ void NetworkMgr::networkGRUser(WORD wSubCmdID, void *pData, WORD wSize)
             this->OnUserStatus(pData, wSize);
         }
             break;
-        case SUB_GR_USER_SCORE:
+        case SUB_GR_USER_GAME_COIN:
         {
             this->OnUserScore(pData, wSize);
         }
@@ -301,7 +301,7 @@ void NetworkMgr::networkGRUser(WORD wSubCmdID, void *pData, WORD wSize)
             HallDataMgr::getInstance()->AddpopLayer("提示", str, Type_Ensure);
         }
             break;
-        case SUB_GR_REQUEST_FAILURE:
+        case SUB_GR_REQ_FAILURE:
         {
             auto result = (ST_CMD_GR_REQ_FAILURE *)pData;
 			auto str = WHConverUnicodeToUtf8WithArray((WORD*)result->szDes);
@@ -341,7 +341,7 @@ void NetworkMgr::OnUserEnter(void *pData, WORD wSize)
         HallDataMgr::getInstance()->m_wChairID = result->wChairID;
         HallDataMgr::getInstance()->m_wTableID = result->wTableID;
         HallDataMgr::getInstance()->m_wCustom = result->dwCustomID;
-        HallDataMgr::getInstance()->m_wFaceID = result->wFaceID;
+        HallDataMgr::getInstance()->m_wFaceID = result->dwFaceID;
 
         //进入的房间类型(积分房、练习房不更新玩家实际积分)
         int enterRoom = INSTANCE(GameDataMgr)->getEnterRoom();
@@ -355,11 +355,11 @@ void NetworkMgr::OnUserEnter(void *pData, WORD wSize)
                 if (result->dwUserID == HallDataMgr::getInstance()->m_dwUserID && 
                     pServer->wServerType != GAME_GENRE_SCORE && 
                     pServer->wServerType != GAME_GENRE_EDUCATE)
-                    HallDataMgr::getInstance()->m_lUserGold = result->llGameCoin;
+                    HallDataMgr::getInstance()->m_llUserGold = result->llGameCoin;
             }
         }
 
-        HallDataMgr::getInstance()->m_lGold = result->llGold;
+        HallDataMgr::getInstance()->m_llGold = result->llGold;
     }
     
     //无桌子界面的游戏
@@ -496,9 +496,9 @@ void NetworkMgr::OnUserScore(void *pData, WORD wSize)
         
     }
     //自由类型
-    else if (wSize==sizeof(ST_CMD_GR_MOBILE_USER_SCORE))
+    else if (wSize==sizeof(ST_CMD_GR_MOBILE_USER_GAME_COIN))
     {
-        auto result = (ST_CMD_GR_MOBILE_USER_SCORE *)pData;
+        auto result = (ST_CMD_GR_MOBILE_USER_GAME_COIN *)pData;
         
         //进入的房间类型(积分房、练习房不更新玩家实际积分)
         int enterRoom = INSTANCE(GameDataMgr)->getEnterRoom();
@@ -511,8 +511,8 @@ void NetworkMgr::OnUserScore(void *pData, WORD wSize)
                     && pServer->wServerType != GAME_GENRE_SCORE
                     && pServer->wServerType != GAME_GENRE_EDUCATE)
                 {
-                    HallDataMgr::getInstance()->m_lUserGold = result->stUserScore.llGameCoin;
-                    HallDataMgr::getInstance()->m_dBean = result->stUserScore.dBean;
+                    HallDataMgr::getInstance()->m_llUserGold = result->stMobileUserGameCoin.llGameCoin;
+                    HallDataMgr::getInstance()->m_dBean = result->stMobileUserGameCoin.dBean;
                 }
             }
         }
@@ -702,7 +702,7 @@ void NetworkMgr::networkGRSystem(WORD wSubCmdID, void *pData, WORD wSize)
         {
             auto presult = (ST_CMD_SYS_MSG *)pData;
             if ((presult->wType&SMT_CLOSE_ROOM) || (presult->wType&SMT_CLOSE_GAME) || (presult->wType&SMT_CLOSE_LINK)) {
-				auto pstr = WHConverUnicodeToUtf8WithArray((WORD*)presult->szMsgContent);
+				auto pstr = WHConverUnicodeToUtf8WithArray((WORD*)presult->szMsg);
                 auto player = static_cast<ModeLayer *>(HallDataMgr::getInstance()->AddpopLayer("系统提示", pstr, Type_Ensure));
                 player->setEnsureCallback([=]{
                     if (!Director::getInstance()->getRunningScene()->getChildByTag(10)) {
@@ -715,12 +715,12 @@ void NetworkMgr::networkGRSystem(WORD wSubCmdID, void *pData, WORD wSize)
             }
             else if (presult->wType&SMT_EJECT)
             {
-				auto pstr = WHConverUnicodeToUtf8WithArray((WORD*)presult->szMsgContent);
+				auto pstr = WHConverUnicodeToUtf8WithArray((WORD*)presult->szMsg);
                 HallDataMgr::getInstance()->AddpopLayer("系统提示", pstr, Type_Ensure);
             }
             else if(presult->wType&SMT_CHAT)
             {
-				std::string chatstr = WHConverUnicodeToUtf8WithArray((WORD*)presult->szMsgContent);
+				std::string chatstr = WHConverUnicodeToUtf8WithArray((WORD*)presult->szMsg);
                 std::string::iterator new_end = remove_if(chatstr.begin(), chatstr.end(), bind2nd(std::equal_to<char>(), '\r'));
                 chatstr.erase(new_end, chatstr.end());
                 new_end = remove_if(chatstr.begin(), chatstr.end(), bind2nd(std::equal_to<char>(), '\n'));
@@ -828,7 +828,7 @@ void NetworkMgr::sendRoomLogin(const std::string &roompass)
     
 	Utf8ToUtf16(HallDataMgr::getInstance()->m_Machine, (WORD*)stCmdGrLogonMobile.szMachineID);
 	Utf8ToUtf16(HallDataMgr::getInstance()->m_dynamicpass, (WORD*)stCmdGrLogonMobile.szDynamicPwd);
-	Utf8ToUtf16(roompass, (WORD*)stCmdGrLogonMobile.szServerPwd);
+	Utf8ToUtf16(roompass, (WORD*)stCmdGrLogonMobile.szGameRoomPwd);
     
     NetworkMgr::getInstance()->sendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &stCmdGrLogonMobile, sizeof(stCmdGrLogonMobile));
     log("%s","房间登录");
@@ -902,9 +902,9 @@ void NetworkMgr::sendSitDown(WORD tableID, WORD chairID, const std::string &pass
     stCmdGrUserSitDown.wChairID = chairID;
     stCmdGrUserSitDown.wTableID = tableID;
 
-	Utf8ToUtf16(pass, (WORD*)stCmdGrUserSitDown.szPwd);
+	Utf8ToUtf16(pass, (WORD*)stCmdGrUserSitDown.szTablePwd);
     
-    this->sendData(MDM_GR_USER, SUB_GR_USER_SITDOWN, &stCmdGrUserSitDown, sizeof(stCmdGrUserSitDown));
+    this->sendData(MDM_GR_USER, SUB_GR_USER_SIT_DOWN, &stCmdGrUserSitDown, sizeof(stCmdGrUserSitDown));
 }
 
 void NetworkMgr::sendLeaveGame()
@@ -917,7 +917,7 @@ void NetworkMgr::sendLeaveGame()
 
     stCmdGrUserStandUp.cbForceLeave = true;
     
-    NetworkMgr::getInstance()->sendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &stCmdGrUserStandUp, sizeof(stCmdGrUserStandUp));
+    NetworkMgr::getInstance()->sendData(MDM_GR_USER, SUB_GR_USER_STAND_UP, &stCmdGrUserStandUp, sizeof(stCmdGrUserStandUp));
 }
 
 void NetworkMgr::sendCustomFaceInfo(cocos2d::Image *pimage)

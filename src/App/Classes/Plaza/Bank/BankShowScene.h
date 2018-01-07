@@ -61,15 +61,15 @@ public:
 public:
     //大厅消息回包处理
     //开通银行结果
-    virtual void InsureEnableResult(void* pData, WORD wSize);
+    virtual void ReqBankEnable(void* pData, WORD wSize);
     //银行资料
-    virtual void InsureInfoResult(void* pData, WORD wSize);
+    virtual void ReqBankQueryBank(void* pData, WORD wSize);
     //操作成功
-    virtual void BankSuccedResult(void* pData, WORD wSize);
+    virtual void ReqBankEnableSucc(void* pData, WORD wSize);
     //操作失败
-    virtual void BankFailureResult(void* pData, WORD wSize);
+    virtual void ReqBankEnableFailure(void* pData, WORD wSize);
     //用户信息
-    virtual void BankUserInfoResult(void* pData, WORD wSize);
+    virtual void ReqBankQueryUserInfo(void* pData, WORD wSize);
     
     //发送请求用户信息
     void queryUserInfo(const BYTE &cbType, const std::string &sTarget);
@@ -105,13 +105,13 @@ public:
 private:
     int     m_nSendType;		//发送模式	0 id  1昵称
     
-    CMD_GP_USER_INSURE_INFO  m_sInfo;
+	ST_CMD_GP_USER_BANK_INFO			m_stCmdGpUserInsureInfo;
     
-    cocos2d::ui::Layout  *               _layout;
-    cocos2d::ui::Layout  *               _applyLayout;
-    cocos2d::ui::Layout  *               _saveLayout;
-    cocos2d::ui::Layout  *               _presentLayout;
-    cocos2d::ui::Layout  *               _recordLayout;
+    cocos2d::ui::Layout  *              _layout;
+    cocos2d::ui::Layout  *              _applyLayout;
+    cocos2d::ui::Layout  *              _saveLayout;
+    cocos2d::ui::Layout  *              _presentLayout;
+    cocos2d::ui::Layout  *              _recordLayout;
     
     BankType                            m_eType;
     
@@ -119,8 +119,6 @@ private:
     CC_SYNTHESIZE_RETAIN(Label *, _userInsureScoreLB, UserInsureScoreLB);
     
     std::vector<BankRecord *>   m_Datalist;
-    
-    
 };
 
 #endif /* BankShow_h*/

@@ -304,7 +304,7 @@ bool Plazz::init()
     layout->addChild(_UserNikcName);
     
     //用户分数
-    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
+    Label *score = Label::createWithSystemFont(getScorewithComma(HallDataMgr::getInstance()->m_llUserGold, ","), FONT_TREBUCHET_MS_BOLD, 24);
     setUserScore(score);
     _UserScore->setTextColor(cocos2d::Color4B::YELLOW);
     Labellengthdeal(_UserScore, 135);
@@ -613,10 +613,10 @@ void Plazz::LevelUpgrade(void* pData, WORD wSize)
 {
     
     ST_CMD_GP_GROW_LEVEL_UPGRADE *level = (ST_CMD_GP_GROW_LEVEL_UPGRADE *)pData;
-    HallDataMgr::getInstance()->m_lUserGold = level->lCurrGameCoin;
-    HallDataMgr::getInstance()->m_lGold = level->lCurrGold;
+    HallDataMgr::getInstance()->m_llUserGold = level->lCurrGameCoin;
+    HallDataMgr::getInstance()->m_llGold = level->lCurrGold;
     
-    _UserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
+    _UserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_llUserGold, ","));
     
     std::string str = WHConverUnicodeToUtf8WithArray(level->szNotifyContent);
     HallDataMgr::getInstance()->AddpopLayer("", str, Type_Ensure);
@@ -665,7 +665,7 @@ void Plazz::notifyFreshInfo(cocos2d::EventCustom *event)
         case User_Change_Score:
         case User_Change_Bean:
         {
-            _UserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_lUserGold, ","));
+            _UserScore->setString(getScorewithComma(HallDataMgr::getInstance()->m_llUserGold, ","));
             
         }
             break;

@@ -25,14 +25,12 @@ typedef unsigned short		WORD;
 //typedef DWORD				UINT;
 typedef DWORD               COLORREF;
 
+typedef long                LONG;
 typedef	long long			LONGLONG;
-typedef long long			LONGLONG;
 typedef double              DOUBLE;
 typedef short               SHORT;
 typedef int                 INT;
 typedef float               FLOAT;
-
-typedef long                LONG;
 
 typedef const char c_char;
 typedef const char* pConstChar;
@@ -81,8 +79,8 @@ typedef struct _stSysTime
 #define MAX_CHAIR_GENERAL   8                       //最大椅子
 
 //裂表定义
-#define MAX_GAME_TYPE		256						//最大类型
-#define MAX_GAME_ROOM		1024					//最大房间
+#define MAX_GAME_TYPE		256						//最大游戏类型
+#define MAX_GAME_ROOM		1024					//最大游戏房间数
 
 //参数定义
 #define	INVALID_CHAIR		0xFFFF					//无效椅子
@@ -102,7 +100,9 @@ typedef struct _stSysTime
 #define GAME_STATUS_ENDED   255                     //结束状态
 
 //系统参数
-#define LEN_USER_CHAT		128						//聊天长度
+#define LEN_TITLE_MSG		64						//标题长度
+#define LEN_MSG				128						//信息长度
+#define LEN_USER_CHAT_MSG	128						//聊天长度
 #define	TIME_USER_CHAT		1L						//聊天间隔
 #define TRUMPET_MAX_CHAR    128                     //喇叭长度
 	
@@ -142,15 +142,15 @@ typedef struct _stSysTime
 //资料数据
 #define LEN_USER_UIN        33 
 #define LEN_MD5				33						//加密密码
-#define LEN_ACCOUNT		32						//备注长度
+#define LEN_ACCOUNT			32						//备注长度
 #define LEN_NICENAME		32						//帐号长度	
 #define LEN_NICKNAME		32						//昵称长度
-#define LEN_PWD		33						//密码长度	
+#define LEN_PWD				33						//密码长度	
 #define LEN_GROUP_NAME		32						//社团名字	
 #define LEN_UNDER_WRITE		32						//个性签名
 
 //数据长度
-#define LEN_QQ				16						//q q号码
+#define LEN_QQ				16						//qq号码
 #define LEN_EMAIL			33						//电子邮件
 #define LEN_USER_NOTE		256						//用户备注
 #define LEN_SEAT_PHONE		33						//固定电话
@@ -160,7 +160,10 @@ typedef struct _stSysTime
 #define LEN_DWELLING_PLACE	128						//联系地址
 #define LEN_WEEK            7                       //星期长度
 #define LEN_TASK_NAME       64                      //任务名称
+#define LEN_TASK_DES		512                     //任务描述
 #define LEN_TRANS_REMARK    32                      //转帐备注
+#define LEN_MATCH_DES		64						//描述信息长度
+#define LEN_DES				256						//描述长度
 
 //机器标识
 #define LEN_MACHINE_ID		33						//序列长度
@@ -171,7 +174,7 @@ typedef struct _stSysTime
 #define LEN_KIND			32						//类型长度	
 #define LEN_NODE			32						//节点长度
 #define LEN_PAGE			32						//定制长度
-#define LEN_SERVER			32						//房间长度
+#define LEN_GAME_ROOM		32						//游戏房间长度
 #define LEN_PROCESS			32						//进程长度
 
 
@@ -257,15 +260,15 @@ typedef struct _stSysTime
 #define UD_CHAIR			21						//椅子号码
 
 //积分信息
-#define	UD_SCORE			30						//用户分数
-#define UD_BANKER			31						//用户银行
-#define UD_EXPERIENCE		32						//用户经验
+#define	UD_GAME_COIN		30						//用户游戏币
+#define UD_BANK				31						//用户银行
+#define UD_EXP				32						//用户经验
 #define UD_LOVELINESS		33						//用户魅力
 #define	UD_WIN_COUNT		34						//胜利盘数
 #define UD_LOSE_COUNT		35						//输局盘数 
 #define	UD_DRAW_COUNT		36						//和局盘数
-#define UD_FLEE_COUNT		37						//逃局盘数
-#define UD_PLAY_COUNT		38						//总局盘数
+#define UD_ESCAPE_COUNT		37						//逃局盘数
+#define UD_PLAY_TOTAL		38						//总局盘数
 
 //积分比率
 #define	UD_WIN_RATE			40						//用户胜率
