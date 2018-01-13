@@ -1,15 +1,20 @@
-//
-//  FramList.cpp
-//  cocosProject
-//
-//  Created by TangMiao on 3/15/13.
-//
-//
+﻿/************************************************************************************
+ * file: 		FramList.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/11 22:42:25
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/11			
+ *
+ ************************************************************************************/
 
 #include "FramList.h"
 //#include "CCFileUtils.h"
+
 USING_NS_CC;
-typedef	unsigned char		u_char;
+typedef	unsigned char u_char;
+
 static u_char g_Encrypt[256] =
 {
 	0x70, 0x2F, 0x40, 0x5F, 0x44, 0x8E,

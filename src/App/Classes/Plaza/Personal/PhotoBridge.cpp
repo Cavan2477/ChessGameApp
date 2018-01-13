@@ -73,8 +73,8 @@ USING_NS_CC;
 #endif
 
 PhotoBridge::PhotoBridge()
-:m_type(EM_CHOOSE_TYPE_HEAD)
-,m_completecallback(nullptr)
+:m_emChooseType(EM_CHOOSE_TYPE_HEAD)
+, m_completeCallback(nullptr)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     pickerImage = [[UIImagePickerController alloc] init];
@@ -97,12 +97,12 @@ PhotoBridge::~PhotoBridge()
 void PhotoBridge::onEnter()
 {
     Node::onEnter();
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(whNd_Android_PhotoImage, CC_CALLBACK_1(PhotoBridge::notifyAndroidPhotoImage, this)), 1);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(STR_ND_ANDROID_PHOTO_IMAGE, CC_CALLBACK_1(PhotoBridge::notifyAndroidPhotoImage, this)), 1);
 }
 
 void PhotoBridge::onExit()
 {
-    Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(whNd_Android_PhotoImage);
+    Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(STR_ND_ANDROID_PHOTO_IMAGE);
     Node::onExit();
 }
 

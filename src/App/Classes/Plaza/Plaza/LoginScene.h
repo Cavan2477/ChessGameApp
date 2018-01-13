@@ -1,4 +1,4 @@
-/************************************************************************************
+ï»¿/************************************************************************************
  * file: 		LoginScene.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
@@ -15,7 +15,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "cocos-ext.h"
-#include "../../BaseUI/Scene/ESScene.h"
+#include "../../Scene/ExtBaseScene.h"
 #include "../../Pattern/Singleton.h"
 #include <string>
 
@@ -25,12 +25,12 @@ USING_NS_CC;
 
 //#define TransFadeInLogin Director::getInstance()->replaceScene(TransitionFade::create(0.3f, Login::createScene()))
 
-// µÇÂ¼·şÎñÆ÷½á¹¹
+// ç™»å½•æœåŠ¡å™¨ç»“æ„
 typedef struct stLoginServerInfo
 {
-	bool bSelect;				// ËùÑ¡·şÎñÆ÷
-	char szName[256];			// ·şÎñÆ÷Ãû³Æ
-	char szAddress[256];		// ·şÎñÆ÷µØÖ·
+	bool bSelect;				// æ‰€é€‰æœåŠ¡å™¨
+	char szName[256];			// æœåŠ¡å™¨åç§°
+	char szAddress[256];		// æœåŠ¡å™¨åœ°å€
 }ST_LOGIN_SERVER_INFO, *PST_LOGIN_SERVER_INFO;
 
 class LoginScene :
@@ -47,7 +47,7 @@ public:
 
 	//CREATE_FUNC(Login);
 
-	// ³õÊ¼»¯
+	// åˆå§‹åŒ–
 	virtual bool init();
 
 	virtual void onEnter();
@@ -76,13 +76,13 @@ public:
 	void initServerList();
 	void loadingCoinAnimateResFinish(Texture2D* pTexture);
 
-	// µÇÂ¼½á¹û
+	// ç™»å½•ç»“æœ
 	void loginResult(WORD wSubCmdID, void* pData, WORD wSize);
 
-	// ·¿¼äÁĞ±í
+	// æˆ¿é—´åˆ—è¡¨
 	void roomList(WORD wSubCmdID, void* pData, WORD wSize);
 
-	// µÇÂ¼Ê§°Ü´¦Àí
+	// ç™»å½•å¤±è´¥å¤„ç†
 	void loginFailureEvent();
 
 	void notifyConnectFailure(cocos2d::EventCustom* pEvent);

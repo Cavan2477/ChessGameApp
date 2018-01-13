@@ -24,6 +24,7 @@ using namespace std;
 #define PERSONAL	5000
 
 #define WIN_SIZE				Director::getInstance()->getVisibleSize()
+
 #define THIRD_ACCOUNT           "third_account"								// 第三方帐号
 #define THIRD_NICK_NAME         "third_nickname"							// 第三方昵称
 #define THIRD_HEAD_IMAGE_URL    "head_image_url"							// 第三方头像url
@@ -41,8 +42,8 @@ using namespace std;
 #define JUDGE_SCALE				WIN_SIZE.width/1136.f
 #define CC_CALLBACK_4(__selector__,__target__, ...) std::bind(&__selector__,__target__, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, ##__VA_ARGS__)
 
-typedef std::function<void(WORD, void *, WORD)> gameMessageCallback;		//消息回调
-typedef std::function<void(void *, WORD)> MessageCallback1;					//用户服务消息
+typedef std::function<void(WORD, void *, WORD)>			gameMessageCallback;//消息回调
+typedef std::function<void(void *, WORD)>				MessageCallback1;	//用户服务消息
 typedef std::function<void(void *, void *, WORD, bool)> gameMessageRecv;	//接受消息
 
 #define GLCOLOR_RGB(r,g,b)              ((COLORREF)(((0)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff))
@@ -126,9 +127,9 @@ typedef struct _stDownloadInfo
 // 银行礼物赠送信息
 typedef struct _stBankGiftInfo
 {
-	int		nSendType;					// 0:id; 1:昵称
-	string	sReceiveUserName;
-	DWORD	dwReceiveUserId;
+	int			nSendType;				// 0:id; 1:昵称
+	string		strReceiveUserName;
+	DWORD		dwReceiveUserId;
 	LONGLONG	llSendCount;
 }ST_BANK_GIFT_INFO, *PST_BANK_GIFT_INFO;
 
@@ -137,13 +138,13 @@ class TrumpetData:public cocos2d::Ref
 {
 public:
     TrumpetData()
-    :sendnickname("")
-    ,sendtext("")
+    :m_strSendNickname("")
+    ,m_strSendMsg("")
     {
     }
     
-    std::string sendnickname;			// 发送者昵称
-    std::string sendtext;				// 发送内容
+    std::string m_strSendNickname;			// 发送者昵称
+    std::string m_strSendMsg;				// 发送内容
 };
 
 #endif

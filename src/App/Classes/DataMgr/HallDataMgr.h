@@ -9,7 +9,7 @@
  *
  ************************************************************************************/
 
-//å¤§å…æ•°æ®ç®¡ç† ä»¥åŠç©å®¶æ•°æ®
+//´óÌüÊı¾İ¹ÜÀí ÒÔ¼°Íæ¼ÒÊı¾İ
 
 #ifndef __HallDataMgr_h__
 #define __HallDataMgr_h__
@@ -22,11 +22,11 @@
 #include "../Public/Help.h"
 #include "../Plaza/Personal/PhotoBridge.h"
 
-//åˆ†ç³»ç»Ÿæ¸¸æˆæ•°æ® add by zhong
+//·ÖÏµÍ³ÓÎÏ·Êı¾İ add by zhong
 struct tagSubSystemParam
 {
-    int m_nPlayerCount;         //æ¸¸æˆæ¡Œäººæ•°
-    int m_nMaxCount;            //æ¸¸æˆå…ƒç´ æœ€å¤§æ•°é‡ (å¦‚æœ€å¤§æ‰‘å…‹æ•°é‡)
+    int m_nPlayerCount;         //ÓÎÏ·×ÀÈËÊı
+    int m_nMaxCount;            //ÓÎÏ·ÔªËØ×î´óÊıÁ¿ (Èç×î´óÆË¿ËÊıÁ¿)
     
     tagSubSystemParam()
     {
@@ -54,34 +54,34 @@ public:
     
     void saveSelectServer(const std::string &strAdress);
     
-    //ä¿å­˜å’Œè¯»å–æ¡Œå­å¯†ç 
+    //±£´æºÍ¶ÁÈ¡×À×ÓÃÜÂë
     void readTablepass();
     
     void saveTablepass(const std::string &pass);
     
     void roomlistclear();
     
-    //è·å–ç­¾åéªŒè¯
+    //»ñÈ¡Ç©ÃûÑéÖ¤
     std::string getSignature(LONGLONG times);
     
-    cocos2d::Map<int , cocos2d::Texture2D *> m_Headlist;//å¤´åƒ
+    cocos2d::Map<int , cocos2d::Texture2D *> m_Headlist;//Í·Ïñ
     
-    std::vector<_stGameRoomServer *> m_roomList;    //æ‰€æœ‰çš„æˆ¿é—´åˆ—è¡¨
+    std::vector<_stGameRoomServer *> m_roomList;    //ËùÓĞµÄ·¿¼äÁĞ±í
     
-    std::vector<_stGameRoomServer *> m_subRoomList; //åˆ†ç³»ç»Ÿæˆ¿é—´åˆ—è¡¨
+    std::vector<_stGameRoomServer *> m_subRoomList; //·ÖÏµÍ³·¿¼äÁĞ±í
     
-    cocos2d::Map<int, UserData *> m_UserList;// ç”¨æˆ·åˆ—è¡¨
+    cocos2d::Map<int, UserData *> m_UserList;// ÓÃ»§ÁĞ±í
     
     ST_CMD_GP_GROW_LEVEL_PARAM m_levelData;
     
-    cocos2d::Vector<cocos2d::__String *> m_chatlist;//ç³»ç»Ÿæ¶ˆæ¯åˆ—è¡¨
+    cocos2d::Vector<cocos2d::__String *> m_chatlist;//ÏµÍ³ÏûÏ¢ÁĞ±í
     
-    cocos2d::Vector<cocos2d::__String *> m_noticelist;//ç³»ç»Ÿå…¬å‘Šåˆ—è¡¨
+    cocos2d::Vector<cocos2d::__String *> m_noticelist;//ÏµÍ³¹«¸æÁĞ±í
     
-    std::map<std::string,std::map<int,std::string>> m_adderssList;   //åœ°å€è§£æ
+    std::map<std::string,std::map<int,std::string>> m_adderssList;   //µØÖ·½âÎö
     
-    PhotoCallback m_completecallback;               //è‡ªå®šä¹‰å¤´åƒ
-    std::function<void()> _versionCheckcallback;    //ç‰ˆæœ¬æ ¡éªŒ
+    PhotoCallback m_completecallback;               //×Ô¶¨ÒåÍ·Ïñ
+    std::function<void()> _versionCheckcallback;    //°æ±¾Ğ£Ñé
     
     UserData* getUserData(const DWORD &userId);
     
@@ -91,60 +91,60 @@ public:
 public:
     cocos2d::ApplicationProtocol::Platform m_targetPlatform;
     
-    //è°ƒæ•´åˆ°åˆ†ç³»ç»Ÿæ¸¸æˆç¼©æ”¾æ ‡å‡†
+    //µ÷Õûµ½·ÖÏµÍ³ÓÎÏ·Ëõ·Å±ê×¼
     void toSubSystemScale();
     
-    //è°ƒæ•´åˆ°ä¸»ç³»ç»Ÿæ¸¸æˆç¼©æ”¾æ ‡å‡†
+    //µ÷Õûµ½Ö÷ÏµÍ³ÓÎÏ·Ëõ·Å±ê×¼
     void toMainSystemScale();
     
-    //ä¸¤å¥—å°ºå¯¸
+    //Á½Ì×³ß´ç
     CC_SYNTHESIZE(cocos2d::Size, m_szMainSize, MainSystemSize);
     CC_SYNTHESIZE(cocos2d::Size, m_szSubSize, SubSystemSize);
 public:
-    //ç™»å½•è®¾ç½®
-    bool						m_bRemember;					//è®°å½•å¯†ç 
-    bool						m_bAutomatic;					//è‡ªåŠ¨ç™»å½•
-    bool						m_bStartType;					//å¯åŠ¨æ ‡è¯†
-    bool                        m_bStartGame;                   //å¯åŠ¨æ¸¸æˆ
-    BYTE                        m_cbMoorMachine;                //é”å®šæœºå™¨
+    //µÇÂ¼ÉèÖÃ
+    bool						m_bRemember;					//¼ÇÂ¼ÃÜÂë
+    bool						m_bAutomatic;					//×Ô¶¯µÇÂ¼
+    bool						m_bStartType;					//Æô¶¯±êÊ¶
+    bool                        m_bStartGame;                   //Æô¶¯ÓÎÏ·
+    BYTE                        m_cbMoorMachine;                //Ëø¶¨»úÆ÷
     
-    BYTE						m_cbGameStatus;					//æ¸¸æˆçŠ¶æ€
+    BYTE						m_cbGameStatus;					//ÓÎÏ·×´Ì¬
     
-    EM_LOAD_TYPE                    m_loadtype;                     //ç™»é™†æ¨¡å¼
-    bool                        m_bcancel;                      //æ˜¯å¦æ³¨é”€å½“å‰å¸å·
+    EM_LOAD_TYPE                    m_loadtype;                     //µÇÂ½Ä£Ê½
+    bool                        m_bcancel;                      //ÊÇ·ñ×¢Ïúµ±Ç°ÕÊºÅ
     
-    BYTE                        m_cbInsureEnable;               //é“¶è¡Œä½¿èƒ½æ ‡ç¤º
+    BYTE                        m_cbInsureEnable;               //ÒøĞĞÊ¹ÄÜ±êÊ¾
     
-    WORD                        m_Gametype;                     //æ¸¸æˆç±»å‹ï¼Œæ¯”èµ›æˆ–è€…æ™®é€š
-    DWORD                       m_RoomRule;                     //æˆ¿é—´è§„åˆ™
+    WORD                        m_Gametype;                     //ÓÎÏ·ÀàĞÍ£¬±ÈÈü»òÕßÆÕÍ¨
+    DWORD                       m_RoomRule;                     //·¿¼ä¹æÔò
     
-    int                         m_RoomType;                     //æ˜¯åœ¨æˆ¿é—´ç•Œé¢è¿˜æ˜¯æ¡Œå­ç•Œé¢
-    std::string                 m_roomaddress;                    //æˆ¿é—´IPï¼Œæ¸¸æˆæ–­çº¿é‡è¿
-    std::string                 m_roomPass;                     //æˆ¿é—´å¯†ç ï¼Œæ¸¸æˆæ–­çº¿é‡è¿
-    WORD                        m_roomPort;                     //æˆ¿é—´ç«¯å£ï¼Œæ¸¸æˆæ–­çº¿é‡è¿
+    int                         m_RoomType;                     //ÊÇÔÚ·¿¼ä½çÃæ»¹ÊÇ×À×Ó½çÃæ
+    std::string                 m_roomaddress;                    //·¿¼äIP£¬ÓÎÏ·¶ÏÏßÖØÁ¬
+    std::string                 m_roomPass;                     //·¿¼äÃÜÂë£¬ÓÎÏ·¶ÏÏßÖØÁ¬
+    WORD                        m_roomPort;                     //·¿¼ä¶Ë¿Ú£¬ÓÎÏ·¶ÏÏßÖØÁ¬
     
-    int                         m_TableCount;                   //æ€»çš„æ¡Œå­æ•°
-    int							m_ChairCount;                   //æ¡Œå­æ¤…å­æ•°  æ¯é¡µ:é»˜è®¤ 6
+    int                         m_TableCount;                   //×ÜµÄ×À×ÓÊı
+    int							m_ChairCount;                   //×À×ÓÒÎ×ÓÊı  Ã¿Ò³:Ä¬ÈÏ 6
     ST_CMD_GR_TABLE_INFO            m_Tableinfo;
     
-    std::string                 m_MethodHeadUrl;                //ç¬¬ä¸‰æ–¹å¤´åƒåœ°å€
+    std::string                 m_MethodHeadUrl;                //µÚÈı·½Í·ÏñµØÖ·
     
-    bool                        m_isEnterBack;                  //æ¸¸æˆæ˜¯å¦é€€åˆ°åå°ï¼Œé€€åˆ°åå°å­å¼¹å‘å°„æ¶ˆæ¯ä¸å¤„ç†
-    LONGLONG                    m_enterbacktime;                //è¿›å…¥åå°æ—¶é—´
+    bool                        m_isEnterBack;                  //ÓÎÏ·ÊÇ·ñÍËµ½ºóÌ¨£¬ÍËµ½ºóÌ¨×Óµ¯·¢ÉäÏûÏ¢²»´¦Àí
+    LONGLONG                    m_enterbacktime;                //½øÈëºóÌ¨Ê±¼ä
     
-    LONGLONG                       m_Logintime;//ç™»å½•æˆåŠŸæ—¶é—´
+    LONGLONG                       m_Logintime;//µÇÂ¼³É¹¦Ê±¼ä
     
-    bool                        m_IsLogin;                      //æ˜¯å¦æ˜¯ç™»å½•ç•Œé¢
+    bool                        m_IsLogin;                      //ÊÇ·ñÊÇµÇÂ¼½çÃæ
     
-    bool                        m_isFirstSendGameOption;        //æ˜¯å¦ç¬¬ä¸€æ¬¡å‘é€æŸ¥è¯¢åœºæ™¯æ¶ˆæ¯
-    //åˆ†ç³»ç»Ÿæ¸¸æˆå‚æ•°
-    tagSubSystemParam           m_tagSubParam;                  //åˆ†ç³»ç»Ÿæ¸¸æˆå‚æ•°
-    //é“¶è¡Œèµ é€ä¿¡æ¯
+    bool                        m_isFirstSendGameOption;        //ÊÇ·ñµÚÒ»´Î·¢ËÍ²éÑ¯³¡¾°ÏûÏ¢
+    //·ÖÏµÍ³ÓÎÏ·²ÎÊı
+    tagSubSystemParam           m_tagSubParam;                  //·ÖÏµÍ³ÓÎÏ·²ÎÊı
+    //ÒøĞĞÔùËÍĞÅÏ¢
     _stBankGiftInfo             m_tagBankSend;
-    //ipåœ°å€
+    //ipµØÖ·
     std::string                 m_strGameIpAdress;
 private:
-    cocos2d::Layer *m_popLayer;//æ¶ˆæ¯æç¤ºå¼¹å‡ºæ¡†
+    cocos2d::Layer *m_popLayer;//ÏûÏ¢ÌáÊ¾µ¯³ö¿ò
 
 };
 #endif /* defined(__MyGame__HallDataMgr__) */

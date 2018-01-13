@@ -36,251 +36,251 @@ public:
     void unloadEffectAudio(const std::string &path);
 
 public:
-    //æ’­æ”¾èƒŒæ™¯éŸ³ä¹
+    //²¥·Å±³¾°ÒôÀÖ
     void playBackgroudAudio(bool bPlay, const std::string &bgfile = "");
     
-    //æ’­æ”¾é€šç”¨èƒŒæ™¯éŸ³ä¹
+    //²¥·ÅÍ¨ÓÃ±³¾°ÒôÀÖ
     void playGeneralBackgroudAudio(bool bPlay);
     
-    //æ’­æ”¾ç‚¹å‡»éŸ³æ•ˆ
+    //²¥·Åµã»÷ÒôĞ§
     void playClickAudio();
     
-    //æ’­æ”¾è­¦å‘Š
+    //²¥·Å¾¯¸æ
     void playAlertAudio();
     
     /*
-     * @brief æ’­æ”¾æ–‡æœ¬éŸ³
-     * @param[dwUser] ç©å®¶id
-     * @param[idx] æ–‡æœ¬ç´¢å¼•
+     * @brief ²¥·ÅÎÄ±¾Òô
+     * @param[dwUser] Íæ¼Òid
+     * @param[idx] ÎÄ±¾Ë÷Òı
      */
     void playTextAudio(DWORD dwUser,const int &idx);
     
-    //æ’­æ”¾å‘ç‰ŒéŸ³æ•ˆ
+    //²¥·Å·¢ÅÆÒôĞ§
     void playSendCardAudio();
     
-    //æ’­æ”¾å¼€ç‰ŒéŸ³æ•ˆ
+    //²¥·Å¿ªÅÆÒôĞ§
     void playOpenCardAudio();
     
-    //æ’­æ”¾é€‰ç‰ŒéŸ³æ•ˆ
+    //²¥·ÅÑ¡ÅÆÒôĞ§
     void playSelectCardAudio();
     
     /*
-     * @brief æ’­æ”¾ä¸‹æ³¨ã€åŠ åˆ†éŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·
-     * @param[llScore] ä¸‹æ³¨ã€åŠ åˆ†æ•°ç›®
+     * @brief ²¥·ÅÏÂ×¢¡¢¼Ó·ÖÒôĞ§
+     * @param[dwUser] ÓÃ»§
+     * @param[llScore] ÏÂ×¢¡¢¼Ó·ÖÊıÄ¿
      */
     void playAddScoreAudio(DWORD dwUser,LONGLONG llScore);
     
-    //æ’­æ”¾æ¸¸æˆå¼€å§‹
+    //²¥·ÅÓÎÏ·¿ªÊ¼
     void playGameStartAudio();
     
-    //æ’­æ”¾æ¸¸æˆç»“æŸ
+    //²¥·ÅÓÎÏ·½áÊø
     void playGameEndAudio(bool bWin);
     
-    //æ¸¸æˆç»“æŸ
+    //ÓÎÏ·½áÊø
     void playGameConcludeAudio();
 
-#pragma mark æ–—åœ°ä¸»éŸ³æ•ˆ
+#pragma mark ¶·µØÖ÷ÒôĞ§
     /*
-     * @brief æ’­æ”¾å¯¹æ¯”éŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
-     * @param[bLarge] æ˜¯å¦æ›´å¤§
+     * @brief ²¥·Å¶Ô±ÈÒôĞ§
+     * @param[dwUser] ÓÃ»§id
+     * @param[bLarge] ÊÇ·ñ¸ü´ó
      */
     void playCompaireAudio(const DWORD &dwUser, bool bLarge);
     
     /*
-     * @brief æ’­æ”¾å‡ºå•å¼ ç‰ŒéŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
-     * @param[carddata] æ‰‘å…‹é€»è¾‘æ•°å€¼
+     * @brief ²¥·Å³öµ¥ÕÅÅÆÒôĞ§
+     * @param[dwUser] ÓÃ»§id
+     * @param[carddata] ÆË¿ËÂß¼­ÊıÖµ
      */
     void playOutSingleCardAudio(const DWORD &dwUser,const BYTE &carddata);
     
     /*
-     * @brief æ ¹æ®å‡ºç‰Œç±»å‹æ’­æ”¾éŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
-     * @param[cardType] å‡ºç‰Œç±»å‹
+     * @brief ¸ù¾İ³öÅÆÀàĞÍ²¥·ÅÒôĞ§
+     * @param[dwUser] ÓÃ»§id
+     * @param[cardType] ³öÅÆÀàĞÍ
      */
     void playOutCardWithTypeAudio(const DWORD &dwUser,const BYTE &cardType);
     
     /*
-     * @brief é£æœºåŠ¨ç”»éŸ³æ•ˆ
+     * @brief ·É»ú¶¯»­ÒôĞ§
      */
     void playAirplaneEffectAudio();
     
     /*
-     * @brief ç«ç®­åŠ¨ç”»éŸ³æ•ˆ
+     * @brief »ğ¼ı¶¯»­ÒôĞ§
      */
     void playRocketEffectAudio();
     
     /*
-     * @brief ç‚¸å¼¹åŠ¨ç”»éŸ³æ•ˆ
+     * @brief Õ¨µ¯¶¯»­ÒôĞ§
      */
     void playBombEffectAudio();
     
     /*
-     * @brief è­¦å‘ŠåŠ¨ç”»éŸ³æ•ˆ
+     * @brief ¾¯¸æ¶¯»­ÒôĞ§
      */
     void playAlarmEffectAudio();
     
     /*
-     * @brief æ´—ç‰ŒéŸ³æ•ˆ
+     * @brief Ï´ÅÆÒôĞ§
      */
     void playDispatchEffectAudio();
-#pragma mark ç‰›ç‰›éŸ³æ•ˆ
+#pragma mark Å£Å£ÒôĞ§
     /*
-     * @brief æ’­æ”¾ä¸‹æ³¨ã€åŠ åˆ†éŸ³æ•ˆ
-     * @param[llScore] ä¸‹æ³¨ã€åŠ åˆ†æ•°ç›®
+     * @brief ²¥·ÅÏÂ×¢¡¢¼Ó·ÖÒôĞ§
+     * @param[llScore] ÏÂ×¢¡¢¼Ó·ÖÊıÄ¿
      */
     void playNiuNiuAddScoreAudio(LONGLONG llScore);
     
     /*
-     * @brief æ’­æ”¾ç‰›ç‰›éŸ³æ•ˆ
-     * @param[dwUser] ç©å®¶id
-     * @param[cbType] ç‰›ç‰›æ ‡å¿—
+     * @brief ²¥·ÅÅ£Å£ÒôĞ§
+     * @param[dwUser] Íæ¼Òid
+     * @param[cbType] Å£Å£±êÖ¾
      */
     void playNiuNiuAudio(DWORD dwUser, BYTE cbType);
     
     /*
-     * @brief æ’­æ”¾æ¸¸æˆæŠ¢åº„éŸ³æ•ˆ
-     * @param[dwUser] ç©å®¶id
-     * @param[bCall] æ˜¯å¦æŠ¢åº„
+     * @brief ²¥·ÅÓÎÏ·ÇÀ×¯ÒôĞ§
+     * @param[dwUser] Íæ¼Òid
+     * @param[bCall] ÊÇ·ñÇÀ×¯
      */
     void playCallBankerAudio(DWORD dwUser, bool bCall);
     
     /*
-     * @brief æ’­æ”¾è°æ˜¯åº„å®¶
-     * @param[dwUser] ç©å®¶id
+     * @brief ²¥·ÅË­ÊÇ×¯¼Ò
+     * @param[dwUser] Íæ¼Òid
      */
     void playGetBankerAudio(DWORD dwUser);
-#pragma mark ç™¾å®¶ä¹éŸ³æ•ˆ
+#pragma mark °Ù¼ÒÀÖÒôĞ§
     void playBJLAddScoreAudio();
     /*
-     * @brief æ’­æ”¾æ¸¸æˆç»“æœ
-     * @param[cbRes] 0:å¹³;1:è¾“;2:èµ¢
+     * @brief ²¥·ÅÓÎÏ·½á¹û
+     * @param[cbRes] 0:Æ½;1:Êä;2:Ó®
      */
     void playBJLGameResAudio(const BYTE &cbRes);
     
-#pragma mark æ¬¢ä¹æ–—åœ°ä¸»éŸ³æ•ˆ
-    //æ’­æ”¾æ¸¸æˆå¼€å§‹
+#pragma mark »¶ÀÖ¶·µØÖ÷ÒôĞ§
+    //²¥·ÅÓÎÏ·¿ªÊ¼
     void playHL_GameStartAudio();
     
-    //æ’­æ”¾æ¸¸æˆç»“æŸ
+    //²¥·ÅÓÎÏ·½áÊø
     void playHL_GameEndAudio(bool bWin);
     
     /*
-     *  @brief è¶…æ—¶è­¦å‘Š
+     *  @brief ³¬Ê±¾¯¸æ
      */
     void playHL_ClockWarnAudio();
     
     /*
-     * @brief æ’­æ”¾è·å–åº„å®¶éŸ³æ•ˆ
+     * @brief ²¥·Å»ñÈ¡×¯¼ÒÒôĞ§
      */
     void playHL_BankerInfoAudio();
     
     /*
-     * @brief æ’­æ”¾æ˜ç‰ŒéŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
+     * @brief ²¥·ÅÃ÷ÅÆÒôĞ§
+     * @param[dwUser] ÓÃ»§id
      */
     void playHL_ValidCard(const DWORD &dwUser);
     
     /*
-     * @brief æ’­æ”¾å¯¹æ¯”éŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
-     * @param[bLarge] æ˜¯å¦æ›´å¤§
+     * @brief ²¥·Å¶Ô±ÈÒôĞ§
+     * @param[dwUser] ÓÃ»§id
+     * @param[bLarge] ÊÇ·ñ¸ü´ó
      */
     void playHL_CompaireAudio(const DWORD &dwUser, bool bLarge);
     
     /*
-     * @brief æ’­æ”¾å‡ºå•å¼ ç‰ŒéŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
-     * @param[carddata] æ‰‘å…‹é€»è¾‘æ•°å€¼
+     * @brief ²¥·Å³öµ¥ÕÅÅÆÒôĞ§
+     * @param[dwUser] ÓÃ»§id
+     * @param[carddata] ÆË¿ËÂß¼­ÊıÖµ
      */
     void playHL_OutSingleCardAudio(const DWORD &dwUser,const BYTE &carddata);
     
     /*
-     * @brief æ ¹æ®å‡ºç‰Œç±»å‹æ’­æ”¾éŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
-     * @param[cardType] å‡ºç‰Œç±»å‹
+     * @brief ¸ù¾İ³öÅÆÀàĞÍ²¥·ÅÒôĞ§
+     * @param[dwUser] ÓÃ»§id
+     * @param[cardType] ³öÅÆÀàĞÍ
      */
     void playHL_OutCardWithTypeAudio(const DWORD &dwUser,const BYTE &cardType);
     
     /*
-     * @brief æ’­æ”¾é£æœºéŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
+     * @brief ²¥·Å·É»úÒôĞ§
+     * @param[dwUser] ÓÃ»§id
      */
     void playHL_PlaneAudio(const DWORD &dwUser);
     
     /*
-     * @brief æ’­æ”¾ç‚¸å¼¹éŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
+     * @brief ²¥·ÅÕ¨µ¯ÒôĞ§
+     * @param[dwUser] ÓÃ»§id
      */
     void playHL_BombAudio(const DWORD &dwUser);
     
     /*
-     * @brief æ’­æ”¾å«åœ°ä¸»éŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
-     * @param[cbCall] æ˜¯å¦å«åœ°ä¸»(1:å«ï¼Œ2:ä¸å«)
+     * @brief ²¥·Å½ĞµØÖ÷ÒôĞ§
+     * @param[dwUser] ÓÃ»§id
+     * @param[cbCall] ÊÇ·ñ½ĞµØÖ÷(1:½Ğ£¬2:²»½Ğ)
      */
     void playHL_CallBankerAudio(const DWORD &dwUser, const BYTE &cbCall);
     
     /*
-     * @brief æ’­æ”¾æŠ¢åœ°ä¸»éŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
-     * @param[cbRod] æ˜¯å¦æŠ¢åœ°ä¸»(1:æŠ¢ï¼Œ2:ä¸æŠ¢)
+     * @brief ²¥·ÅÇÀµØÖ÷ÒôĞ§
+     * @param[dwUser] ÓÃ»§id
+     * @param[cbRod] ÊÇ·ñÇÀµØÖ÷(1:ÇÀ£¬2:²»ÇÀ)
      */
     void playHL_RodBankerAudio(const DWORD &dwUser, const BYTE &cbRod);
     
     /*
-     * @brief æ’­æ”¾åŠ å€éŸ³æ•ˆ
-     * @param[dwUser] ç”¨æˆ·id
-     * @param[cbRod] æ˜¯å¦åŠ å€(1:åŠ ï¼Œ2:ä¸åŠ )
+     * @brief ²¥·Å¼Ó±¶ÒôĞ§
+     * @param[dwUser] ÓÃ»§id
+     * @param[cbRod] ÊÇ·ñ¼Ó±¶(1:¼Ó£¬2:²»¼Ó)
      */
     void playHL_DoubleAudio(const DWORD &dwUser, const BYTE &cbDouble);
     
     /*
-     * @brief é£æœºåŠ¨ç”»éŸ³æ•ˆ
+     * @brief ·É»ú¶¯»­ÒôĞ§
      */
     void playHL_AirplaneEffectAudio();
     
     /*
-     * @brief ç«ç®­åŠ¨ç”»éŸ³æ•ˆ
+     * @brief »ğ¼ı¶¯»­ÒôĞ§
      */
     void playHL_RocketEffectAudio();
     
     /*
-     * @brief ç‚¸å¼¹åŠ¨ç”»éŸ³æ•ˆ
+     * @brief Õ¨µ¯¶¯»­ÒôĞ§
      */
     void playHL_BombEffectAudio();
     
     /*
-     * @brief è­¦å‘ŠåŠ¨ç”»éŸ³æ•ˆ
+     * @brief ¾¯¸æ¶¯»­ÒôĞ§
      */
     void playHL_AlarmEffectAudio();
     
     /*
-     * @brief æ´—ç‰ŒéŸ³æ•ˆ
+     * @brief Ï´ÅÆÒôĞ§
      */
     void playHL_DispatchEffectAudio();
     
-#pragma mark é€šæ¯”ç‰›ç‰›éŸ³æ•ˆ
+#pragma mark Í¨±ÈÅ£Å£ÒôĞ§
     /*
-     * @brief å¼€ç‰Œ
+     * @brief ¿ªÅÆ
      */
     void playTBNN_OpenCardAudio();
     
     /*
-     * @brief è·å–åˆ°ç‰›ç‰›
+     * @brief »ñÈ¡µ½Å£Å£
      */
     void playTBNN_NiuNiuAudio();
     
     /*
-     * @brief é€šæ¯”ç‰›ç‰›æ¸¸æˆç»“æœéŸ³æ•ˆ
-     * @param[cbRes] 0:æœªå‚ä¸ï¼›1:èµ¢ï¼›2:è¾“
+     * @brief Í¨±ÈÅ£Å£ÓÎÏ·½á¹ûÒôĞ§
+     * @param[cbRes] 0:Î´²ÎÓë£»1:Ó®£»2:Êä
      */
     void playTBNN_GameEndAudio(const BYTE &cbRes);
 
 private:
-    //æ˜¯å¦è¿‡æ»¤éŸ³æ•ˆ
+    //ÊÇ·ñ¹ıÂËÒôĞ§
     bool filterAudio();
 
 private:

@@ -391,7 +391,7 @@ void RewardScene::checkinresult(void *pData, WORD wSize)
     
     LONGLONG lRewardScore = result->lCurrGold - HallDataMgr::getInstance()->m_llUserGold;
     HallDataMgr::getInstance()->m_llUserGold = result->lCurrGold;
-    EventCustom event(whEvent_User_Data_Change);
+    EventCustom event(STR_EVENT_USER_DATA_CHANGE);
 
     auto value = __Integer::create(EM_USER_DATA_CHANGE_SCORE);
 
@@ -476,7 +476,7 @@ void RewardScene::baseensureresult(void *pData, WORD wSize)
     HallDataMgr::getInstance()->AddpopLayer("系统提示", str, EM_MODE_TYPE_ENSURE);
     HallDataMgr::getInstance()->m_llUserGold = result->lCurrGameCoin;
     
-    EventCustom event(whEvent_User_Data_Change);
+    EventCustom event(STR_EVENT_USER_DATA_CHANGE);
     auto value = __Integer::create(EM_USER_DATA_CHANGE_SCORE);
 
     event.setUserData(value);

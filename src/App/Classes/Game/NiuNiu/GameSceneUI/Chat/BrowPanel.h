@@ -1,22 +1,24 @@
-//
-//  BrowPanel.hpp
-//  NiuNiu
-//
-//  Created by zhong on 12/17/15.
-//
-//
+/************************************************************************************
+ * file: 		BrowPanel.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 19:47:26
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
 
 #ifndef nn_BrowPanel_hpp
 #define nn_BrowPanel_hpp
 
 #include <stdio.h>
 #include "CocosHeader.h"
-#include "TouchSprite.h"
+#include "../../../../LibExt/TouchSprite.h"
 
 NN_NAMESPACE_BEGIN
 
-class BrowPanel:public cocos2d::Node,
-    public TouchSpriteDelegate
+class BrowPanel : public cocos2d::Node, public TouchSpriteDelegate
 {
 public:
     BrowPanel();

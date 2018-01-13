@@ -1,9 +1,20 @@
-﻿#ifndef __nn_GameLayer_H__
-#define __nn_GameLayer_H__
+﻿/************************************************************************************
+ * file: 		GameLayer.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/11 22:41:06
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/11			
+ *
+ ************************************************************************************/
+
+#ifndef __NN_GAME_LAYER_H__
+#define __NN_GAME_LAYER_H__
 
 #include "CocosHeader.h"
-#include "GameDataMgr.h"
-#include "UserData.h"
+#include "../../DataMgr/GameDataMgr.h"
+#include "../../DataMgr/UserData.h"
 
 #include "GameRoleNode.h"
 #include "CMD_Game.h"
@@ -38,21 +49,21 @@ public:
 	CC_SYNTHESIZE(UIScene*,m_notify,NotifyScene);
 public:
 	//界面重置
-	void reSet();
+	void Reset();
     
     //界面重置，再来一局的情况
-    void reSetNewGame();
+    void ResetNewGame();
     
     //清理界面玩家
-    void clearUser(bool bClear = true);
+    void ClearUser(bool bClear = true);
     
     //是否动态加入
-    void setDynamicJoin(bool bDynamicJoin){ m_bDynamicJoin = bDynamicJoin; }
+    void SetDynamicJoin(bool bDynamicJoin){ m_bDynamicJoin = bDynamicJoin; }
     
     /*
      * @brief 游戏空闲状态
      */
-    void updateOnGameStateFree();
+    void UpdateOnGameStateFree();
     
 	/*
 	 * @brief 更新界面用户显示状态

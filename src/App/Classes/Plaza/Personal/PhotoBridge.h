@@ -40,18 +40,17 @@ public:
     
     //android相册图片选择完成
     void notifyAndroidPhotoImage(cocos2d::EventCustom *event);
-    
     void setChoiceType(int type);
-    
     void openPhoto();
-    
     void choiceComplete(cocos2d::Image *pimage);
-    
     void *pickerImage;
     
-    EM_CHOOSE_TYPE m_emChooseType;
-    
-    PhotoCallback m_completeCallback;
+	PhotoCallback getPhotoCallback() { return this->m_completeCallback; }
+	void setPhotoCallback(PhotoCallback photoCallback) { this->m_completeCallback = photoCallback; }
+
+private:
+    EM_CHOOSE_TYPE	m_emChooseType;
+    PhotoCallback	m_completeCallback;
 };
 
 #endif

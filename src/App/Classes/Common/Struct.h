@@ -18,281 +18,281 @@
 #pragma pack(1)
 
 /////////////////////////////////////////////////////////////////////
-//æ¸¸æˆåˆ—è¡¨
+//ÓÎÏ·ÁĞ±í
 
-//æ¸¸æˆç±»å‹
+//ÓÎÏ·ÀàĞÍ
 typedef struct _stGameType
 {
-	WORD				wJoinID;					//æŒ‚æ¥ç´¢å¼•
-	WORD				wSortID;					//æ’åºç´¢å¼•
-	WORD				wTypeID;					//ç±»å‹ç´¢å¼•
-	TCHAR				szTypeName[LEN_TYPE];		//ç§ç±»åå­—
+	WORD				wJoinID;					//¹Ò½ÓË÷Òı
+	WORD				wSortID;					//ÅÅĞòË÷Òı
+	WORD				wTypeID;					//ÀàĞÍË÷Òı
+	TCHAR				szTypeName[LEN_TYPE];		//ÖÖÀàÃû×Ö
 }ST_GAME_TYPE, *PST_GAME_TYPE;
 
-//æ¸¸æˆç§ç±»
+//ÓÎÏ·ÖÖÀà
 typedef struct _stGameKind
 {
-	WORD				wTypeID;					//ç±»å‹ç´¢å¼•
-	WORD				wJoinID;					//æŒ‚æ¥ç´¢å¼•
-	WORD				wSortID;					//æ’åºç´¢å¼•
-	WORD				wKindID;					//ç±»å‹ç´¢å¼•
-	WORD				wGameID;					//æ¨¡å—ç´¢å¼• 
-	DWORD				dwOnlineCount;				//åœ¨çº¿äººæ•°
-    DWORD				dwAndroidCount;				//åœ¨çº¿äººæ•°
-	DWORD				dwFullCount;				//æ»¡å‘˜äººæ•°
-	TCHAR				szKindName[LEN_KIND];		//ç±»å‹åå­—
-	TCHAR				szProcessName;				//è¿›ç¨‹åå­—
+	WORD				wTypeID;					//ÀàĞÍË÷Òı
+	WORD				wJoinID;					//¹Ò½ÓË÷Òı
+	WORD				wSortID;					//ÅÅĞòË÷Òı
+	WORD				wKindID;					//ÀàĞÍË÷Òı
+	WORD				wGameID;					//Ä£¿éË÷Òı 
+	DWORD				dwOnlineCount;				//ÔÚÏßÈËÊı
+    DWORD				dwAndroidCount;				//ÔÚÏßÈËÊı
+	DWORD				dwFullCount;				//ÂúÔ±ÈËÊı
+	TCHAR				szKindName[LEN_KIND];		//ÀàĞÍÃû×Ö
+	TCHAR				szProcessName;				//½ø³ÌÃû×Ö
 }ST_GAME_KIND, *PST_GAME_KIND;
 
-//æ¸¸æˆèŠ‚ç‚¹
+//ÓÎÏ·½Úµã
 typedef struct _stGameNode
 {
-	WORD				wKindID;					//åç§°ç´¢å¼•
-	WORD				wJoinID;					//æŒ‚æ¥ç´¢å¼•
-	WORD				wSortID;					//æ’åºç´¢å¼•
-	WORD				wNodeID;					//èŠ‚ç‚¹ç´¢å¼•
-	TCHAR				szNodeName;					//èŠ‚ç‚¹åå­—
+	WORD				wKindID;					//Ãû³ÆË÷Òı
+	WORD				wJoinID;					//¹Ò½ÓË÷Òı
+	WORD				wSortID;					//ÅÅĞòË÷Òı
+	WORD				wNodeID;					//½ÚµãË÷Òı
+	TCHAR				szNodeName;					//½ÚµãÃû×Ö
 }ST_GAME_NODE, *PST_GAME_NODE;
 
-//å®šåˆ¶ç±»å‹
+//¶¨ÖÆÀàĞÍ
 typedef struct _stGamePage
 {
-	WORD				wPageID;					//é¡µé¢ç´¢å¼•
-	WORD				wKindID;					//åç§°ç´¢å¼•
-	WORD				wNodeID;					//èŠ‚ç‚¹ç´¢å¼•
-	WORD				wSortID;					//æ’åºç´¢å¼•
-	WORD				wOperateType;				//æ§åˆ¶ç±»å‹
-	TCHAR				szDisPlayeName[LEN_PAGE];	//æ˜¾ç¤ºåç§°
+	WORD				wPageID;					//Ò³ÃæË÷Òı
+	WORD				wKindID;					//Ãû³ÆË÷Òı
+	WORD				wNodeID;					//½ÚµãË÷Òı
+	WORD				wSortID;					//ÅÅĞòË÷Òı
+	WORD				wOperateType;				//¿ØÖÆÀàĞÍ
+	TCHAR				szDisPlayeName[LEN_PAGE];	//ÏÔÊ¾Ãû³Æ
 }ST_GAME_PAGE, *PST_GAME_PAGE;
 
-//æ¸¸æˆæˆ¿é—´æœåŠ¡å™¨
+//ÓÎÏ··¿¼ä·şÎñÆ÷
 typedef struct _stGameRoomServer
 {
-	WORD				wKindID;					//åç§°ç´¢å¼•
-	WORD				wNodeID;					//èŠ‚ç‚¹ç´¢å¼•
-	WORD				wSortID;					//æ’åºç´¢å¼•
-	WORD				wServerID;					//æˆ¿é—´ç´¢å¼•
-    WORD                wServerKind;                //æˆ¿é—´ç±»å‹
-    WORD                wServerType;                //æˆ¿é—´ç±»å‹
-    WORD                wServerLevel;               //æˆ¿é—´ç­‰çº§
-	WORD				wServerPort;				//æˆ¿é—´ç«¯å£
-    LONGLONG               lCellScore;                 //å•å…ƒç§¯åˆ†
-    LONGLONG               lEnterScore;                //è¿›å…¥ç§¯åˆ†
-    DWORD				dwServerRule;               //æˆ¿é—´è§„åˆ™
-	DWORD				dwOnlineCount;				//åœ¨çº¿äººæ•°
-    DWORD               dwAndroidCount;             //æœºå™¨äººæ•°
-	DWORD				dwFullCount;				//æ»¡å‘˜äººæ•°
-	TCHAR				szServerAddr[32];			//æˆ¿é—´åœ°å€
-	TCHAR				szServerName[LEN_GAME_ROOM];	//æˆ¿é—´åç§°
+	WORD				wKindID;					//Ãû³ÆË÷Òı
+	WORD				wNodeID;					//½ÚµãË÷Òı
+	WORD				wSortID;					//ÅÅĞòË÷Òı
+	WORD				wServerID;					//·¿¼äË÷Òı
+    WORD                wServerKind;                //·¿¼äÀàĞÍ
+    WORD                wServerType;                //·¿¼äÀàĞÍ
+    WORD                wServerLevel;               //·¿¼äµÈ¼¶
+	WORD				wServerPort;				//·¿¼ä¶Ë¿Ú
+    LONGLONG               lCellScore;                 //µ¥Ôª»ı·Ö
+    LONGLONG               lEnterScore;                //½øÈë»ı·Ö
+    DWORD				dwServerRule;               //·¿¼ä¹æÔò
+	DWORD				dwOnlineCount;				//ÔÚÏßÈËÊı
+    DWORD               dwAndroidCount;             //»úÆ÷ÈËÊı
+	DWORD				dwFullCount;				//ÂúÔ±ÈËÊı
+	TCHAR				szServerAddr[32];			//·¿¼äµØÖ·
+	TCHAR				szServerName[LEN_GAME_ROOM];	//·¿¼äÃû³Æ
 }ST_GAME_ROOM_SERVER, *PST_GAME_ROOM_SERVER;
 
-//æ¯”èµ›æŠ¥å
+//±ÈÈü±¨Ãû
 typedef struct _stSignupMatchInfo
 {
-	WORD				wServerID;					//æˆ¿é—´æ ‡è¯†
-	DWORD				dwMatchID;					//æ¯”èµ›æ ‡è¯†
-	DWORD				dwMatchNO;					//æ¯”èµ›åœºæ¬¡
+	WORD				wServerID;					//·¿¼ä±êÊ¶
+	DWORD				dwMatchID;					//±ÈÈü±êÊ¶
+	DWORD				dwMatchNO;					//±ÈÈü³¡´Î
 }ST_SIGNUP_MATCH_INFO, *PST_SIGNUP_MATCH_INFO;
 
-//æ¯”èµ›ä¿¡æ¯
+//±ÈÈüĞÅÏ¢
 typedef struct _stGameMatch
 {
-	//åŸºæœ¬ä¿¡æ¯
-	WORD				wServerID;					//æˆ¿é—´æ ‡è¯†
-	DWORD				dwMatchID;					//æ¯”èµ›æ ‡è¯†
-	DWORD				dwMatchNO;					//æ¯”èµ›åœºæ¬¡
-	BYTE				cbMatchType;				//æ¯”èµ›ç±»å‹
-	TCHAR				szMatchName[32];			//æ¯”èµ›åç§°
+	//»ù±¾ĞÅÏ¢
+	WORD				wServerID;					//·¿¼ä±êÊ¶
+	DWORD				dwMatchID;					//±ÈÈü±êÊ¶
+	DWORD				dwMatchNO;					//±ÈÈü³¡´Î
+	BYTE				cbMatchType;				//±ÈÈüÀàĞÍ
+	TCHAR				szMatchName[32];			//±ÈÈüÃû³Æ
 
-	//æ¯”èµ›ä¿¡æ¯
-	BYTE				cbMemberOrder;				//ä¼šå‘˜ç­‰çº§
-	BYTE				cbMatchFeeType;				//æ‰£è´¹ç±»å‹
-	LONGLONG				lMatchFee;					//æ¯”èµ›è´¹ç”¨
+	//±ÈÈüĞÅÏ¢
+	BYTE				cbMemberOrder;				//»áÔ±µÈ¼¶
+	BYTE				cbMatchFeeType;				//¿Û·ÑÀàĞÍ
+	LONGLONG				lMatchFee;					//±ÈÈü·ÑÓÃ
 
-	//æ¯”èµ›ä¿¡æ¯
-	WORD				wStartUserCount;			//å¼€èµ›äººæ•°
-	WORD				wMatchPlayCount;			//æ¯”èµ›å±€æ•°
+	//±ÈÈüĞÅÏ¢
+	WORD				wStartUserCount;			//¿ªÈüÈËÊı
+	WORD				wMatchPlayCount;			//±ÈÈü¾ÖÊı
 
-	//æ¯”èµ›å¥–åŠ±
-	WORD                wRewardCount;               //å¥–åŠ±äººæ•°
+	//±ÈÈü½±Àø
+	WORD                wRewardCount;               //½±ÀøÈËÊı
 
-	//æ¯”èµ›æ—¶é—´
-	ST_SYS_TIME			stMatchStartTime;			//å¼€å§‹æ—¶é—´
-	ST_SYS_TIME			stMatchEndTime;				//ç»“æŸæ—¶é—´
+	//±ÈÈüÊ±¼ä
+	ST_SYS_TIME			stMatchStartTime;			//¿ªÊ¼Ê±¼ä
+	ST_SYS_TIME			stMatchEndTime;				//½áÊøÊ±¼ä
 }ST_GAME_MATCH, *PST_GAME_MATCH;
 
-//è§†é¢‘é…ç½®
+//ÊÓÆµÅäÖÃ
 typedef struct _stAVServerConfig
 {
-	WORD				wAVServerPort;				//è§†é¢‘ç«¯å£
-	DWORD				dwAVServerAddr;				//è§†é¢‘åœ°å€
+	WORD				wAVServerPort;				//ÊÓÆµ¶Ë¿Ú
+	DWORD				dwAVServerAddr;				//ÊÓÆµµØÖ·
 }ST_AV_SERVER_CONFIG, *PST_AV_SERVER_CONFIG;
 
-//åœ¨çº¿ä¿¡æ¯
+//ÔÚÏßĞÅÏ¢
 typedef struct _stOnlineInfoType
 {
-	WORD				wKindID;					//ç±»å‹æ ‡è¯†
-	DWORD				dwOnlineCount;				//åœ¨çº¿äººæ•°
+	WORD				wKindID;					//ÀàĞÍ±êÊ¶
+	DWORD				dwOnlineCount;				//ÔÚÏßÈËÊı
 }ST_ONLINE_INFO_TYPE, *PST_ONLINE_INFO_TYPE;
 
 
-//åœ¨çº¿ç»Ÿè®¡
+//ÔÚÏßÍ³¼Æ
 typedef struct _stOnlineInfoStatistics
 {
-	WORD				wKindID;					//ç±»å‹æ ‡è¯†
-	DWORD				dwOnLineCount;				//åœ¨çº¿äººæ•°
-	DWORD				dwAndroidCount;				//æœºå™¨äººæ•°
+	WORD				wKindID;					//ÀàĞÍ±êÊ¶
+	DWORD				dwOnLineCount;				//ÔÚÏßÈËÊı
+	DWORD				dwAndroidCount;				//»úÆ÷ÈËÊı
 }ST_ONLINE_INFO_STATISTICS, *PST_ONLINE_INFO_STATISTICS;
 
-//æ¸¸æˆæˆ¿é—´åœ¨çº¿ä¿¡æ¯
+//ÓÎÏ··¿¼äÔÚÏßĞÅÏ¢
 typedef struct _stOnlineInfoGameRoom
 {
-	WORD				wServerID;					//æˆ¿é—´æ ‡è¯†
-	DWORD				dwOnLineCount;				//åœ¨çº¿äººæ•°
+	WORD				wServerID;					//·¿¼ä±êÊ¶
+	DWORD				dwOnLineCount;				//ÔÚÏßÈËÊı
 }ST_ONLINE_INFO_ROOM_SERVER, *PST_ONLINE_INFO_ROOM_SERVER;
 
 /////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark ç”¨æˆ·ä¿¡æ¯
+#pragma mark ÓÃ»§ĞÅÏ¢
 
-//æ¡Œå­çŠ¶æ€
+//×À×Ó×´Ì¬
 typedef struct _stTableStatus
 {
-	BYTE				cbTableLock;				//é”å®šæ ‡å¿—
-	BYTE				cbPlayStatus;				//æ¸¸æˆæ ‡å¿—
-    INT					nCellScore;					//å•å…ƒç§¯åˆ†
+	BYTE				cbTableLock;				//Ëø¶¨±êÖ¾
+	BYTE				cbPlayStatus;				//ÓÎÏ·±êÖ¾
+    INT					nCellScore;					//µ¥Ôª»ı·Ö
 }ST_TABLE_STATUS, *PST_TABLE_STATUS;
 
-//ç”¨æˆ·çŠ¶æ€
+//ÓÃ»§×´Ì¬
 typedef struct _stUserStatus
 {
-	WORD				wTableID;					//æ¡Œå­ç´¢å¼•
-	WORD				wChairID;					//æ¤…å­ä½ç½®
-	BYTE				cbUserStatus;				//ç”¨æˆ·çŠ¶æ€
+	WORD				wTableID;					//×À×ÓË÷Òı
+	WORD				wChairID;					//ÒÎ×ÓÎ»ÖÃ
+	BYTE				cbUserStatus;				//ÓÃ»§×´Ì¬
 }ST_USER_STATUS, *PST_USER_STATUS;
 
 typedef struct _stUserRelationship
 {
-    BYTE               cbCompanion;                 //ç”¨æˆ·å…³ç³»
+    BYTE               cbCompanion;                 //ÓÃ»§¹ØÏµ
 }ST_USER_RELATIONSHIP, *PST_USER_RELATIONSHIP;
 
-//ç”¨æˆ·ç§¯åˆ†
+//ÓÃ»§»ı·Ö
 typedef	struct _stUserScore
 {
-	//ç§¯åˆ†ä¿¡æ¯
-	LONGLONG			llGameCoin;					//ç”¨æˆ·æ¸¸æˆå¸
-    LONGLONG            llGrade;                    //ç”¨æˆ·æˆç»©
-	LONGLONG			llBanker;					//é“¶è¡Œåˆ†æ•°
-    LONGLONG            llGold;						//ç”¨æˆ·é‡‘å¸
+	//»ı·ÖĞÅÏ¢
+	LONGLONG			llGameCoin;					//ÓÃ»§ÓÎÏ·±Ò
+    LONGLONG            llGrade;                    //ÓÃ»§³É¼¨
+	LONGLONG			llBanker;					//ÒøĞĞ·ÖÊı
+    LONGLONG            llGold;						//ÓÃ»§½ğ±Ò
 	
-	//è¾“èµ¢ä¿¡æ¯
-	DWORD				dwWinCount;					//èƒœåˆ©ç›˜æ•°
-	DWORD				dwLostCount;				//å¤±è´¥ç›˜æ•°
-	DWORD				dwDrawCount;				//å’Œå±€ç›˜æ•°
-	DWORD				dwEscapeCount;				//é€ƒè·‘ç›˜æ•°
+	//ÊäÓ®ĞÅÏ¢
+	DWORD				dwWinCount;					//Ê¤ÀûÅÌÊı
+	DWORD				dwLostCount;				//Ê§°ÜÅÌÊı
+	DWORD				dwDrawCount;				//ºÍ¾ÖÅÌÊı
+	DWORD				dwEscapeCount;				//ÌÓÅÜÅÌÊı
 	
-	//å…¨å±€ä¿¡æ¯
-	DWORD				dwUserMedal;				//ç”¨æˆ·å¥–ç‰Œ
-	DWORD				dwExp;						//ç”¨æˆ·ç»éªŒ
-	DWORD				dwLoveLiness;				//ç”¨æˆ·é­…åŠ›
+	//È«¾ÖĞÅÏ¢
+	DWORD				dwUserMedal;				//ÓÃ»§½±ÅÆ
+	DWORD				dwExp;						//ÓÃ»§¾­Ñé
+	DWORD				dwLoveLiness;				//ÓÃ»§÷ÈÁ¦
 }ST_USER_SCORE, *PST_USER_SCORE;
 
 
 #pragma mark -
-#pragma mark ç”¨æˆ·ç§¯åˆ†
+#pragma mark ÓÃ»§»ı·Ö
 typedef struct _stMobileUserGameCoin
 {
-	//ç§¯åˆ†ä¿¡æ¯
-	LONGLONG			llGameCoin;					//ç”¨æˆ·æ¸¸æˆå¸
-	DOUBLE              dBean;                      //ç”¨æˆ·æ¸¸æˆè±†
+	//»ı·ÖĞÅÏ¢
+	LONGLONG			llGameCoin;					//ÓÃ»§ÓÎÏ·±Ò
+	DOUBLE              dBean;                      //ÓÃ»§ÓÎÏ·¶¹
 
-	//è¾“èµ¢ä¿¡æ¯
-	DWORD				dwWinCount;					//èƒœåˆ©ç›˜æ•°
-	DWORD				dwLostCount;				//å¤±è´¥ç›˜æ•°
-	DWORD				dwDrawCount;				//å’Œå±€ç›˜æ•°
-	DWORD				dwEscapeCount;				//é€ƒè·‘ç›˜æ•°
+	//ÊäÓ®ĞÅÏ¢
+	DWORD				dwWinCount;					//Ê¤ÀûÅÌÊı
+	DWORD				dwLostCount;				//Ê§°ÜÅÌÊı
+	DWORD				dwDrawCount;				//ºÍ¾ÖÅÌÊı
+	DWORD				dwEscapeCount;				//ÌÓÅÜÅÌÊı
 	
-	//å…¨å±€ä¿¡æ¯
-	DWORD				dwExp;						//ç”¨æˆ·ç»éªŒ
+	//È«¾ÖĞÅÏ¢
+	DWORD				dwExp;						//ÓÃ»§¾­Ñé
 }ST_MOBILE_USER_SCORE, *PST_MOBILE_USER_SCORE;
 
-//é“å…·ä½¿ç”¨
+//µÀ¾ßÊ¹ÓÃ
 typedef struct _stUsePropInfo
 {
-    WORD                wPropCount;					//é“å…·æ•°ç›®
-    WORD                wValidNum;					//æœ‰æ•ˆæ¬¡æ•°
-    DWORD               dwEffectTime;               //ç”Ÿæ•ˆæ—¶é—´
+    WORD                wPropCount;					//µÀ¾ßÊıÄ¿
+    WORD                wValidNum;					//ÓĞĞ§´ÎÊı
+    DWORD               dwEffectTime;               //ÉúĞ§Ê±¼ä
 }ST_USER_PROP_INFO, *PST_USER_PROP_INFO;
 
-//ç”¨æˆ·é“å…·
+//ÓÃ»§µÀ¾ß
 typedef struct _stUserProp
 {
-	WORD                wPropUseFlag;				//é“å…·ä½¿ç”¨æ ‡ç¤º
-	ST_USER_PROP_INFO	stUserPropInfoArray[MAX_PT_MARK];//ä½¿ç”¨ä¿¡æ¯
+	WORD                wPropUseFlag;				//µÀ¾ßÊ¹ÓÃ±êÊ¾
+	ST_USER_PROP_INFO	stUserPropInfoArray[MAX_PT_MARK];//Ê¹ÓÃĞÅÏ¢
 }ST_USER_PROP, *PST_USER_PROP;
 
-//é“å…·åŒ…è£¹
+//µÀ¾ß°ü¹ü
 typedef struct _stPropPackage
 {
-	WORD                wTrumpetCount;              //å°å–‡å­æ•°
-	WORD                wTyphonCount;               //å¤§å–‡å­æ•°
+	WORD                wTrumpetCount;              //Ğ¡À®°ÈÊı
+	WORD                wTyphonCount;               //´óÀ®°ÈÊı
 }ST_PROP_PACKAGE, *PST_PROP_PACKAGE;
 
-//æ—¶é—´ä¿¡æ¯
+//Ê±¼äĞÅÏ¢
 typedef struct _stTimeInfo
 {
-	DWORD				dwEnterTableTimer;			//è¿›å‡ºæ¡Œå­æ—¶é—´
-	DWORD				dwLeaveTableTimer;			//ç¦»å¼€æ¡Œå­æ—¶é—´
-	DWORD				dwStartGameTimer;			//å¼€å§‹æ¸¸æˆæ—¶é—´
-	DWORD				dwEndGameTimer;				//ç¦»å¼€æ¸¸æˆæ—¶é—´
+	DWORD				dwEnterTableTimer;			//½ø³ö×À×ÓÊ±¼ä
+	DWORD				dwLeaveTableTimer;			//Àë¿ª×À×ÓÊ±¼ä
+	DWORD				dwStartGameTimer;			//¿ªÊ¼ÓÎÏ·Ê±¼ä
+	DWORD				dwEndGameTimer;				//Àë¿ªÓÎÏ·Ê±¼ä
 }ST_TIME_INFO, *PST_TIME_INFO;
 
-//ç”¨æˆ·ä¿¡æ¯
+//ÓÃ»§ĞÅÏ¢
 typedef struct _stUserInfo
 {
-	//åŸºæœ¬å±æ€§
-	DWORD				dwUserID;						//ç”¨æˆ·I D
-	DWORD				dwGameID;						//æ¸¸æˆI D
-	DWORD				dwGroupID;						//ç¤¾å›¢I D
+	//»ù±¾ÊôĞÔ
+	DWORD				dwUserID;						//ÓÃ»§I D
+	DWORD				dwGameID;						//ÓÎÏ·I D
+	DWORD				dwGroupID;						//ÉçÍÅI D
 	
-	TCHAR				szNickName[LEN_NICENAME];		//ç”¨æˆ·æ˜µç§°
-	TCHAR				szGroupName[LEN_GROUP_NAME];	//ç¤¾å›¢åå­—
-	TCHAR				szUnderWrite[LEN_UNDER_WRITE];	//ä¸ªæ€§ç­¾å
+	TCHAR				szNickName[LEN_MAX_NICKNAME];	//ÓÃ»§êÇ³Æ
+	TCHAR				szGroupName[LEN_MAX_GROUP_NAME];//ÉçÍÅÃû×Ö
+	TCHAR				szUnderWrite[LEN_SIGNATURE];	//¸öĞÔÇ©Ãû
 	
-	//å¤´åƒä¿¡æ¯
-	DWORD				dwFaceID;						//å¤´åƒç´¢å¼•
-	DWORD				dwCustomID;						//è‡ªå®šæ ‡è¯†
+	//Í·ÏñĞÅÏ¢
+	DWORD				dwFaceID;						//Í·ÏñË÷Òı
+	DWORD				dwCustomID;						//×Ô¶¨±êÊ¶
 	
-	//ç”¨æˆ·èµ„æ–™
-	BYTE				cbGender;						//ç”¨æˆ·æ€§åˆ«
-	BYTE				cbMemberOrder;					//ä¼šå‘˜ç­‰çº§
-	BYTE				cbMasterOrder;					//ç®¡ç†ç­‰çº§
+	//ÓÃ»§×ÊÁÏ
+	BYTE				cbGender;						//ÓÃ»§ĞÔ±ğ
+	BYTE				cbMemberOrder;					//»áÔ±µÈ¼¶
+	BYTE				cbMasterOrder;					//¹ÜÀíµÈ¼¶
 	
-	//ç”¨æˆ·çŠ¶æ€
-	WORD				wTableID;						//æ¡Œå­ç´¢å¼•
-    WORD                wLastTableID;                   //æ¸¸æˆæ¡Œå­
-	WORD				wChairID;						//æ¤…å­ç´¢å¼•
-	BYTE				cbUserStatus;					//ç”¨æˆ·çŠ¶æ€
+	//ÓÃ»§×´Ì¬
+	WORD				wTableID;						//×À×ÓË÷Òı
+    WORD                wLastTableID;                   //ÓÎÏ·×À×Ó
+	WORD				wChairID;						//ÒÎ×ÓË÷Òı
+	BYTE				cbUserStatus;					//ÓÃ»§×´Ì¬
 	
-	//ç§¯åˆ†ä¿¡æ¯
-	LONGLONG			llGameCoin;						//ç”¨æˆ·æ¸¸æˆå¸
-	LONGLONG			llGrade;						//ç”¨æˆ·æˆç»©
-	LONGLONG			llBankGold;						//é“¶è¡Œé‡‘å¸
-	LONGLONG            llGold;                         //ç”¨æˆ·é‡‘å¸
+	//»ı·ÖĞÅÏ¢
+	LONGLONG			llGameCoin;						//ÓÃ»§ÓÎÏ·±Ò
+	LONGLONG			llGrade;						//ÓÃ»§³É¼¨
+	LONGLONG			llBankGold;						//ÒøĞĞ½ğ±Ò
+	LONGLONG            llGold;                         //ÓÃ»§½ğ±Ò
     
-	//æ¸¸æˆä¿¡æ¯
-	DWORD				dwWinCount;						//èƒœåˆ©ç›˜æ•°
-	DWORD				dwLostCount;					//å¤±è´¥ç›˜æ•°
-	DWORD				dwDrawCount;					//å’Œå±€ç›˜æ•°
-	DWORD				dwEscapeCount;					//é€ƒè·‘ç›˜æ•°
-	DWORD				dwExp;							//ç”¨æˆ·ç»éªŒ
-	DWORD				dwLoveLiness;					//ç”¨æˆ·é­…åŠ›
+	//ÓÎÏ·ĞÅÏ¢
+	DWORD				dwWinCount;						//Ê¤ÀûÅÌÊı
+	DWORD				dwLostCount;					//Ê§°ÜÅÌÊı
+	DWORD				dwDrawCount;					//ºÍ¾ÖÅÌÊı
+	DWORD				dwEscapeCount;					//ÌÓÅÜÅÌÊı
+	DWORD				dwExp;							//ÓÃ»§¾­Ñé
+	DWORD				dwLoveLiness;					//ÓÃ»§÷ÈÁ¦
     
-    //æ—¶é—´ä¿¡æ¯
-    ST_TIME_INFO        stTimeInfo;						//æ—¶é—´ä¿¡æ¯
+    //Ê±¼äĞÅÏ¢
+    ST_TIME_INFO        stTimeInfo;						//Ê±¼äĞÅÏ¢
 }ST_USER_INFO, *PST_USER_INFO;
 
-//ç”¨æˆ·ä¿¡æ¯ tagUserInfoHead
+//ÓÃ»§ĞÅÏ¢ tagUserInfoHead
 typedef struct _stUserInfoHead
 {
 public:
@@ -307,265 +307,265 @@ public:
 	~_stUserInfoHead(){}
     
 public:
-	//ç”¨æˆ·å±æ€§
-	DWORD				dwGameID;						//æ¸¸æˆI D
-	DWORD				dwUserID;						//ç”¨æˆ·I D
-    DWORD               dwGroupID;                      //ç¤¾å›¢id
+	//ÓÃ»§ÊôĞÔ
+	DWORD				dwGameID;						//ÓÎÏ·I D
+	DWORD				dwUserID;						//ÓÃ»§I D
+    DWORD               dwGroupID;                      //ÉçÍÅid
 	
-	//å¤´åƒä¿¡æ¯
-	DWORD				dwFaceID;						//å¤´åƒç´¢å¼•
-	DWORD				dwCustomID;						//è‡ªå®šæ ‡è¯†
+	//Í·ÏñĞÅÏ¢
+	DWORD				dwFaceID;						//Í·ÏñË÷Òı
+	DWORD				dwCustomID;						//×Ô¶¨±êÊ¶
 	
-	//ç”¨æˆ·å±æ€§
-    bool                bIsAndroid;                     //OSæ ‡ç¤º
-	BYTE				cbGender;						//ç”¨æˆ·æ€§åˆ«
-	BYTE				cbVipLevel;						//ä¼šå‘˜ç­‰çº§
-    BYTE                cbMasterLevel;                  //ç®¡ç†ç­‰çº§
+	//ÓÃ»§ÊôĞÔ
+    bool                bIsAndroid;                     //OS±êÊ¾
+	BYTE				cbGender;						//ÓÃ»§ĞÔ±ğ
+	BYTE				cbVipLevel;						//»áÔ±µÈ¼¶
+    BYTE                cbMasterLevel;                  //¹ÜÀíµÈ¼¶
 	
-	//ç”¨æˆ·çŠ¶æ€
-	WORD				wTableID;						//æ¡Œå­ç´¢å¼•
-	WORD				wChairID;						//æ¤…å­ç´¢å¼•
-	BYTE				cbUserStatus;					//ç”¨æˆ·çŠ¶æ€
+	//ÓÃ»§×´Ì¬
+	WORD				wTableID;						//×À×ÓË÷Òı
+	WORD				wChairID;						//ÒÎ×ÓË÷Òı
+	BYTE				cbUserStatus;					//ÓÃ»§×´Ì¬
 	
-	//ç§¯åˆ†ä¿¡æ¯
-	LONGLONG			llGameCoin;						//ç”¨æˆ·æ¸¸æˆå¸
-	LONGLONG            llGrade;                        //ç”¨æˆ·æˆç»©
-	LONGLONG            llBankGold;						//ç”¨æˆ·é“¶è¡Œé‡‘å¸
-	LONGLONG            llGold;                         //ç”¨æˆ·é‡‘å¸
+	//»ı·ÖĞÅÏ¢
+	LONGLONG			llGameCoin;						//ÓÃ»§ÓÎÏ·±Ò
+	LONGLONG            llGrade;                        //ÓÃ»§³É¼¨
+	LONGLONG            llBankGold;						//ÓÃ»§ÒøĞĞ½ğ±Ò
+	LONGLONG            llGold;                         //ÓÃ»§½ğ±Ò
 	
-	//æ¸¸æˆä¿¡æ¯
-	DWORD				dwWinCount;						//èƒœåˆ©ç›˜æ•°
-	DWORD				dwLostCount;					//å¤±è´¥ç›˜æ•°
-	DWORD				dwDrawCount;					//å’Œå±€ç›˜æ•°
-	DWORD				dwEscapeCount;					//é€ƒè·‘ç›˜æ•°
-	DWORD				dwExp;							//ç”¨æˆ·ç»éªŒ
-	DWORD				dwLoveliness;					//ç”¨æˆ·é­…åŠ›
+	//ÓÎÏ·ĞÅÏ¢
+	DWORD				dwWinCount;						//Ê¤ÀûÅÌÊı
+	DWORD				dwLostCount;					//Ê§°ÜÅÌÊı
+	DWORD				dwDrawCount;					//ºÍ¾ÖÅÌÊı
+	DWORD				dwEscapeCount;					//ÌÓÅÜÅÌÊı
+	DWORD				dwExp;							//ÓÃ»§¾­Ñé
+	DWORD				dwLoveliness;					//ÓÃ»§÷ÈÁ¦
 }ST_USER_INFO_HEAD, *PST_USER_INFO_HEAD;
 
-//æ‰©å±•æ˜µç§°
+//À©Õ¹êÇ³Æ
 typedef struct _stUserDataExt
 {
-	WORD				wDataSize;						//æ•°æ®å¤§å°
-	WORD				wDataDesc;						//æ•°æ®æè¿°
+	WORD				wDataSize;						//Êı¾İ´óĞ¡
+	WORD				wDataDesc;						//Êı¾İÃèÊö
 }ST_USER_DATA_EXT, *PST_USER_DATA_EXT;
 
-//å¤´åƒä¿¡æ¯
+//Í·ÏñĞÅÏ¢
 typedef struct _stCustomFaceInfo
 {
-	DWORD				dwDataSize;						//æ•°æ®å¤§å°
-	DWORD				dwCutstomFace[FACE_CX*FACE_CY];	//å›¾ç‰‡ä¿¡æ¯
+	DWORD				dwDataSize;						//Êı¾İ´óĞ¡
+	DWORD				dwCutstomFace[FACE_CX*FACE_CY];	//Í¼Æ¬ĞÅÏ¢
 }ST_CUSTOM_FACE_INFO, *PST_CUSTOM_FACE_INFO;
 
-//ç”¨æˆ·ä¿¡æ¯
+//ÓÃ»§ĞÅÏ¢
 typedef struct _stUserRemoteInfo
 {
-	//ç”¨æˆ·ä¿¡æ¯
-	DWORD				dwUserID;						//ç”¨æˆ·æ ‡è¯†
-	DWORD				dwGameID;						//æ¸¸æˆæ ‡è¯†
-	TCHAR				szNickName[LEN_NICKNAME];		//ç”¨æˆ·æ˜µç§°
+	//ÓÃ»§ĞÅÏ¢
+	DWORD				dwUserID;						//ÓÃ»§±êÊ¶
+	DWORD				dwGameID;						//ÓÎÏ·±êÊ¶
+	TCHAR				szNickName[LEN_MAX_NICKNAME];		//ÓÃ»§êÇ³Æ
 
-	//ç­‰çº§ä¿¡æ¯
-	BYTE				cbGender;						//ç”¨æˆ·æ€§åˆ«
-	BYTE				cbVipLevel;						//ä¼šå‘˜ç­‰çº§
-	BYTE				cbMasterLevel;					//ç®¡ç†ç­‰çº§
+	//µÈ¼¶ĞÅÏ¢
+	BYTE				cbGender;						//ÓÃ»§ĞÔ±ğ
+	BYTE				cbVipLevel;						//»áÔ±µÈ¼¶
+	BYTE				cbMasterLevel;					//¹ÜÀíµÈ¼¶
 
-	//ä½ç½®ä¿¡æ¯
-	WORD				wGameTypeID;					//æ¸¸æˆç±»å‹æ ‡è¯†
-	WORD				wGameRoomID;					//æ¸¸æˆæˆ¿é—´æ ‡è¯†
-	TCHAR				szGameRoom[LEN_GAME_ROOM];		//æˆ¿é—´ä½ç½®
+	//Î»ÖÃĞÅÏ¢
+	WORD				wGameTypeID;					//ÓÎÏ·ÀàĞÍ±êÊ¶
+	WORD				wGameRoomID;					//ÓÎÏ··¿¼ä±êÊ¶
+	TCHAR				szGameRoom[LEN_GAME_ROOM];		//·¿¼äÎ»ÖÃ
 }ST_USER_REMOTE_INFO, *PST_USER_REMOTE_INFO;
 
-//ä»»åŠ¡å‚æ•°
+//ÈÎÎñ²ÎÊı
 typedef struct _stTaskParam
 {
-	//åŸºæœ¬ä¿¡æ¯
-	WORD				wTaskID;						//ä»»åŠ¡æ ‡è¯†
-	WORD				wTaskType;						//ä»»åŠ¡ç±»å‹
-    WORD				wTaskObject;					//ä»»åŠ¡ç›®æ ‡
-	BYTE				cbPlayerType;					//ç©å®¶ç±»å‹
-	WORD				wKindID;						//ç±»å‹æ ‡è¯†
-	DWORD				dwTimeLimit;					//æ—¶é—´é™åˆ¶
+	//»ù±¾ĞÅÏ¢
+	WORD				wTaskID;						//ÈÎÎñ±êÊ¶
+	WORD				wTaskType;						//ÈÎÎñÀàĞÍ
+    WORD				wTaskObject;					//ÈÎÎñÄ¿±ê
+	BYTE				cbPlayerType;					//Íæ¼ÒÀàĞÍ
+	WORD				wKindID;						//ÀàĞÍ±êÊ¶
+	DWORD				dwTimeLimit;					//Ê±¼äÏŞÖÆ
 
-	//å¥–åŠ±ä¿¡æ¯
-	LONGLONG			llStandardAwardGold;			//å¥–åŠ±é‡‘å¸
-	LONGLONG			llStandardAwardMedal;			//å¥–åŠ±å¥–ç‰Œ
-	LONGLONG			llVipAwardGold;					//å¥–åŠ±é‡‘å¸
-	LONGLONG			llVipAwardMedal;				//å¥–åŠ±å¥–ç‰Œ
+	//½±ÀøĞÅÏ¢
+	LONGLONG			llStandardAwardGold;			//½±Àø½ğ±Ò
+	LONGLONG			llStandardAwardMedal;			//½±Àø½±ÅÆ
+	LONGLONG			llVipAwardGold;					//½±Àø½ğ±Ò
+	LONGLONG			llVipAwardMedal;				//½±Àø½±ÅÆ
 
-	//æè¿°ä¿¡æ¯
-	TCHAR				szTaskName[LEN_TASK_NAME];		//ä»»åŠ¡åç§°
-	TCHAR				szTaskDes[LEN_TASK_DES];		//ä»»åŠ¡æè¿°
+	//ÃèÊöĞÅÏ¢
+	TCHAR				szTaskName[LEN_TASK_NAME];		//ÈÎÎñÃû³Æ
+	TCHAR				szTaskDes[LEN_TASK_DES];		//ÈÎÎñÃèÊö
 }ST_TASK_PARAM, *PST_TASK_PARAM;
 
-//ä»»åŠ¡çŠ¶æ€
+//ÈÎÎñ×´Ì¬
 typedef struct _stTaskStatus
 {
-	WORD				wTaskID;						//ä»»åŠ¡æ ‡è¯†
-	WORD				wTaskProgress;					//ä»»åŠ¡è¿›åº¦
-	BYTE				cbTaskStatus;					//ä»»åŠ¡çŠ¶æ€
+	WORD				wTaskID;						//ÈÎÎñ±êÊ¶
+	WORD				wTaskProgress;					//ÈÎÎñ½ø¶È
+	BYTE				cbTaskStatus;					//ÈÎÎñ×´Ì¬
 }ST_TASK_STATUS, *PST_TASK_STATUS;
 
-//ä½ä¿å‚æ•°
+//µÍ±£²ÎÊı
 typedef struct _stBaseEnsureParam
 {
-	LONGLONG			llGameCoinCondition;			//æ¸¸æˆå¸æ¡ä»¶
-	LONGLONG			llGameCoinAmount;				//æ¸¸æˆå¸æ•°é‡
-	BYTE				cbTakeTimes;					//é¢†å–æ¬¡æ•°
+	LONGLONG			llGameCoinCondition;			//ÓÎÏ·±ÒÌõ¼ş
+	LONGLONG			llGameCoinAmount;				//ÓÎÏ·±ÒÊıÁ¿
+	BYTE				cbTakeTimes;					//ÁìÈ¡´ÎÊı
 }ST_BASE_ENSURE_PARAM, *PST_BASE_ENSURE_PARAM;
 
-//æ¨å¹¿ä¿¡æ¯
+//ÍÆ¹ãĞÅÏ¢
 typedef struct _stUserSpreadInfo
 {
-	DWORD				dwSpreadCount;					//æ¨å¹¿äººæ•°
-	LONGLONG			llSpreadReward;					//æ¨å¹¿å¥–åŠ±
+	DWORD				dwSpreadCount;					//ÍÆ¹ãÈËÊı
+	LONGLONG			llSpreadReward;					//ÍÆ¹ã½±Àø
 }ST_USER_SPREAD_INFO, *PST_USER_SPREAD_INFO;
 
-//ç­‰çº§é…ç½®
+//µÈ¼¶ÅäÖÃ
 typedef struct _stGrowLevelConfig
 {
-	WORD				wLevel;							//ç­‰çº§ID
-	DWORD				dwExp;							//ç›¸åº”ç»éªŒ
+	WORD				wLevel;							//µÈ¼¶ID
+	DWORD				dwExp;							//ÏàÓ¦¾­Ñé
 }ST_GROW_LEVEL_CONFIG, *PST_GROW_LEVEL_CONFIG;
 
-//ç­‰çº§å‚æ•°
+//µÈ¼¶²ÎÊı
 typedef struct _stLevelUpParam
 {
-	WORD				wCurrLevel;						//å½“å‰ç­‰çº§
-	DWORD				dwCurrExp;						//å½“å‰ç»éªŒ
-	DWORD				dwNextLevelExp;					//ä¸‹çº§ç»éªŒ
-	LONGLONG			llLevelUpRewardGameCoin;		//å‡çº§å¥–åŠ±æ¸¸æˆå¸
-	LONGLONG			llLevelUpRewardGold;			//å‡çº§å¥–åŠ±é‡‘å¸
+	WORD				wCurrLevel;						//µ±Ç°µÈ¼¶
+	DWORD				dwCurrExp;						//µ±Ç°¾­Ñé
+	DWORD				dwNextLevelExp;					//ÏÂ¼¶¾­Ñé
+	LONGLONG			llLevelUpRewardGameCoin;		//Éı¼¶½±ÀøÓÎÏ·±Ò
+	LONGLONG			llLevelUpRewardGold;			//Éı¼¶½±Àø½ğ±Ò
 }ST_LEVEL_UP_PARAM, *PST_LEVEL_UP_PARAM;
 
-//ä¼šå‘˜å‚æ•°
+//»áÔ±²ÎÊı
 typedef struct _stVipParam
 {
-	BYTE				cbVipFlag;						//ä¼šå‘˜æ ‡è¯†
-	TCHAR				szVipName[16];					//ä¼šå‘˜åç§°
-	LONGLONG			llVipPrice;						//ä¼šå‘˜ä»·æ ¼
-	LONGLONG			llPresentGameCoin;				//èµ é€æ¸¸æˆå¸
+	BYTE				cbVipFlag;						//»áÔ±±êÊ¶
+	TCHAR				szVipName[16];					//»áÔ±Ãû³Æ
+	LONGLONG			llVipPrice;						//»áÔ±¼Û¸ñ
+	LONGLONG			llPresentGameCoin;				//ÔùËÍÓÎÏ·±Ò
 }ST_VIP_PARAM, *PST_VIP_PARAM;
 
-//æˆ¿é—´é…ç½®
+//·¿¼äÅäÖÃ
 typedef struct _stGameRoomConfig
 {
-	//æŒ‚æ¥å±æ€§
-	WORD				wKindID;						//æŒ‚æ¥ç±»å‹
-	WORD				wNodeID;						//æŒ‚æ¥èŠ‚ç‚¹
-    WORD				wSortID;						//æ’åˆ—æ ‡è¯†
+	//¹Ò½ÓÊôĞÔ
+	WORD				wKindID;						//¹Ò½ÓÀàĞÍ
+	WORD				wNodeID;						//¹Ò½Ó½Úµã
+    WORD				wSortID;						//ÅÅÁĞ±êÊ¶
 
-	//ç¨æ”¶é…ç½®
-	WORD				wRevenueRatio;					//ç¨æ”¶æ¯”ä¾‹
-	LONGLONG			llServiceGameCoin;				//æœåŠ¡è´¹ç”¨:æ¸¸æˆå¸
+	//Ë°ÊÕÅäÖÃ
+	WORD				wRevenueRatio;					//Ë°ÊÕ±ÈÀı
+	LONGLONG			llServiceGameCoin;				//·şÎñ·ÑÓÃ:ÓÎÏ·±Ò
 
-	//æˆ¿é—´é…ç½®
-	LONGLONG			llLimitGameCoin;				//é™åˆ¶æ¸¸æˆå¸
-	LONGLONG			lMinTableGameCoin;				//æœ€ä½åŒæ¡Œæ¸¸æˆå¸
-	LONGLONG			lMinEnterGameCoin;				//æœ€ä½è¿›å…¥æ¸¸æˆå¸
-	LONGLONG			lMaxEnterGameCoin;				//æœ€é«˜è¿›å…¥æ¸¸æˆå¸
+	//·¿¼äÅäÖÃ
+	LONGLONG			llLimitGameCoin;				//ÏŞÖÆÓÎÏ·±Ò
+	LONGLONG			lMinTableGameCoin;				//×îµÍÍ¬×ÀÓÎÏ·±Ò
+	LONGLONG			lMinEnterGameCoin;				//×îµÍ½øÈëÓÎÏ·±Ò
+	LONGLONG			lMaxEnterGameCoin;				//×î¸ß½øÈëÓÎÏ·±Ò
 	
-	//ä¼šå‘˜é™åˆ¶
-	BYTE				cbMinEnterVipLevel;				//æœ€ä½è¿›å…¥Vipç­‰çº§
-	BYTE				cbMaxEnterVipLevel;				//æœ€é«˜è¿›å…¥Vipç­‰çº§
+	//»áÔ±ÏŞÖÆ
+	BYTE				cbMinEnterVipLevel;				//×îµÍ½øÈëVipµÈ¼¶
+	BYTE				cbMaxEnterVipLevel;				//×î¸ß½øÈëVipµÈ¼¶
 
-	//æˆ¿é—´å±æ€§
-	DWORD				dwGameRoomRule;					//æ¸¸æˆæˆ¿é—´è§„åˆ™
-	TCHAR				szGameRoomName[LEN_GAME_ROOM];	//æ¸¸æˆæˆ¿é—´åç§°
+	//·¿¼äÊôĞÔ
+	DWORD				dwGameRoomRule;					//ÓÎÏ··¿¼ä¹æÔò
+	TCHAR				szGameRoomName[LEN_GAME_ROOM];	//ÓÎÏ··¿¼äÃû³Æ
 }ST_GAME_ROOM_CONFIG, *PST_GAME_ROOM_CONFIG;
 
-//ç”¨æˆ·ä¿¡æ¯
+//ÓÃ»§ĞÅÏ¢
 typedef struct _stMobileUserHeadInfo
 {
-	//ç”¨æˆ·å±æ€§
-	DWORD				dwGameID;						//æ¸¸æˆ I D
-	DWORD				dwUserID;						//ç”¨æˆ· I D
+	//ÓÃ»§ÊôĞÔ
+	DWORD				dwGameID;						//ÓÎÏ· I D
+	DWORD				dwUserID;						//ÓÃ»§ I D
     
-	//å¤´åƒä¿¡æ¯
-	DWORD				dwFaceID;						//å¤´åƒç´¢å¼•
-	DWORD				dwCustomID;						//è‡ªå®šæ ‡è¯†
+	//Í·ÏñĞÅÏ¢
+	DWORD				dwFaceID;						//Í·ÏñË÷Òı
+	DWORD				dwCustomID;						//×Ô¶¨±êÊ¶
     
-	//ç”¨æˆ·å±æ€§
-	BYTE				cbGender;						//ç”¨æˆ·æ€§åˆ«
-	BYTE				cbVipLevel;						//ä¼šå‘˜ç­‰çº§
+	//ÓÃ»§ÊôĞÔ
+	BYTE				cbGender;						//ÓÃ»§ĞÔ±ğ
+	BYTE				cbVipLevel;						//»áÔ±µÈ¼¶
 
-	//ç”¨æˆ·çŠ¶æ€
-	WORD				wTableID;						//æ¡Œå­ç´¢å¼•
-	WORD				wChairID;						//æ¤…å­ç´¢å¼•
-	BYTE				cbUserStatus;					//ç”¨æˆ·çŠ¶æ€
+	//ÓÃ»§×´Ì¬
+	WORD				wTableID;						//×À×ÓË÷Òı
+	WORD				wChairID;						//ÒÎ×ÓË÷Òı
+	BYTE				cbUserStatus;					//ÓÃ»§×´Ì¬
 
-	//ç§¯åˆ†ä¿¡æ¯
-	LONGLONG			llGameCoin;						//ç”¨æˆ·æ¸¸æˆå¸
-    LONGLONG            llGold;                         //ç”¨æˆ·é‡‘å¸
-    DOUBLE              dBean;                          //ç”¨æˆ·æ¸¸æˆè±†
+	//»ı·ÖĞÅÏ¢
+	LONGLONG			llGameCoin;						//ÓÃ»§ÓÎÏ·±Ò
+    LONGLONG            llGold;                         //ÓÃ»§½ğ±Ò
+    DOUBLE              dBean;                          //ÓÃ»§ÓÎÏ·¶¹
 
-	//æ¸¸æˆä¿¡æ¯
-	DWORD				dwWinCount;						//èƒœåˆ©ç›˜æ•°
-	DWORD				dwLostCount;					//å¤±è´¥ç›˜æ•°
-	DWORD				dwDrawCount;					//å’Œå±€ç›˜æ•°
-	DWORD				dwEscapeCount;					//é€ƒè·‘ç›˜æ•°
-	DWORD				dwExp;							//ç”¨æˆ·ç»éªŒ
+	//ÓÎÏ·ĞÅÏ¢
+	DWORD				dwWinCount;						//Ê¤ÀûÅÌÊı
+	DWORD				dwLostCount;					//Ê§°ÜÅÌÊı
+	DWORD				dwDrawCount;					//ºÍ¾ÖÅÌÊı
+	DWORD				dwEscapeCount;					//ÌÓÅÜÅÌÊı
+	DWORD				dwExp;							//ÓÃ»§¾­Ñé
 }ST_MOBILE_USER_HEAD_INFO, *PST_MOBILE_USER_HEAD_INFO;
 
 
-//å¹¿åœºå­é¡¹
+//¹ã³¡×ÓÏî
 typedef struct _stGamePlaza
 {
-	WORD				wPlazaID;						//å¹¿åœºæ ‡è¯†
-	TCHAR				szServerAddr[32];				//æœåŠ¡åœ°å€
-	TCHAR				szServerName[32];				//æœåŠ¡å™¨å
+	WORD				wPlazaID;						//¹ã³¡±êÊ¶
+	TCHAR				szServerAddr[32];				//·şÎñµØÖ·
+	TCHAR				szServerName[32];				//·şÎñÆ÷Ãû
 }ST_GAME_PLAZA, *PST_GAME_PLAZA;
 
-//çº§åˆ«å­é¡¹
+//¼¶±ğ×ÓÏî
 typedef struct _stLevelItem
 {
-	INT					nLevelGameCoin;					//çº§åˆ«æ¸¸æˆå¸
-	TCHAR				szLevelDes[16];					//çº§åˆ«æè¿°
+	INT					nLevelGameCoin;					//¼¶±ğÓÎÏ·±Ò
+	TCHAR				szLevelDes[16];					//¼¶±ğÃèÊö
 }ST_LEVEL_ITEM, *PST_LEVEL_ITEM;
 
-//ä¼šå‘˜å­é¡¹
+//»áÔ±×ÓÏî
 typedef struct _stMemberItem
 {
-	BYTE				cbVipLevel;						//ä¼šå‘˜ç­‰çº§
-	TCHAR				szVipName[16];					//ä¼šå‘˜ç­‰çº§åç§°
+	BYTE				cbVipLevel;						//»áÔ±µÈ¼¶
+	TCHAR				szVipName[16];					//»áÔ±µÈ¼¶Ãû³Æ
 }ST_MEMBER_ITEM, *PST_MEMBER_ITEM;
 
-//ç®¡ç†å­é¡¹
+//¹ÜÀí×ÓÏî
 typedef struct _stMasterItem
 {
-	BYTE				cbMasterLevel;					//ç®¡ç†ç­‰çº§æ ‡è¯†
-	TCHAR				szMasterName[16];				//ç®¡ç†ç­‰çº§åå­—
+	BYTE				cbMasterLevel;					//¹ÜÀíµÈ¼¶±êÊ¶
+	TCHAR				szMasterName[16];				//¹ÜÀíµÈ¼¶Ãû×Ö
 }ST_MASTER_ITEM, *PST_MASTER_ITEM;
 
-//åˆ—è¡¨å­é¡¹
+//ÁĞ±í×ÓÏî
 typedef struct _stColumnItem
 {
-	BYTE				cbColumnWidth;					//åˆ—è¡¨å®½åº¦
-	BYTE				cbColumnType;					//å­—æ®µç±»å‹
-	TCHAR				szColumnName[16];				//åˆ—è¡¨åå­—
+	BYTE				cbColumnWidth;					//ÁĞ±í¿í¶È
+	BYTE				cbColumnType;					//×Ö¶ÎÀàĞÍ
+	TCHAR				szColumnName[16];				//ÁĞ±íÃû×Ö
 }ST_COLUMN_ITEM, *PST_COLUMN_ITEM;
 
-//åœ°å€ä¿¡æ¯
+//µØÖ·ĞÅÏ¢
 typedef struct _stAddressInfo
 {
-	TCHAR				szAddr[32];						//æœåŠ¡å™¨åœ°å€
+	TCHAR				szAddr[32];						//·şÎñÆ÷µØÖ·
 }ST_ADDRESS_INFO, *PST_ADDRESS_INFO;
 
-//æ•°æ®åº“ä¿¡æ¯
+//Êı¾İ¿âĞÅÏ¢
 typedef struct _stDbConfig
 {
-	WORD				wPort;							//æ•°æ®åº“ç«¯å£
-	TCHAR				szAddr[32];						//æ•°æ®åº“åœ°å€
-	TCHAR				szUser[32];						//æ•°æ®åº“ç”¨æˆ·
-	TCHAR				szPwd[32];						//æ•°æ®åº“å¯†ç 
-	TCHAR				szName[32];						//æ•°æ®åº“åå­—
+	WORD				wPort;							//Êı¾İ¿â¶Ë¿Ú
+	TCHAR				szAddr[32];						//Êı¾İ¿âµØÖ·
+	TCHAR				szUser[32];						//Êı¾İ¿âÓÃ»§
+	TCHAR				szPwd[32];						//Êı¾İ¿âÃÜÂë
+	TCHAR				szName[32];						//Êı¾İ¿âÃû×Ö
 }ST_DB_CONFIG, *PST_DB_CONFIG;
 
-//è½¬ç›˜å¥–åŠ±ï¼Œå¥–é¡¹å­é¡¹
+//×ªÅÌ½±Àø£¬½±Ïî×ÓÏî
 typedef struct _stLotteryItem
 {
-    BYTE				cbItemIndex;					//å¥–é¡¹ç´¢å¼•(1-N)
-    BYTE				cbItemType;						//å¥–åŠ±ç±»å‹(0æ¸¸æˆå¸ï¼Œ1æ¸¸æˆè±†)
-    LONGLONG            llItemQuota;					//å¥–åŠ±é¢åº¦
+    BYTE				cbItemIndex;					//½±ÏîË÷Òı(1-N)
+    BYTE				cbItemType;						//½±ÀøÀàĞÍ(0ÓÎÏ·±Ò£¬1ÓÎÏ·¶¹)
+    LONGLONG            llItemQuota;					//½±Àø¶î¶È
 }ST_LOTTERY_ITEM, *PST_LOTTERY_ITEM;
 
 #pragma pack()

@@ -11,7 +11,7 @@
 
 #include "TableMgr.h"
 
-TableMgr* TableMgr::s_tableInstance = nullptr;
+TableMgr* TableMgr::s_pTableMgrInstance = nullptr;
 
 using namespace std;
 
@@ -48,10 +48,10 @@ bool TableMgr::haveTableList()
 
 void TableMgr::addTableItem(const _stTableStatus *pStatus, const WORD &tableId)
 {
-    tagTableItem *item = getTableItemById(tableId);
+    _stTableItem *item = getTableItemById(tableId);
     if (nullptr == item)
     {
-        item = new tagTableItem();
+        item = new _stTableItem();
         item->wTableId = tableId;
         item->tagStatus.cbPlayStatus = pStatus->cbPlayStatus;
         item->tagStatus.cbTableLock = pStatus->cbTableLock;
@@ -64,7 +64,7 @@ void TableMgr::addTableItem(const _stTableStatus *pStatus, const WORD &tableId)
 bool TableMgr::updateTableItem(const _stTableStatus *pStatus,const WORD &tableId)
 {
 	bool bRes = false;
-    tagTableItem *item = nullptr;
+    _stTableItem *item = nullptr;
 	do 
 	{
 		item = getTableItemById(tableId);
@@ -85,24 +85,24 @@ bool TableMgr::updateTableItem(const _stTableStatus *pStatus,const WORD &tableId
     {
         if (nullptr != m_funTableCallBack)
         {
-            m_funTableCallBack(enTableCode::kUpdateTable, item, sizeof(tagTableItem));
+            m_funTableCallBack(enTableCode::kUpdateTable, item, sizeof(_stTableItem));
         }
     }
     
 	return bRes;
 }
 
-bool TableMgr::updateTableItem( const tagTableUserInfo &tagInfo )
+bool TableMgr::updateTableItem( const _stTableUserInfo &tagInfo )
 {
 	WORD updateTable = 0;
-    tagTableItem *item = nullptr;
-    tagTableUserInfo userInfo = tagTableUserInfo();
+    _stTableItem *item = nullptr;
+    _stTableUserInfo userInfo = _stTableUserInfo();
 
 	bool bRes = false;
 	do 
 	{		
 		//先找到该用户之前坐过的桌椅信息
-		std::map<DWORD,tagTableUserInfo>::iterator ite = m_mapUserSit.find(tagInfo.wUserId);
+		std::map<DWORD,_stTableUserInfo>::iterator ite = m_mapUserSit.find(tagInfo.wUserId);
 		
 		//用户未坐过（更新信息）
 		if (ite == m_mapUserSit.end())
@@ -111,7 +111,7 @@ bool TableMgr::updateTableItem( const tagTableUserInfo &tagInfo )
 			CC_BREAK_IF(item == nullptr);
 			item->tableUsers[tagInfo.tagStatus.wChairID] = tagInfo;
 
-			tagTableUserInfo tmpInfo = tagInfo;
+			_stTableUserInfo tmpInfo = tagInfo;
 			m_mapUserSit.insert(std::make_pair(tmpInfo.wUserId,tmpInfo));
 			updateTable = tagInfo.tagStatus.wTableID;
             
@@ -145,14 +145,14 @@ bool TableMgr::updateTableItem( const tagTableUserInfo &tagInfo )
 				}
 				else //非同座位：清除原有座位信息，再更新新的信息
 				{
-					item->tableUsers[sitChair] = tagTableUserInfo();
+					item->tableUsers[sitChair] = _stTableUserInfo();
 					item->tableUsers[userChair] = tagInfo;
 				}
 			}
 			else //非同桌
 			{
 				//清除原有桌信息
-				item->tableUsers[sitChair] = tagTableUserInfo();
+				item->tableUsers[sitChair] = _stTableUserInfo();
 				m_mapUserSit.erase(ite);
 				bRes = true;
 
@@ -160,7 +160,7 @@ bool TableMgr::updateTableItem( const tagTableUserInfo &tagInfo )
 				item = getTableItemById(userTable);
 				CC_BREAK_IF(item == nullptr);
 				item->tableUsers[userChair] = tagInfo;
-				tagTableUserInfo tmpInfo = tagInfo;
+				_stTableUserInfo tmpInfo = tagInfo;
 				m_mapUserSit.insert(std::make_pair(tmpInfo.wUserId,tmpInfo));
 			}
 		}		
@@ -172,7 +172,7 @@ bool TableMgr::updateTableItem( const tagTableUserInfo &tagInfo )
     {
         if (nullptr != m_funTableCallBack)
         {
-            m_funTableCallBack(enTableCode::kUpdateTableUser, (void*)&userInfo, sizeof(tagTableUserInfo));
+            m_funTableCallBack(enTableCode::kUpdateTableUser, (void*)&userInfo, sizeof(_stTableUserInfo));
         }
     }
     
@@ -194,7 +194,7 @@ void TableMgr::grouping(const int &game_kind /*const int groupCount*/)
 	int idx = 0;
 	for (int i = 0; i < group; ++i)
 	{
-		std::vector<tagTableItem*> vecGroup = std::vector<tagTableItem*>();
+		std::vector<_stTableItem*> vecGroup = std::vector<_stTableItem*>();
 		for (int j = 0; j < m_nPageGroupCount; ++j)
 		{
 			vecGroup.push_back(m_vecTables[idx]);
@@ -203,7 +203,7 @@ void TableMgr::grouping(const int &game_kind /*const int groupCount*/)
 		m_vecGroup.push_back(vecGroup);
 	}
     
-    std::vector<tagTableItem*> vecGroup = std::vector<tagTableItem*>();
+    std::vector<_stTableItem*> vecGroup = std::vector<_stTableItem*>();
     int left = (int)(all - idx);
     for (int i = 0; i < left; ++i)
     {
@@ -222,9 +222,9 @@ void TableMgr::grouping(const int &game_kind /*const int groupCount*/)
     }
 }
 
-tagTableItem* TableMgr::getTableItemById(const WORD &tableId)
+_stTableItem* TableMgr::getTableItemById(const WORD &tableId)
 {
-	tagTableItem *res = nullptr;
+	_stTableItem *res = nullptr;
 	for (int i = 0; i < m_vecTables.size(); ++i)
 	{
 		if (m_vecTables[i]->wTableId == tableId)
@@ -236,9 +236,9 @@ tagTableItem* TableMgr::getTableItemById(const WORD &tableId)
 	return res;
 }
 
-std::vector<tagTableItem*> TableMgr::getTableGroupByIndex(const int &nIdx)
+std::vector<_stTableItem*> TableMgr::getTableGroupByIndex(const int &nIdx)
 {
-	std::vector<tagTableItem*> vec = std::vector<tagTableItem*>();
+	std::vector<_stTableItem*> vec = std::vector<_stTableItem*>();
 	if (nIdx >= m_vecGroup.size())
 	{
 		return vec;
@@ -249,12 +249,12 @@ std::vector<tagTableItem*> TableMgr::getTableGroupByIndex(const int &nIdx)
 void TableMgr::resetList()
 {
     //清理分组
-    std::vector<std::vector<tagTableItem*>>().swap(m_vecGroup);
+    std::vector<std::vector<_stTableItem*>>().swap(m_vecGroup);
     
-	vector<tagTableItem*>::iterator ite = m_vecTables.begin();
+	vector<_stTableItem*>::iterator ite = m_vecTables.begin();
 	for (; ite != m_vecTables.end(); )
 	{
-		tagTableItem *pItem = *ite;
+		_stTableItem *pItem = *ite;
 		delete pItem;
 		pItem = nullptr;
 		
@@ -277,7 +277,7 @@ int TableMgr::getTableGroupCount()
 bool TableMgr::isTableInGroup(const int &tableidx,const int &group)
 {
 	bool bRes = false;
-	std::vector<tagTableItem*> groupData = getTableGroupByIndex(group);
+	std::vector<_stTableItem*> groupData = getTableGroupByIndex(group);
 	for (size_t i = 0; i < groupData.size(); ++i)
 	{
 		if (groupData[i]->wTableId == tableidx)
@@ -291,7 +291,7 @@ bool TableMgr::isTableInGroup(const int &tableidx,const int &group)
 
 bool TableMgr::isTableLocked(const int &tableidx)
 {
-    tagTableItem *pItem = getTableItemById(tableidx);
+    _stTableItem *pItem = getTableItemById(tableidx);
     if (nullptr != pItem)
     {
         return pItem->tagStatus.cbTableLock == 1;
@@ -303,7 +303,7 @@ bool TableMgr::isTableValid(const int &tableidx, bool &isLocked, bool &isPlaying
 {
     isLocked = false;
     isPlaying = false;
-    tagTableItem *pItem = getTableItemById(tableidx);
+    _stTableItem *pItem = getTableItemById(tableidx);
     if (nullptr != pItem)
     {
         isLocked = pItem->tagStatus.cbTableLock == 1;

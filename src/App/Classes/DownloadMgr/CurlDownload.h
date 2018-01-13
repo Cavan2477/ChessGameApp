@@ -1,4 +1,4 @@
-/************************************************************************************
+﻿/************************************************************************************
  * file: 		CurlDown.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
@@ -31,9 +31,9 @@ typedef std::function<void(string,Ref*)> SuccessCallFunc;
 class CurlDownload : public Ref
 {
 public:
-    ~CurlDownload();
     CurlDownload();
     CurlDownload(string downUrl,string filePath);
+	~CurlDownload();
     
     static CurlDownload *create(const std::string downUrl, const std::string filePath);
 
@@ -41,12 +41,20 @@ public:
 	void setProgressCallFunc(const ProgressCallFunc &progress);
 	void setSuccessCallFunc(const SuccessCallFunc &success);
     
-    bool download(); // 下载方法
-    long getDownloadFileLenth(); // 下载文件大小方法
-    void downloadControler(); // 下载控制方法
-    long getLocalFileLength(); // 当前下载文件大小
+	// 下载方法
+    bool download(); 
+
+	// 下载文件大小方法
+    long getDownloadFileLenth(); 
+
+	// 当前下载文件大小
+	long getLocalFileLength();
+
+	// 下载控制方法
+    void downloadController(); 
     
-    void setStopDown();// 停止下载
+	// 停止下载
+    void stopDownload();
     
     typedef enum EM_ERR_CODE
     {
@@ -83,10 +91,8 @@ public:
 	string		m_strFilePath;					// 本地存储地址
 	string		m_strDownloadUrl;				// 下载URL
 
-	bool		m_bIsStop;
-
+	bool		m_bStop;
 	double		m_dFileLenth;					// 下载文件大小
-
 	long		m_lDownloadTimeout;				// 请求超时时间 为了测试用 设置超时时间为2秒 如果是发正式版本 改为20秒超时时间
 
 	EM_GAME		m_emGame;						// 游戏类型

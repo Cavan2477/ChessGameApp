@@ -261,7 +261,7 @@ void CommonPlazaLayer::onEnterTransitionDidFinish()
         m_pLayoutUserInfo->addChild(m_headerRequestSprite);
     }
     
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(whEvent_User_Data_Change, CC_CALLBACK_1(CommonPlazaLayer::notifyFreshInfo, this)), 1);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(STR_EVENT_USER_DATA_CHANGE, CC_CALLBACK_1(CommonPlazaLayer::notifyFreshInfo, this)), 1);
     
     //公告
     Notice *pNotice = Notice::CreateNotice();
@@ -275,7 +275,7 @@ void CommonPlazaLayer::onEnterTransitionDidFinish()
 
 void CommonPlazaLayer::onExit()
 {
-    Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(whEvent_User_Data_Change);
+    Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(STR_EVENT_USER_DATA_CHANGE);
     Layer::onExit();
 }
 

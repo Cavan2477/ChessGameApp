@@ -1266,7 +1266,7 @@ void ShopScene::ExchangeResult(void *pData, WORD wSize)
         HallDataMgr::getInstance()->m_llGold = result->lCurrGold;
         
         //金币更新
-        EventCustom event(whEvent_User_Data_Change);
+        EventCustom event(STR_EVENT_USER_DATA_CHANGE);
         auto value = __Integer::create(User_Change_Score);
         event.setUserData(value);
         Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);

@@ -18,85 +18,85 @@
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//å‘è¡ŒèŒƒå›´
-#define PT_ISSUE_AREA_WEB			0x01								//å•†åŸŽé“å…·
-#define PT_ISSUE_AREA_GAME			0x02								//æ¸¸æˆé“å…·
-#define PT_ISSUE_AREA_SERVER		0x04								//æˆ¿é—´é“å…·
+//·¢ÐÐ·¶Î§
+#define PT_ISSUE_AREA_WEB			0x01								//ÉÌ³ÇµÀ¾ß
+#define PT_ISSUE_AREA_GAME			0x02								//ÓÎÏ·µÀ¾ß
+#define PT_ISSUE_AREA_SERVER		0x04								//·¿¼äµÀ¾ß
 
-//ä½¿ç”¨èŒƒå›´
-#define PT_SERVICE_AREA_MESELF		0x0001								//è‡ªå·±èŒƒå›´
-#define PT_SERVICE_AREA_PLAYER		0x0002								//çŽ©å®¶èŒƒå›´
-#define PT_SERVICE_AREA_LOOKON		0x0004								//æ—è§‚èŒƒå›´
+//Ê¹ÓÃ·¶Î§
+#define PT_SERVICE_AREA_MESELF		0x0001								//×Ô¼º·¶Î§
+#define PT_SERVICE_AREA_PLAYER		0x0002								//Íæ¼Ò·¶Î§
+#define PT_SERVICE_AREA_LOOKON		0x0004								//ÅÔ¹Û·¶Î§
 
-//é“å…·ç±»åž‹
-#define PT_TYPE_ERROR               0                                   //é“å…·ç±»åž‹
-#define PT_TYPE_PROPERTY            1	                                //é“å…·ç±»åž‹
-#define PT_TYPE_PRESENT             2                                   //é“å…·ç±»åž‹
+//µÀ¾ßÀàÐÍ
+#define PT_TYPE_ERROR               0                                   //µÀ¾ßÀàÐÍ
+#define PT_TYPE_PROPERTY            1	                                //µÀ¾ßÀàÐÍ
+#define PT_TYPE_PRESENT             2                                   //µÀ¾ßÀàÐÍ
 
-//é“å…·å®šä¹‰
-#define PROPERTY_ID_CAR				1									//æ±½è½¦ç¤¼ç‰©
-#define PROPERTY_ID_EGG				2									//è‡­è›‹ç¤¼ç‰©
-#define PROPERTY_ID_CLAP			3									//é¼“æŽŒç¤¼ç‰©
-#define PROPERTY_ID_KISS			4									//é¦™å»ç¤¼ç‰©
-#define PROPERTY_ID_BEER			5									//å•¤é…’ç¤¼ç‰©
-#define PROPERTY_ID_CAKE			6									//è›‹ç³•ç¤¼ç‰©
-#define PROPERTY_ID_RING			7									//é’»æˆ’ç¤¼ç‰©
-#define PROPERTY_ID_BEAT			8									//æš´æ‰“ç¤¼ç‰©
-#define PROPERTY_ID_BOMB			9									//ç‚¸å¼¹ç¤¼ç‰©
-#define PROPERTY_ID_SMOKE			10									//é¦™çƒŸç¤¼ç‰©
-#define PROPERTY_ID_VILLA			11									//åˆ«å¢…ç¤¼ç‰©
-#define PROPERTY_ID_BRICK			12									//ç –å¤´ç¤¼ç‰©
-#define PROPERTY_ID_FLOWER			13									//é²œèŠ±ç¤¼ç‰©
+//µÀ¾ß¶¨Òå
+#define PROPERTY_ID_CAR				1									//Æû³µÀñÎï
+#define PROPERTY_ID_EGG				2									//³ôµ°ÀñÎï
+#define PROPERTY_ID_CLAP			3									//¹ÄÕÆÀñÎï
+#define PROPERTY_ID_KISS			4									//ÏãÎÇÀñÎï
+#define PROPERTY_ID_BEER			5									//Æ¡¾ÆÀñÎï
+#define PROPERTY_ID_CAKE			6									//µ°¸âÀñÎï
+#define PROPERTY_ID_RING			7									//×ê½äÀñÎï
+#define PROPERTY_ID_BEAT			8									//±©´òÀñÎï
+#define PROPERTY_ID_BOMB			9									//Õ¨µ¯ÀñÎï
+#define PROPERTY_ID_SMOKE			10									//ÏãÑÌÀñÎï
+#define PROPERTY_ID_VILLA			11									//±ðÊûÀñÎï
+#define PROPERTY_ID_BRICK			12									//×©Í·ÀñÎï
+#define PROPERTY_ID_FLOWER			13									//ÏÊ»¨ÀñÎï
 
-#define PROPERTY_ID_TWO_CARD	    14				                    //ç§¯åˆ†é“å…·
-#define PROPERTY_ID_FOUR_CARD		15			                        //ç§¯åˆ†é“å…·
-#define PROPERTY_ID_SCORE_CLEAR     16									//è´Ÿåˆ†æ¸…é›¶
-#define PROPERTY_ID_ESCAPE_CLEAR    17									//é€ƒè·‘æ¸…é›¶
-#define PROPERTY_ID_TRUMPET			18									//å°å–‡å­é“å…·
-#define PROPERTY_ID_TYPHON			19									//å¤§å–‡å­é“å…·
-#define PROPERTY_ID_GUARDKICK_CARD  20									//é˜²è¸¢é“å…·
-#define PROPERTY_ID_POSSESS			21									//é™„èº«é“å…·
-#define PROPERTY_ID_BLUERING_CARD	22									//è“é’»é“å…·
-#define PROPERTY_ID_YELLOWRING_CARD	23									//é»„é’»é“å…·
-#define PROPERTY_ID_WHITERING_CARD	24  								//ç™½é’»é“å…·
-#define PROPERTY_ID_REDRING_CARD	25									//çº¢é’»é“å…·
-#define PROPERTY_ID_VIPROOM_CARD	26									//VIPæˆ¿é“å…·
+#define PROPERTY_ID_TWO_CARD	    14				                    //»ý·ÖµÀ¾ß
+#define PROPERTY_ID_FOUR_CARD		15			                        //»ý·ÖµÀ¾ß
+#define PROPERTY_ID_SCORE_CLEAR     16									//¸º·ÖÇåÁã
+#define PROPERTY_ID_ESCAPE_CLEAR    17									//ÌÓÅÜÇåÁã
+#define PROPERTY_ID_TRUMPET			18									//Ð¡À®°ÈµÀ¾ß
+#define PROPERTY_ID_TYPHON			19									//´óÀ®°ÈµÀ¾ß
+#define PROPERTY_ID_GUARDKICK_CARD  20									//·ÀÌßµÀ¾ß
+#define PROPERTY_ID_POSSESS			21									//¸½ÉíµÀ¾ß
+#define PROPERTY_ID_BLUERING_CARD	22									//À¶×êµÀ¾ß
+#define PROPERTY_ID_YELLOWRING_CARD	23									//»Æ×êµÀ¾ß
+#define PROPERTY_ID_WHITERING_CARD	24  								//°××êµÀ¾ß
+#define PROPERTY_ID_REDRING_CARD	25									//ºì×êµÀ¾ß
+#define PROPERTY_ID_VIPROOM_CARD	26									//VIP·¿µÀ¾ß
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//é“å…·ä¿¡æ¯
+//µÀ¾ßÐÅÏ¢
 typedef struct _stPropertyInfo
 {
-	//é“å…·ä¿¡æ¯
-	WORD							wIndex;								//é“å…·æ ‡è¯†
-	WORD							wDiscount;							//ä¼šå‘˜æŠ˜æ‰£
-	WORD							wIssueArea;							//å‘å¸ƒèŒƒå›´
+	//µÀ¾ßÐÅÏ¢
+	WORD							wIndex;								//µÀ¾ß±êÊ¶
+	WORD							wDiscount;							//»áÔ±ÕÛ¿Û
+	WORD							wIssueArea;							//·¢²¼·¶Î§
     
-	//é”€å”®ä»·æ ¼
-	LONGLONG						lPropertyGold;						//é“å…·é‡‘å¸
-	DOUBLE							dPropertyCash;						//é“å…·ä»·æ ¼
+	//ÏúÊÛ¼Û¸ñ
+	LONGLONG						lPropertyGold;						//µÀ¾ß½ð±Ò
+	DOUBLE							dPropertyCash;						//µÀ¾ß¼Û¸ñ
     
-	//èµ é€é­…åŠ›
-	LONGLONG						lSendLoveLiness;					//èµ é€é­…åŠ›
-	LONGLONG						lRecvLoveLiness;					//æŽ¥å—é­…åŠ›
+	//ÔùËÍ÷ÈÁ¦
+	LONGLONG						lSendLoveLiness;					//ÔùËÍ÷ÈÁ¦
+	LONGLONG						lRecvLoveLiness;					//½ÓÊÜ÷ÈÁ¦
 }ST_PROPERTY_INFO, PST_PROPERTY_INFO;
 
-//é“å…·å±žæ€§
+//µÀ¾ßÊôÐÔ
 typedef struct _stPropertyAttr
 {
-	WORD							wIndex;								//é“å…·æ ‡è¯†
-	WORD                            wPropertyType;                      //é“å…·ç±»åž‹
-	WORD							wServiceArea;						//ä½¿ç”¨èŒƒå›´
-	TCHAR                           szMeasuringunit[8];					//è®¡é‡å•ä½
-	TCHAR							szPropertyName[32];					//é“å…·åå­—
-	TCHAR							szRegulationsInfo[256];				//ä½¿ç”¨ä¿¡æ¯
+	WORD							wIndex;								//µÀ¾ß±êÊ¶
+	WORD                            wPropertyType;                      //µÀ¾ßÀàÐÍ
+	WORD							wServiceArea;						//Ê¹ÓÃ·¶Î§
+	TCHAR                           szMeasuringunit[8];					//¼ÆÁ¿µ¥Î»
+	TCHAR							szPropertyName[32];					//µÀ¾ßÃû×Ö
+	TCHAR							szRegulationsInfo[256];				//Ê¹ÓÃÐÅÏ¢
 }ST_PROPERTY_ATTR, *PST_PROPERTY_ATTR;
 
-//é“å…·å­é¡¹
+//µÀ¾ß×ÓÏî
 typedef struct _stPropertyItem
 {
-	ST_PROPERTY_INFO				stPropertyInfo;						//é“å…·ä¿¡æ¯
-	ST_PROPERTY_ATTR				stPropertyAttr;						//é“å…·å±žæ€§
+	ST_PROPERTY_INFO				stPropertyInfo;						//µÀ¾ßÐÅÏ¢
+	ST_PROPERTY_ATTR				stPropertyAttr;						//µÀ¾ßÊôÐÔ
 }ST_PROPERTY_ITEM, *PST_PROPERTY_ITEM;
 
 //////////////////////////////////////////////////////////////////////////////////

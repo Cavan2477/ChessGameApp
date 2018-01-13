@@ -11,8 +11,8 @@
 
 //用户数据
 
-#ifndef __UserData_h__
-#define __UserData_h__
+#ifndef __USER_DATA_H__
+#define __USER_DATA_H__
 
 #include <stdio.h>
 #include "../Common/Project.h"
@@ -23,49 +23,50 @@ class UserData : public cocos2d::Ref
 public:
     UserData(void *pdata)
     {
-        memset(&m_date, 0, sizeof(m_date));
+        memset(&m_stMobileUserHeadInfo, 0, sizeof(m_stMobileUserHeadInfo));
         UpdateData(pdata);
     };
 
     ~UserData(){}
     
-    void UpdateData(void *pdata)
+    void UpdateData(void *pData)
     {
-        memcpy(&m_date, pdata, sizeof(m_date));
-        auto pdescribe = (_stUserDataExt *)((char *)pdata+sizeof(_stMobileUserHeadInfo));
-        if (pdescribe->wDataDesc == DTP_GR_NICK_NAME) {
-            TCHAR nickname[LEN_NICKNAME];
+        memcpy(&m_stMobileUserHeadInfo, pData, sizeof(m_stMobileUserHeadInfo));
+        auto pdescribe = (_stUserDataExt *)((char *)pData+sizeof(_stMobileUserHeadInfo));
+
+        if (pdescribe->wDataDesc == DTP_GR_NICK_NAME) 
+		{
+            TCHAR nickname[LEN_MAX_NICKNAME];
             memset(nickname, 0, sizeof(nickname));
-            memcpy(nickname,(char *)pdata+sizeof(_stMobileUserHeadInfo)+sizeof(_stUserDataExt), pdescribe->wDataSize);
+            memcpy(nickname,(char *)pData+sizeof(_stMobileUserHeadInfo)+sizeof(_stUserDataExt), pdescribe->wDataSize);
 
 			// todo 2017/12/17 to be continue
             //m_nickname = WHConverUnicodeToUtf8WithArray((WORD)nickname);
         }
     }
     
-    void UpdateData(ST_CMD_GR_USER_STATUS *pdata)
+    void UpdateData(ST_CMD_GR_USER_STATUS *pInfo)
     {
-        m_date.wTableID = pdata->stUserStatus.wTableID;
-        m_date.wChairID = pdata->stUserStatus.wChairID;
-        m_date.cbUserStatus = pdata->stUserStatus.cbUserStatus;
+        m_stMobileUserHeadInfo.wTableID		= pInfo->stUserStatus.wTableID;
+        m_stMobileUserHeadInfo.wChairID		= pInfo->stUserStatus.wChairID;
+        m_stMobileUserHeadInfo.cbUserStatus = pInfo->stUserStatus.cbUserStatus;
     }
     
-    void UpdateData(ST_CMD_GR_MOBILE_USER_GAME_COIN *pdata)
+    void UpdateData(ST_CMD_GR_MOBILE_USER_GAME_COIN *pInfo)
     {
-        m_date.llGameCoin = pdata->stMobileUserGameCoin.llGameCoin;
-        m_date.dBean = pdata->stMobileUserGameCoin.dBean;
-        m_date.dwWinCount = pdata->stMobileUserGameCoin.dwWinCount;
-        m_date.dwLostCount = pdata->stMobileUserGameCoin.dwLostCount;
-        m_date.dwDrawCount = pdata->stMobileUserGameCoin.dwDrawCount;
-        m_date.dwLostCount = pdata->stMobileUserGameCoin.dwLostCount;
-        m_date.dwEscapeCount = pdata->stMobileUserGameCoin.dwEscapeCount;
-        m_date.dwExp = pdata->stMobileUserGameCoin.dwExp;
+        m_stMobileUserHeadInfo.llGameCoin	= pInfo->stMobileUserGameCoin.llGameCoin;
+        m_stMobileUserHeadInfo.dBean		= pInfo->stMobileUserGameCoin.dBean;
+        m_stMobileUserHeadInfo.dwWinCount	= pInfo->stMobileUserGameCoin.dwWinCount;
+        m_stMobileUserHeadInfo.dwLostCount	= pInfo->stMobileUserGameCoin.dwLostCount;
+        m_stMobileUserHeadInfo.dwDrawCount	= pInfo->stMobileUserGameCoin.dwDrawCount;
+        m_stMobileUserHeadInfo.dwLostCount	= pInfo->stMobileUserGameCoin.dwLostCount;
+        m_stMobileUserHeadInfo.dwEscapeCount= pInfo->stMobileUserGameCoin.dwEscapeCount;
+        m_stMobileUserHeadInfo.dwExp		= pInfo->stMobileUserGameCoin.dwExp;
     }
     
-    _stMobileUserHeadInfo  m_date;
+    _stMobileUserHeadInfo  m_stMobileUserHeadInfo;
     
-    std::string m_nickname;
-    
+    std::string m_strNickname;
 };
 
 #endif /* defined(__MyGame__UserData__) */

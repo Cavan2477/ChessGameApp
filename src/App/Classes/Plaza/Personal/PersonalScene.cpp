@@ -22,75 +22,70 @@
 using namespace ui;
 
 PersonalScene::PersonalScene():
-m_eType(Type_PersonalInfo),
-m_eModify(modify_sex),
-_personalLayout(nullptr),
-_modifyLoginLayout(nullptr),
-_modifyBankLayout(nullptr),
+m_emPersonalType(EM_PERSONAL_TYPE_INFO),
+m_emPersonalModifyType(EM_PERSONAL_MODIFY_TYPE_SEX),
+m_pUiLayoutPersonal(nullptr),
+m_pUiLayoutModifyLogon(nullptr),
+m_pUiLayoutModifyBank(nullptr),
 _headSprite(nullptr),
-m_photo(nullptr)
-
+m_pPhotoBridge(nullptr)
 {
-    
-    
-
 }
 
 PersonalScene::~PersonalScene()
 {
-    
     CC_SAFE_RELEASE(_headSprite);
-    CC_SAFE_RELEASE(m_photo);
-    
+	CC_SAFE_RELEASE(m_pPhotoBridge);
 }
 
 bool PersonalScene::init()
 {
-    
     if (!Layer::init())
         return false;
     
     auto pbg = ImageView::create();
+
     pbg->setTouchEnabled(true);
     pbg->setScale9Enabled(true);
     pbg->setContentSize(WIN_SIZE);
     pbg->setPosition(WIN_SIZE/2);
+
     this->addChild(pbg);
  
     auto layout = Layout::create();
-    layout->setTag(INFO_MAINLAYOUT);
+    layout->setTag(EM_INFO_LAYOUT_MAIN);
     layout->setContentSize(Size(1136, 640));
     
     auto rootNode = CSLoader::createNode("personal_res/PersonalMain.csb");
-    rootNode->setTag(INFO_MAINROOT);
+    rootNode->setTag(EM_INFO_ROOT_MAIN);
     layout->addChild(rootNode);
     
     //基本信息
-    _personalLayout = Layout::create();
-    _personalLayout->setContentSize(Size(1136, 640));
-    layout->addChild(_personalLayout);
+    m_pUiLayoutPersonal = Layout::create();
+    m_pUiLayoutPersonal->setContentSize(Size(1136, 640));
+    layout->addChild(m_pUiLayoutPersonal);
     
     auto personalRoot = CSLoader::createNode("personal_res/Personal.csb");
     personalRoot->setTag(1);
-    _personalLayout->addChild(personalRoot);
+    m_pUiLayoutPersonal->addChild(personalRoot);
     
     //修改登录密码
-    _modifyLoginLayout = Layout::create();
-    _modifyLoginLayout->setContentSize(Size(1136, 640));
-    layout->addChild(_modifyLoginLayout);
-    _modifyLoginLayout->setVisible(false);
+    m_pUiLayoutModifyLogon = Layout::create();
+    m_pUiLayoutModifyLogon->setContentSize(Size(1136, 640));
+    layout->addChild(m_pUiLayoutModifyLogon);
+    m_pUiLayoutModifyLogon->setVisible(false);
     
     auto LoginModifyRoot = CSLoader::createNode("personal_res/Modify.csb");
     LoginModifyRoot->setTag(2);
-    _modifyLoginLayout->addChild(LoginModifyRoot);
+    m_pUiLayoutModifyLogon->addChild(LoginModifyRoot);
     
-    auto loginPassModifyBtn = static_cast<Button *>(LoginModifyRoot->getChildByName("Button_sureModify"));
+    auto btnModifyLogonPwd = static_cast<Button *>(LoginModifyRoot->getChildByName("Button_sureModify"));
 
-    if (loginPassModifyBtn != nullptr)
+    if (btnModifyLogonPwd != nullptr)
     {
         if (HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_VISITOR || HallDataMgr::getInstance()->m_loadtype == EM_LOAD_TYPE_SINA)
         {
-            loginPassModifyBtn->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type)
+            btnModifyLogonPwd->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type)
 			{    
                 if (type == Widget::TouchEventType::ENDED)
                 {       
@@ -99,56 +94,45 @@ bool PersonalScene::init()
             });
         }
 		else
-        {
-            loginPassModifyBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithSureModify, this));
-        }
+            btnModifyLogonPwd->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithSureModify, this));
     }
     
     //修改银行密码
-    _modifyBankLayout = Layout::create();
-    _modifyBankLayout->setContentSize(Size(1136, 640));
-    layout->addChild(_modifyBankLayout);
-    _modifyBankLayout->setVisible(false);
+    m_pUiLayoutModifyBank = Layout::create();
+    m_pUiLayoutModifyBank->setContentSize(Size(1136, 640));
+    layout->addChild(m_pUiLayoutModifyBank);
+    m_pUiLayoutModifyBank->setVisible(false);
     
-    
-
     auto bankModifyRoot = CSLoader::createNode("personal_res/Modify.csb");
     bankModifyRoot->setTag(3);
-    _modifyBankLayout->addChild(bankModifyRoot);
+    m_pUiLayoutModifyBank->addChild(bankModifyRoot);
     auto bankPassModifyBtn = static_cast<Button *>(bankModifyRoot->getChildByName("Button_sureModify"));
-    if  (bankPassModifyBtn != nullptr)
-    {
-        bankPassModifyBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithSureModify, this));
-    }
-    
-    
 
+    if  (bankPassModifyBtn != nullptr)
+        bankPassModifyBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithSureModify, this));
+    
     layout->setScaleX(JUDGE_SCALE);
     this->addChild(layout);
     
     //返回按钮
     auto returnBtn = static_cast<Button *>(rootNode->getChildByName("Button_return"));
     returnBtn->addTouchEventListener([this](cocos2d::Ref *target, cocos2d::ui::Widget::TouchEventType type){
-        
-    
         CallFunc *func = CallFunc::create([this]{this->removeFromParent();});
         Sequence *quence = Sequence::createWithTwoActions(MoveTo::create(0.4f, Vec2(1136, 0)), func);
         
         this->runAction(quence);
-        
     });
     
     //个人信息
     auto personal = static_cast<Button *>(rootNode->getChildByName("Button_personal"));
-    personal->setTag(INFO_PERSONAL);
+    personal->setTag(EM_INFO_TEXT_PERSONAL);
+
     if (nullptr != personal)
-    {
-        
         personal->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithMenu, this));
-    }
     
     //帐号
     auto account = static_cast<Text *>(personalRoot->getChildByName("Text_account"));
+
     if (account != nullptr)
     {
         account->setString(HallDataMgr::getInstance()->m_strAccounts);
@@ -158,80 +142,87 @@ bool PersonalScene::init()
     
     //昵称
     auto nick = static_cast<Text *>(personalRoot->getChildByName("Text_nick"));
+
     if (nick != nullptr)
     {
         nick->setString(HallDataMgr::getInstance()->m_strNickName);
         nick->setTextColor(cocos2d::Color4B(36,236,250,255));
         nick->setTextAreaSize(Size(200, account->getContentSize().height));
-        nick->setTag(INFO_NICK);
+        nick->setTag(EM_INFO_TEXT_NICKNAME);
     }
     
     //修改昵称
     EditBox *edit = EditBox::create(Size(318, 58), "personal_res/info_commonText.png");
+
     edit->setDelegate(this);
     edit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     edit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     edit->setPosition(cocos2d::Point(nick->getPositionX(), nick->getPositionY()));
-    edit->setMaxLength(LEN_ACCOUNT);
+    edit->setMaxLength(LEN_MAX_ACCOUNT);
     edit->setFontSize(28);
     edit->setReturnType(EditBox::KeyboardReturnType::DONE);
     edit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 24);
     edit->setPlaceHolder("");
-    edit->setTag(INFO_NICKEDIT);
+    edit->setTag(EM_INFO_EDIT_NICKNAME);
     edit->setFontColor(Color3B::YELLOW);
     edit->setVisible(false);
+
     personalRoot->addChild(edit);
     
     //修改按钮
-    Button *modifyBtn = Button::create("personal_res/userinfo_modiyNick_0.png","personal_res/userinfo_modiyNick_1.png");
-    modifyBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithModifyNick, this));
-    modifyBtn->setAnchorPoint(Vec2(.0, .5));
-    modifyBtn->setTag(INFO_MODIFYBTN);
-    modifyBtn->setPosition(Vec2(nick->getPositionX() + 230, nick->getPositionY()));
-    personalRoot->addChild(modifyBtn);
-    modifyBtn->setVisible(false);
-    modifyBtn->setEnabled(false);
+    Button *pBtnModify = Button::create("personal_res/userinfo_modiyNick_0.png","personal_res/userinfo_modiyNick_1.png");
+
+    pBtnModify->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithModifyNick, this));
+    pBtnModify->setAnchorPoint(Vec2(.0, .5));
+    pBtnModify->setTag(EM_INFO_BTN_MODIFY);
+    pBtnModify->setPosition(Vec2(nick->getPositionX() + 230, nick->getPositionY()));
+    personalRoot->addChild(pBtnModify);
+    pBtnModify->setVisible(false);
+    pBtnModify->setEnabled(false);
     
     //id
-    auto ID = static_cast<Text *>(personalRoot->getChildByName("Text_id"));
-    if (ID != nullptr)
+    auto pTextId = static_cast<Text *>(personalRoot->getChildByName("Text_id"));
+
+    if (pTextId != nullptr)
     {
-        ID->setString(__String::createWithFormat("%d",HallDataMgr::getInstance()->m_dwGameID)->getCString());
-        ID->setTextColor(cocos2d::Color4B(36,236,250,255));
+        pTextId->setString(__String::createWithFormat("%d",HallDataMgr::getInstance()->m_dwGameID)->getCString());
+        pTextId->setTextColor(cocos2d::Color4B(36,236,250,255));
     }
     
     //金币
-    auto ingot = static_cast<Text *>(personalRoot->getChildByName("Text_ingot"));
-    if (ingot != nullptr)
+    auto pTextGold = static_cast<Text *>(personalRoot->getChildByName("Text_ingot"));
+
+    if (pTextGold != nullptr)
     {
-        ingot->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_llGold)->getCString());
-        ingot->setTextColor(cocos2d::Color4B(228,235,55,255));
-        
+        pTextGold->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_llGold)->getCString());
+        pTextGold->setTextColor(cocos2d::Color4B(228,235,55,255));
     }
     
     //游戏币
-    auto score = static_cast<Text *>(personalRoot->getChildByName("Text_coin"));
-    if (score != nullptr)
+    auto pTextGameCoin = static_cast<Text *>(personalRoot->getChildByName("Text_coin"));
+
+    if (pTextGameCoin != nullptr)
     {
-        score->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_llUserGold)->getCString());
-        score->setTextColor(cocos2d::Color4B(228,235,55,255));
+        pTextGameCoin->setString(__String::createWithFormat("%lld",HallDataMgr::getInstance()->m_llUserGold)->getCString());
+        pTextGameCoin->setTextColor(cocos2d::Color4B(228,235,55,255));
     }
     
     //游戏豆
-    auto bean = static_cast<Text *>(personalRoot->getChildByName("Text_bean"));
-    if (bean != nullptr)
+    auto pTextBean = static_cast<Text *>(personalRoot->getChildByName("Text_bean"));
+
+    if (pTextBean != nullptr)
     {
-        bean->setString(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_dBean)->getCString());
-        bean->setTextColor(cocos2d::Color4B(228,235,55,255));
+        pTextBean->setString(__String::createWithFormat("%0.2f",HallDataMgr::getInstance()->m_dBean)->getCString());
+        pTextBean->setTextColor(cocos2d::Color4B(228,235,55,255));
     }
     
     //兑换
-    auto exchange = static_cast<Button *>(personalRoot->getChildByName("Button_exchange"));
-    if (exchange != nullptr)
+    auto pBtnExchange = static_cast<Button *>(personalRoot->getChildByName("Button_exchange"));
+
+    if (pBtnExchange != nullptr)
     {
-        
-        exchange->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type){
-            
+        pBtnExchange->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type)
+		{
             if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
             {
                 if (this->getChildByTag(SHOP))
@@ -241,16 +232,18 @@ bool PersonalScene::init()
                 shop->setTag(SHOP);
                 shop->setPosition(Vec2(1136, 0));
                 this->addChild(shop);
+
                 shop->popShop();
             }
         });
     }
     
     //取款
-    auto bank = static_cast<Button *>(personalRoot->getChildByName("Button_takeCoin"));
-    if (nullptr != bank)
+    auto pBtnBank = static_cast<Button *>(personalRoot->getChildByName("Button_takeCoin"));
+
+    if (nullptr != pBtnBank)
     {
-       bank->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type){
+       pBtnBank->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type){
             if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
             {
                 if (this->getChildByTag(BANK))
@@ -268,59 +261,60 @@ bool PersonalScene::init()
     }
     
     //充值
-    auto purchase = static_cast<Button *>(personalRoot->getChildByName("Button_purchase"));
-    if (nullptr != purchase)
+    auto pBtnPurchase = static_cast<Button *>(personalRoot->getChildByName("Button_purchase"));
+
+    if (nullptr != pBtnPurchase)
     {
-        purchase->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type){
+        pBtnPurchase->addTouchEventListener([=](Ref *ref,cocos2d::ui::Widget::TouchEventType type){
             
             if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
             {
                 if (this->getChildByTag(SHOP))
                     return;
-                
-                
-                ShopScene *shop = ShopScene::create();
-                shop->setTag(SHOP);
-                shop->setPosition(Vec2(1136, 0));
-                this->addChild(shop);
-                shop->setIndex(1);
-                shop->popShop();
+
+                ShopScene *pShopScene = ShopScene::create();
+
+                pShopScene->setTag(SHOP);
+                pShopScene->setPosition(Vec2(1136, 0));
+
+                this->addChild(pShopScene);
+
+                pShopScene->setIndex(1);
+                pShopScene->popShop();
             }
         });
-        
     }
     
     //性别
     BYTE  cbGender = HallDataMgr::getInstance()->m_cbGender;
     
-    auto manBtn = static_cast<Button *>(personalRoot->getChildByName("Button_sex_1"));
-  
-    auto womanBtn = static_cast<Button *>(personalRoot->getChildByName("Button_sex_0"));
+    auto pBtnMale = static_cast<Button *>(personalRoot->getChildByName("Button_sex_1"));
+    auto pBtnFemale = static_cast<Button *>(personalRoot->getChildByName("Button_sex_0"));
     
-    if (nullptr != manBtn && nullptr != womanBtn)
+    if (nullptr != pBtnMale && nullptr != pBtnFemale)
     {
-        manBtn->setTag(INFO_MAN);
-        womanBtn->setTag(INFO_WOMAN);
+        pBtnMale->setTag(EM_INFO_TEXT_FALE);
+        pBtnFemale->setTag(EM_INFO_TEXT_FEMALE);
         
         if (cbGender == 1)
         {
-            manBtn->loadTextures("personal_res/info_sex_1.png", "personal_res/info_sex_0.png");
-            womanBtn->loadTextures("personal_res/info_sex_0.png", "personal_res/info_sex_1.png");
+            pBtnMale->loadTextures("personal_res/info_sex_1.png", "personal_res/info_sex_0.png");
+            pBtnFemale->loadTextures("personal_res/info_sex_0.png", "personal_res/info_sex_1.png");
         }else
         {
-            manBtn->loadTextures("personal_res/info_sex_0.png", "personal_res/info_sex_1.png");
-            womanBtn->loadTextures("personal_res/info_sex_1.png", "personal_res/info_sex_0.png");
+            pBtnMale->loadTextures("personal_res/info_sex_0.png", "personal_res/info_sex_1.png");
+            pBtnFemale->loadTextures("personal_res/info_sex_1.png", "personal_res/info_sex_0.png");
             
         }
         
-        manBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithGender, this));
-        womanBtn->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithGender, this));
+        pBtnMale->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithGender, this));
+        pBtnFemale->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithGender, this));
         
     }
 
     //修改登录密码
     auto modifyLogin = static_cast<Button *>(rootNode->getChildByName("Button_modifyLoginPass"));
-    modifyLogin->setTag(INFO_LOGINPASS);
+    modifyLogin->setTag(EM_INFO_EDIT_LOGON_PWD);
     if (nullptr != modifyLogin)
     {
         modifyLogin->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithMenu, this));
@@ -329,7 +323,7 @@ bool PersonalScene::init()
     
     //修改银行密码
     auto modifyBank = static_cast<Button *>(rootNode->getChildByName("Button_modifyBankPass"));
-    modifyBank->setTag(INFO_BANKPASS);
+    modifyBank->setTag(EM_INFO_EDIT_BANK_PWD);
     if (nullptr != modifyBank)
     {
         modifyBank->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithMenu, this));
@@ -355,13 +349,13 @@ bool PersonalScene::init()
         pHead->setHeadSize(190.0);
         setHeadSprite(pHead);
         _headSprite->setPosition(Vec2(269, 358));
-        _personalLayout->addChild(_headSprite);
+        m_pUiLayoutPersonal->addChild(_headSprite);
         
         //上传头像
         auto  modify = Button::create("personal_res/info_pen.png");
         modify->addTouchEventListener(CC_CALLBACK_2(PersonalScene::buttonEventWithUploadRes, this));
         modify->setPosition(Vec2(340,285));
-        _personalLayout->addChild(modify);
+        m_pUiLayoutPersonal->addChild(modify);
     }
 
     //等级信息
@@ -453,8 +447,8 @@ void PersonalScene::popPersonal()
 }
 void PersonalScene::initModify()
 {
-    auto modify = (m_eType == Type_ModifyLoginPass)  ? static_cast<Node *>(_modifyLoginLayout->getChildByTag(2)) :
-                                                       static_cast<Node *>(_modifyBankLayout->getChildByTag(3))  ;
+    auto modify = (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_LOGON_PWD)  ? static_cast<Node *>(m_pUiLayoutModifyLogon->getChildByTag(2)) :
+                                                       static_cast<Node *>(m_pUiLayoutModifyBank->getChildByTag(3))  ;
     
     if (modify->getChildByTag(100))
         return;
@@ -465,7 +459,7 @@ void PersonalScene::initModify()
         
         if ( 0 == i)
         {
-            if (m_eType == Type_ModifyLoginPass)
+            if (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_LOGON_PWD)
                strResult = "请输入您的登录密码";
             else
                 strResult = "请输入您的银行密码";
@@ -512,7 +506,7 @@ void PersonalScene::userFaceinfoResult(void *pData, WORD wSize)
     HallDataMgr::getInstance()->AddpopLayer("", "", EM_MODE_TYPE_REMOVE);
     
     //更新
-    EventCustom event(whEvent_User_Data_Change);
+    EventCustom event(STR_EVENT_USER_DATA_CHANGE);
 
     auto value = __Integer::create(EM_USER_DATA_CHANGE_HEAD);
     event.setUserData(value);
@@ -528,15 +522,15 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
     HallDataMgr::getInstance()->m_cbGender = m_cbGender;
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
 
-    if (m_eType == Type_PersonalInfo)
+    if (m_emPersonalType == EM_PERSONAL_TYPE_INFO)
     {
         
-        auto personalRoot = static_cast<Node *>(_personalLayout->getChildByTag(1));
+        auto personalRoot = static_cast<Node *>(m_pUiLayoutPersonal->getChildByTag(1));
         auto manBtn = static_cast<Button *>(personalRoot->getChildByName("Button_sex_1"));
         
         auto womanBtn = static_cast<Button *>(personalRoot->getChildByName("Button_sex_0"));
         
-        if (m_eModify == modify_sex)
+        if (m_emPersonalModifyType == EM_PERSONAL_MODIFY_TYPE_SEX)
         {
             if (m_cbGender == MAN)
             {
@@ -548,26 +542,26 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
                 womanBtn->loadTextures("personal_res/info_sex_1.png", "personal_res/info_sex_0.png");
                 
             }
-        }else if (m_eModify == modify_nick)
+        }else if (m_emPersonalModifyType == EM_PERSONAL_MODIFY_TYPE_NICK_NAME)
         {
-            auto editBox = static_cast<EditBox *>(personalRoot->getChildByTag(INFO_NICKEDIT));
+            auto editBox = static_cast<EditBox *>(personalRoot->getChildByTag(EM_INFO_EDIT_NICKNAME));
             HallDataMgr::getInstance()->m_strNickName = editBox->getText();
             
-            auto nick = static_cast<Text *>(personalRoot->getChildByTag(INFO_NICK));
+            auto nick = static_cast<Text *>(personalRoot->getChildByTag(EM_INFO_TEXT_NICKNAME));
             nick->setString(editBox->getText());
             
             //更新大厅显示
-            EventCustom event(whEvent_User_Data_Change);
+            EventCustom event(STR_EVENT_USER_DATA_CHANGE);
             auto value = __Integer::create(EM_USER_DATA_CHANGE_NAME);
             event.setUserData(value);
             Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
         }
         
     }
-    else if (m_eType == Type_ModifyLoginPass)
+    else if (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_LOGON_PWD)
     {
-        auto modify = (m_eType == Type_ModifyLoginPass)  ? static_cast<Node *>(_modifyLoginLayout->getChildByTag(2)) :
-        static_cast<Node *>(_modifyBankLayout->getChildByTag(3))  ;
+        auto modify = (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_LOGON_PWD)  ? static_cast<Node *>(m_pUiLayoutModifyLogon->getChildByTag(2)) :
+        static_cast<Node *>(m_pUiLayoutModifyBank->getChildByTag(3))  ;
         
  
         EditBox *orignalPass = static_cast<EditBox *>(modify->getChildByTag(100));
@@ -583,12 +577,12 @@ void PersonalScene::operatesuccessResult(void *pData, WORD wSize)
         confirmPass->setText("");
         
     }
-    else if (m_eType == Type_ModifyBankPass)
+    else if (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_BANK_PWD)
     {
         
         
-        auto modify = (m_eType == Type_ModifyLoginPass)  ? static_cast<Node *>(_modifyLoginLayout->getChildByTag(2)) :
-        static_cast<Node *>(_modifyBankLayout->getChildByTag(3))  ;
+        auto modify = (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_LOGON_PWD)  ? static_cast<Node *>(m_pUiLayoutModifyLogon->getChildByTag(2)) :
+        static_cast<Node *>(m_pUiLayoutModifyBank->getChildByTag(3))  ;
         
         
         EditBox *orignalPass = static_cast<EditBox *>(modify->getChildByTag(100));
@@ -617,25 +611,25 @@ void PersonalScene::buttonEventWithMenu(cocos2d::Ref *target, cocos2d::ui::Widge
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
         auto btn = static_cast<Button *>(target);
-        auto mainLayout = static_cast<Layout *>(this->getChildByTag(INFO_MAINLAYOUT));
-        auto mainRoot = static_cast<Node *>(mainLayout->getChildByTag(INFO_MAINROOT));
-        auto personal = static_cast<Button *>(mainRoot->getChildByTag(INFO_PERSONAL));
-        auto loginPass = static_cast<Button *>(mainRoot->getChildByTag(INFO_LOGINPASS));
-        auto bankPass = static_cast<Button *>(mainRoot->getChildByTag(INFO_BANKPASS));
+        auto mainLayout = static_cast<Layout *>(this->getChildByTag(EM_INFO_LAYOUT_MAIN));
+        auto mainRoot = static_cast<Node *>(mainLayout->getChildByTag(EM_INFO_ROOT_MAIN));
+        auto personal = static_cast<Button *>(mainRoot->getChildByTag(EM_INFO_TEXT_PERSONAL));
+        auto loginPass = static_cast<Button *>(mainRoot->getChildByTag(EM_INFO_EDIT_LOGON_PWD));
+        auto bankPass = static_cast<Button *>(mainRoot->getChildByTag(EM_INFO_EDIT_BANK_PWD));
         
         int tag = btn->getTag();
-        if(tag == INFO_PERSONAL )
+        if(tag == EM_INFO_TEXT_PERSONAL )
         {
-            if (m_eType == Type_PersonalInfo)
+            if (m_emPersonalType == EM_PERSONAL_TYPE_INFO)
             {
                 
                 return;
             }
             
-            m_eType = Type_PersonalInfo;
-            _personalLayout->setVisible(true);
-            _modifyLoginLayout->setVisible(false);
-            _modifyBankLayout->setVisible(false);
+            m_emPersonalType = EM_PERSONAL_TYPE_INFO;
+            m_pUiLayoutPersonal->setVisible(true);
+            m_pUiLayoutModifyLogon->setVisible(false);
+            m_pUiLayoutModifyBank->setVisible(false);
             
             if (personal && loginPass && bankPass)
             {
@@ -646,17 +640,17 @@ void PersonalScene::buttonEventWithMenu(cocos2d::Ref *target, cocos2d::ui::Widge
             }
             
         }
-        if(tag == INFO_LOGINPASS )
+        if(tag == EM_INFO_EDIT_LOGON_PWD )
         {
-            if (m_eType == Type_ModifyLoginPass)
+            if (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_LOGON_PWD)
             {
                 return;
             }
             
-            m_eType = Type_ModifyLoginPass;
-            _personalLayout->setVisible(false);
-            _modifyLoginLayout->setVisible(true);
-            _modifyBankLayout->setVisible(false);
+            m_emPersonalType = EM_PERSONAL_TYPE_MODIFY_LOGON_PWD;
+            m_pUiLayoutPersonal->setVisible(false);
+            m_pUiLayoutModifyLogon->setVisible(true);
+            m_pUiLayoutModifyBank->setVisible(false);
             
             if (personal && loginPass && bankPass)
             {
@@ -668,17 +662,17 @@ void PersonalScene::buttonEventWithMenu(cocos2d::Ref *target, cocos2d::ui::Widge
             
             this->initModify();
         }
-        if(tag == INFO_BANKPASS)
+        if(tag == EM_INFO_EDIT_BANK_PWD)
         {
-            if (m_eType == Type_ModifyBankPass)
+            if (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_BANK_PWD)
             {
                 return;
             }
             
-            m_eType = Type_ModifyBankPass;
-            _personalLayout->setVisible(false);
-            _modifyLoginLayout->setVisible(false);
-            _modifyBankLayout->setVisible(true);
+            m_emPersonalType = EM_PERSONAL_TYPE_MODIFY_BANK_PWD;
+            m_pUiLayoutPersonal->setVisible(false);
+            m_pUiLayoutModifyLogon->setVisible(false);
+            m_pUiLayoutModifyBank->setVisible(true);
             
             if (personal && loginPass && bankPass)
             {
@@ -703,7 +697,7 @@ void PersonalScene::buttonEventWithGender(cocos2d::Ref *target, cocos2d::ui::Wid
     {
         Button *btn = static_cast<Button *>(target);
         
-        auto personalRoot = static_cast<Node *>(_personalLayout->getChildByTag(1));
+        auto personalRoot = static_cast<Node *>(m_pUiLayoutPersonal->getChildByTag(1));
         auto manBtn = static_cast<Button *>(personalRoot->getChildByName("Button_sex_1"));
         
         auto womanBtn = static_cast<Button *>(personalRoot->getChildByName("Button_sex_0"));
@@ -734,7 +728,7 @@ void PersonalScene::buttonEventWithGender(cocos2d::Ref *target, cocos2d::ui::Wid
         }
         
 
-         m_eModify = modify_sex;
+         m_emPersonalModifyType = EM_PERSONAL_MODIFY_TYPE_SEX;
     }
 }
 
@@ -743,7 +737,7 @@ void PersonalScene::buttonEventWithUploadRes(cocos2d::Ref *target, cocos2d::ui::
 {
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
-        if (_personalLayout->getChildByTag(INFO_PICBG))
+        if (m_pUiLayoutPersonal->getChildByTag(EM_INFO_IMAGE_BG))
             return;
         
         auto image = ImageView::create();
@@ -751,8 +745,8 @@ void PersonalScene::buttonEventWithUploadRes(cocos2d::Ref *target, cocos2d::ui::
         image->setScale9Enabled(true);
         image->setTouchEnabled(true);
         image->setPosition(Vec2(568, 320));
-        image->setTag(INFO_PICBG);
-        _personalLayout->addChild(image);
+        image->setTag(EM_INFO_IMAGE_BG);
+        m_pUiLayoutPersonal->addChild(image);
         
         auto loadBG = ImageView::create("personal_res/info_loadPic_bg.png");
         loadBG->setPosition(Vec2(568, 380));
@@ -813,20 +807,20 @@ void PersonalScene::buttonEventWithUploadRes(cocos2d::Ref *target, cocos2d::ui::
             if (type == Widget::TouchEventType::ENDED)
             {
                 image->removeFromParent();
-                if (!m_photo)
-                {
-                    m_photo = new PhotoBridge;
-                }
-                m_photo->openPhoto();
-                m_photo->setChoiceType(0);
-                m_photo->m_completeCallback = CC_CALLBACK_1(PersonalScene::photocomplete, this);
+
+                if (!m_pPhotoBridge)
+                    m_pPhotoBridge = new PhotoBridge;
+
+                m_pPhotoBridge->openPhoto();
+                m_pPhotoBridge->setChoiceType(0);
+
+				m_pPhotoBridge->setPhotoCallback(CC_CALLBACK_1(PersonalScene::photocomplete, this));
+
                 HallDataMgr::getInstance()->m_completecallback = CC_CALLBACK_1(PersonalScene::photocomplete, this);
-                
             }
         });
-        loadBG->addChild(custom);
-        
 
+        loadBG->addChild(custom);
         
         //系统头像
         auto system = Button::create("personal_res/info_systemHead.png");
@@ -878,12 +872,12 @@ void PersonalScene::buttonEventWithModifyNick(cocos2d::Ref *target, cocos2d::ui:
         Button *modify = static_cast<Button *>(target);
         modify->setVisible(false);
         
-        auto personalRoot = static_cast<Node *>(_personalLayout->getChildByTag(1));
-        Text    *nick = static_cast<Text *>(personalRoot->getChildByTag(INFO_NICK));
+        auto personalRoot = static_cast<Node *>(m_pUiLayoutPersonal->getChildByTag(1));
+        Text    *nick = static_cast<Text *>(personalRoot->getChildByTag(EM_INFO_TEXT_NICKNAME));
         nick->setVisible(false);
         
         
-        auto editbox = static_cast<EditBox *>(personalRoot->getChildByTag(INFO_NICKEDIT));
+        auto editbox = static_cast<EditBox *>(personalRoot->getChildByTag(EM_INFO_EDIT_NICKNAME));
         editbox->setVisible(true);
         editbox->touchDownAction(editbox, cocos2d::ui::Widget::TouchEventType::ENDED);
     }
@@ -896,7 +890,7 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
     {
         
-        if (m_eType == Type_ModifyBankPass)
+        if (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_BANK_PWD)
         {
             
             if (!HallDataMgr::getInstance()->m_cbInsureEnable)
@@ -907,8 +901,8 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
             }
         }
         
-        auto modify = (m_eType == Type_ModifyLoginPass)  ? static_cast<Node *>(_modifyLoginLayout->getChildByTag(2)) :
-                                                           static_cast<Node *>(_modifyBankLayout->getChildByTag(3))  ;
+        auto modify = (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_LOGON_PWD)  ? static_cast<Node *>(m_pUiLayoutModifyLogon->getChildByTag(2)) :
+                                                           static_cast<Node *>(m_pUiLayoutModifyBank->getChildByTag(3))  ;
         
         EditBox *orignalPass = static_cast<EditBox *>(modify->getChildByTag(100));
         EditBox *newPass = static_cast<EditBox *>(modify->getChildByTag(101));
@@ -929,7 +923,7 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
              return;
         }
         
-        if (m_eType == Type_ModifyLoginPass)
+        if (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_LOGON_PWD)
         {
         
             if (std::strcmp(MD5Encrypt(std::string(orignalPass->getText())).c_str() , HallDataMgr::getInstance()->m_strPwd.c_str()) != 0)
@@ -988,16 +982,16 @@ void PersonalScene::buttonEventWithSureModify(cocos2d::Ref *target, cocos2d::ui:
             return;
         }
         
-        if  (m_eType == Type_ModifyLoginPass)
+        if  (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_LOGON_PWD)
         {
-            sendAlterloginPass(std::string(orignalPass->getText()), newPassStr);
+            SendModifyLogonPwd(std::string(orignalPass->getText()), newPassStr);
             
-        }else if (m_eType == Type_ModifyBankPass)
+        }else if (m_emPersonalType == EM_PERSONAL_TYPE_MODIFY_BANK_PWD)
         {
             
             
             
-            sendAlterBankPass(std::string(orignalPass->getText()), newPassStr);
+            SendModifyBankPwd(std::string(orignalPass->getText()), newPassStr);
         }
         
     }
@@ -1032,15 +1026,15 @@ void PersonalScene::sendCustomFaceInfo(cocos2d::Image *pImage)
     auto pdate = pImage->getData();
     int length = (int)pImage->getDataLen();
     
-    char byte[length];
-    memset(byte, 0, length);
+	// 图片大小是否有问题
+	char szImage[FACE_SCX * FACE_SCY] = { 0 };
 
     for(int i=0; i<length/4;i++)
     {
-        byte[i*4]=pdate[i*4+2];
-        byte[i*4+1]=pdate[i*4+1];
-        byte[i*4+2]=pdate[i*4];
-        byte[i*4+3]=255;
+        szImage[i*4]=pdate[i*4+2];
+        szImage[i*4+1]=pdate[i*4+1];
+        szImage[i*4+2]=pdate[i*4];
+        szImage[i*4+3]=255;
     }
     
     _stCmdGpCustomFaceInfo CustomFaceInfo;
@@ -1048,101 +1042,101 @@ void PersonalScene::sendCustomFaceInfo(cocos2d::Image *pImage)
 	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd, (WORD*)CustomFaceInfo.szPwd);
     CustomFaceInfo.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
-    memcpy(CustomFaceInfo.dwCustomFace, byte, length);
+    memcpy(CustomFaceInfo.dwCustomFace, szImage, length);
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
     NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_CUSTOM_FACE_INFO, &CustomFaceInfo, sizeof(_stCmdGpCustomFaceInfo),NetworkMgr::getInstance()->getSocketOnce());
 }
 
 void PersonalScene::sendAlterIndividual(const std::string &name, BYTE cbgerder, int type)
 {
-    BYTE buffer[256];
-    memset(buffer, 0, sizeof(buffer));
-    
-    _stCmdGpModifyIndividual modifyindividual;
-    memset(&modifyindividual, 0, sizeof(_stCmdGpModifyIndividual));
+	BYTE buffer[256] = { 0 };
+	_stCmdGpModifyIndividual modifyindividual = { 0 };
+
 	Utf8ToUtf16(HallDataMgr::getInstance()->m_strPwd, (WORD*)modifyindividual.szPwd);
+
     modifyindividual.cbGender = cbgerder;
     modifyindividual.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
     
     memcpy(buffer, &modifyindividual, sizeof(_stCmdGpModifyIndividual));
-    int size = sizeof(_stCmdGpModifyIndividual);
+
+    int nSize = sizeof(_stCmdGpModifyIndividual);
+
     //if (type)
     {
-        int wsize = (int)name.size()+1;
+        int nSizeTemp = (int)name.size()+1;
         
-        _stUserDataExt describe;
-        memset(&describe, 0, sizeof(_stUserDataExt));
-        describe.wDataSize = wsize*sizeof(TCHAR);
-        describe.wDataDesc = DTP_GP_UI_NICKNAME;
-        memcpy(buffer+size, &describe, sizeof(_stUserDataExt));
-        size += sizeof(_stUserDataExt);
-        
-        TCHAR tname[wsize];
-        memset(tname, 0, sizeof(tname));
-        Utf8ToUtf16(name,tname);
-        memcpy(buffer + size, tname, describe.wDataSize);
+		_stUserDataExt stUserDataExt = { 0 };
 
-		size += (INT)describe.wDataSize;
+        stUserDataExt.wDataSize = nSizeTemp*sizeof(TCHAR);
+        stUserDataExt.wDataDesc = DTP_GP_UI_NICKNAME;
+
+        memcpy(buffer+nSize, &stUserDataExt, sizeof(_stUserDataExt));
+
+        nSize += sizeof(_stUserDataExt);
+        
+		TCHAR szName[LEN_MAX_ACCOUNT] = { 0 };
+
+        Utf8ToUtf16(name, (WORD*)szName);
+
+        memcpy(buffer+nSize, szName, stUserDataExt.wDataSize);
+		nSize += (INT)stUserDataExt.wDataSize;
     }
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
-    NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INDIVIDUAL, &buffer, size,NetworkMgr::getInstance()->getSocketOnce());
+    NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INDIVIDUAL, &buffer, nSize,NetworkMgr::getInstance()->getSocketOnce());
 }
 
-void PersonalScene::sendAlterloginPass(const std::string &oldpass, const std::string &newpass)
+void PersonalScene::SendModifyLogonPwd(const std::string &oldpass, const std::string &newpass)
 {
-    _stCmdGpModifyLogonPwd request;
-    memset(&request, 0, sizeof(request));
-    request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-	Utf8ToUtf16(MD5Encrypt(oldpass), (WORD*)request.szOldPwd);
-	Utf8ToUtf16(MD5Encrypt(newpass), (WORD*)request.szNewPwd);
+	_stCmdGpModifyLogonPwd stCmdGpModifyLogonPwd = { 0 };
+
+    stCmdGpModifyLogonPwd.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
+
+	Utf8ToUtf16(MD5Encrypt(oldpass), (WORD*)stCmdGpModifyLogonPwd.szOldPwd);
+	Utf8ToUtf16(MD5Encrypt(newpass), (WORD*)stCmdGpModifyLogonPwd.szNewPwd);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
-    NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_LOGON_PASS, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
+    NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_LOGON_PASS, &stCmdGpModifyLogonPwd, sizeof(stCmdGpModifyLogonPwd),NetworkMgr::getInstance()->getSocketOnce());
 }
 
-void PersonalScene::sendAlterBankPass(const std::string &oldpass, const std::string &newpass)
+void PersonalScene::SendModifyBankPwd(const std::string &strOldPwd, const std::string &strNewPwd)
 {
-    _stCmdGpModifyInsurePwd request;
-    memset(&request, 0, sizeof(request));
+	_stCmdGpModifyBankPwd request = { 0 };
+
     request.dwUserID = HallDataMgr::getInstance()->m_dwUserID;
-	Utf8ToUtf16(MD5Encrypt(oldpass), (WORD*)request.szOldPwd);
-	Utf8ToUtf16(MD5Encrypt(newpass), (WORD*)request.szNewPwd);
+
+	Utf8ToUtf16(MD5Encrypt(strOldPwd), (WORD*)request.szOldPwd);
+	Utf8ToUtf16(MD5Encrypt(strNewPwd), (WORD*)request.szNewPwd);
     
     NetworkMgr::getInstance()->doConnect(LOGON_ADDRESS_YM, LOGON_PORT, EM_DATA_TYPE_LOAD);
-    NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INSURE_PASS, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
+    NetworkMgr::getInstance()->sendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_BANK_PWD, &request, sizeof(request),NetworkMgr::getInstance()->getSocketOnce());
 }
 
 //MARK::EditBoxDelegate
 void PersonalScene::editBoxEditingDidBegin(cocos2d::ui::EditBox* editBox)
 {
-   
-    
-    
 }
 
 void PersonalScene::editBoxEditingDidEnd(cocos2d::ui::EditBox* editBox)
 {
-    
 }
 
 void PersonalScene::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)
 {
-    
 }
 
 void PersonalScene::editBoxReturn(cocos2d::ui::EditBox* editBox)
 {
-    if (m_eType == Type_PersonalInfo)
+    if (m_emPersonalType == EM_PERSONAL_TYPE_INFO)
     {
         m_cbGender = HallDataMgr::getInstance()->m_cbGender;
         
-        auto personalRoot = static_cast<Node *>(_personalLayout->getChildByTag(1));
+        auto personalRoot = static_cast<Node *>(m_pUiLayoutPersonal->getChildByTag(1));
 
-        Button *modify = static_cast<Button *>(personalRoot->getChildByTag(INFO_MODIFYBTN));
+        Button *modify = static_cast<Button *>(personalRoot->getChildByTag(EM_INFO_BTN_MODIFY));
         modify->setVisible(true);
         
-        Text    *_nick = static_cast<Text *>(personalRoot->getChildByTag(INFO_NICK));
+        Text    *_nick = static_cast<Text *>(personalRoot->getChildByTag(EM_INFO_TEXT_NICKNAME));
         _nick->setVisible(true);
         
         editBox->setVisible(false);
@@ -1159,40 +1153,42 @@ void PersonalScene::editBoxReturn(cocos2d::ui::EditBox* editBox)
             {
                 i = i + 3;
                 length += 2;
-            } else
+            } 
+			else
             {
                 i = i + 1;
                 length += 1;
             }
         }
         
-        bool success = true;
+        bool bSucc = true;
+
         if (0 == length)
         {
-            
             HallDataMgr::getInstance()->AddpopLayer("提示", "昵称不能为空,请输入昵称", EM_MODE_TYPE_ENSURE);
-            success = false;
+            bSucc = false;
 
-        }else if (length > 32 || length < 6)
+        }
+		else if (length > LEN_MAX_ACCOUNT || length < 6)
         {
              HallDataMgr::getInstance()->AddpopLayer("提示", "请输入6-32位字符", EM_MODE_TYPE_ENSURE);
-             success = false;
+             bSucc = false;
         }
         
         if(nick.find(" ") != std::string::npos)
         {
             //有空格
             HallDataMgr::getInstance()->AddpopLayer("提示", "昵称中不能有空格", EM_MODE_TYPE_ENSURE);
-            success = false;
+            bSucc = false;
         }
         
-        if (!success)
+        if (!bSucc)
         {
             
             return;
         }
         
-        m_eModify = modify_nick;
+        m_emPersonalModifyType = EM_PERSONAL_MODIFY_TYPE_NICK_NAME;
         HallDataMgr::getInstance()->AddpopLayer("", "修改昵称中...", EM_MODE_TYPE_WAIT_TEXT);
         this->sendAlterIndividual(nick, HallDataMgr::getInstance()->m_cbGender);
     }

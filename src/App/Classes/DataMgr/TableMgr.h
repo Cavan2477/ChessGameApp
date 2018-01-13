@@ -9,8 +9,8 @@
  *
  ************************************************************************************/
 
-#ifndef __TableMgr_H__
-#define __TableMgr_H__
+#ifndef __TABLE_MGR_H__
+#define __TABLE_MGR_H__
 
 #include "CocosHeader.h"
 #include "../Pattern/Singleton.h"
@@ -21,31 +21,34 @@
 enum enTableCode
 {
     kGetTableInfo = 100,            //获取到桌子信息
-    kUpdateTable ,                  //更新桌子信息
+    kUpdateTable,					//更新桌子信息
     kUpdateTableUser,               //更新桌子用户
 };
-struct tagTableUserInfo
+
+typedef struct _stTableUserInfo
 {
 	DWORD				wUserId;
 	_stUserStatus		tagStatus;
-	tagTableUserInfo()
+
+	_stTableUserInfo()
 	{
 		wUserId = INVALID_USERID;
 		tagStatus.wChairID = INVALID_CHAIR;
 		tagStatus.wTableID = INVALID_TABLE;
 	}
-};
+}ST_TABLE_USER_INFO, *PST_TABLE_USER_INFO;
 
-struct tagTableItem
+typedef struct _stTableItem
 {
 	WORD				wTableId;				//桌子id
 	_stTableStatus		tagStatus;				//桌子状态
-	tagTableUserInfo	tableUsers[6];          //桌子用户id
-};
+	_stTableUserInfo		tableUsers[6];          //桌子用户id
+}ST_TABLE_ITEM, *PST_TABLE_ITEM;
 
 class TableMgr
 {
-	CREATE_SINGLETON_MUTEX_CLEAR(TableMgr,s_tableInstance,nullptr);
+	CREATE_SINGLETON_MUTEX_CLEAR(TableMgr,s_pTableMgrInstance,nullptr);
+
 	void init();
 	void clear();
 
@@ -63,7 +66,7 @@ public:
 	bool updateTableItem(const _stTableStatus *pStatus,const WORD &tableId);
     
 	//更新桌子用户信息(桌子状态信息必须已存在)
-	bool updateTableItem( const tagTableUserInfo &tagInfo );
+	bool updateTableItem( const _stTableUserInfo &tagInfo );
 
 	/*
 	 * @brief 将所有的桌子进行分组
@@ -71,9 +74,9 @@ public:
 	 */
 	void grouping(const int &LIST_Kind);
 
-	tagTableItem* getTableItemById(const WORD &tableId);
+	_stTableItem* getTableItemById(const WORD &tableId);
 
-	std::vector<tagTableItem*> getTableGroupByIndex(const int &nIdx);
+	std::vector<_stTableItem*> getTableGroupByIndex(const int &nIdx);
 
 	void resetList();
 
@@ -99,11 +102,13 @@ public:
     
     //回调函数
     std::function<void(const enTableCode& nCode, void *pData, const int& nSize)> m_funTableCallBack;
+
 private:
-	static TableMgr *s_tableInstance;
-	std::vector<tagTableItem*> m_vecTables;
-	std::vector<std::vector<tagTableItem*>> m_vecGroup;
-	//存储坐下的用户的桌椅信息
-	std::map<DWORD,tagTableUserInfo> m_mapUserSit;
+	static TableMgr*						s_pTableMgrInstance;
+
+	std::vector<_stTableItem*>				m_vecTables;
+	std::vector<std::vector<_stTableItem*>> m_vecGroup;
+
+	std::map<DWORD,_stTableUserInfo>		m_mapUserSit;			//存储坐下的用户的桌椅信息
 };
 #endif

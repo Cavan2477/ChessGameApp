@@ -142,12 +142,14 @@ typedef struct _stSysTime
 //资料数据
 #define LEN_USER_UIN        33 
 #define LEN_MD5				33						//加密密码
-#define LEN_ACCOUNT			32						//备注长度
-#define LEN_NICENAME		32						//帐号长度	
-#define LEN_NICKNAME		32						//昵称长度
+#define LEN_MIN_ACCOUNT		6						//账号最小长度
+#define LEN_MAX_ACCOUNT		32						//账号最大长度
+#define LEN_MIN_NICKNAME	6						//昵称最小长度
+#define LEN_MAX_NICKNAME	32						//昵称最大长度
 #define LEN_PWD				33						//密码长度	
-#define LEN_GROUP_NAME		32						//社团名字	
-#define LEN_UNDER_WRITE		32						//个性签名
+#define LEN_MIN_GROUP_NAME	6						//社团最小名字	
+#define LEN_MAX_GROUP_NAME	32						//社团最大名字	
+#define LEN_SIGNATURE		32						//个性签名
 
 //数据长度
 #define LEN_QQ				16						//qq号码
@@ -327,8 +329,8 @@ typedef struct _stSysTime
 
 //处理结果
 #define RESULT_ERROR 					-1  		//处理错误
-#define RESULT_SUCCESS 					0  			//处理成功
-#define RESULT_FAIL 					1  			//处理失败
+#define RESULT_FAIL 					0  			//处理失败
+#define RESULT_SUCCESS 					1  			//处理成功
 
 //变化原因
 #define SCORE_REASON_WRITE              0           //写分变化

@@ -181,6 +181,261 @@
     <ClCompile Include="..\Classes\Plaza\CommonPlazaLayer.cpp">
       <Filter>src\Plaza</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\BankSceneUI\BankLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\BankSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\BankSceneUI\BankSaveLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\BankSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\BankSceneUI\BankSendLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\BankSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\BankSceneUI\OpenBankLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\BankSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\DataMgr\GameLogic.cpp">
+      <Filter>src\Game\BaiJiaLe\DataMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\DataMgr\GameRecordMgr.cpp">
+      <Filter>src\Game\BaiJiaLe\DataMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\AntiCheatLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\BankerNode.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameCardLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameClockNode.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameEffectLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameJettonNode.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameResultLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameRoleInfoLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameRoleNode.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\WallBill\SimpleWallBillLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\WallBill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\WallBill\WallBillLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\WallBill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameCard\CardSprite.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\GameCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameCard\CardsNode.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\GameCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Chat\ChatTableView.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Chat\GameChatLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Chat\BrowPanel.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Chat\ChatItem.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Apply\ApplyItemNode.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Apply</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Apply\ApplyListLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Apply</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\TablePageItem.cpp">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\PasswdLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\PlazaLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\RoomItemView.cpp">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\RoomListLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\TableItemView.cpp">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\TableListLayer.cpp">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiRenNiuNiu\Game\brnn_GameLayer.cpp">
+      <Filter>src\Game\BaiRenNiuNiu\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiRenNiuNiu\Game\GameLogic.cpp">
+      <Filter>src\Game\BaiRenNiuNiu\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiRenNiuNiu\Game\NameLabel.cpp">
+      <Filter>src\Game\BaiRenNiuNiu\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiRenNiuNiu\Room\BankLayer.cpp">
+      <Filter>src\Game\BaiRenNiuNiu\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiRenNiuNiu\Room\brnn_RoomLayer.cpp">
+      <Filter>src\Game\BaiRenNiuNiu\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\BaiRenNiuNiu\Room\SettingLayer.cpp">
+      <Filter>src\Game\BaiRenNiuNiu\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\Bullet.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\Cannon.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\CannonLayer.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\CoinMove.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\Fish.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\GameBankLayer.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\GameClearLayer.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\GameHelpLayer.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\GameLayer.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\GameLodingLayer.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\GameMessage.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\GameSettingLayer.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\lkpy_GameDataMgr.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Game\RotateWithAction.cpp">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Public\CircleBy.cpp">
+      <Filter>src\Game\lkpy\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Public\lkpy_help.cpp">
+      <Filter>src\Game\lkpy\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Room\DeskCell.cpp">
+      <Filter>src\Game\lkpy\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Room\DeskLayer.cpp">
+      <Filter>src\Game\lkpy\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\lkpy\Room\RoomLayer.cpp">
+      <Filter>src\Game\lkpy\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\nn_GameScene.cpp">
+      <Filter>src\Game\NiuNiu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\nn_HelpLayer.cpp">
+      <Filter>src\Game\NiuNiu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\nn_PlazaScene.cpp">
+      <Filter>src\Game\NiuNiu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\nn_SettingLayer.cpp">
+      <Filter>src\Game\NiuNiu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\nn_TempGameScene.cpp">
+      <Filter>src\Game\NiuNiu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\DataMgr\GameLogic.cpp">
+      <Filter>src\Game\NiuNiu\DataMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\Chat\BrowPanel.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\Chat\ChatItem.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\Chat\ChatTableView.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\Chat\GameChatLayer.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\GameCard\CardsNode.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI\GameCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\GameCard\CardSprite.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI\GameCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\AntiCheatLayer.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\CalculateNiuItem.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\GameClockNode.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\GameEffectLayer.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\GameLayer.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\GameRoleInfoLayer.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\GameRoleNode.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\GameSceneUI\NiuNiuNode.cpp">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\PlazaSceneUI\RoomItemView.cpp">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\PlazaSceneUI\RoomListLayer.cpp">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\PlazaSceneUI\TableItemView.cpp">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\PlazaSceneUI\TableListLayer.cpp">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\PlazaSceneUI\TablePageItem.cpp">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\PlazaSceneUI\PasswdLayer.cpp">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\NiuNiu\PlazaSceneUI\PlazaLayer.cpp">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -417,6 +672,297 @@
     <ClInclude Include="..\Classes\Plaza\CommonPlazaLayer.h">
       <Filter>src\Plaza</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\BankSceneUI\BankLayer.h">
+      <Filter>src\Game\BaiJiaLe\BankSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\BankSceneUI\BankSaveLayer.h">
+      <Filter>src\Game\BaiJiaLe\BankSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\BankSceneUI\BankSendLayer.h">
+      <Filter>src\Game\BaiJiaLe\BankSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\BankSceneUI\OpenBankLayer.h">
+      <Filter>src\Game\BaiJiaLe\BankSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\DataMgr\GameLogic.h">
+      <Filter>src\Game\BaiJiaLe\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\DataMgr\GameRecordMgr.h">
+      <Filter>src\Game\BaiJiaLe\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\AntiCheatLayer.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\BankerNode.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameCardLayer.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameClockNode.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameEffectLayer.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameJettonNode.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameLayer.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameResultLayer.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameRoleInfoLayer.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameRoleNode.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\WallBill\SimpleWallBillLayer.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\WallBill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\WallBill\WallBillLayer.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\WallBill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameCard\CardSprite.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\GameCard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\GameCard\CardsNode.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\GameCard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Chat\ChatTableView.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Chat\GameChatLayer.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Chat\BrowPanel.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Chat\ChatItem.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Apply\ApplyItemNode.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\GameSceneUI\Apply\ApplyListLayer.h">
+      <Filter>src\Game\BaiJiaLe\GameSceneUI\Apply</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\Header\BaiJiaLeLogicDefine.h">
+      <Filter>src\Game\BaiJiaLe\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\Header\BaiJiaLeScene.h">
+      <Filter>src\Game\BaiJiaLe\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\Header\CMD_Game.h">
+      <Filter>src\Game\BaiJiaLe\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\TablePageItem.h">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\PasswdLayer.h">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\PlazaLayer.h">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\RoomItemView.h">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\RoomListLayer.h">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\TableItemView.h">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiJiaLe\PlazaSceneUI\TableListLayer.h">
+      <Filter>src\Game\BaiJiaLe\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiRenNiuNiu\Game\brnn_GameLayer.h">
+      <Filter>src\Game\BaiRenNiuNiu\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiRenNiuNiu\Game\GameLogic.h">
+      <Filter>src\Game\BaiRenNiuNiu\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiRenNiuNiu\Game\NameLabel.h">
+      <Filter>src\Game\BaiRenNiuNiu\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiRenNiuNiu\Header\BRNNScene.h">
+      <Filter>src\Game\BaiRenNiuNiu\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiRenNiuNiu\Header\cmd_game.h">
+      <Filter>src\Game\BaiRenNiuNiu\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiRenNiuNiu\Room\BankLayer.h">
+      <Filter>src\Game\BaiRenNiuNiu\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiRenNiuNiu\Room\brnn_RoomLayer.h">
+      <Filter>src\Game\BaiRenNiuNiu\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\BaiRenNiuNiu\Room\SettingLayer.h">
+      <Filter>src\Game\BaiRenNiuNiu\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\Bullet.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\Cannon.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\CannonLayer.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\CoinMove.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\Fish.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\GameBankLayer.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\GameClearLayer.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\GameHelpLayer.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\GameLayer.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\GameLodingLayer.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\GameMessage.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\GameSettingLayer.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\lkpy_GameDataMgr.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\lkpy_GameDefine.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Game\RotateWithAction.h">
+      <Filter>src\Game\lkpy\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Header\LkpyScene.h">
+      <Filter>src\Game\lkpy\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Header\lkpy_cmd_game.h">
+      <Filter>src\Game\lkpy\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Header\lkpy_CMD_NotifyDefine.h">
+      <Filter>src\Game\lkpy\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Public\CircleBy.h">
+      <Filter>src\Game\lkpy\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Public\lkpy_Help.h">
+      <Filter>src\Game\lkpy\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Room\DeskCell.h">
+      <Filter>src\Game\lkpy\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Room\DeskLayer.h">
+      <Filter>src\Game\lkpy\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\lkpy\Room\RoomLayer.h">
+      <Filter>src\Game\lkpy\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\nn_GameScene.h">
+      <Filter>src\Game\NiuNiu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\nn_HelpLayer.h">
+      <Filter>src\Game\NiuNiu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\nn_PlazaScene.h">
+      <Filter>src\Game\NiuNiu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\nn_SettingLayer.h">
+      <Filter>src\Game\NiuNiu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\nn_TempGameScene.h">
+      <Filter>src\Game\NiuNiu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\DataMgr\GameLogic.h">
+      <Filter>src\Game\NiuNiu\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\Chat\BrowPanel.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\Chat\ChatItem.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\Chat\ChatTableView.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\Chat\GameChatLayer.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\GameCard\CardsNode.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI\GameCard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\GameCard\CardSprite.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI\GameCard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\AntiCheatLayer.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\CalculateNiuItem.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\GameClockNode.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\GameEffectLayer.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\GameLayer.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\GameRoleInfoLayer.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\GameRoleNode.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\GameSceneUI\NiuNiuNode.h">
+      <Filter>src\Game\NiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\Header\CMD_Game.h">
+      <Filter>src\Game\NiuNiu\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\Header\NiuNiuLogicDefine.h">
+      <Filter>src\Game\NiuNiu\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\Header\NiuNiuScene.h">
+      <Filter>src\Game\NiuNiu\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\PlazaSceneUI\RoomItemView.h">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\PlazaSceneUI\RoomListLayer.h">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\PlazaSceneUI\TableItemView.h">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\PlazaSceneUI\TableListLayer.h">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\PlazaSceneUI\TablePageItem.h">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\PlazaSceneUI\PasswdLayer.h">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\NiuNiu\PlazaSceneUI\PlazaLayer.h">
+      <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
@@ -511,6 +1057,87 @@
     </Filter>
     <Filter Include="src\Utils\Gif">
       <UniqueIdentifier>{e041b105-c2da-4304-9101-cf8de617b548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game">
+      <UniqueIdentifier>{cd0d7fa7-7b7f-445d-9330-83d33f4d84db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiJiaLe">
+      <UniqueIdentifier>{1ce28169-4f60-4d16-ba22-bab8b5795375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiJiaLe\BankSceneUI">
+      <UniqueIdentifier>{35a2cd08-bf8e-4404-95ec-875e1fcdbbfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiJiaLe\DataMgr">
+      <UniqueIdentifier>{35d4c450-8018-41d9-8f32-b46dd84bc8ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiJiaLe\GameSceneUI">
+      <UniqueIdentifier>{e0cf421c-a0fd-4260-842c-4aac2a3ad4a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiJiaLe\GameSceneUI\Apply">
+      <UniqueIdentifier>{e052fa58-f752-4806-acf0-e4b0b3f2fbc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiJiaLe\GameSceneUI\Chat">
+      <UniqueIdentifier>{12b09834-632f-4b35-9e3e-540e1b8b92f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiJiaLe\GameSceneUI\GameCard">
+      <UniqueIdentifier>{bf39486d-49d9-46c0-9c9b-2b60075d3f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiJiaLe\GameSceneUI\WallBill">
+      <UniqueIdentifier>{fed7608e-3041-411a-94d7-a46428d20917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiJiaLe\Header">
+      <UniqueIdentifier>{aba34b49-18bf-444c-b33a-3c0bdd3da171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiJiaLe\PlazaSceneUI">
+      <UniqueIdentifier>{43f14a7c-25e8-43cd-b1cb-455268c75430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiRenNiuNiu">
+      <UniqueIdentifier>{e18a67ec-9c52-4cbd-aa25-071e2f261a1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiRenNiuNiu\Game">
+      <UniqueIdentifier>{37e77bef-c745-4040-b017-a8399e7adec4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiRenNiuNiu\Header">
+      <UniqueIdentifier>{75754d15-76f4-4aa4-a937-8449163e3818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\BaiRenNiuNiu\Room">
+      <UniqueIdentifier>{652d6118-31bd-4364-90a5-4e598a8b2258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\lkpy">
+      <UniqueIdentifier>{56ba71dc-cfc8-4453-b8b1-cd5b1c8d36e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\lkpy\Game">
+      <UniqueIdentifier>{293e651b-677d-4435-bb02-0860a6711d2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\lkpy\Header">
+      <UniqueIdentifier>{ac346d52-9bb4-4fd4-9142-0bc109faea83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\lkpy\Public">
+      <UniqueIdentifier>{1f4dbcd4-23f4-43e8-a8fe-3a1bd8368318}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\lkpy\Room">
+      <UniqueIdentifier>{efa3beb9-1130-4bf8-aaad-949a54ef0c5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\NiuNiu">
+      <UniqueIdentifier>{a2e46b7e-57c4-4cdf-888e-5e09e46e1e35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\NiuNiu\DataMgr">
+      <UniqueIdentifier>{8d43c96c-9312-4411-99c3-f565865d7cde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\NiuNiu\GameSceneUI">
+      <UniqueIdentifier>{89f1bd4a-b791-4cd4-85aa-de038f8b0dc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\NiuNiu\GameSceneUI\Chat">
+      <UniqueIdentifier>{e0a4dc70-514e-4a4f-92d7-9d94120b7503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\NiuNiu\GameSceneUI\GameCard">
+      <UniqueIdentifier>{a3635f36-d554-458c-b0c9-30562b434f0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\NiuNiu\Header">
+      <UniqueIdentifier>{e96f5e9c-be58-4a34-abcd-a4d9ceb8c58e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\NiuNiu\PlazaSceneUI">
+      <UniqueIdentifier>{df8990ec-3a6d-4c05-867c-2972f3d3cdb6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

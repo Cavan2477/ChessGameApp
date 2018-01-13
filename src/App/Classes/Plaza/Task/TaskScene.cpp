@@ -499,12 +499,12 @@ void TaskScene::TaskResult(void* pData, WORD wSize)
             auto puser = HallDataMgr::getInstance()->m_UserList.at(HallDataMgr::getInstance()->m_dwUserID);
             if (puser)
             {
-                puser->m_date.llGameCoin = TaskResult->lCurrGameCoin;
-                puser->m_date.llGold = TaskResult->lCurrGold;
+                puser->m_stMobileUserHeadInfo.llGameCoin = TaskResult->lCurrGameCoin;
+                puser->m_stMobileUserHeadInfo.llGold = TaskResult->lCurrGold;
             }
             
             //金币更新
-            EventCustom event(whEvent_User_Data_Change);
+            EventCustom event(STR_EVENT_USER_DATA_CHANGE);
             auto value = __Integer::create(EM_USER_DATA_CHANGE_SCORE);
             event.setUserData(value);
             Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);

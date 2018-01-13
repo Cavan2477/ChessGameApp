@@ -320,7 +320,7 @@ void CTCPSocket::Disconnettologin(const std::string &str)
     });
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_ROOM);
     NetworkMgr::getInstance()->Disconnect(EM_DATA_TYPE_LOAD);
-    Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(whNd_Socket_Connect_Failure);
+    Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(STR_ND_SOCKET_CONNECT_FAILURE);
 }
 
 //关闭socket
@@ -473,7 +473,7 @@ bool CTCPSocket::socketSend(char* pData, WORD wSize)
     if(count == SOCKET_ERROR)
     {
         if (HallDataMgr::getInstance()->m_bStartGame) {
-            EventCustom event(whNd_Socket_Disconnect);
+            EventCustom event(STR_ND_SOCKET_DISCONNECT);
             Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
         }
         else

@@ -10,9 +10,8 @@
  ************************************************************************************/
 
 //网络管理模块
-
-#ifndef __NetworkMgr_h__
-#define __NetworkMgr_h__
+#ifndef __NETWORK_MGR_H__
+#define __NETWORK_MGR_H__
 
 #include <stdio.h>
 #include "cocos2d.h"
@@ -55,19 +54,25 @@ public:
 public:
     //SUB_KN_DETECT_SOCKET  授权码错误
     void networkszCompilatioFalut(WORD  wSubCmdID, void* pData, WORD wSize);
+
     //用户服务
     void networkUserService(WORD wSubCmdID, void *pData, WORD wSize);
+
     //房间配置
     void roomconfigResult(WORD  wSubCmdID, void* pData, WORD wSize);
     
     //用户消息
     void networkGRUser(WORD  wSubCmdID, void* pData, WORD wSize);
+
     //桌子状态
     void networkGRStatus(WORD  wSubCmdID, void* pData, WORD wSize);
+
     //框架消息
     void networkGRFrame(WORD  wSubCmdID, void* pData, WORD wSize);
+
     //游戏消息
     void networkGRGame(WORD  wSubCmdID, void* pData, WORD wSize);
+
     //系统消息
     void networkGRSystem(WORD  wSubCmdID, void* pData, WORD wSize);
     
@@ -79,6 +84,7 @@ public:
     //框架处理
     //游戏状态
     void OnGameStatus(void *pData, WORD wSize);
+
     //游戏场景
     void OnGameScene(void *pData, WORD wSize);
     
@@ -106,8 +112,10 @@ public:
     
     //请求用户
     void sendRequestUserInfo(DWORD userID, WORD tableID);
+
     //请求椅子用户
     void sendRequestChairUserInfo(WORD tableID, WORD chairID);
+
     //发送坐下
     void sendSitDown(WORD tableID, WORD chairID, const std::string &pass);
     
@@ -124,16 +132,14 @@ public:
     CC_PROPERTY_READONLY(CTCPSocket*, m_pSocketData, SocketData)//长时连接
     CC_PROPERTY_READONLY(CTCPSocket*, m_pSocketOnce, SocketOnce)//一次连接
 
-    UserItemDelegate *m_Userdelegate;//用户消息监听
-    
-    MessageCallback1 m_GameScenecallback;
+public:
+    UserItemDelegate*		m_pUseItemDelegate;				//用户消息监听
+    MessageCallback1		m_msgCallbackGameScene;
     
 private:
-    std::map<int, gameMessageCallback> m_loadfunction;//登陆回调列表
-    
-    std::map<int, MessageCallback1> m_Userfunction;//用户服务消息
-    
-    std::map<int, gameMessageCallback> m_roomfunction;//房间回调
+    std::map<int, gameMessageCallback>	m_loadfunction;		//登陆回调列表
+    std::map<int, MessageCallback1>		m_Userfunction;		//用户服务消息
+    std::map<int, gameMessageCallback>	m_roomfunction;		//房间回调
 };
 
 #endif /* defined(__MyGame__NetworkMgr__) */

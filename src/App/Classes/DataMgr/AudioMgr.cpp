@@ -165,7 +165,7 @@ void AudioMgr::playTextAudio(DWORD dwUser,const int &idx)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             sprintf(buf, "sound_res/1000_%d.wav",idx);
         }
@@ -215,7 +215,7 @@ void AudioMgr::playAddScoreAudio(DWORD dwUser,LONGLONG llScore)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             sprintf(buf, "sound_res/0_cs%lld.wav",llScore);
         }
@@ -240,7 +240,7 @@ void AudioMgr::playCompaireAudio(const DWORD &dwUser, bool bLarge)
     if (nullptr != pUser)
     {
         int randidx = rand()%(2);
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             if (bLarge)
             {
@@ -277,7 +277,7 @@ void AudioMgr::playOutSingleCardAudio(const DWORD &dwUser, const BYTE &carddata)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             sprintf(buf, "sound_res/0_%d.wav",carddata);
         }
@@ -300,7 +300,7 @@ void AudioMgr::playOutCardWithTypeAudio(const DWORD &dwUser, const BYTE &cardTyp
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             sprintf(buf, "sound_res/0_type%d.wav",cardType);
         }
@@ -411,7 +411,7 @@ void AudioMgr::playNiuNiuAudio(DWORD dwUser, BYTE cbType)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             sprintf(buf, "sound_res/putong/man/nn%d_1.wav",cbType);
         }
@@ -434,7 +434,7 @@ void AudioMgr::playCallBankerAudio(DWORD dwUser, bool bCall)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             if (bCall)
             {
@@ -471,7 +471,7 @@ void AudioMgr::playGetBankerAudio(DWORD dwUser)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             buf = "sound_res/putong/man/nt_1.wav";
         }
@@ -526,7 +526,7 @@ void AudioMgr::playHL_ValidCard(const DWORD &dwUser)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound_res/m/VALID_CARD.wav");
         }
@@ -548,7 +548,7 @@ void AudioMgr::playHL_CompaireAudio(const DWORD &dwUser, bool bLarge)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             if (bLarge)
             {
@@ -585,7 +585,7 @@ void AudioMgr::playHL_OutSingleCardAudio(const DWORD &dwUser, const BYTE &cardda
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             sprintf(buf, "sound_res/m/SINGLE_%d.wav",carddata);
         }
@@ -608,7 +608,7 @@ void AudioMgr::playHL_OutCardWithTypeAudio(const DWORD &dwUser, const BYTE &card
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             sprintf(buf, "sound_res/m/0_type%d.wav",cardType);
         }
@@ -630,7 +630,7 @@ void AudioMgr::playHL_PlaneAudio(const DWORD &dwUser)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound_res/m/THREE_ONE_LINE.wav");
         }
@@ -651,7 +651,7 @@ void AudioMgr::playHL_BombAudio(const DWORD &dwUser)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound_res/m/BOMB_CARD.wav");
         }
@@ -673,7 +673,7 @@ void AudioMgr::playHL_CallBankerAudio(const DWORD &dwUser, const BYTE &cbCall)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             sprintf(buf, "sound_res/m/call_banker_%d.wav",cbCall);
         }
@@ -696,7 +696,7 @@ void AudioMgr::playHL_RodBankerAudio(const DWORD &dwUser, const BYTE &cbRod)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             sprintf(buf, "sound_res/m/rod_banker_%d.wav",cbRod);
         }
@@ -719,7 +719,7 @@ void AudioMgr::playHL_DoubleAudio(const DWORD &dwUser, const BYTE &cbDouble)
     UserData *pUser = HallDataMgr::getInstance()->getUserData(dwUser);
     if (nullptr != pUser)
     {
-        if (1 == pUser->m_date.cbGender) //男
+        if (1 == pUser->m_stMobileUserHeadInfo.cbGender) //男
         {
             sprintf(buf, "sound_res/m/double_%d.wav",cbDouble);
         }

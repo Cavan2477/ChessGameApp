@@ -17,72 +17,72 @@
 #pragma pack(1)
 
 /////////////////////////////////////////////////////////////////////
-//ç«¯å£å®šä¹‰
-#define MAX_CONTENT			512							//å¹¶å‘å®¹é‡
-#define PORT_AUTO_SELECT	((WORD)(0XFFFF))			//è‡ªåŠ¨ç«¯å£
+//¶Ë¿Ú¶¨Òå
+#define MAX_CONTENT			512							//²¢·¢ÈİÁ¿
+#define PORT_AUTO_SELECT	((WORD)(0XFFFF))			//×Ô¶¯¶Ë¿Ú
 
 #define PORT_TEMP           6300
-#define PORT_LOGON			8300						//ç™»é™†ç«¯å£
-#define PORT_CENTER			8310						//åè°ƒç«¯å£
-#define PORT_8311			8311						//æµ‹è¯•ç«¯å£
-#define PORT_MANAGER		8320						//ç®¡ç†ç«¯å£
+#define PORT_LOGON			8300						//µÇÂ½¶Ë¿Ú
+#define PORT_CENTER			8310						//Ğ­µ÷¶Ë¿Ú
+#define PORT_8311			8311						//²âÊÔ¶Ë¿Ú
+#define PORT_MANAGER		8320						//¹ÜÀí¶Ë¿Ú
 
 /////////////////////////////////////////////////////////////////////
-//ç½‘ç»œå®šä¹‰
+//ÍøÂç¶¨Òå
 
-//æ•°æ®ç±»å‹
-#define DK_MAPPED			0X01				//æ˜ å°„ç±»å‹
-#define DK_ENCRYPT			0X02				//åŠ å¯†ç±»å‹
-#define DK_COMPRESS			0X04				//å‹ç¼©ç±»å‹
+//Êı¾İÀàĞÍ
+#define DK_MAPPED			0X01				//Ó³ÉäÀàĞÍ
+#define DK_ENCRYPT			0X02				//¼ÓÃÜÀàĞÍ
+#define DK_COMPRESS			0X04				//Ñ¹ËõÀàĞÍ
 
-//é•¿åº¦å®šä¹‰
-#define SOCKET_TCP_BUFFER	16384									//ç½‘ç»œç¼“å†²
-#define SOCKET_TCP_PACKET	(SOCKET_TCP_BUFFER-sizeof(ST_TCP_HEAD))	//ç½‘ç»œç¼“å†²
+//³¤¶È¶¨Òå
+#define SOCKET_TCP_BUFFER	16384									//ÍøÂç»º³å
+#define SOCKET_TCP_PACKET	(SOCKET_TCP_BUFFER-sizeof(ST_TCP_HEAD))	//ÍøÂç»º³å
 
-#pragma mark å†…æ ¸å‘½ä»¤
+#pragma mark ÄÚºËÃüÁî
 
-#define MDM_KN_COMMAND			0				//å†…æ ¸å‘½ä»¤
-#define SUB_KN_DETECT_SOCKET	1				//æ£€æµ‹å‘½ä»¤
-#define SUB_KN_VALIDATE_SOCKET	2				//éªŒè¯å‘½ä»¤
+#define MDM_KN_COMMAND			0				//ÄÚºËÃüÁî
+#define SUB_KN_DETECT_SOCKET	1				//¼ì²âÃüÁî
+#define SUB_KN_VALIDATE_SOCKET	2				//ÑéÖ¤ÃüÁî
 
 ///////////////////////////////////////////////////////////////////////////
-//ç»“æ„å®šä¹‰
-//ç½‘ç»œéªŒè¯
+//½á¹¹¶¨Òå
+//ÍøÂçÑéÖ¤
 typedef struct _stTcpValidate
 {
-	TCHAR		szValidateKey[64];				//éªŒè¯å­—ç¬¦
+	TCHAR		szValidateKey[64];				//ÑéÖ¤×Ö·û
 }ST_TCP_VALICATE, *PST_TCP_VALICATE;
 
-//ç½‘ç»œå†…æ ¸
+//ÍøÂçÄÚºË
 typedef struct _stTcpInfo
 {
-	BYTE		cbDataKind;						//æ•°æ®ç±»å‹
-	BYTE		cbCheckCode;					//æ•ˆéªŒå­—æ®µ
-	WORD		wPacketSize;					//æ•°æ®å¤§å°
+	BYTE		cbDataKind;						//Êı¾İÀàĞÍ
+	BYTE		cbCheckCode;					//Ğ§Ñé×Ö¶Î
+	WORD		wPacketSize;					//Êı¾İ´óĞ¡
 }ST_TCP_INFO, *PST_TCP_INFO;
 
-//ç½‘ç»œå‘½ä»¤
+//ÍøÂçÃüÁî
 typedef struct _stTcpCmd
 {
-	WORD		wMainCmdID;						//ä¸»å‘½ä»¤ç 
-	WORD		wSubCmdID;						//å­å‘½ä»¤ç 
+	WORD		wMainCmdID;						//Ö÷ÃüÁîÂë
+	WORD		wSubCmdID;						//×ÓÃüÁîÂë
 }ST_TCP_CMD, *PST_TCP_CMD;
 
-//ç½‘ç»œåŒ…å¤´
+//ÍøÂç°üÍ·
 typedef struct _stTcpHead
 {
-	_stTcpInfo	stTCPInfo;						//åŸºç¡€ç»“æ„
-	_stTcpCmd	stTCPCmd;						//å‘½ä»¤ä¿¡æ¯
+	_stTcpInfo	stTCPInfo;						//»ù´¡½á¹¹
+	_stTcpCmd	stTCPCmd;						//ÃüÁîĞÅÏ¢
 }ST_TCP_HEAD, *PST_TCP_HEAD;
 
-//ç½‘ç»œç¼“å†²
+//ÍøÂç»º³å
 typedef struct _stTcpBuffer
 {
-	_stTcpHead	stTcpHead;						//æ•°æ®åŒ…å¤´
-	BYTE		cbBuffer[SOCKET_TCP_PACKET];	//æ•°æ®ç¼“å†²
+	_stTcpHead	stTcpHead;						//Êı¾İ°üÍ·
+	BYTE		cbBuffer[SOCKET_TCP_PACKET];	//Êı¾İ»º³å
 }ST_TCP_BUFFER, *PST_TCP_BUFFER;
 
-//æ•°æ®å®šä¹‰
+//Êı¾İ¶¨Òå
 #pragma pack()
  
 #endif

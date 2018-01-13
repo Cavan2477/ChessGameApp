@@ -20,459 +20,459 @@
 #pragma pack(1)
 
 ///////////////////////////////////////////////////////////////////////////
-//ç™»å½•å‘½ä»¤
-#define MDM_GR_LOGON				1									//ç™»å½•ä¿¡æ¯
+//µÇÂ¼ÃüÁî
+#define MDM_GR_LOGON				1									//µÇÂ¼ĞÅÏ¢
 
 #pragma mark -
-#pragma mark ç™»å½•æ¨¡å¼
-#define SUB_GR_LOGON_USERID			1									//id ç™»å½•
-#define SUB_GR_LOGON_MOBILE			2									//æ‰‹æœºç™»å½•
-#define SUB_GR_LOGON_ACCOUNTS		3									//å¸æˆ·ç™»å½•
+#pragma mark µÇÂ¼Ä£Ê½
+#define SUB_GR_LOGON_USERID			1									//id µÇÂ¼
+#define SUB_GR_LOGON_MOBILE			2									//ÊÖ»úµÇÂ¼
+#define SUB_GR_LOGON_ACCOUNTS		3									//ÕÊ»§µÇÂ¼
 
 #pragma mark -
-#pragma mark ç™»å½•ç»“æœ
-#define SUB_GR_LOGON_SUCCESS		100									//ç™»å½•æˆåŠŸ
-#define SUB_GR_LOGON_FAILURE		101									//ç™»å½•å¤±è´¥
-#define SUB_GR_LOGON_FINISH			102									//ç™»å½•å®Œæˆ
+#pragma mark µÇÂ¼½á¹û
+#define SUB_GR_LOGON_SUCCESS		100									//µÇÂ¼³É¹¦
+#define SUB_GR_LOGON_FAILURE		101									//µÇÂ¼Ê§°Ü
+#define SUB_GR_LOGON_FINISH			102									//µÇÂ¼Íê³É
 
 #pragma mark -
-#pragma mark å‡çº§æç¤º
-#define SUB_GR_UPDATE_NOTIFY		200									//å‡çº§æç¤º
+#pragma mark Éı¼¶ÌáÊ¾
+#define SUB_GR_UPDATE_NOTIFY		200									//Éı¼¶ÌáÊ¾
 
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark è®¾å¤‡ç±»å‹
+#pragma mark Éè±¸ÀàĞÍ
 #define DEVICE_TYPE_ITOUCH			0x20								//iTouch
 #define DEVICE_TYPE_IPHONE			0x40								//iPhone
 #define DEVICE_TYPE_IPAD			0x80								//iPad
 #define DEVICE_TYPE_DEFAULT         DEVICE_TYPE_IPHONE
 
 #pragma mark -
-#pragma mark è§†å›¾æ¨¡å¼
-#define	VIEW_MODE_ALL				0x0001								//å…¨éƒ¨å¯è§†
-#define	VIEW_MODE_PART				0x0002								//éƒ¨åˆ†å¯è§†
+#pragma mark ÊÓÍ¼Ä£Ê½
+#define	VIEW_MODE_ALL				0x0001								//È«²¿¿ÉÊÓ
+#define	VIEW_MODE_PART				0x0002								//²¿·Ö¿ÉÊÓ
 
-#define SR_ALLOW_AVERT_CHEAT_MODE	0x00000040							//éšè—ä¿¡æ¯
-
-#pragma mark -
-#pragma mark ä¿¡æ¯æ¨¡å¼
-#define VIEW_INFO_LEVEL_1			0x0010								//éƒ¨åˆ†ä¿¡æ¯
-#define VIEW_INFO_LEVEL_2			0x0020								//éƒ¨åˆ†ä¿¡æ¯
-#define VIEW_INFO_LEVEL_3			0x0040								//éƒ¨åˆ†ä¿¡æ¯
-#define VIEW_INFO_LEVEL_4			0x0080								//éƒ¨åˆ†ä¿¡æ¯
+#define SR_ALLOW_AVERT_CHEAT_MODE	0x00000040							//Òş²ØĞÅÏ¢
 
 #pragma mark -
-#pragma mark å…¶ä»–é…ç½®
-#define RECVICE_GAME_CHAT			0x0100								//æ¥æ”¶èŠå¤©
-#define RECVICE_ROOM_CHAT			0x0200								//æ¥æ”¶èŠå¤©
-#define RECVICE_ROOM_WHISPER		0x0400								//æ¥æ”¶ç§èŠ
+#pragma mark ĞÅÏ¢Ä£Ê½
+#define VIEW_INFO_LEVEL_1			0x0010								//²¿·ÖĞÅÏ¢
+#define VIEW_INFO_LEVEL_2			0x0020								//²¿·ÖĞÅÏ¢
+#define VIEW_INFO_LEVEL_3			0x0040								//²¿·ÖĞÅÏ¢
+#define VIEW_INFO_LEVEL_4			0x0080								//²¿·ÖĞÅÏ¢
 
 #pragma mark -
-#pragma mark è¡Œä¸ºæ ‡è¯†
-#define BEHAVIOR_LOGON_NORMAL       0x0000                              //æ™®é€šç™»å½•
-#define BEHAVIOR_LOGON_IMMEDIATELY  0x1000                              //ç«‹å³ç™»å½•
+#pragma mark ÆäËûÅäÖÃ
+#define RECVICE_GAME_CHAT			0x0100								//½ÓÊÕÁÄÌì
+#define RECVICE_ROOM_CHAT			0x0200								//½ÓÊÕÁÄÌì
+#define RECVICE_ROOM_WHISPER		0x0400								//½ÓÊÕË½ÁÄ
 
-//id ç™»å½•
+#pragma mark -
+#pragma mark ĞĞÎª±êÊ¶
+#define BEHAVIOR_LOGON_NORMAL       0x0000                              //ÆÕÍ¨µÇÂ¼
+#define BEHAVIOR_LOGON_IMMEDIATELY  0x1000                              //Á¢¼´µÇÂ¼
+
+//id µÇÂ¼
 typedef struct _stCmdGrLogonUserID
 {
-	//ç‰ˆæœ¬ä¿¡æ¯
-	DWORD							dwPlazaVersion;						//å¹¿åœºç‰ˆæœ¬
-	DWORD							dwFrameVersion;						//æ¡†æ¶ç‰ˆæœ¬
-	DWORD							dwProcessVersion;					//è¿›ç¨‹ç‰ˆæœ¬
+	//°æ±¾ĞÅÏ¢
+	DWORD							dwPlazaVersion;						//¹ã³¡°æ±¾
+	DWORD							dwFrameVersion;						//¿ò¼Ü°æ±¾
+	DWORD							dwProcessVersion;					//½ø³Ì°æ±¾
 	
-	//ç™»å½•ä¿¡æ¯
-	DWORD							dwUserID;							//ç”¨æˆ·id
-	TCHAR							szLogonPwd[LEN_MD5];				//ç™»å½•å¯†ç 
-    TCHAR                           szGameRoomPwd[LEN_PWD];				//æˆ¿é—´å¯†ç 
-	TCHAR							szMachineID[LEN_MACHINE_ID];		//æœºå™¨åºåˆ—
-    WORD                            wGameTypeID;                        //æ¸¸æˆç±»å‹ç´¢å¼•
+	//µÇÂ¼ĞÅÏ¢
+	DWORD							dwUserID;							//ÓÃ»§id
+	TCHAR							szLogonPwd[LEN_MD5];				//µÇÂ¼ÃÜÂë
+    TCHAR                           szGameRoomPwd[LEN_PWD];				//·¿¼äÃÜÂë
+	TCHAR							szMachineID[LEN_MACHINE_ID];		//»úÆ÷ĞòÁĞ
+    WORD                            wGameTypeID;                        //ÓÎÏ·ÀàĞÍË÷Òı
 }ST_CMD_GR_LOGON_USER_ID, *PST_CMD_GR_LOGON_USER_ID;
 
-//æ‰‹æœºç™»å½•
+//ÊÖ»úµÇÂ¼
 typedef struct _stCmdGrLogonMobile
 {
-	//ç‰ˆæœ¬ä¿¡æ¯
-	WORD							wGameID;							//æ¸¸æˆæ ‡è¯†
-	DWORD							dwProcessVersion;					//è¿›ç¨‹ç‰ˆæœ¬
+	//°æ±¾ĞÅÏ¢
+	WORD							wGameID;							//ÓÎÏ·±êÊ¶
+	DWORD							dwProcessVersion;					//½ø³Ì°æ±¾
 	
-	//æ¡Œå­åŒºåŸŸ
-	BYTE                            cbDeviceType;                       //è®¾å¤‡ç±»å‹
-	WORD                            wBehaviorFlags;                     //è¡Œä¸ºæ ‡è¯†
-	WORD                            wPageTableCount;                    //åˆ†é¡µæ¡Œæ•°
+	//×À×ÓÇøÓò
+	BYTE                            cbDeviceType;                       //Éè±¸ÀàĞÍ
+	WORD                            wBehaviorFlags;                     //ĞĞÎª±êÊ¶
+	WORD                            wPageTableCount;                    //·ÖÒ³×ÀÊı
 	
-	//ç™»å½•ä¿¡æ¯
-	DWORD							dwUserID;							//ç”¨æˆ· I D
-	TCHAR							szDynamicPwd[LEN_MD5];				//ç™»å½•å¯†ç 
-    TCHAR                           szGameRoomPwd[LEN_PWD];				//æˆ¿é—´å¯†ç 
-	TCHAR							szMachineID[LEN_MACHINE_ID];		//æœºå™¨æ ‡è¯†
+	//µÇÂ¼ĞÅÏ¢
+	DWORD							dwUserID;							//ÓÃ»§ I D
+	TCHAR							szDynamicPwd[LEN_MD5];				//µÇÂ¼ÃÜÂë
+    TCHAR                           szGameRoomPwd[LEN_PWD];				//·¿¼äÃÜÂë
+	TCHAR							szMachineID[LEN_MACHINE_ID];		//»úÆ÷±êÊ¶
 }ST_CMD_GR_LOGON_MOBILE, *PST_CMD_GR_LOGON_MOBILE;
 
-//å¸å·ç™»å½•
+//ÕÊºÅµÇÂ¼
 typedef struct _stCmdGrLogonAccounts
 {
-	//ç‰ˆæœ¬ä¿¡æ¯
-	DWORD							dwPlazaVersion;						//å¹¿åœºç‰ˆæœ¬
-	DWORD							dwFrameVersion;						//æ¡†æ¶ç‰ˆæœ¬
-	DWORD							dwProcessVersion;					//è¿›ç¨‹ç‰ˆæœ¬
+	//°æ±¾ĞÅÏ¢
+	DWORD							dwPlazaVersion;						//¹ã³¡°æ±¾
+	DWORD							dwFrameVersion;						//¿ò¼Ü°æ±¾
+	DWORD							dwProcessVersion;					//½ø³Ì°æ±¾
 	
-	//ç™»å½•ä¿¡æ¯
-	TCHAR							szAccounts[LEN_ACCOUNT];			//ç™»å½•å¸å·
-	TCHAR							szLogonPwd[LEN_MD5];				//ç™»å½•å¯†ç 
-	TCHAR							szMachineID[LEN_MACHINE_ID];		//æœºå™¨åºåˆ—
+	//µÇÂ¼ĞÅÏ¢
+	TCHAR							szAccounts[LEN_MAX_ACCOUNT];			//µÇÂ¼ÕÊºÅ
+	TCHAR							szLogonPwd[LEN_MD5];				//µÇÂ¼ÃÜÂë
+	TCHAR							szMachineID[LEN_MACHINE_ID];		//»úÆ÷ĞòÁĞ
 }ST_CMD_GR_LOGON_ACCOUNTS, *PST_CMD_GR_LOGON_ACCOUNTS;
 
-//ç™»å½•æˆåŠŸ
+//µÇÂ¼³É¹¦
 typedef struct _stCmdGrLogonSucc
 {
-	DWORD							dwUserPriview;						//ç”¨æˆ·æƒé™
-	DWORD							dwMasterPriview;					//ç®¡ç†æƒé™
+	DWORD							dwUserPriview;						//ÓÃ»§È¨ÏŞ
+	DWORD							dwMasterPriview;					//¹ÜÀíÈ¨ÏŞ
 }ST_CMD_GR_LOGON_SUCC, *PST_CMD_GR_LOGON_SUCC;
 
-//ç™»å½•å¤±è´¥
+//µÇÂ¼Ê§°Ü
 typedef struct _stCmdGrLogonFailure
 {
-	INT								nErrorCode;							//é”™è¯¯ä»£ç 
-	TCHAR							szDes[128];							//é”™è¯¯æè¿°
+	INT								nErrorCode;							//´íÎó´úÂë
+	TCHAR							szDes[128];							//´íÎóÃèÊö
 }ST_CMD_GR_LOGON_FAILURE, *PST_CMD_GR_LOGON_FAILURE;
 
-//ç™»å½•å®Œæˆ
+//µÇÂ¼Íê³É
 typedef struct _stCmdGrLogonFinish
 {
-    bool                            bGuideTask;                        //å¼•å¯¼ä»»åŠ¡
+    bool                            bGuideTask;                        //Òıµ¼ÈÎÎñ
 }ST_CMD_GR_LOGON_FINISH, *PST_CMD_GR_LOGON_FINISH;
 
-//å‡çº§æç¤º
+//Éı¼¶ÌáÊ¾
 typedef struct _stCmdUpdateNotify
 {	
-	//å‡çº§æ ‡å¿—
-	BYTE							cbMustUpdatePlaza;					//å¼ºè¡Œå‡çº§
-	BYTE							cbMustUpdateClient;					//å¼ºè¡Œå‡çº§
-	BYTE							cbAdviceUpdateClient;				//å»ºè®®å‡çº§
+	//Éı¼¶±êÖ¾
+	BYTE							cbMustUpdatePlaza;					//Ç¿ĞĞÉı¼¶
+	BYTE							cbMustUpdateClient;					//Ç¿ĞĞÉı¼¶
+	BYTE							cbAdviceUpdateClient;				//½¨ÒéÉı¼¶
 	
-	//å½“å‰ç‰ˆæœ¬
-	DWORD							dwCurrPlazaVersion;					//å½“å‰ç‰ˆæœ¬
-	DWORD							dwCurrFrameVersion;					//å½“å‰ç‰ˆæœ¬
-	DWORD							dwCurrClientVersion;				//å½“å‰ç‰ˆæœ¬
+	//µ±Ç°°æ±¾
+	DWORD							dwCurrPlazaVersion;					//µ±Ç°°æ±¾
+	DWORD							dwCurrFrameVersion;					//µ±Ç°°æ±¾
+	DWORD							dwCurrClientVersion;				//µ±Ç°°æ±¾
 }ST_CMD_GR_UPDATE_NOTIFY, *PST_CMD_GR_UPDATE_NOTIFY;
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark é…ç½®å‘½ä»¤
+#pragma mark ÅäÖÃÃüÁî
 
-#define	MDM_GR_CONFIG				2									//é…ç½®ä¿¡æ¯
+#define	MDM_GR_CONFIG				2									//ÅäÖÃĞÅÏ¢
 
-#define	SUB_GR_CONFIG_COLUMN		100									//åˆ—è¡¨é…ç½®
-#define SUB_GR_CONFIG_SERVER		101									//æˆ¿é—´é…ç½®
-#define SUB_GR_CONFIG_PROPERTY		102									//é“å…·é…ç½®
+#define	SUB_GR_CONFIG_COLUMN		100									//ÁĞ±íÅäÖÃ
+#define SUB_GR_CONFIG_SERVER		101									//·¿¼äÅäÖÃ
+#define SUB_GR_CONFIG_PROPERTY		102									//µÀ¾ßÅäÖÃ
 
-#define SUB_GR_CONFIG_FINISH		103									//é…ç½®å®Œæˆ
-#define SUB_GR_CONFIG_USER_RIGHT    104                                 //ç©å®¶æƒé™
+#define SUB_GR_CONFIG_FINISH		103									//ÅäÖÃÍê³É
+#define SUB_GR_CONFIG_USER_RIGHT    104                                 //Íæ¼ÒÈ¨ÏŞ
 
 /////////////////////////////////////////////////////////////////////////////////
 
-//åˆ—è¡¨é…ç½®
+//ÁĞ±íÅäÖÃ
 typedef struct _stCmdGrConfigColumn
 {
-	BYTE							cbColumnCount;						//åˆ—è¡¨æ•°ç›®
-	_stColumnItem					stColumnItemArray[MAX_COLUMN];		//åˆ—è¡¨æè¿°
+	BYTE							cbColumnCount;						//ÁĞ±íÊıÄ¿
+	_stColumnItem					stColumnItemArray[MAX_COLUMN];		//ÁĞ±íÃèÊö
 }ST_CMD_GR_CONFIG_COLUMN, *PST_CMD_GR_CONFIG_COLUMN;
 
-//æˆ¿é—´é…ç½®
+//·¿¼äÅäÖÃ
 typedef struct _stCmdGrConfigGameRoom
 {
-	//æˆ¿é—´å±æ€§
-	WORD							wTableCount;						//æ¡Œå­æ•°ç›®
-	WORD							wChairCount;						//æ¤…å­æ•°ç›®
+	//·¿¼äÊôĞÔ
+	WORD							wTableCount;						//×À×ÓÊıÄ¿
+	WORD							wChairCount;						//ÒÎ×ÓÊıÄ¿
 	
-	//æˆ¿é—´é…ç½®
-	WORD							wGameRoomType;						//æˆ¿é—´ç±»å‹
-	DWORD							dwGameRoomRule;						//æˆ¿é—´è§„åˆ™
+	//·¿¼äÅäÖÃ
+	WORD							wGameRoomType;						//·¿¼äÀàĞÍ
+	DWORD							dwGameRoomRule;						//·¿¼ä¹æÔò
 }ST_CMD_GR_CONFIG_GAME_ROOM, *PST_CMD_GR_CONFIG_GAME_ROOM;
 
-//é“å…·é…ç½®
+//µÀ¾ßÅäÖÃ
 typedef struct _stCmdGrConfigProperty
 {
-	BYTE							cbPropertyCount;					//é“å…·æ•°ç›®
-	ST_PROPERTY_INFO				stPropertyInfoArray[MAX_PROPORTY];	//é“å…·æè¿°
+	BYTE							cbPropertyCount;					//µÀ¾ßÊıÄ¿
+	ST_PROPERTY_INFO				stPropertyInfoArray[MAX_PROPORTY];	//µÀ¾ßÃèÊö
 }ST_CMD_GR_CONFIG_PROPERTY, *PST_CMD_GR_CONFIG_PROPERTY;
 
-//ç©å®¶æƒé™
+//Íæ¼ÒÈ¨ÏŞ
 typedef struct _stCmdGrConfigUserPriview
 {
-    DWORD                           dwUserPriview;                      //ç©å®¶æƒé™
+    DWORD                           dwUserPriview;                      //Íæ¼ÒÈ¨ÏŞ
 }ST_CMD_GR_CONFIG_USER_PRIVIEW, *PST_CMD_GR_CONFIG_USER_PRIVIEW;
 
 /////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark ç”¨æˆ·å‘½ä»¤
+#pragma mark ÓÃ»§ÃüÁî
 
-#define MDM_GR_USER					3									//ç”¨æˆ·ä¿¡æ¯
+#define MDM_GR_USER					3									//ÓÃ»§ĞÅÏ¢
 
-//ç”¨æˆ·åŠ¨ä½œ
-#define SUB_GR_USER_RULE			1									//ç”¨æˆ·è§„åˆ™
-#define	SUB_GR_USER_LOOK_ON			2									//æ—è§‚è¯·æ±‚
-#define	SUB_GR_USER_SIT_DOWN		3									//åä¸‹è¯·æ±‚
-#define	SUB_GR_USER_STAND_UP		4									//èµ·ç«‹è¯·æ±‚
-#define SUB_GR_USER_INVITE			5									//ç”¨æˆ·é‚€è¯·
-#define SUB_GR_USER_INVITE_REQ		6									//é‚€è¯·è¯·æ±‚
-#define SUB_GR_USER_REPULSE_SIT  	7									//æ‹’ç»ç©å®¶åä¸‹
-#define SUB_GR_USER_KICK_USER       8                                   //è¸¢å‡ºç”¨æˆ·
-#define SUB_GR_USER_INFO_REQ        9                                   //è¯·æ±‚ç”¨æˆ·ä¿¡æ¯
-#define SUB_GR_USER_CHAIR_REQ       10                                  //è¯·æ±‚æ›´æ¢ä½ç½®
-#define SUB_GR_USER_CHAIR_INFO_REQ	11									//è¯·æ±‚æ¤…å­ç”¨æˆ·ä¿¡æ¯
-#define SUB_GR_USER_WAIT_DISTRIBUTE 12                                  //ç­‰å¾…åˆ†é…
+//ÓÃ»§¶¯×÷
+#define SUB_GR_USER_RULE			1									//ÓÃ»§¹æÔò
+#define	SUB_GR_USER_LOOK_ON			2									//ÅÔ¹ÛÇëÇó
+#define	SUB_GR_USER_SIT_DOWN		3									//×øÏÂÇëÇó
+#define	SUB_GR_USER_STAND_UP		4									//ÆğÁ¢ÇëÇó
+#define SUB_GR_USER_INVITE			5									//ÓÃ»§ÑûÇë
+#define SUB_GR_USER_INVITE_REQ		6									//ÑûÇëÇëÇó
+#define SUB_GR_USER_REPULSE_SIT  	7									//¾Ü¾øÍæ¼Ò×øÏÂ
+#define SUB_GR_USER_KICK_USER       8                                   //Ìß³öÓÃ»§
+#define SUB_GR_USER_INFO_REQ        9                                   //ÇëÇóÓÃ»§ĞÅÏ¢
+#define SUB_GR_USER_CHAIR_REQ       10                                  //ÇëÇó¸ü»»Î»ÖÃ
+#define SUB_GR_USER_CHAIR_INFO_REQ	11									//ÇëÇóÒÎ×ÓÓÃ»§ĞÅÏ¢
+#define SUB_GR_USER_WAIT_DISTRIBUTE 12                                  //µÈ´ı·ÖÅä
 
-//ç”¨æˆ·çŠ¶æ€
-#define	SUB_GR_USER_ENTER			100									//ç”¨æˆ·è¿›å…¥
-#define	SUB_GR_USER_GAME_COIN		101									//ç”¨æˆ·æ¸¸æˆå¸
-#define SUB_GR_USER_STATUS			102									//ç”¨æˆ·çŠ¶æ€
+//ÓÃ»§×´Ì¬
+#define	SUB_GR_USER_ENTER			100									//ÓÃ»§½øÈë
+#define	SUB_GR_USER_GAME_COIN		101									//ÓÃ»§ÓÎÏ·±Ò
+#define SUB_GR_USER_STATUS			102									//ÓÃ»§×´Ì¬
 
-#define	SUB_GR_REQ_FAILURE			103									//è¯·æ±‚å¤±è´¥
+#define	SUB_GR_REQ_FAILURE			103									//ÇëÇóÊ§°Ü
 
-//èŠå¤©å‘½ä»¤
-#define	SUB_GR_USER_CHAT			201									//èŠå¤©ä¿¡æ¯
-#define	SUB_GR_USER_EXPRESSION		202									//è¡¨æƒ…æ¶ˆæ¯
-#define SUB_GR_WISPER_CHAT			203									//ç§èŠæ¶ˆæ¯
-#define	SUB_GR_WISPER_EXPRESSION	204									//ç§èŠè¡¨æƒ…
-#define SUB_GR_COLLOQUY_CHAT		205									//ä¼šè¯æ¶ˆæ¯
-#define	SUB_GR_COLLOQUY_ERPRESSION	206									//ä¼šè¯è¡¨æƒ…
+//ÁÄÌìÃüÁî
+#define	SUB_GR_USER_CHAT			201									//ÁÄÌìĞÅÏ¢
+#define	SUB_GR_USER_EXPRESSION		202									//±íÇéÏûÏ¢
+#define SUB_GR_WISPER_CHAT			203									//Ë½ÁÄÏûÏ¢
+#define	SUB_GR_WISPER_EXPRESSION	204									//Ë½ÁÄ±íÇé
+#define SUB_GR_COLLOQUY_CHAT		205									//»á»°ÏûÏ¢
+#define	SUB_GR_COLLOQUY_ERPRESSION	206									//»á»°±íÇé
 
-//é“å…·å‘½ä»¤
-#define SUB_GR_PROPERTY_BUY			300									//è´­ä¹°é“å…·
-#define SUB_GR_PROPERTY_SUCCESS		301									//é“å…·æˆåŠŸ
-#define SUB_GR_PROPERTY_FAILURE		302									//é“å…·å¤±è´¥
-#define SUB_GR_PROPERTY_MESSAGE     303                                 //é“å…·æ¶ˆæ¯
-#define SUB_GR_PROPERTY_EFFECT      304                                 //é“å…·æ•ˆåº”
-#define SUB_GR_PROPERTY_TRUMPET     305                                 //ç”¨æˆ·å–‡å­
+//µÀ¾ßÃüÁî
+#define SUB_GR_PROPERTY_BUY			300									//¹ºÂòµÀ¾ß
+#define SUB_GR_PROPERTY_SUCCESS		301									//µÀ¾ß³É¹¦
+#define SUB_GR_PROPERTY_FAILURE		302									//µÀ¾ßÊ§°Ü
+#define SUB_GR_PROPERTY_MESSAGE     303                                 //µÀ¾ßÏûÏ¢
+#define SUB_GR_PROPERTY_EFFECT      304                                 //µÀ¾ßĞ§Ó¦
+#define SUB_GR_PROPERTY_TRUMPET     305                                 //ÓÃ»§À®°È
 
-//èµ é€å‘½ä»¤
-#define SUB_GR_PLAYTIME_PRESENT     400                                 //èµ é€é€šçŸ¥
-#define SUB_GR_PRESENT_DRAW         401                                 //èµ é€é¢†å–
+//ÔùËÍÃüÁî
+#define SUB_GR_PLAYTIME_PRESENT     400                                 //ÔùËÍÍ¨Öª
+#define SUB_GR_PRESENT_DRAW         401                                 //ÔùËÍÁìÈ¡
 
-#define SR_FORFEND_LOCK_TABLE		0x00200000							//ç¦æ­¢é”æ¡Œ
+#define SR_FORFEND_LOCK_TABLE		0x00200000							//½ûÖ¹Ëø×À
 
 /////////////////////////////////////////////////////////////////////////////////
 
-//æ—è§‚è¯·æ±‚
+//ÅÔ¹ÛÇëÇó
 typedef struct _stCmdGrUserLookon
 {
-	WORD							wTableID;							//æ¡Œå­ä½ç½®
-	WORD							wChairID;							//æ¤…å­ä½ç½®
+	WORD							wTableID;							//×À×ÓÎ»ÖÃ
+	WORD							wChairID;							//ÒÎ×ÓÎ»ÖÃ
 }ST_CMD_GR_USER_LOOK_ON, *PST_CMD_GR_USER_LOOK_ON;
 
-//åä¸‹è¯·æ±‚
+//×øÏÂÇëÇó
 typedef struct _stCmdGrUserSitDown
 {
-	WORD							wTableID;							//æ¡Œå­ä½ç½®
-	WORD							wChairID;							//æ¤…å­ä½ç½®
-	TCHAR							szTablePwd[LEN_PWD];				//æ¡Œå­å¯†ç 
+	WORD							wTableID;							//×À×ÓÎ»ÖÃ
+	WORD							wChairID;							//ÒÎ×ÓÎ»ÖÃ
+	TCHAR							szTablePwd[LEN_PWD];				//×À×ÓÃÜÂë
 }ST_CMD_GR_USER_SIT_DOWN, *PST_CMD_GR_USER_SIT_DOWN;
 
-//èµ·ç«‹è¯·æ±‚
+//ÆğÁ¢ÇëÇó
 typedef struct _stCmdGrUserStandUp
 {
-	WORD							wTableID;							//æ¡Œå­ä½ç½®
-	WORD							wChairID;							//æ¤…å­ä½ç½®
-	BYTE							cbForceLeave;						//å¼ºè¡Œç¦»å¼€
+	WORD							wTableID;							//×À×ÓÎ»ÖÃ
+	WORD							wChairID;							//ÒÎ×ÓÎ»ÖÃ
+	BYTE							cbForceLeave;						//Ç¿ĞĞÀë¿ª
 }ST_CMD_GR_USER_STAND_UP, *PST_CMD_GR_USER_STAND_UP;
 
-//é‚€è¯·ç”¨æˆ·
+//ÑûÇëÓÃ»§
 typedef struct _stCmdGrUserInvite
 {
-    WORD                            wTableID;                           //æ¡Œå·ç 
-    DWORD                           dwUserID;                           //ç”¨æˆ·id
+    WORD                            wTableID;                           //×ÀºÅÂë
+    DWORD                           dwUserID;                           //ÓÃ»§id
 }ST_CMD_GR_USER_INVITE, *PST_CMD_GR_USER_INVITE;
 
-//é‚€è¯·ç”¨æˆ·è¯·æ±‚
+//ÑûÇëÓÃ»§ÇëÇó
 typedef struct _stCmdGrUserInviteReq
 {
-    WORD                            wTableID;                           //æ¡Œå·ç 
-    DWORD                           dwUserID;                           //ç”¨æˆ·id
+    WORD                            wTableID;                           //×ÀºÅÂë
+    DWORD                           dwUserID;                           //ÓÃ»§id
 }ST_CMD_GR_USER_INVITE_REQ, *PST_CMD_GR_USER_INVITE_REQ;
 
-//è¯·æ±‚ç”¨æˆ·ä¿¡æ¯
+//ÇëÇóÓÃ»§ĞÅÏ¢
 typedef struct _stCmdGrUserInfoReq
 {
-    DWORD							dwUserIDReq;						//è¯·æ±‚ç”¨æˆ·
-    WORD							wTablePos;							//æ¡Œå­ä½ç½®
+    DWORD							dwUserIDReq;						//ÇëÇóÓÃ»§
+    WORD							wTablePos;							//×À×ÓÎ»ÖÃ
 }ST_CMD_GR_USER_INFO_REQ, *PST_CMD_GR_USER_INFO_REQ;
 
-//è¯·æ±‚æ¤…å­ä¿¡æ¯
+//ÇëÇóÒÎ×ÓĞÅÏ¢
 typedef struct _stCmdGrUserInfoChairReq
 {
-    WORD							wTableID;							//æ¡Œå­å·ç 
-    WORD							wChairID;							//æ¤…å­å·ç 
+    WORD							wTableID;							//×À×ÓºÅÂë
+    WORD							wChairID;							//ÒÎ×ÓºÅÂë
 }ST_CMD_GR_USER_INFO_CHAIR_REQ, *PST_CMD_GR_USER_INFO_CHAIR_REQ;
 
-//ç”¨æˆ·åˆ†æ•°
+//ÓÃ»§·ÖÊı
 typedef struct _stCmdGrUserScore
 {
-	DWORD							dwUserID;							//ç”¨æˆ·æ ‡è¯†
-	_stUserScore					stUserScore;						//ç§¯åˆ†ä¿¡æ¯
+	DWORD							dwUserID;							//ÓÃ»§±êÊ¶
+	_stUserScore					stUserScore;						//»ı·ÖĞÅÏ¢
 }ST_CMD_GR_USER_SCORE, *PST_CMD_GR_USER_SCORE;
 
 #pragma mark -
-#pragma mark ç”¨æˆ·æ¸¸æˆå¸
+#pragma mark ÓÃ»§ÓÎÏ·±Ò
 typedef struct _stCmdGrMobileUserGameCoin
 {
-	DWORD							dwUserID;							//ç”¨æˆ·æ ‡è¯†
-	_stMobileUserGameCoin			stMobileUserGameCoin;				//æ‰‹æœºç”¨æˆ·æ¸¸æˆå¸ä¿¡æ¯
+	DWORD							dwUserID;							//ÓÃ»§±êÊ¶
+	_stMobileUserGameCoin			stMobileUserGameCoin;				//ÊÖ»úÓÃ»§ÓÎÏ·±ÒĞÅÏ¢
 }ST_CMD_GR_MOBILE_USER_GAME_COIN, *PST_CMD_GR_MOBILE_USER_GAME_COIN;
 
-//ç”¨æˆ·çŠ¶æ€
+//ÓÃ»§×´Ì¬
 typedef struct _stCmdGrUserStatus
 {
-	DWORD							dwUserID;							//ç”¨æˆ·æ ‡è¯†
-	_stUserStatus					stUserStatus;						//ç”¨æˆ·çŠ¶æ€
+	DWORD							dwUserID;							//ÓÃ»§±êÊ¶
+	_stUserStatus					stUserStatus;						//ÓÃ»§×´Ì¬
 }ST_CMD_GR_USER_STATUS, *PST_CMD_GR_USER_STATUS;
 
-//è¯·æ±‚å¤±è´¥
+//ÇëÇóÊ§°Ü
 typedef struct _stCmdGrReqFailure
 {
-	INT								nErrorCode;							//é”™è¯¯ä»£ç 
-	TCHAR							szDes[256];							//æè¿°ä¿¡æ¯
+	INT								nErrorCode;							//´íÎó´úÂë
+	TCHAR							szDes[256];							//ÃèÊöĞÅÏ¢
 }ST_CMD_GR_REQ_FAILURE, *PST_CMD_GR_REQ_FAILURE;
 
-//ç”¨æˆ·èŠå¤©
+//ÓÃ»§ÁÄÌì
 typedef struct _stCmdGrUserClientChat
 {
-	WORD							wChatLength;						//ä¿¡æ¯é•¿åº¦
-	DWORD							dwChatColor;						//ä¿¡æ¯é¢œè‰²
-	DWORD							dwTargerUserID;						//ç›®æ ‡ç”¨æˆ·
-	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//èŠå¤©ä¿¡æ¯
+	WORD							wChatLength;						//ĞÅÏ¢³¤¶È
+	DWORD							dwChatColor;						//ĞÅÏ¢ÑÕÉ«
+	DWORD							dwTargerUserID;						//Ä¿±êÓÃ»§
+	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//ÁÄÌìĞÅÏ¢
 }ST_CMD_GR_USER_CLIENT_CHAT, *PST_CMD_GR_USER_CLIENT_CHAT;
 
-//ç”¨æˆ·èŠå¤©
+//ÓÃ»§ÁÄÌì
 typedef struct _stCmdGrUserServerChat
 {
-	WORD							wChatLength;						//ä¿¡æ¯é•¿åº¦
-	DWORD							dwChatColor;						//ä¿¡æ¯é¢œè‰²
-	DWORD							dwSendUserID;						//å‘é€ç”¨æˆ·
-	DWORD							dwTargetUserID;						//ç›®æ ‡ç”¨æˆ·
-	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//èŠå¤©ä¿¡æ¯
+	WORD							wChatLength;						//ĞÅÏ¢³¤¶È
+	DWORD							dwChatColor;						//ĞÅÏ¢ÑÕÉ«
+	DWORD							dwSendUserID;						//·¢ËÍÓÃ»§
+	DWORD							dwTargetUserID;						//Ä¿±êÓÃ»§
+	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//ÁÄÌìĞÅÏ¢
 }ST_CMD_GR_USER_SERVER_CHAT, *PST_CMD_GR_USER_SERVER_CHAT;
 
-//ç”¨æˆ·è¡¨æƒ…
+//ÓÃ»§±íÇé
 typedef struct _stCmdGrUserClientExpression
 {
-	WORD							wItemIndex;							//è¡¨æƒ…ç´¢å¼•
-	DWORD							dwTargetUserID;						//ç›®æ ‡ç”¨æˆ·
+	WORD							wItemIndex;							//±íÇéË÷Òı
+	DWORD							dwTargetUserID;						//Ä¿±êÓÃ»§
 }ST_CMD_GR_USER_CLIENT_EXPRESSION, *PST_CMD_GR_USER_CLIENT_EXPRESSION;
 
-//ç”¨æˆ·è¡¨æƒ…
+//ÓÃ»§±íÇé
 typedef struct _stCmdGrUserServerExpression
 {
-	WORD							wItemIndex;							//è¡¨æƒ…ç´¢å¼•
-	DWORD							dwSendUserID;						//å‘é€ç”¨æˆ·
-	DWORD							dwTargetUserID;						//ç›®æ ‡ç”¨æˆ·
+	WORD							wItemIndex;							//±íÇéË÷Òı
+	DWORD							dwSendUserID;						//·¢ËÍÓÃ»§
+	DWORD							dwTargetUserID;						//Ä¿±êÓÃ»§
 }ST_CMD_GR_USER_SERVER_EXPRESSION, *PST_CMD_GR_USER_SERVER_EXPRESSION;
 
-//ç”¨æˆ·ç§èŠ
+//ÓÃ»§Ë½ÁÄ
 typedef struct _stCmdGrUserClientWisperChat
 {
-	WORD							wChatLength;						//ä¿¡æ¯é•¿åº¦
-	DWORD							dwChatColor;						//ä¿¡æ¯é¢œè‰²
-    DWORD                           dwSendUserID;                       //å‘é€ç”¨æˆ·
-	DWORD							dwTargetUserID;						//ç›®æ ‡ç”¨æˆ·
-	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//èŠå¤©ä¿¡æ¯
+	WORD							wChatLength;						//ĞÅÏ¢³¤¶È
+	DWORD							dwChatColor;						//ĞÅÏ¢ÑÕÉ«
+    DWORD                           dwSendUserID;                       //·¢ËÍÓÃ»§
+	DWORD							dwTargetUserID;						//Ä¿±êÓÃ»§
+	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//ÁÄÌìĞÅÏ¢
 }ST_CMD_GR_USER_CLIENT_WISPER_CHAT, *PST_CMD_GR_USER_CLIENT_WISPER_CHAT;
 
-//ç”¨æˆ·ç§èŠ
+//ÓÃ»§Ë½ÁÄ
 typedef struct _stCmdGrUserServerWisperChat
 {
-	WORD							wChatLength;						//ä¿¡æ¯é•¿åº¦
-	DWORD							dwChatColor;						//ä¿¡æ¯é¢œè‰²
-	DWORD							dwSendUserID;						//å‘é€ç”¨æˆ·
-	DWORD							dwTargetUserID;						//ç›®æ ‡ç”¨æˆ·
-	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//èŠå¤©ä¿¡æ¯
+	WORD							wChatLength;						//ĞÅÏ¢³¤¶È
+	DWORD							dwChatColor;						//ĞÅÏ¢ÑÕÉ«
+	DWORD							dwSendUserID;						//·¢ËÍÓÃ»§
+	DWORD							dwTargetUserID;						//Ä¿±êÓÃ»§
+	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//ÁÄÌìĞÅÏ¢
 }ST_CMD_GR_USER_SERVER_WISPER_CHAT, *PST_CMD_GR_USER_SERVER_WISPER_CHAT;
 
-//ç§èŠè¡¨æƒ…
+//Ë½ÁÄ±íÇé
 typedef struct _stCmdGrUserClientWisperExpression
 {
-	WORD							wItemIndex;							//è¡¨æƒ…ç´¢å¼•
-    DWORD                           dwSendUserID;                       //å‘é€ç”¨æˆ·
-	DWORD							dwTargetUserID;						//ç›®æ ‡ç”¨æˆ·
+	WORD							wItemIndex;							//±íÇéË÷Òı
+    DWORD                           dwSendUserID;                       //·¢ËÍÓÃ»§
+	DWORD							dwTargetUserID;						//Ä¿±êÓÃ»§
 }ST_CMD_GR_USER_CLIENT_WISPER_EXPRESSION, *PST_CMD_GR_USER_CLIENT_WISPER_EXPRESSION;
 
-//ç§èŠè¡¨æƒ…
+//Ë½ÁÄ±íÇé
 typedef struct _stCmdGrUserServerWisperExpression
 {
-	DWORD							wItemIndex;							//è¡¨æƒ…ç´¢å¼•
-	DWORD							dwSendUserID;						//å‘é€ç”¨æˆ·
-	DWORD							dwTargetUserID;						//ç›®æ ‡ç”¨æˆ·
+	DWORD							wItemIndex;							//±íÇéË÷Òı
+	DWORD							dwSendUserID;						//·¢ËÍÓÃ»§
+	DWORD							dwTargetUserID;						//Ä¿±êÓÃ»§
 }ST_CMD_GR_USER_SERVER_WISPER_EXPRESSION, *PST_CMD_GR_USER_SERVER_WISPER_EXPRESSION;
 
-//ç”¨æˆ·ä¼šè¯
+//ÓÃ»§»á»°
 typedef struct _stCmdGrGrColloquyChat
 {
-	WORD							wChatLength;						//ä¿¡æ¯é•¿åº¦
-	DWORD							dwChatColor;						//ä¿¡æ¯é¢œè‰²
-	DWORD							dwSendUserID;						//å‘é€ç”¨æˆ·
-	DWORD							dwConversationID;					//ä¼šè¯æ ‡è¯†
-	DWORD							dwTargetUserID[16];					//ç›®æ ‡ç”¨æˆ·
-	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//èŠå¤©ä¿¡æ¯
+	WORD							wChatLength;						//ĞÅÏ¢³¤¶È
+	DWORD							dwChatColor;						//ĞÅÏ¢ÑÕÉ«
+	DWORD							dwSendUserID;						//·¢ËÍÓÃ»§
+	DWORD							dwConversationID;					//»á»°±êÊ¶
+	DWORD							dwTargetUserID[16];					//Ä¿±êÓÃ»§
+	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//ÁÄÌìĞÅÏ¢
 }ST_CMD_GR_GR_COLLOQUY_CHAT, *PST_CMD_GR_GR_COLLOQUY_CHAT;
 
-//é‚€è¯·ç”¨æˆ·
+//ÑûÇëÓÃ»§
 typedef struct _stCmdGrUserClientInviteUser
 {
-	WORD							wTableID;							//æ¡Œå­å·ç 
-	DWORD							dwSendUserID;						//å‘é€ç”¨æˆ·
+	WORD							wTableID;							//×À×ÓºÅÂë
+	DWORD							dwSendUserID;						//·¢ËÍÓÃ»§
 }ST_CMD_GR_USER_CLIENT_INVITE_USER, *PST_CMD_GR_USER_CLIENT_INVITE_USER;
 
-//é‚€è¯·ç”¨æˆ·
+//ÑûÇëÓÃ»§
 typedef struct _stCmdGrUserServerInviteUser
 {
-	DWORD							dwTargetUserID;						//ç›®æ ‡ç”¨æˆ·
+	DWORD							dwTargetUserID;						//Ä¿±êÓÃ»§
 }ST_CMD_GR_USER_SERVER_INVITE_USER, *PST_CMD_GR_USER_SERVER_INVITE_USER;
 
-//è´­ä¹°é“å…·
+//¹ºÂòµÀ¾ß
 typedef struct _stCmdGrClientBuyProperty
 {
-    BYTE                            cbRequestArea;                      //è¯·æ±‚èŒƒå›´
-    BYTE                            cbConsumScore;                      //ç§¯åˆ†æ¶ˆè´¹
-	WORD							wItemCount;							//è´­ä¹°æ•°ç›®
-	WORD							wPropertyIndex;						//é“å…·ç´¢å¼•
-	DWORD							dwTargetUserID;						//ä½¿ç”¨å¯¹è±¡
+    BYTE                            cbRequestArea;                      //ÇëÇó·¶Î§
+    BYTE                            cbConsumScore;                      //»ı·ÖÏû·Ñ
+	WORD							wItemCount;							//¹ºÂòÊıÄ¿
+	WORD							wPropertyIndex;						//µÀ¾ßË÷Òı
+	DWORD							dwTargetUserID;						//Ê¹ÓÃ¶ÔÏó
 }ST_CMD_GR_CLIENT_BUY_PROPERTY, *PST_CMD_GR_CLIENT_BUY_PROPERTY;
 
-//é“å…·æˆåŠŸ
+//µÀ¾ß³É¹¦
 typedef struct _stCmdGrServerPropertySucc
 {
-    BYTE							cbRequestArea;						//ä½¿ç”¨ç¯å¢ƒ
-	WORD							wItemCount;							//è´­ä¹°æ•°ç›®
-	WORD							wPropertyIndex;						//é“å…·ç´¢å¼•
-	DWORD							dwSourceUserID;						//ç›®æ ‡å¯¹è±¡
-    DWORD							dwTargetUserID;						//ä½¿ç”¨å¯¹è±¡
+    BYTE							cbRequestArea;						//Ê¹ÓÃ»·¾³
+	WORD							wItemCount;							//¹ºÂòÊıÄ¿
+	WORD							wPropertyIndex;						//µÀ¾ßË÷Òı
+	DWORD							dwSourceUserID;						//Ä¿±ê¶ÔÏó
+    DWORD							dwTargetUserID;						//Ê¹ÓÃ¶ÔÏó
 }ST_CMD_GR_SERVER_PROPERTY_SUCC, *PST_CMD_GR_SERVER_PROPERTY_SUCC;
 
-//é“å…·å¤±è´¥
+//µÀ¾ßÊ§°Ü
 typedef struct _stCmdGrServerPropertyFailure
 {
-    WORD							wReqArea;							//è¯·æ±‚åŒºåŸŸ
-	INT								nErrorCode;							//é”™è¯¯ä»£ç 
-	TCHAR               			szDes[256];							//æè¿°ä¿¡æ¯
+    WORD							wReqArea;							//ÇëÇóÇøÓò
+	INT								nErrorCode;							//´íÎó´úÂë
+	TCHAR               			szDes[256];							//ÃèÊöĞÅÏ¢
 }ST_CMD_GR_SERVER_PROPERTY_FAILURE, *PST_CMD_GR_SERVER_PROPERTY_FAILURE;
 
-//é“å…·æ¶ˆæ¯
+//µÀ¾ßÏûÏ¢
 typedef struct _stCmdGrServerPropertyMsg
 {
-	WORD                			wPropertyIndex;						//é“å…·ç´¢å¼•
-	WORD                			wPropertyCount;						//é“å…·æ•°ç›®
-	DWORD               			dwSourceUserID;						//ç›®æ ‡å¯¹è±¡
-	DWORD               			dwTargetUserID;						//ä½¿ç”¨å¯¹è±¡
+	WORD                			wPropertyIndex;						//µÀ¾ßË÷Òı
+	WORD                			wPropertyCount;						//µÀ¾ßÊıÄ¿
+	DWORD               			dwSourceUserID;						//Ä¿±ê¶ÔÏó
+	DWORD               			dwTargetUserID;						//Ê¹ÓÃ¶ÔÏó
 }ST_CMD_GR_SERVER_PROPERTY_MSG, *PST_CMD_GR_SERVER_PROPERTY_MSG;
 
-//é“å…·æ•ˆåº”
+//µÀ¾ßĞ§Ó¦
 typedef struct _stCmdGrServerPropertyEffect
 {
-	DWORD               			wUserID;							//ç”¨æˆ·I D
-	BYTE                			cbVipLevel;							//ä¼šå‘˜ç­‰çº§
+	DWORD               			wUserID;							//ÓÃ»§I D
+	BYTE                			cbVipLevel;							//»áÔ±µÈ¼¶
 }ST_CMD_GR_SERVER_PROPERTY_EFFECT, *PST_CMD_GR_SERVER_PROPERTY_EFFECT;
 
-//å‘é€å–‡å­
+//·¢ËÍÀ®°È
 typedef struct _stCmdGrClientSendTrumpet
 {
     BYTE							cbRequestArea;
@@ -481,7 +481,7 @@ typedef struct _stCmdGrClientSendTrumpet
     TCHAR							szTrumpetContent[TRUMPET_MAX_CHAR];
 }ST_CMD_GR_CLIENT_SEND_TRUMPET, *PST_CMD_GR_CLIENT_SEND_TRUMPET;
 
-//å‘é€å–‡å­
+//·¢ËÍÀ®°È
 typedef struct _stCmdGrServerSendTrumpet
 {
 	WORD							wPropertyIndex;
@@ -491,599 +491,599 @@ typedef struct _stCmdGrServerSendTrumpet
 	TCHAR							szTrumpetContent[TRUMPET_MAX_CHAR];
 }ST_CMD_GR_SERVER_SEND_TRUMPET, *PST_CMD_GR_SERVER_SEND_TRUMPET;
 
-//ç”¨æˆ·æ‹’ç»é»‘åå•åä¸‹
+//ÓÃ»§¾Ü¾øºÚÃûµ¥×øÏÂ
 typedef struct _stCmdGrUserRepulseSit
 {
     WORD							wTableID;
     WORD							wChairID;
-	DWORD							dwUserID;							//ç”¨æˆ·id
-	DWORD							dwrepulseUserID;					//ç”¨æˆ·id
+	DWORD							dwUserID;							//ÓÃ»§id
+	DWORD							dwrepulseUserID;					//ÓÃ»§id
 }ST_CMD_GR_USER_REPULSE_SIT, *PST_CMD_GR_USER_REPULSE_SIT;
 
-//èµ é€é€šçŸ¥
+//ÔùËÍÍ¨Öª
 typedef struct _stCmdGrPlayTimePresentNotify
 {
-	DWORD							dwPlayTimeCount;					//æ¸¸æˆæ—¶é—´
-	DWORD							dwPresentPlayTime;					//èµ é€æ—¶é—´
+	DWORD							dwPlayTimeCount;					//ÓÎÏ·Ê±¼ä
+	DWORD							dwPresentPlayTime;					//ÔùËÍÊ±¼ä
 }ST_CMD_GR_PLAY_TIME_PRESENT_NOTIFY, *PST_CMD_GR_PLAY_TIME_PRESENT_NOTIFY;
 
-//èµ é€é¢†å–
+//ÔùËÍÁìÈ¡
 typedef struct _stCmdGrPlayTimePresentDraw
 {
-    BYTE							cbActionGame;						//æ¸¸æˆæ“ä½œ-0:å¤§å…é¢†å– | 1:æ¸¸æˆé¢†å–
+    BYTE							cbActionGame;						//ÓÎÏ·²Ù×÷-0:´óÌüÁìÈ¡ | 1:ÓÎÏ·ÁìÈ¡
 }ST_CMD_GR_PLAY_TIME_PRESENT_DRAW, *PST_CMD_GR_PLAY_TIME_PRESENT_DRAW;
 
 /////////////////////////////////////////////////////////////////////////////////
 
-//è§„åˆ™æ ‡å¿—
-#define UR_LIMIT_SAME_IP			0x01								//é™åˆ¶åœ°å€
-#define UR_LIMIT_WIN_RATE			0x02								//é™åˆ¶èƒœç‡
-#define UR_LIMIT_FLEE_RATE			0x04								//é™åˆ¶é€ƒç‡
-#define UR_LIMIT_GAME_SCORE			0x08								//é™åˆ¶ç§¯åˆ†
+//¹æÔò±êÖ¾
+#define UR_LIMIT_SAME_IP			0x01								//ÏŞÖÆµØÖ·
+#define UR_LIMIT_WIN_RATE			0x02								//ÏŞÖÆÊ¤ÂÊ
+#define UR_LIMIT_FLEE_RATE			0x04								//ÏŞÖÆÌÓÂÊ
+#define UR_LIMIT_GAME_SCORE			0x08								//ÏŞÖÆ»ı·Ö
 
-//ç”¨æˆ·è§„åˆ™
+//ÓÃ»§¹æÔò
 typedef struct _stCmdGrUserRule
 {
-	BYTE							cbRuleMask;							//è§„åˆ™æ©ç 
-	WORD							wMinWinRate;						//æœ€ä½èƒœç‡
-	WORD							wMaxFleeRate;						//æœ€é«˜é€ƒç‡
-	INT								nMaxGameGameCoin;					//æœ€é«˜åˆ†æ•°
-	INT								nMinGameGameCoin;					//æœ€ä½åˆ†æ•°
+	BYTE							cbRuleMask;							//¹æÔòÑÚÂë
+	WORD							wMinWinRate;						//×îµÍÊ¤ÂÊ
+	WORD							wMaxFleeRate;						//×î¸ßÌÓÂÊ
+	INT								nMaxGameGameCoin;					//×î¸ß·ÖÊı
+	INT								nMinGameGameCoin;					//×îµÍ·ÖÊı
 }ST_CMD_GR_USER_RULE, *PST_CMD_GR_USER_RULE;
 
 /////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark çŠ¶æ€å‘½ä»¤
+#pragma mark ×´Ì¬ÃüÁî
 
-#define MDM_GR_STATUS				4									//çŠ¶æ€ä¿¡æ¯
+#define MDM_GR_STATUS				4									//×´Ì¬ĞÅÏ¢
 
-#define SUB_GR_TABLE_INFO			100									//æ¡Œå­ä¿¡æ¯
-#define	SUB_GR_TABLE_STATUS			101									//æ¡Œå­çŠ¶æ€
+#define SUB_GR_TABLE_INFO			100									//×À×ÓĞÅÏ¢
+#define	SUB_GR_TABLE_STATUS			101									//×À×Ó×´Ì¬
 
-//æ¡Œå­ä¿¡æ¯
+//×À×ÓĞÅÏ¢
 typedef struct _stCmdGrTableInfo
 {
-	WORD							wTableCount;						//æ¡Œå­æ•°ç›®
-	_stTableStatus					stTableStatusArray[512];			//æ¡Œå­çŠ¶æ€
+	WORD							wTableCount;						//×À×ÓÊıÄ¿
+	_stTableStatus					stTableStatusArray[512];			//×À×Ó×´Ì¬
 }ST_CMD_GR_TABLE_INFO, *PST_CMD_GR_TABLE_INFO;
 
-//æ¡Œå­çŠ¶æ€
+//×À×Ó×´Ì¬
 typedef struct _stCmdGrTableStatus
 {
-	WORD							wTableID;							//æ¡Œå­å·ç 
-	_stTableStatus					stTableStatus;						//æ¡Œå­çŠ¶æ€
+	WORD							wTableID;							//×À×ÓºÅÂë
+	_stTableStatus					stTableStatus;						//×À×Ó×´Ì¬
 }ST_CMD_GR_TABLE_STATUS, *PST_CMD_GR_TABLE_STATUS;
 
 /////////////////////////////////////////////////////////////////////////////////
-//é“¶è¡Œå‘½ä»¤
+//ÒøĞĞÃüÁî
 
-#define MDM_GR_BANK								5						//ç”¨æˆ·ä¿¡æ¯
+#define MDM_GR_BANK								5						//ÓÃ»§ĞÅÏ¢
 
-//é“¶è¡Œå‘½ä»¤
-#define SUB_GR_REQ_BANK_ENABLE					1						//å¼€é€šé“¶è¡Œ
-#define SUB_GR_REQ_BANK_QUERY					2						//æŸ¥è¯¢é“¶è¡Œ
-#define SUB_GR_REQ_BANK_GOLD_SAVE				3						//é‡‘å¸å­˜å…¥æ“ä½œ
-#define SUB_GR_REQ_BANK_GOLD_TAKE_OUT			4						//é‡‘å¸å–å‡ºæ“ä½œ
-#define SUB_GR_REQ_BANK_GOLD_TRANSFER			5						//è½¬è´¦æ“ä½œ
-#define SUB_GR_REQ_BANK_QUERY_USER_INFO			6						//æŸ¥è¯¢ç”¨æˆ·
+//ÒøĞĞÃüÁî
+#define SUB_GR_REQ_BANK_ENABLE					1						//¿ªÍ¨ÒøĞĞ
+#define SUB_GR_REQ_BANK_QUERY					2						//²éÑ¯ÒøĞĞ
+#define SUB_GR_REQ_BANK_GOLD_SAVE				3						//½ğ±Ò´æÈë²Ù×÷
+#define SUB_GR_REQ_BANK_GOLD_TAKE_OUT			4						//½ğ±ÒÈ¡³ö²Ù×÷
+#define SUB_GR_REQ_BANK_GOLD_TRANSFER			5						//×ªÕË²Ù×÷
+#define SUB_GR_REQ_BANK_QUERY_USER_INFO			6						//²éÑ¯ÓÃ»§
 
-#define SUB_GR_USER_BANK_INFO					100						//é“¶è¡Œèµ„æ–™
-#define SUB_GR_USER_BANK_SUCC					101						//é“¶è¡ŒæˆåŠŸ
-#define SUB_GR_USER_BANK_FAILURE				102						//é“¶è¡Œå¤±è´¥
-#define SUB_GR_USER_BANK_TRANSFER_USER_INFO     103						//ç”¨æˆ·èµ„æ–™
-#define SUB_GR_USER_BANK_ENABLE_RESULT			104						//å¼€é€šç»“æœ
+#define SUB_GR_USER_BANK_INFO					100						//ÒøĞĞ×ÊÁÏ
+#define SUB_GR_USER_BANK_SUCC					101						//ÒøĞĞ³É¹¦
+#define SUB_GR_USER_BANK_FAILURE				102						//ÒøĞĞÊ§°Ü
+#define SUB_GR_USER_BANK_TRANSFER_USER_INFO     103						//ÓÃ»§×ÊÁÏ
+#define SUB_GR_USER_BANK_ENABLE_RESULT			104						//¿ªÍ¨½á¹û
 
-//æ“ä½œæ–¹å¼
-#define BANK_SAVE								0						//å­˜å–æ–¹å¼
-#define BANK_TRANSFER							1						//è½¬å¸æ–¹å¼
+//²Ù×÷·½Ê½
+#define BANK_SAVE								0						//´æÈ¡·½Ê½
+#define BANK_TRANSFER							1						//×ªÕÊ·½Ê½
 
-//å¼€é€šé“¶è¡Œ
+//¿ªÍ¨ÒøĞĞ
 typedef struct _stCmdGrClientReqBankEnable
 {
-    BYTE							cbActivityGame;						//æ¸¸æˆåŠ¨ä½œ
-    DWORD							dwUserID;							//ç”¨æˆ·id
-    TCHAR							szLogonPwd[LEN_PWD];				//ç™»å½•å¯†ç 
-    TCHAR							szBankPwd[LEN_PWD];					//é“¶è¡Œå¯†ç 
-    TCHAR							szMachineID[LEN_MACHINE_ID];		//æœºå™¨åºåˆ—
+    BYTE							cbActivityGame;						//ÓÎÏ·¶¯×÷
+    DWORD							dwUserID;							//ÓÃ»§id
+    TCHAR							szLogonPwd[LEN_PWD];				//µÇÂ¼ÃÜÂë
+    TCHAR							szBankPwd[LEN_PWD];					//ÒøĞĞÃÜÂë
+    TCHAR							szMachineID[LEN_MACHINE_ID];		//»úÆ÷ĞòÁĞ
 }ST_CMD_GR_CLIENT_REQ_BANK_ENABLE, *PST_CMD_GR_CLIENT_REQ_BANK_ENABLE;
 
 #pragma mark -
-#pragma mark å®¢æˆ·ç«¯ç»“æ„ä½“
-//æŸ¥è¯¢é“¶è¡Œ
+#pragma mark ¿Í»§¶Ë½á¹¹Ìå
+//²éÑ¯ÒøĞĞ
 typedef struct _stCmdGrClientReqBankQuery
 {
-	BYTE							cbActivityGame;						//æ¸¸æˆåŠ¨ä½œ
-	TCHAR							szBankPwd[LEN_PWD];					//é“¶è¡Œå¯†ç 
+	BYTE							cbActivityGame;						//ÓÎÏ·¶¯×÷
+	TCHAR							szBankPwd[LEN_PWD];					//ÒøĞĞÃÜÂë
 }ST_CMD_GR_CLIENT_REQ_BANK_QUERY, *PST_CMD_GR_CLIENT_REQ_BANK_QUERY;
 
-//å­˜æ¬¾è¯·æ±‚
+//´æ¿îÇëÇó
 typedef struct _stCmdGrClientReqBankGoldSave
 {
-	BYTE							cbActivityGame;						//æ¸¸æˆåŠ¨ä½œ
-	LONGLONG						llGoldSave;							//å­˜æ¬¾æ•°ç›®
+	BYTE							cbActivityGame;						//ÓÎÏ·¶¯×÷
+	LONGLONG						llGoldSave;							//´æ¿îÊıÄ¿
 }ST_CMD_GR_CLIENT_REQ_BANK_GOLD_SAVE, *PST_CMD_GR_CLIENT_REQ_BANK_GOLD_SAVE;
 
-//å–æ¬¾è¯·æ±‚
+//È¡¿îÇëÇó
 typedef struct _stCmdGrClientReqBankGoldTakeOut
 {
-	BYTE							cbAvtivityGame;						//æ¸¸æˆåŠ¨ä½œ
-	LONGLONG						llGoldTakeOut;						//å–æ¬¾æ•°ç›®
-	TCHAR							szBankPwd[LEN_PWD];					//é“¶è¡Œå¯†ç 
+	BYTE							cbAvtivityGame;						//ÓÎÏ·¶¯×÷
+	LONGLONG						llGoldTakeOut;						//È¡¿îÊıÄ¿
+	TCHAR							szBankPwd[LEN_PWD];					//ÒøĞĞÃÜÂë
 }ST_CMD_GR_CLIENT_REQ_BANK_GOLD_TAKE_OUT, *PST_CMD_GR_CLIENT_REQ_BANK_GOLD_TAKE_OUT;
 
-//æŸ¥è¯¢ç”¨æˆ·
+//²éÑ¯ÓÃ»§
 typedef struct _stCmdGrClientReqBankQueryUserInfo
 {
-    BYTE							cbActivityGame;                     //æ¸¸æˆåŠ¨ä½œ
-    BYTE							cbByNickName;                       //æ˜µç§°èµ é€
-    TCHAR							szAccounts[LEN_ACCOUNT];			//ç›®æ ‡ç”¨æˆ·
+    BYTE							cbActivityGame;                     //ÓÎÏ·¶¯×÷
+    BYTE							cbByNickName;                       //êÇ³ÆÔùËÍ
+    TCHAR							szAccounts[LEN_MAX_ACCOUNT];			//Ä¿±êÓÃ»§
 }ST_CMD_GR_CLIENT_REQ_BANK_QUERY_USER_INFO, *PST_CMD_GR_CLIENT_REQ_BANK_QUERY_USER_INFO;
 
-//è½¬å¸é‡‘å¸
+//×ªÕÊ½ğ±Ò
 typedef struct _stCmdGrClientReqBankGoldTransfer
 {
-	BYTE							cbActivityGame;						//æ¸¸æˆåŠ¨ä½œ
-	LONGLONG						lTransferGold;						//è½¬å¸é‡‘å¸
-	TCHAR							szAccounts[LEN_ACCOUNT];			//ç›®æ ‡ç”¨æˆ·
-	TCHAR							szInsurePwd[LEN_PWD];				//é“¶è¡Œå¯†ç 
-	TCHAR							szTransRemark[LEN_TRANS_REMARK];    //è½¬å¸å¤‡æ³¨
+	BYTE							cbActivityGame;						//ÓÎÏ·¶¯×÷
+	LONGLONG						lTransferGold;						//×ªÕÊ½ğ±Ò
+	TCHAR							szAccounts[LEN_MAX_ACCOUNT];			//Ä¿±êÓÃ»§
+	TCHAR							szInsurePwd[LEN_PWD];				//ÒøĞĞÃÜÂë
+	TCHAR							szTransRemark[LEN_TRANS_REMARK];    //×ªÕÊ±¸×¢
 }ST_CMD_GR_CLIENT_REQ_BANK_GOLD_TRANSFER, *PST_CMD_GR_CLIENT_REQ_BANK_GOLD_TRANSFER;
 
 #pragma mark -
-#pragma mark æœåŠ¡å™¨å‘é€ç»“æ„ä½“
-//é“¶è¡Œèµ„æ–™
+#pragma mark ·şÎñÆ÷·¢ËÍ½á¹¹Ìå
+//ÒøĞĞ×ÊÁÏ
 typedef struct _stCmdGrServerUserBankInfo
 {
-	BYTE							cbActivityGame;						//æ¸¸æˆåŠ¨ä½œ
-	BYTE							cbEnjoinTransfer;                   //è½¬å¸å¼€å…³
-	WORD							wRevenueTake;						//ç¨æ”¶æ¯”ä¾‹
-	WORD							wRevenueTransfer;					//ç¨æ”¶æ¯”ä¾‹
-	WORD							wRevenueTransferVip;				//ç¨æ”¶æ¯”ä¾‹
-	WORD							wGameRoomID;						//æˆ¿é—´æ ‡è¯†
-	LONGLONG						llUserGold;							//ç”¨æˆ·é‡‘å¸
-	LONGLONG						llUserBankGold;						//é“¶è¡Œé‡‘å¸
-	LONGLONG						llTransferCondition;				//è½¬å¸æ¡ä»¶
+	BYTE							cbActivityGame;						//ÓÎÏ·¶¯×÷
+	BYTE							cbEnjoinTransfer;                   //×ªÕÊ¿ª¹Ø
+	WORD							wRevenueTake;						//Ë°ÊÕ±ÈÀı
+	WORD							wRevenueTransfer;					//Ë°ÊÕ±ÈÀı
+	WORD							wRevenueTransferVip;				//Ë°ÊÕ±ÈÀı
+	WORD							wGameRoomID;						//·¿¼ä±êÊ¶
+	LONGLONG						llUserGold;							//ÓÃ»§½ğ±Ò
+	LONGLONG						llUserBankGold;						//ÒøĞĞ½ğ±Ò
+	LONGLONG						llTransferCondition;				//×ªÕÊÌõ¼ş
 }ST_CMD_GR_SERVER_USER_BANK_INFO, *PST_CMD_GR_SERVER_USER_BANK_INFO;
 
-//é“¶è¡ŒæˆåŠŸ
+//ÒøĞĞ³É¹¦
 typedef struct _stCmdGrServerUserBankSucc
 {
-	BYTE							cbActivityGame;						//æ¸¸æˆåŠ¨ä½œ
-    BYTE							cbOperateType;                      //æ“ä½œç±»å‹
-    DWORD							dwUserMedal;                        //ç”¨æˆ·å¥–ç‰Œ
-    DWORD							dwRecordNo;							//è®°å½•ç¼–å·
-	LONGLONG						llUserGold;							//ç”¨æˆ·é‡‘å¸
-	LONGLONG						llUserBankGold;						//é“¶è¡Œé‡‘å¸
-	TCHAR							szDes[128];							//æè¿°ä¿¡æ¯
+	BYTE							cbActivityGame;						//ÓÎÏ·¶¯×÷
+    BYTE							cbOperateType;                      //²Ù×÷ÀàĞÍ
+    DWORD							dwUserMedal;                        //ÓÃ»§½±ÅÆ
+    DWORD							dwRecordNo;							//¼ÇÂ¼±àºÅ
+	LONGLONG						llUserGold;							//ÓÃ»§½ğ±Ò
+	LONGLONG						llUserBankGold;						//ÒøĞĞ½ğ±Ò
+	TCHAR							szDes[128];							//ÃèÊöĞÅÏ¢
 }ST_CMD_GR_SERVER_USER_BANK_SUCC, *PST_CMD_GR_SERVER_USER_BANK_SUCC;
 
-//é“¶è¡Œå¤±è´¥
+//ÒøĞĞÊ§°Ü
 typedef struct _stCmdGrServerUserBankFailure
 {
-	BYTE							cbActivityGame;						//æ¸¸æˆåŠ¨ä½œ
-	INT								nErrorCode;							//é”™è¯¯ä»£ç 
-	TCHAR							szDes[128];							//æè¿°æ¶ˆæ¯
+	BYTE							cbActivityGame;						//ÓÎÏ·¶¯×÷
+	INT								nErrorCode;							//´íÎó´úÂë
+	TCHAR							szDes[128];							//ÃèÊöÏûÏ¢
 }ST_CMD_GR_SERVER_USER_BANK_FAILURE, *PST_CMD_GR_SERVER_USER_BANK_FAILURE;
 
-//ç”¨æˆ·ä¿¡æ¯
+//ÓÃ»§ĞÅÏ¢
 typedef struct _stCmdGrServerUserTransferUserInfo
 {
-	BYTE							cbActivityGame;						//æ¸¸æˆåŠ¨ä½œ
-	DWORD							dwTargetUserID;						//ç›®æ ‡ç”¨æˆ·
-	TCHAR							szAccounts[LEN_ACCOUNT];			//ç›®æ ‡ç”¨æˆ·
+	BYTE							cbActivityGame;						//ÓÎÏ·¶¯×÷
+	DWORD							dwTargetUserID;						//Ä¿±êÓÃ»§
+	TCHAR							szAccounts[LEN_MAX_ACCOUNT];			//Ä¿±êÓÃ»§
 }ST_CMD_GR_SERVER_USER_TRANSFER_USRE_INFO, *PST_CMD_GR_SERVER_USER_TRANSFER_USRE_INFO;
 
-//å¼€é€šç»“æœ
+//¿ªÍ¨½á¹û
 typedef struct _stCmdGrServerUserBankEnableResult
 {
-	BYTE							cbActivityGame;						//æ¸¸æˆåŠ¨ä½œ
-	BYTE							cbInsureEnabled;					//ä½¿èƒ½æ ‡è¯†
-	TCHAR							szDes[128];							//æè¿°æ¶ˆæ¯
+	BYTE							cbActivityGame;						//ÓÎÏ·¶¯×÷
+	BYTE							cbInsureEnabled;					//Ê¹ÄÜ±êÊ¶
+	TCHAR							szDes[128];							//ÃèÊöÏûÏ¢
 }ST_CMD_GR_SERVER_USER_BANK_ENABLE_RESULT, *PST_CMD_GR_SERVER_USER_BANK_ENABLE_RESULT;
 
 /////////////////////////////////////////////////////////////////////////////////
 
-#define	MDM_GR_TASK                 6									//ä»»åŠ¡å‘½ä»¤
+#define	MDM_GR_TASK                 6									//ÈÎÎñÃüÁî
 
-#define SUB_GR_TASK_LOAD_INFO       1                                   //åŠ è½½ä»»åŠ¡
-#define SUB_GR_TASK_TAKE            2                                   //é¢†å–ä»»åŠ¡
-#define SUB_GR_TASK_REWARD          3                                   //ä»»åŠ¡å¥–åŠ±
-#define SUB_GR_TASK_INFO            4                                   //ä»»åŠ¡ä¿¡æ¯
-#define SUB_GR_TASK_FINISH          5                                   //ä»»åŠ¡å®Œæˆ
-#define SUB_GR_TASK_LIST            6                                   //ä»»åŠ¡åˆ—è¡¨
-#define SUB_GR_TASK_RESULT          7                                   //ä»»åŠ¡ç»“æœ
+#define SUB_GR_TASK_LOAD_INFO       1                                   //¼ÓÔØÈÎÎñ
+#define SUB_GR_TASK_TAKE            2                                   //ÁìÈ¡ÈÎÎñ
+#define SUB_GR_TASK_REWARD          3                                   //ÈÎÎñ½±Àø
+#define SUB_GR_TASK_INFO            4                                   //ÈÎÎñĞÅÏ¢
+#define SUB_GR_TASK_FINISH          5                                   //ÈÎÎñÍê³É
+#define SUB_GR_TASK_LIST            6                                   //ÈÎÎñÁĞ±í
+#define SUB_GR_TASK_RESULT          7                                   //ÈÎÎñ½á¹û
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-//åŠ è½½ä»»åŠ¡
+//¼ÓÔØÈÎÎñ
 typedef struct _stCmdGrClientLoadTaskInfo
 {
     DWORD							dwUserID;
-    TCHAR							szLogonPwd[LEN_PWD];				//ç™»å½•å¯†ç 
+    TCHAR							szLogonPwd[LEN_PWD];				//µÇÂ¼ÃÜÂë
 }ST_CMD_GR_CLIENT_LOAD_TASK_INFO, *PST_CMD_GR_CLIENT_LOAD_TASK_INFO;
 
-//é¢†å–ä»»åŠ¡
+//ÁìÈ¡ÈÎÎñ
 typedef struct _stCmdGrClientTaskGet
 {
-	WORD							wTaskID;                            //ä»»åŠ¡æ ‡è¯†
-	DWORD							dwUserID;                           //ç”¨æˆ·æ ‡è¯†
-    TCHAR							szLogonPwd[LEN_PWD];				//ç™»å½•å¯†ç 
-    TCHAR							szMachineID[LEN_MACHINE_ID];        //æœºå™¨åºåˆ—
+	WORD							wTaskID;                            //ÈÎÎñ±êÊ¶
+	DWORD							dwUserID;                           //ÓÃ»§±êÊ¶
+    TCHAR							szLogonPwd[LEN_PWD];				//µÇÂ¼ÃÜÂë
+    TCHAR							szMachineID[LEN_MACHINE_ID];        //»úÆ÷ĞòÁĞ
 }ST_CMD_GR_CLIENT_TASK_GET, *PST_CMD_GR_CLIENT_TASK_GET;
 
-//é¢†å–å¥–åŠ±
+//ÁìÈ¡½±Àø
 typedef struct _stCmdGrClientTaskReward
 {
-	WORD							wTaskID;                            //ä»»åŠ¡æ ‡è¯†
-	DWORD							dwUserID;                           //ç”¨æˆ·æ ‡è¯†
-	TCHAR							szLogonPwd[LEN_PWD];				//ç™»å½•å¯†ç 
-	TCHAR							szMachineID[LEN_MACHINE_ID];        //æœºå™¨åºåˆ—
+	WORD							wTaskID;                            //ÈÎÎñ±êÊ¶
+	DWORD							dwUserID;                           //ÓÃ»§±êÊ¶
+	TCHAR							szLogonPwd[LEN_PWD];				//µÇÂ¼ÃÜÂë
+	TCHAR							szMachineID[LEN_MACHINE_ID];        //»úÆ÷ĞòÁĞ
 }ST_CMD_GR_CLIENT_TASK_REWARD, *PST_CMD_GR_CLIENT_TASK_REWARD;
 
-//ä»»åŠ¡ä¿¡æ¯
+//ÈÎÎñĞÅÏ¢
 typedef struct _stCmdGrServerTaskInfo
 {
-    WORD							wTaskCount;							//ä»»åŠ¡æ•°é‡
-    ST_TASK_STATUS					stTaskStatusArray[TASK_MAX_COUNT];	//ä»»åŠ¡çŠ¶æ€
+    WORD							wTaskCount;							//ÈÎÎñÊıÁ¿
+    ST_TASK_STATUS					stTaskStatusArray[TASK_MAX_COUNT];	//ÈÎÎñ×´Ì¬
 }ST_CMD_GR_SERVER_TASK_INFO, *PST_CMD_GR_SERVER_TASK_INFO;
 
-//ä»»åŠ¡å®Œæˆ
+//ÈÎÎñÍê³É
 typedef struct _stCmdGrServerTaskFinish
 {
-	WORD							wTaskID;							//ä»»åŠ¡æ ‡è¯†
-	TCHAR							szTaskName[LEN_TASK_NAME];          //ä»»åŠ¡åç§°
+	WORD							wTaskID;							//ÈÎÎñ±êÊ¶
+	TCHAR							szTaskName[LEN_TASK_NAME];          //ÈÎÎñÃû³Æ
 }ST_CMD_GR_SERVER_TASK_FINISH, *PST_CMD_GR_SERVER_TASK_FINISH;
 
-//ä»»åŠ¡ç»“æœ
+//ÈÎÎñ½á¹û
 typedef struct _stCmdGrServerTaskResult
 {
-    //ç»“æœä¿¡æ¯
-    bool							bSucc;								//æˆåŠŸæ ‡è¯†
-    WORD							wCommandID;                         //å‘½ä»¤æ ‡è¯†
+    //½á¹ûĞÅÏ¢
+    bool							bSucc;								//³É¹¦±êÊ¶
+    WORD							wCommandID;                         //ÃüÁî±êÊ¶
     
-    //è´¢å¯Œä¿¡æ¯
-    LONGLONG						llCurrGameCoin;						//å½“å‰æ¸¸æˆå¸
-    LONGLONG						llCurGold;							//å½“å‰é‡‘å¸
+    //²Æ¸»ĞÅÏ¢
+    LONGLONG						llCurrGameCoin;						//µ±Ç°ÓÎÏ·±Ò
+    LONGLONG						llCurGold;							//µ±Ç°½ğ±Ò
     
-    //æç¤ºä¿¡æ¯
-    TCHAR							szNotifyContent[128];               //æç¤ºå†…å®¹
+    //ÌáÊ¾ĞÅÏ¢
+    TCHAR							szNotifyContent[128];               //ÌáÊ¾ÄÚÈİ
 }ST_CMD_GR_SERVER_TASK_RESULT, *PST_CMD_GR_SERVER_TASK_RESULT;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-//å…‘æ¢å‘½ä»¤
-#define MDM_GR_EXCHANGE						7                           //å…‘æ¢å‘½ä»¤
+//¶Ò»»ÃüÁî
+#define MDM_GR_EXCHANGE						7                           //¶Ò»»ÃüÁî
 
-#define  SUB_GR_EXCHANGE_LOAD_INFO          400                         //åŠ è½½ä¿¡æ¯
-#define  SUB_GR_EXCHANGE_PARAM_INFO         401                         //å…‘æ¢å‚æ•°
-#define  SUB_GR_PURCHASE_MEMBER             402                         //è´­ä¹°ä¼šå‘˜
-#define  SUB_GR_PURCHASE_RESULT             403                         //è´­ä¹°ç»“æœ
-#define  SUB_GR_EXCHANGE_GAME_COIN_BY_GOLD  404                         //é‡‘å¸å…‘æ¢æ¸¸æˆå¸
-#define  SUB_GR_EXCHANGE_GAME_COIN_BY_BEAN  405							//æ¸¸æˆè±†å…‘æ¢æ¸¸æˆå¸
-#define  SUB_GR_EXCHANGE_RESULT             406                         //å…‘æ¢ç»“æœ
+#define  SUB_GR_EXCHANGE_LOAD_INFO          400                         //¼ÓÔØĞÅÏ¢
+#define  SUB_GR_EXCHANGE_PARAM_INFO         401                         //¶Ò»»²ÎÊı
+#define  SUB_GR_PURCHASE_MEMBER             402                         //¹ºÂò»áÔ±
+#define  SUB_GR_PURCHASE_RESULT             403                         //¹ºÂò½á¹û
+#define  SUB_GR_EXCHANGE_GAME_COIN_BY_GOLD  404                         //½ğ±Ò¶Ò»»ÓÎÏ·±Ò
+#define  SUB_GR_EXCHANGE_GAME_COIN_BY_BEAN  405							//ÓÎÏ·¶¹¶Ò»»ÓÎÏ·±Ò
+#define  SUB_GR_EXCHANGE_RESULT             406                         //¶Ò»»½á¹û
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-//æŸ¥è¯¢å‚æ•°
+//²éÑ¯²ÎÊı
 typedef struct _stCmdGrExchangeParam
 {
-    DWORD							dwGoldExchangeGameCoinRate;			//é‡‘å¸â†’æ¸¸æˆå¸å…‘æ¢æ¯”ç‡
-    DWORD							dwPresentExchangeGameCoinRate;		//é­…åŠ›â†’æ¸¸æˆå¸å…‘æ¢ç‡
-    DWORD							dwRateBeanExchangeGameCoin;			//æ¸¸æˆè±†â†’æ¸¸æˆå¸å…‘æ¢ç‡
-    WORD							wVipCount;							//ä¼šå‘˜æ•°ç›®
-    _stVipParam						stVipParamArray[10];				//ä¼šå‘˜å‚æ•°
+    DWORD							dwGoldExchangeGameCoinRate;			//½ğ±Ò¡úÓÎÏ·±Ò¶Ò»»±ÈÂÊ
+    DWORD							dwPresentExchangeGameCoinRate;		//÷ÈÁ¦¡úÓÎÏ·±Ò¶Ò»»ÂÊ
+    DWORD							dwRateBeanExchangeGameCoin;			//ÓÎÏ·¶¹¡úÓÎÏ·±Ò¶Ò»»ÂÊ
+    WORD							wVipCount;							//»áÔ±ÊıÄ¿
+    _stVipParam						stVipParamArray[10];				//»áÔ±²ÎÊı
 }ST_CMD_GR_EXCHANGE_PARAM, *PST_CMD_GR_EXCHANGE_PARAM;
 
-//å…‘æ¢æ¸¸æˆå¸
+//¶Ò»»ÓÎÏ·±Ò
 typedef struct _stCmdGrExchangeGameCoin
 {
-    DWORD                           dwUserID;                           //ç”¨æˆ·æ ‡è¯†
-    LONGLONG						llExchangedGold;                    //å¾…å…‘æ¢é‡‘å¸
-    TCHAR                           szMachineID[LEN_MACHINE_ID];        //æœºå™¨æ ‡è¯†
+    DWORD                           dwUserID;                           //ÓÃ»§±êÊ¶
+    LONGLONG						llExchangedGold;                    //´ı¶Ò»»½ğ±Ò
+    TCHAR                           szMachineID[LEN_MACHINE_ID];        //»úÆ÷±êÊ¶
 }ST_CMD_GR_EXCHANGE_GAME_GOIN, *PST_CMD_GR_EXCHANGE_GAME_GOIN;
 
-//å…‘æ¢æ¸¸æˆå¸
+//¶Ò»»ÓÎÏ·±Ò
 typedef struct _stCmdGrExchangeGameCoinByBean
 {
-    DWORD							dwUserID;							//ç”¨æˆ·æ ‡è¯†
-    double							dExchangedBean;						//å¾…å…‘æ¢æ¸¸æˆè±†
-    TCHAR							szMachineID[LEN_MACHINE_ID];		//æœºå™¨æ ‡è¯†
+    DWORD							dwUserID;							//ÓÃ»§±êÊ¶
+    double							dExchangedBean;						//´ı¶Ò»»ÓÎÏ·¶¹
+    TCHAR							szMachineID[LEN_MACHINE_ID];		//»úÆ÷±êÊ¶
 }ST_CMD_GR_EXCHANGE_GAME_COIN_BY_BEAN, *PST_CMD_GR_EXCHANGE_GAME_COIN_BY_BEAN;
 
-//å…‘æ¢ç»“æœ
+//¶Ò»»½á¹û
 typedef struct _stCmdGrExchangeResult
 {
-    bool                            bSucc;								//æˆåŠŸæ ‡è¯†
-    LONGLONG						llCurrGameCoin;                     //å½“å‰æ¸¸æˆå¸
-    LONGLONG						llCurGold;							//å½“å‰é‡‘å¸
-    TCHAR                           szNotifyMsg[128];					//æç¤ºä¿¡æ¯
+    bool                            bSucc;								//³É¹¦±êÊ¶
+    LONGLONG						llCurrGameCoin;                     //µ±Ç°ÓÎÏ·±Ò
+    LONGLONG						llCurGold;							//µ±Ç°½ğ±Ò
+    TCHAR                           szNotifyMsg[128];					//ÌáÊ¾ĞÅÏ¢
 }ST_CMD_GR_EXCHANGE_RESULT, *PST_CMD_GR_EXCHANGE_RESULT;
 
-//è´­ä¹°ä¼šå‘˜
+//¹ºÂò»áÔ±
 typedef struct _stCmdGrPurchaseVip
 {
-	DWORD                           dwUserID;                           //ç”¨æˆ·æ ‡è¯†
-	BYTE                            cbVipFlag;							//ä¼šå‘˜æ ‡è¯†
-	WORD                            wPurchaseTime;                      //è´­ä¹°æ—¶é—´
-	TCHAR                           szMachineID[LEN_MACHINE_ID];        //æœºå™¨æ ‡è¯†
+	DWORD                           dwUserID;                           //ÓÃ»§±êÊ¶
+	BYTE                            cbVipFlag;							//»áÔ±±êÊ¶
+	WORD                            wPurchaseTime;                      //¹ºÂòÊ±¼ä
+	TCHAR                           szMachineID[LEN_MACHINE_ID];        //»úÆ÷±êÊ¶
 }ST_CMD_GR_PURCHASE_VIP, *PST_CMD_GR_PURCHASE_VIP;
 
-//è´­ä¹°ç»“æœ
+//¹ºÂò½á¹û
 typedef struct _stCmdGrPurchaseResult
 {
-	bool                            bSucc;								//æˆåŠŸæ ‡è¯†
-	BYTE                            cbVipOrder;							//ä¼šå‘˜ç³»åˆ—
-	LONGLONG						llCurrGameCoin;                     //å½“å‰æ¸¸æˆå¸
-	DWORD                           dwCurrBean;							//å½“å‰æ¸¸æˆè±†
-	TCHAR                           szNotifyMsg[128];					//æç¤ºä¿¡æ¯
+	bool                            bSucc;								//³É¹¦±êÊ¶
+	BYTE                            cbVipOrder;							//»áÔ±ÏµÁĞ
+	LONGLONG						llCurrGameCoin;                     //µ±Ç°ÓÎÏ·±Ò
+	DWORD                           dwCurrBean;							//µ±Ç°ÓÎÏ·¶¹
+	TCHAR                           szNotifyMsg[128];					//ÌáÊ¾ĞÅÏ¢
 }ST_CMD_GR_PURCHASE_RESULT, *PST_CMD_GR_PURCHASE_RESULT;
 
 /////////////////////////////////////////////////////////////////////////////////
-//ç®¡ç†å‘½ä»¤
+//¹ÜÀíÃüÁî
 
-//ç®¡ç†å‘½ä»¤
-#define      MDM_GR_MANAGE          8                                   //ç®¡ç†å‘½ä»¤
+//¹ÜÀíÃüÁî
+#define      MDM_GR_MANAGE          8                                   //¹ÜÀíÃüÁî
 
-#define      SUB_GR_SEND_WARNING    1                                   //å‘é€è­¦å‘Š
-#define      SUB_GR_SEND_MESSAGE    2                                   //å‘é€æ¶ˆæ¯
-#define      SUB_GR_LOOK_USER_IP    3                                   //æŸ¥çœ‹åœ°å€
-#define      SUB_GR_KILL_USER       4                                   //å‰”å‡ºç”¨æˆ·
-#define      SUB_GR_LIMIT_ACCOUNTS  5                                   //ç¦æ­¢å¸æˆ·
-#define      SUB_GR_SET_USER_RIGHT  6                                   //æƒé™è®¾ç½®
+#define      SUB_GR_SEND_WARNING    1                                   //·¢ËÍ¾¯¸æ
+#define      SUB_GR_SEND_MESSAGE    2                                   //·¢ËÍÏûÏ¢
+#define      SUB_GR_LOOK_USER_IP    3                                   //²é¿´µØÖ·
+#define      SUB_GR_KILL_USER       4                                   //ÌŞ³öÓÃ»§
+#define      SUB_GR_LIMIT_ACCOUNTS  5                                   //½ûÖ¹ÕÊ»§
+#define      SUB_GR_SET_USER_RIGHT  6                                   //È¨ÏŞÉèÖÃ
 
-//æˆ¿é—´è®¾ç½®
-#define      SUB_GR_QUERY_OPTION    7                                   //æŸ¥è¯¢è®¾ç½®
-#define      SUB_GR_OPTION_SERVER   8                                   //æˆ¿é—´è®¾ç½®
-#define      SUB_GR_OPTION_CURRENT  9                                   //å½“å‰è®¾ç½®
-#define      SUB_GR_LIMIT_USER_CHAT 10                                  //é™åˆ¶èŠå¤©
-#define      SUB_GR_KICK_ALL_USER   11                                  //å‰”å‡ºç”¨æˆ·
-#define      SUB_GR_DISMISSGAME     12                                  //è§£ç®—æ¸¸æˆ
+//·¿¼äÉèÖÃ
+#define      SUB_GR_QUERY_OPTION    7                                   //²éÑ¯ÉèÖÃ
+#define      SUB_GR_OPTION_SERVER   8                                   //·¿¼äÉèÖÃ
+#define      SUB_GR_OPTION_CURRENT  9                                   //µ±Ç°ÉèÖÃ
+#define      SUB_GR_LIMIT_USER_CHAT 10                                  //ÏŞÖÆÁÄÌì
+#define      SUB_GR_KICK_ALL_USER   11                                  //ÌŞ³öÓÃ»§
+#define      SUB_GR_DISMISSGAME     12                                  //½âËãÓÎÏ·
 
 //...
-//å‘é€è­¦å‘Š
+//·¢ËÍ¾¯¸æ
 typedef struct _stCmdGrSendWarning
 {
-    WORD                            wLen;								//ä¿¡æ¯é•¿åº¦
-    DWORD                           dwUserID;							//ç›®æ ‡ç”¨æˆ·
-	TCHAR                           szWarningMsg[LEN_MSG];				//è­¦å‘Šæ¶ˆæ¯
+    WORD                            wLen;								//ĞÅÏ¢³¤¶È
+    DWORD                           dwUserID;							//Ä¿±êÓÃ»§
+	TCHAR                           szWarningMsg[LEN_MSG];				//¾¯¸æÏûÏ¢
 }ST_CMD_GR_SEND_WARNING, *PST_CMD_GR_SEND_WARNING;
 
-//ç³»ç»Ÿæ¶ˆæ¯
+//ÏµÍ³ÏûÏ¢
 typedef struct _stCmdGrSendMsg
 {
-	BYTE                            cbGame;                             //æ¸¸æˆæ¶ˆæ¯
-	BYTE                            cbRoom;                             //æ¸¸æˆæ¶ˆæ¯
-	BYTE                            cbAllRoom;                          //æ¸¸æˆæ¶ˆæ¯
-	BYTE                            cbLoop;                             //å¾ªç¯æ ‡è¯†
-	DWORD                           dwTimeRate;                         //å¾ªç¯é—´éš”
-	INT								nEndTime;							//ç»“æŸæ—¶é—´
-	WORD                            wLen;								//ä¿¡æ¯é•¿åº¦
-	TCHAR                           szSysMsg[LEN_MSG];					//ç³»ç»Ÿæ¶ˆæ¯
+	BYTE                            cbGame;                             //ÓÎÏ·ÏûÏ¢
+	BYTE                            cbRoom;                             //ÓÎÏ·ÏûÏ¢
+	BYTE                            cbAllRoom;                          //ÓÎÏ·ÏûÏ¢
+	BYTE                            cbLoop;                             //Ñ­»·±êÊ¶
+	DWORD                           dwTimeRate;                         //Ñ­»·¼ä¸ô
+	INT								nEndTime;							//½áÊøÊ±¼ä
+	WORD                            wLen;								//ĞÅÏ¢³¤¶È
+	TCHAR                           szSysMsg[LEN_MSG];					//ÏµÍ³ÏûÏ¢
 }ST_CMD_GR_SEND_MSG, *PST_CMD_GR_SEND_MSG;
 
-//æŸ¥çœ‹åœ°å€
+//²é¿´µØÖ·
 typedef struct _stCmdGrUserLookIP
 {
     DWORD                           dwUserID;
 }ST_CMD_GR_USER_LOOK_IP, *PST_CMD_GR_USER_LOOK_IP;
 
-//è¸¢å‡ºç”¨æˆ·
+//Ìß³öÓÃ»§
 typedef struct _stCmdGrUserKickOut
 {
     DWORD                           dwUserID;
 }ST_CMD_GR_USER_KICK_OUT, *PST_CMD_GR_USER_KICK_OUT;
 
-//ç¦ç”¨å¸æˆ·
+//½ûÓÃÕÊ»§
 typedef struct _stCmdGrUserDisableAccounts
 {
     DWORD                           dwUserID;
 }ST_CMD_GR_USER_DISABLE_ACCOUNTS, *PST_CMD_GR_USER_DISABLE_ACCOUNTS;
 
-//æƒé™è®¾ç½®
+//È¨ÏŞÉèÖÃ
 typedef struct _stCmdGrUserGetPriview
 {
-    //ç›®æ ‡ç”¨æˆ·
+    //Ä¿±êÓÃ»§
     WORD                            dwUserID;
     
-    //ç»‘å®šå˜é‡
-    BYTE                            cbGamePriview;                      //å¸å·æƒé™
-    BYTE                            cbAccountsPriview;                  //å¸å·æƒé™
+    //°ó¶¨±äÁ¿
+    BYTE                            cbGamePriview;                      //ÕÊºÅÈ¨ÏŞ
+    BYTE                            cbAccountsPriview;                  //ÕÊºÅÈ¨ÏŞ
     
-    //æƒé™å˜åŒ–
-    BYTE                            cbLimitRoomChat;                    //å¤§å…èŠå¤©
-    BYTE                            cbLimitGameChat;                    //æ¸¸æˆèŠå¤©
-    BYTE                            cbLimitPlayGame;                    //æ¸¸æˆæƒé™
-    BYTE                            cbLimitSendWisper;                  //å‘é€æ¶ˆæ¯
-    BYTE                            cbLimitLookonGame;                  //æ—è§‚æƒé™
+    //È¨ÏŞ±ä»¯
+    BYTE                            cbLimitRoomChat;                    //´óÌüÁÄÌì
+    BYTE                            cbLimitGameChat;                    //ÓÎÏ·ÁÄÌì
+    BYTE                            cbLimitPlayGame;                    //ÓÎÏ·È¨ÏŞ
+    BYTE                            cbLimitSendWisper;                  //·¢ËÍÏûÏ¢
+    BYTE                            cbLimitLookonGame;                  //ÅÔ¹ÛÈ¨ÏŞ
 }ST_CMD_GR_USER_SET_PRIVIEW, *PST_CMD_GR_USER_SET_PRIVIEW;
 
-//æˆ¿é—´è®¾ç½®
+//·¿¼äÉèÖÃ
 typedef struct _stCmdGrGameRoomSetting
 {
-    DWORD                           dwRuleMask;                         //è§„åˆ™æ©ç 
-    _stGameRoomConfig				stGameRoomConfig;                   //æˆ¿é—´é…ç½®
+    DWORD                           dwRuleMask;                         //¹æÔòÑÚÂë
+    _stGameRoomConfig				stGameRoomConfig;                   //·¿¼äÅäÖÃ
 }ST_CMD_GR_GAME_ROOM_SETTING, *PST_CMD_GR_GAME_ROOM_SETTING;
 
-//æ¸¸æˆæˆ¿é—´è®¾ç½®
+//ÓÎÏ··¿¼äÉèÖÃ
 typedef struct _stCmdGrGameRoomConfig
 {
-    _stGameRoomConfig				stGameRoomConfig;                   //æˆ¿é—´é…ç½®
+    _stGameRoomConfig				stGameRoomConfig;                   //·¿¼äÅäÖÃ
 }ST_CMD_GR_GAME_ROOM_CONFIG;
 
-//å‰”å‡ºæ‰€æœ‰ç”¨æˆ·
+//ÌŞ³öËùÓĞÓÃ»§
 typedef struct _stCmdGrUserKickOutAll
 {
-	TCHAR                           szMsg[LEN_MSG];						//è¸¢å‡ºæç¤º
+	TCHAR                           szMsg[LEN_MSG];						//Ìß³öÌáÊ¾
 }ST_CMD_GR_USER_KICK_OUT_ALL, *PST_CMD_GR_USER_KICK_OUT_ALL;
 
 typedef struct _stCmdGrDissmissGame
 {
-    WORD                            wTableNum;							//è§£æ•£æ¡Œå·
+    WORD                            wTableNum;							//½âÉ¢×ÀºÅ
 }ST_CMD_GR_DISSMISS_GAME, *PST_CMD_GR_DISSMISS_GAME;
 
-//è®¾ç½®æ ‡è¯†
-#define  OSF_ROOM_CHAT              1                                   //å¤§å…èŠå¤©
-#define  OSF_GAME_CHAT              2                                   //æ¸¸æˆèŠå¤©
-#define  OSF_ROOM_WISPER            3                                   //å¤§å…ç§èŠ
-#define  OSF_ENTER_TABLE            4                                   //è¿›å…¥æ¸¸æˆ
-#define  OSF_ENTER_SERVER           5                                   //è¿›å…¥æˆ¿é—´
-#define  OSF_SEND_BUGLE             12                                  //å‘é€å–‡å­
+//ÉèÖÃ±êÊ¶
+#define  OSF_ROOM_CHAT              1                                   //´óÌüÁÄÌì
+#define  OSF_GAME_CHAT              2                                   //ÓÎÏ·ÁÄÌì
+#define  OSF_ROOM_WISPER            3                                   //´óÌüË½ÁÄ
+#define  OSF_ENTER_TABLE            4                                   //½øÈëÓÎÏ·
+#define  OSF_ENTER_SERVER           5                                   //½øÈë·¿¼ä
+#define  OSF_SEND_BUGLE             12                                  //·¢ËÍÀ®°È
 
-//æˆ¿é—´è®¾ç½®
+//·¿¼äÉèÖÃ
 typedef struct _stCmdGrServerGameRoomConfig
 {
-	BYTE                            cbFlags;							//è®¾ç½®æ ‡è¯†
-	BYTE                            cbValue;							//è®¾ç½®å€¼
+	BYTE                            cbFlags;							//ÉèÖÃ±êÊ¶
+	BYTE                            cbValue;							//ÉèÖÃÖµ
 }ST_CMD_GR_SERVER_GAME_ROOM_CONFIG, *PST_CMD_GR_SERVER_GAME_ROOM_CONFIG;
 
-//é™åˆ¶èŠå¤©
+//ÏŞÖÆÁÄÌì
 typedef struct _stCmdGrUserLimitChat
 {
 	DWORD                           dwUserID;
-	BYTE                            cbFlags;							//é™åˆ¶æ ‡å¿—
-	BYTE                            cbValue;							//é™åˆ¶ä¸å¦
+	BYTE                            cbFlags;							//ÏŞÖÆ±êÖ¾
+	BYTE                            cbValue;							//ÏŞÖÆÓë·ñ
 }ST_CMD_GR_USER_LIMIT_CHAT, *PST_CMD_GR_USER_LIMIT_CHAT;
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-//æ¯”èµ›å‘½ä»¤
-#define MDM_GR_MATCH				9									//æ¯”èµ›å‘½ä»¤
+//±ÈÈüÃüÁî
+#define MDM_GR_MATCH				9									//±ÈÈüÃüÁî
 
-#define SUB_GR_MATCH_FEE			400									//æŠ¥åè´¹ç”¨
-#define SUB_GR_MATCH_NUM			401									//ç­‰å¾…äººæ•°
-#define SUB_GR_LEAVE_MATCH			402									//é€€å‡ºæ¯”èµ›
-#define SUB_GR_MATCH_INFO			403									//æ¯”èµ›ä¿¡æ¯
-#define SUB_GR_MATCH_WAIT_TIP		404									//ç­‰å¾…æç¤º
-#define SUB_GR_MATCH_RESULT			405									//æ¯”èµ›ç»“æœ
-#define SUB_GR_MATCH_STATUS			406									//æ¯”èµ›çŠ¶æ€
-#define SUB_GR_MATCH_DESC			408									//æ¯”èµ›æè¿°
-#define SUB_GR_MATCH_GOLD_UPDATE    409									//é‡‘å¸æ›´æ–°
-#define SUB_GR_MATCH_ELIMINATE      410                                 //æ¯”èµ›æ·˜æ±°
+#define SUB_GR_MATCH_FEE			400									//±¨Ãû·ÑÓÃ
+#define SUB_GR_MATCH_NUM			401									//µÈ´ıÈËÊı
+#define SUB_GR_LEAVE_MATCH			402									//ÍË³ö±ÈÈü
+#define SUB_GR_MATCH_INFO			403									//±ÈÈüĞÅÏ¢
+#define SUB_GR_MATCH_WAIT_TIP		404									//µÈ´ıÌáÊ¾
+#define SUB_GR_MATCH_RESULT			405									//±ÈÈü½á¹û
+#define SUB_GR_MATCH_STATUS			406									//±ÈÈü×´Ì¬
+#define SUB_GR_MATCH_DESC			408									//±ÈÈüÃèÊö
+#define SUB_GR_MATCH_GOLD_UPDATE    409									//½ğ±Ò¸üĞÂ
+#define SUB_GR_MATCH_ELIMINATE      410                                 //±ÈÈüÌÔÌ­
 
-//æ¯”èµ›è´¹ç”¨
+//±ÈÈü·ÑÓÃ
 typedef struct _stCmdGrMatchFee
 {
-    LONGLONG                       llSignUpFee;                         //æŠ¥åè´¹ç”¨
-	TCHAR                          szNotifyMsg[LEN_MSG];				//æç¤ºå†…å®¹
+    LONGLONG                       llSignUpFee;                         //±¨Ãû·ÑÓÃ
+	TCHAR                          szNotifyMsg[LEN_MSG];				//ÌáÊ¾ÄÚÈİ
 }ST_CMD_GR_MATCH_FEE, *PST_CMD_GR_MATCH_FEE;
 
-//æ¯”èµ›äººæ•°
+//±ÈÈüÈËÊı
 typedef struct _stCmdGrMatchUserNum
 {
-	DWORD							dwWaittingNum;						//ç­‰å¾…äººæ•°
-	DWORD							dwTotalNum;							//å¼€èµ›äººæ•°
+	DWORD							dwWaittingNum;						//µÈ´ıÈËÊı
+	DWORD							dwTotalNum;							//¿ªÈüÈËÊı
 }ST_CMD_GR_MATCH_USER_NUM, *PST_CMD_GR_MATCH_USER_NUM;
 
-//èµ›äº‹ä¿¡æ¯
+//ÈüÊÂĞÅÏ¢
 typedef struct _stCmdGrMatchInfo
 {
-	TCHAR							szTitleArray[4][LEN_TITLE_MSG];		//ä¿¡æ¯æ ‡é¢˜
-    WORD							wGameOfNum;							//æ¸¸æˆå±€æ•°
+	TCHAR							szTitleArray[4][LEN_TITLE_MSG];		//ĞÅÏ¢±êÌâ
+    WORD							wGameOfNum;							//ÓÎÏ·¾ÖÊı
 }ST_CMD_GR_MATCH_INFO, *PST_CMD_GR_MATCH_INFO;
 
-//æç¤ºä¿¡æ¯
+//ÌáÊ¾ĞÅÏ¢
 typedef struct _stCmdGrMatchWaitTip
 {
-	LONGLONG						llCurrGameCoin;						//å½“å‰æ¸¸æˆå¸
-	WORD							wCurrRank;							//å½“å‰åæ¬¡
-	WORD							wCurrTableRank;						//æœ¬æ¡Œåæ¬¡
-	WORD							wUserOfNum;							//å½“å‰äººæ•°
-    WORD                            wCurrGameOfNum;                     //å½“å‰å±€æ•°
-    WORD                            wGameTotal;                         //æ€»å…±å±€æ•°
-	WORD							wPlayingTable;						//æ¸¸æˆæ¡Œæ•°
-    TCHAR							szMatchName[LEN_GAME_ROOM];			//æ¯”èµ›åç§°
+	LONGLONG						llCurrGameCoin;						//µ±Ç°ÓÎÏ·±Ò
+	WORD							wCurrRank;							//µ±Ç°Ãû´Î
+	WORD							wCurrTableRank;						//±¾×ÀÃû´Î
+	WORD							wUserOfNum;							//µ±Ç°ÈËÊı
+    WORD                            wCurrGameOfNum;                     //µ±Ç°¾ÖÊı
+    WORD                            wGameTotal;                         //×Ü¹²¾ÖÊı
+	WORD							wPlayingTable;						//ÓÎÏ·×ÀÊı
+    TCHAR							szMatchName[LEN_GAME_ROOM];			//±ÈÈüÃû³Æ
 }ST_CMD_GR_MATCH_WAIT_TIP, *PST_CMD_GR_MATCH_WAIT_TIP;
 
-//æ¯”èµ›ç»“æœ
+//±ÈÈü½á¹û
 typedef struct _stCmdGrMatchResult
 {
-    LONGLONG						llGameCoin;							//æ¸¸æˆå¸å¥–åŠ±
-    DWORD							dwGold;								//é‡‘å¸å¥–åŠ±
-    DWORD							dwExp;								//ç»éªŒå¥–åŠ±
-	TCHAR							szDes[LEN_DES];						//å¾—å¥–æè¿°
+    LONGLONG						llGameCoin;							//ÓÎÏ·±Ò½±Àø
+    DWORD							dwGold;								//½ğ±Ò½±Àø
+    DWORD							dwExp;								//¾­Ñé½±Àø
+	TCHAR							szDes[LEN_DES];						//µÃ½±ÃèÊö
 }ST_CMD_GR_MATCH_RESULT, *PST_CMD_GR_MATCH_RESULT;
 
-#define MAX_MATCH_DES				4									//æœ€å¤šæè¿°
+#define MAX_MATCH_DES				4									//×î¶àÃèÊö
 
-//æ¯”èµ›æè¿°
+//±ÈÈüÃèÊö
 typedef struct _stCmdGrMatchDes
 {
-    TCHAR							szTitleArray[MAX_MATCH_DES][16];	//ä¿¡æ¯æ ‡é¢˜
-	TCHAR							szDes[MAX_MATCH_DES][LEN_MATCH_DES];//æè¿°å†…å®¹
-    DWORD                           dwTitleColor;						//æ ‡é¢˜é¢œè‰²
-    DWORD                           dwDesColor;							//æè¿°é¢œè‰²
+    TCHAR							szTitleArray[MAX_MATCH_DES][16];	//ĞÅÏ¢±êÌâ
+	TCHAR							szDes[MAX_MATCH_DES][LEN_MATCH_DES];//ÃèÊöÄÚÈİ
+    DWORD                           dwTitleColor;						//±êÌâÑÕÉ«
+    DWORD                           dwDesColor;							//ÃèÊöÑÕÉ«
 }ST_CMD_GR_MATCH_DES, *PST_CMD_GR_MATCH_DES;
 
-//é‡‘å¸æ›´æ–°
+//½ğ±Ò¸üĞÂ
 typedef struct _stCmdGrMatchGoldUpdate
 {
-    LONGLONG                       llCurrGameCoin;						//å½“å‰æ¸¸æˆå¸
-    LONGLONG                       llCurrGold;							//å½“å‰é‡‘å¸
-    DWORD                          dwCurrExp;							//å½“å‰ç»éªŒ
+    LONGLONG                       llCurrGameCoin;						//µ±Ç°ÓÎÏ·±Ò
+    LONGLONG                       llCurrGold;							//µ±Ç°½ğ±Ò
+    DWORD                          dwCurrExp;							//µ±Ç°¾­Ñé
 }ST_CMD_GR_MATCH_GOLD_UPDATE, *PST_CMD_GR_MATCH_GOLD_UPDATE;
 
 ////////////////////////////////////////////////////////////////////////////////
 //...
 
 ///////////////////////////////////////////////////////////////////////////////
-//æ¡†æ¶å‘½ä»¤
+//¿ò¼ÜÃüÁî
 
-#define	MDM_GF_FRAME				100									//æ¡†æ¶å‘½ä»¤
+#define	MDM_GF_FRAME				100									//¿ò¼ÜÃüÁî
 
-//ç”¨æˆ·å‘½ä»¤
-#define SUB_GF_GAME_OPTION			1									//æ¸¸æˆé…ç½®
-#define SUB_GF_USER_READY			2									//ç”¨æˆ·å‡†å¤‡
-#define SUB_GF_LOOKON_CONFIG		3									//æ—è§‚é…ç½®
-#define SUB_GF_DISTRIBUTE_AFFIRM	4									//åˆ†ç»„ç¡®è®¤
+//ÓÃ»§ÃüÁî
+#define SUB_GF_GAME_OPTION			1									//ÓÎÏ·ÅäÖÃ
+#define SUB_GF_USER_READY			2									//ÓÃ»§×¼±¸
+#define SUB_GF_LOOKON_CONFIG		3									//ÅÔ¹ÛÅäÖÃ
+#define SUB_GF_DISTRIBUTE_AFFIRM	4									//·Ö×éÈ·ÈÏ
 
-//èŠå¤©å‘½ä»¤
-#define SUB_GF_USER_CHAT			10									//ç”¨æˆ·èŠå¤©
-#define SUB_GF_USER_EXPRESSION		11									//ç”¨æˆ·è¡¨æƒ…
+//ÁÄÌìÃüÁî
+#define SUB_GF_USER_CHAT			10									//ÓÃ»§ÁÄÌì
+#define SUB_GF_USER_EXPRESSION		11									//ÓÃ»§±íÇé
 
-//æ¸¸æˆä¿¡æ¯
-#define SUB_GF_GAME_STATUS			100									//æ¸¸æˆçŠ¶æ€
-#define SUB_GF_GAME_SCENE			101									//æ—è§‚åœºæ™¯
-#define SUB_GF_LOOKON_STATUS		102									//æ—è§‚çŠ¶æ€
+//ÓÎÏ·ĞÅÏ¢
+#define SUB_GF_GAME_STATUS			100									//ÓÎÏ·×´Ì¬
+#define SUB_GF_GAME_SCENE			101									//ÅÔ¹Û³¡¾°
+#define SUB_GF_LOOKON_STATUS		102									//ÅÔ¹Û×´Ì¬
 
-//ç³»ç»Ÿæ¶ˆæ¯
-#define SUB_GF_SYSTEM_MESSAGE		200									//ç³»ç»Ÿæ¶ˆæ¯
-#define SUB_GF_ACTION_MESSAGE		201									//åŠ¨ä½œæ¶ˆæ¯
+//ÏµÍ³ÏûÏ¢
+#define SUB_GF_SYSTEM_MESSAGE		200									//ÏµÍ³ÏûÏ¢
+#define SUB_GF_ACTION_MESSAGE		201									//¶¯×÷ÏûÏ¢
 
 /////////////////////////////////////////////////////////////////////////////////
 
-//æ¸¸æˆé…ç½®
+//ÓÎÏ·ÅäÖÃ
 typedef struct _stCmdGfGameConfig
 {
-	BYTE							cbAllowLookon;						//æ—è§‚æ ‡å¿—
-	DWORD							dwFrameVersion;						//æ¡†æ¶ç‰ˆæœ¬
-	DWORD							dwClientVersion;					//æ¸¸æˆç‰ˆæœ¬
+	BYTE							cbAllowLookon;						//ÅÔ¹Û±êÖ¾
+	DWORD							dwFrameVersion;						//¿ò¼Ü°æ±¾
+	DWORD							dwClientVersion;					//ÓÎÏ·°æ±¾
 }ST_CMD_GF_GAME_CONFIG, *PST_CMD_GF_GAME_CONFIG;
 
-//æ—è§‚é…ç½®
+//ÅÔ¹ÛÅäÖÃ
 typedef struct _stCmdGfLookOnConfig
 {
-	DWORD							dwUserID;							//ç”¨æˆ·æ ‡è¯†
-	BYTE							cbAllowLookon;						//å…è®¸æ—è§‚
+	DWORD							dwUserID;							//ÓÃ»§±êÊ¶
+	BYTE							cbAllowLookon;						//ÔÊĞíÅÔ¹Û
 }ST_CMD_GF_LOOK_ON_CONFIG, *PST_CMD_GF_LOOK_ON_CONFIG;
 
-//æ—è§‚çŠ¶æ€
+//ÅÔ¹Û×´Ì¬
 typedef struct _stCmdGfLookOnStatus
 {
-	BYTE							cbAllowLookon;						//å…è®¸æ—è§‚
+	BYTE							cbAllowLookon;						//ÔÊĞíÅÔ¹Û
 }ST_CMD_GF_LOOK_ON_STATUS, *PST_CMD_GF_LOOK_ON_STATUS;
 
-//æ¸¸æˆç¯å¢ƒ
+//ÓÎÏ·»·¾³
 typedef struct _stCmdGfGameStatus
 {
-	BYTE							cbGameStatus;						//æ¸¸æˆçŠ¶æ€
-	BYTE							cbAllowLookon;						//æ—è§‚æ ‡å¿—
+	BYTE							cbGameStatus;						//ÓÎÏ·×´Ì¬
+	BYTE							cbAllowLookon;						//ÅÔ¹Û±êÖ¾
 }ST_CMD_GF_GAME_STATUS, *PST_CMD_GF_GAME_STATUS;
 
-//ç”¨æˆ·èŠå¤©
+//ÓÃ»§ÁÄÌì
 typedef struct _stCmdGfUserClientChat
 {
-	DWORD                           dwUserID;							//ç”¨æˆ·ID
+	DWORD                           dwUserID;							//ÓÃ»§ID
     WORD                            wLen;
-    DWORD                           dwChatColor;						//èŠå¤©èƒŒæ™¯
-    TCHAR                           szChatMsg[LEN_USER_CHAT_MSG];		//èŠå¤©ä¿¡æ¯
+    DWORD                           dwChatColor;						//ÁÄÌì±³¾°
+    TCHAR                           szChatMsg[LEN_USER_CHAT_MSG];		//ÁÄÌìĞÅÏ¢
 }ST_CMD_GF_USER_CLIENT_CHAT, *PST_CMD_GF_USER_CLIENT_CHAT;
 
 typedef struct _stCmdGfUserServerChat
@@ -1095,7 +1095,7 @@ typedef struct _stCmdGfUserServerChat
     TCHAR                           szChatMsg[LEN_USER_CHAT_MSG];
 }ST_CMD_GF_USER_SERVER_CHAT, *PST_CMD_GF_USER_SERVER_CHAT;
 
-//ç”¨æˆ·è¡¨æƒ…
+//ÓÃ»§±íÇé
 typedef struct _stCmdGfUserClientExpression
 {
     WORD                            wItemIndex;
@@ -1110,28 +1110,28 @@ typedef struct _stCmdGfUserServerExpression
 }ST_CMD_GF_USER_SERVER_EXPRESSION, *PST_CMD_GF_USER_SERVER_EXPRESSION;
 
 /////////////////////////////////////////////////////////////////////////////////
-//æ¸¸æˆå‘½ä»¤
-#define MDM_GF_GAME					200									//æ¸¸æˆå‘½ä»¤
+//ÓÎÏ·ÃüÁî
+#define MDM_GF_GAME					200									//ÓÎÏ·ÃüÁî
 
-//å…¶ä»–ä¿¡æ¯
-#define DTP_GR_TABLE_PWD			1									//æ¡Œå­å¯†ç 
+//ÆäËûĞÅÏ¢
+#define DTP_GR_TABLE_PWD			1									//×À×ÓÃÜÂë
 
-//ç”¨æˆ·å±æ€§
-#define DTP_GR_NICK_NAME			10									//ç”¨æˆ·æ˜µç§°
-#define DTP_GR_GROUP_NAME			11									//ç¤¾å›¢åå­—
-#define DTP_GR_UNDER_WRITE			12									//ä¸ªæ€§ç­¾å
+//ÓÃ»§ÊôĞÔ
+#define DTP_GR_NICK_NAME			10									//ÓÃ»§êÇ³Æ
+#define DTP_GR_GROUP_NAME			11									//ÉçÍÅÃû×Ö
+#define DTP_GR_UNDER_WRITE			12									//¸öĞÔÇ©Ãû
 
-//é™„åŠ ä¿¡æ¯
-#define DTP_GR_USER_NOTE			20									//ç”¨æˆ·å¤‡æ³¨
-#define DTP_GR_CUSTOM_FACE			21									//è‡ªå®šå¤´åƒ
+//¸½¼ÓĞÅÏ¢
+#define DTP_GR_USER_NOTE			20									//ÓÃ»§±¸×¢
+#define DTP_GR_CUSTOM_FACE			21									//×Ô¶¨Í·Ïñ
 
 /////////////////////////////////////////////////////////////////////////////////
-//è¯·æ±‚é”™è¯¯
-#define REQ_FAILURE_NORMAL			0									//å¸¸è§„åŸå› 
-#define REQ_FAILURE_NO_GOLD			1									//é‡‘å¸ä¸è¶³
-#define REQ_FAILURE_NO_GAME_COIN	2									//æ¸¸æˆå¸ä¸è¶³
-#define REQ_FAILURE_PWD				3									//å¯†ç é”™è¯¯
-#define REQ_FAILURE_ACCOUNTS		7									//æ˜µç§°é”™è¯¯
+//ÇëÇó´íÎó
+#define REQ_FAILURE_NORMAL			0									//³£¹æÔ­Òò
+#define REQ_FAILURE_NO_GOLD			1									//½ğ±Ò²»×ã
+#define REQ_FAILURE_NO_GAME_COIN	2									//ÓÎÏ·±Ò²»×ã
+#define REQ_FAILURE_PWD				3									//ÃÜÂë´íÎó
+#define REQ_FAILURE_ACCOUNTS		7									//êÇ³Æ´íÎó
 
 #pragma pack()
 

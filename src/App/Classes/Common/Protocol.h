@@ -10,15 +10,15 @@
  ************************************************************************************/
 
 /*
- å®šä¹‰æ‰€æœ‰å§”æ‰˜åè®®æ–¹æ³•
- å¤§å…éœ€è¦å®ç°æ‰€æœ‰ç•Œé¢çš„å…±æœ‰æ–¹æ³•
+ ¶¨ÒåËùÓĞÎ¯ÍĞĞ­Òé·½·¨
+ ´óÌüĞèÒªÊµÏÖËùÓĞ½çÃæµÄ¹²ÓĞ·½·¨
 	
-	1.åè®®		æµå§”æ‰˜
-	2.ä¸»ç•Œé¢	æŒ‰é’®å§”æ‰˜
-	3.ç™»å½•ç•Œé¢	ç™»å½•å§”æ‰˜
-	4.æˆ¿é—´ç•Œé¢	æŒ‰é’®å§”æ‰˜
-	5.æ¡Œä½ç•Œé¢	æŒ‰é’®å§”æ‰˜
-	6.æ¸¸æˆç•Œé¢	å¾…å®Œæˆ
+	1.Ğ­Òé		Á÷Î¯ÍĞ
+	2.Ö÷½çÃæ	°´Å¥Î¯ÍĞ
+	3.µÇÂ¼½çÃæ	µÇÂ¼Î¯ÍĞ
+	4.·¿¼ä½çÃæ	°´Å¥Î¯ÍĞ
+	5.×ÀÎ»½çÃæ	°´Å¥Î¯ÍĞ
+	6.ÓÎÏ·½çÃæ	´ıÍê³É
  */
 
 #ifndef __PROTOCOL_H__
@@ -31,38 +31,38 @@
 #include "../Public/Help.h"
 
 #pragma mark -
-#pragma mark è­¦å‘Šæç¤º
+#pragma mark ¾¯¸æÌáÊ¾
 
-//å¼¹çª—æç¤º
-#define ALERT_DEFAULT_TIPS					0								// é»˜è®¤
-#define ALERT_LOGON_FAILURE					2								// è¿æ¥å¤±è´¥
-#define ALERT_EXCEPTION_TIPS				3								// å¼‚å¸¸æ–­å¼€
-#define ALERT_OUTTIME_TIPS					4								// ç½‘ç»œè¶…æ—¶æ–­å¼€
-#define ALERT_ROOMLOAD_TIPS					5								// è¿›å…¥æˆ¿é—´å¤±è´¥
-#define ALERT_DESKLIST_TIPS					6								// åä¸‹å¤±è´¥
-#define ALERT_GAME_DISCONNET				7								// æ¸¸æˆä¸­å¼‚å¸¸æ–­å¼€
-#define ALERT_UPDATE_TIPS					9								// æ›´æ–°æç¤º
-#define ALERT_REQUESTFAILURE_TIPS			10								// è¯·æ±‚å¤±è´¥æç¤º
+//µ¯´°ÌáÊ¾
+#define ALERT_DEFAULT_TIPS					0								// Ä¬ÈÏ
+#define ALERT_LOGON_FAILURE					2								// Á¬½ÓÊ§°Ü
+#define ALERT_EXCEPTION_TIPS				3								// Òì³£¶Ï¿ª
+#define ALERT_OUTTIME_TIPS					4								// ÍøÂç³¬Ê±¶Ï¿ª
+#define ALERT_ROOMLOAD_TIPS					5								// ½øÈë·¿¼äÊ§°Ü
+#define ALERT_DESKLIST_TIPS					6								// ×øÏÂÊ§°Ü
+#define ALERT_GAME_DISCONNET				7								// ÓÎÏ·ÖĞÒì³£¶Ï¿ª
+#define ALERT_UPDATE_TIPS					9								// ¸üĞÂÌáÊ¾
+#define ALERT_REQUESTFAILURE_TIPS			10								// ÇëÇóÊ§°ÜÌáÊ¾
 
-//å¤§å…æç¤º
-#define ALERT_GP_DEFAULT                    0                               // é»˜è®¤
-#define ALERT_GP_LOGON_FAILURE              1                               // ç™»é™†å¤±è´¥
-#define ALERT_GR_LOGON_FAILURE              2                               // æˆ¿é—´å¤±è´¥
+//´óÌüÌáÊ¾
+#define ALERT_GP_DEFAULT                    0                               // Ä¬ÈÏ
+#define ALERT_GP_LOGON_FAILURE              1                               // µÇÂ½Ê§°Ü
+#define ALERT_GR_LOGON_FAILURE              2                               // ·¿¼äÊ§°Ü
 
 
-//ç³»ç»Ÿæç¤º
-#define ALERT_CLOSE_GAME                    11                              // å…³é—­æ¸¸æˆ
-#define ALERT_CLOSE_ROOM                    12                              // å…³é—­æˆ¿é—´
-#define ALERT_CLOSE_LINK                    13                              // ä¸­æ–­è¿æ¥
-#define ALERT_SYSTEM_MGS                    14                              // ç³»ç»Ÿæ¶ˆæ¯
-#define ALERT_ACTION_MGS                    15                              // åŠ¨ä½œæ¶ˆæ¯
+//ÏµÍ³ÌáÊ¾
+#define ALERT_CLOSE_GAME                    11                              // ¹Ø±ÕÓÎÏ·
+#define ALERT_CLOSE_ROOM                    12                              // ¹Ø±Õ·¿¼ä
+#define ALERT_CLOSE_LINK                    13                              // ÖĞ¶ÏÁ¬½Ó
+#define ALERT_SYSTEM_MGS                    14                              // ÏµÍ³ÏûÏ¢
+#define ALERT_ACTION_MGS                    15                              // ¶¯×÷ÏûÏ¢
 
-#define ALERT_SHORTSTREAM                   20                              // çŸ­è¿æ¥å¤„ç†
+#define ALERT_SHORTSTREAM                   20                              // ¶ÌÁ¬½Ó´¦Àí
 
 //#pragma pack(0)
 
 //#pragma pack(1)
-//ç™»é™†ç±»å‹
+//µÇÂ½ÀàĞÍ
 typedef enum 
 {
     EM_LOAD_TYPE_DEFAULT = -1,
@@ -73,24 +73,24 @@ typedef enum
 	EM_LOAD_TYPE_VISITOR
 }EM_LOAD_TYPE;
 
-//æ•°æ®åˆ†ç±»
+//Êı¾İ·ÖÀà
 typedef enum _EM_DATA_TYPE
 {
-	EM_DATA_TYPE_DEFAULT= 0,			// é»˜è®¤
-	EM_DATA_TYPE_LOAD	= 1,			// ç™»å½•å‘½ä»¤
-	EM_DATA_TYPE_ROOM	= 2,			// æˆ¿é—´å‘½ä»¤
-	EM_DATA_TYPE_END	= 10,			// ç»“æŸ
+	EM_DATA_TYPE_DEFAULT= 0,			// Ä¬ÈÏ
+	EM_DATA_TYPE_LOAD	= 1,			// µÇÂ¼ÃüÁî
+	EM_DATA_TYPE_ROOM	= 2,			// ·¿¼äÃüÁî
+	EM_DATA_TYPE_END	= 10,			// ½áÊø
 }EM_DATA_TYPE;
 
-//MARK::æ¸¸æˆåè®®
+//MARK::ÓÎÏ·Ğ­Òé
 class CGameSocketDelegate
 {
 public:
-    virtual bool OnGameMessageWithCmdID(void* pData, WORD wSize, WORD wSubCmdID)=0;  //æ¸¸æˆæ¶ˆæ¯
-    virtual bool OnGameMessageWithScene(void* pData, WORD wSize)=0;                  //åœºæ™¯æ¶ˆæ¯
+    virtual bool OnGameMessageWithCmdID(void* pData, WORD wSize, WORD wSubCmdID)=0;  //ÓÎÏ·ÏûÏ¢
+    virtual bool OnGameMessageWithScene(void* pData, WORD wSize)=0;                  //³¡¾°ÏûÏ¢
 };
 
-//MARK::å¸å·æ•°æ®
+//MARK::ÕÊºÅÊı¾İ
 class CAccountData
 {
 public:
@@ -104,34 +104,34 @@ public:
     ~CAccountData(){}
 
 public:
-    std::string     m_strAccounts;                          //å¸å·
-    std::string     m_strPwd;								//å¯†ç 
-    std::string     m_strBankPwd;                           //é“¶è¡Œå¯†ç 
-    std::string     m_strNickName;                          //ç”¨æˆ·æ˜µç§°
-    std::string     m_strDynamicPwd;                        //åŠ¨æ€å¯†ç 
-    std::string     m_strTablePwd;                          //æ¡Œå­å¯†ç 
-    std::string     m_strMachineID;                         //ç¡¬ä»¶æ ‡è¯†
-    std::string     m_strPhone;								//ç”µè¯
+    std::string     m_strAccounts;                          //ÕÊºÅ
+    std::string     m_strPwd;								//ÃÜÂë
+    std::string     m_strBankPwd;                           //ÒøĞĞÃÜÂë
+    std::string     m_strNickName;                          //ÓÃ»§êÇ³Æ
+    std::string     m_strDynamicPwd;                        //¶¯Ì¬ÃÜÂë
+    std::string     m_strTablePwd;                          //×À×ÓÃÜÂë
+    std::string     m_strMachineID;                         //Ó²¼ş±êÊ¶
+    std::string     m_strPhone;								//µç»°
     
 public:
-    BYTE            m_cbDevice;                             //è®¾å¤‡I D
-    WORD			m_wChairID;                             //æ¤…å­I D
-    WORD			m_wTableID;                             //æ¡Œå­I D
-    DWORD			m_dwUserID;                             //ç”¨æˆ·I D
-    DWORD			m_dwGameID;                             //æ¸¸æˆI D
-    DWORD			m_dwKindID;                             //ç±»å‹I D
-    BYTE			m_cbStatus;                             //ç”¨æˆ·çŠ¶æ€
-    WORD			m_wFaceID;                              //å¤´åƒI D
-    WORD            m_wCustom;                              //è‡ªå®šä¹‰å¤´åƒ
-    BYTE			m_cbGender;                             //ç”¨æˆ·æ€§åˆ« 0ä¸ºå¥³ï¼Œ1ä¸ºç”·
+    BYTE            m_cbDevice;                             //Éè±¸I D
+    WORD			m_wChairID;                             //ÒÎ×ÓI D
+    WORD			m_wTableID;                             //×À×ÓI D
+    DWORD			m_dwUserID;                             //ÓÃ»§I D
+    DWORD			m_dwGameID;                             //ÓÎÏ·I D
+    DWORD			m_dwKindID;                             //ÀàĞÍI D
+    BYTE			m_cbStatus;                             //ÓÃ»§×´Ì¬
+    WORD			m_wFaceID;                              //Í·ÏñI D
+    WORD            m_wCustom;                              //×Ô¶¨ÒåÍ·Ïñ
+    BYTE			m_cbGender;                             //ÓÃ»§ĞÔ±ğ 0ÎªÅ®£¬1ÎªÄĞ
     
-    LONGLONG		m_llGold;								//é‡‘å¸
-    DOUBLE			m_dBean;								//æ¸¸æˆè±†
-    LONGLONG		m_llUserBankGold;						//é“¶è¡Œé‡‘å¸
-    LONGLONG		m_llUserGold;							//æºå¸¦é‡‘å¸
+    LONGLONG		m_llGold;								//½ğ±Ò
+    DOUBLE			m_dBean;								//ÓÎÏ·¶¹
+    LONGLONG		m_llUserBankGold;						//ÒøĞĞ½ğ±Ò
+    LONGLONG		m_llUserGold;							//Ğ¯´ø½ğ±Ò
 };
 
-//MARK::åŸŸåæ•°æ®
+//MARK::ÓòÃûÊı¾İ
 class CYMDataDelegate
 {
 public:
@@ -142,10 +142,10 @@ public:
     }
     ~CYMDataDelegate(){}
 public:
-    TCHAR           m_pYMAddress[32];                       //åŸŸååœ°å€
-    TCHAR           m_pIPAddress[32];                       //ipåœ°å€
-    int             m_nLogonPort;                           //ç™»é™†ç«¯å£
-    int             m_nGamePort;                            //æ¸¸æˆç«¯å£
+    TCHAR           m_pYMAddress[32];                       //ÓòÃûµØÖ·
+    TCHAR           m_pIPAddress[32];                       //ipµØÖ·
+    int             m_nLogonPort;                           //µÇÂ½¶Ë¿Ú
+    int             m_nGamePort;                            //ÓÎÏ·¶Ë¿Ú
 };
 
 class COption
@@ -159,26 +159,26 @@ public:
     }
     
     ~COption(){}
-    float           m_fOptionSound;                         //éŸ³æ•ˆå¤§å°
-    float           m_fOptionMusic;                         //éŸ³ä¹å¤§å°
-    bool            m_bOptionMute;                          //é™éŸ³æ ‡è¯†
-    bool            m_bOptionShake;                         //éœ‡åŠ¨æ ‡è¯†
-    bool            m_bOptionPower;                         //çœç”µæ ‡è¯†
-    bool            m_bOptionLookOn;                        //æ—è§‚æ ‡è¯†
-    bool            m_bOptionNovice;                        //æç¤ºæ ‡è¯†
+    float           m_fOptionSound;                         //ÒôĞ§´óĞ¡
+    float           m_fOptionMusic;                         //ÒôÀÖ´óĞ¡
+    bool            m_bOptionMute;                          //¾²Òô±êÊ¶
+    bool            m_bOptionShake;                         //Õğ¶¯±êÊ¶
+    bool            m_bOptionPower;                         //Ê¡µç±êÊ¶
+    bool            m_bOptionLookOn;                        //ÅÔ¹Û±êÊ¶
+    bool            m_bOptionNovice;                        //ÌáÊ¾±êÊ¶
 };
 
-//MARK::ç”¨æˆ·åè®®
+//MARK::ÓÃ»§Ğ­Òé
 class UserItemDelegate
 {
 public:
-    //ç”¨æˆ·è¿›å…¥
+    //ÓÃ»§½øÈë
     virtual void OnUserEnter(void* pUser){}
-    //ç”¨æˆ·çŠ¶æ€
+    //ÓÃ»§×´Ì¬
     virtual void OnUserStatus(void* pUser){}
-    //ç”¨æˆ·åˆ†æ•°
+    //ÓÃ»§·ÖÊı
     virtual void OnUserScore(void* pUser){}
-    //ç”¨æˆ·èŠå¤©
+    //ÓÃ»§ÁÄÌì
     virtual void OnUserChat(WORD wSubCode, void* pData, WORD wSize)
     {
         cocos2d::log("base chat:%d",wSubCode);

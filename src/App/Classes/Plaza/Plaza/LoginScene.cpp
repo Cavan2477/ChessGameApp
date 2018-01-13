@@ -1,4 +1,4 @@
-/************************************************************************************
+ï»¿/************************************************************************************
 * file: 		LoginScene.cpp
 * copyright:	Cavan.Liu 2017
 * Author: 		Cavan.Liu
@@ -42,7 +42,7 @@ Scene* LoginScene::createScene()
 	// 'layer' is an autorelease object
 	auto layer = LoginScene::create();
 
-	// ×÷ÓÃ£¿
+	// ä½œç”¨ï¼Ÿ
 	layer->setTag(10);
 
 	// add layer as a child to scene

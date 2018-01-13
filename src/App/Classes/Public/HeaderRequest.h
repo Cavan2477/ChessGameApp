@@ -9,10 +9,9 @@
  *
  ************************************************************************************/
 
-//å¤´åƒè¯·æ±‚æ¡†
-
-#ifndef __HeaderRequest_h__
-#define __HeaderRequest_h__
+//Í·ÏñÇëÇó¿ò
+#ifndef __HEADER_REQUEST_H__
+#define __HEADER_REQUEST_H__
 
 #include <stdio.h>
 #include "../Common/MacroDefine.h"
@@ -39,7 +38,7 @@ public:
     
     void FaceRequestCallback(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response);
     
-    //ç¬¬ä¸‰æ–¹å¤´åƒè¯·æ±‚
+    //µÚÈı·½Í·ÏñÇëÇó
     void ThirdRequest(const std::string &url);
     
     void ThirdRequestCallback(cocos2d::network::HttpClient *sender, cocos2d::network::HttpResponse *response);
@@ -58,7 +57,7 @@ public:
     std::function<void(cocos2d::Touch *,cocos2d::Event *)> touchEnd;
     
 private:
-    float m_width;//å¤´åƒå¤§å°
+    float m_width;//Í·Ïñ´óĞ¡
     
     DWORD m_userID;
     

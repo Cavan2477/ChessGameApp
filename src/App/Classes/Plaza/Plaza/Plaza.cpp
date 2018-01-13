@@ -1,10 +1,13 @@
-//
-//  Plazz.cpp
-//  MyGame
-//
-//  Created by Tang Miao on 1/7/16.
-//
-//
+﻿/************************************************************************************
+ * file: 		Plaza.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/11 22:40:16
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/11			
+ *
+ ************************************************************************************/
 
 #include "Plaza.h"
 #include "CocosHeader.h"
@@ -12,7 +15,7 @@
 
 #include "../../DataMgr/HallDataMgr.h"
 #include "../../DataMgr/NetworkMgr.h"
-#include "../../DataMgrSrc/GameConfigMgr.h"
+#include "../../DataMgr/GameConfigMgr.h"
 
 #include "../Bank/BankShowScene.h"
 #include "../Task/TaskScene.h"
@@ -487,9 +490,9 @@ void Plazz::onEnter()
     NetworkMgr::getInstance()->registeruserfunction(SUB_GP_GROWLEVEL_UPGRADE, CC_CALLBACK_2(Plazz::LevelUpgrade, this));
 
     
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(whEvent_User_Data_Change, CC_CALLBACK_1(Plazz::notifyFreshInfo, this)), 1);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(STR_EVENT_USER_DATA_CHANGE, CC_CALLBACK_1(Plazz::notifyFreshInfo, this)), 1);
     
-   Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(whNd_Download_Update, CC_CALLBACK_1(Plazz::notifyDownRefresh, this)), 1);
+   Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(STR_ND_DOWNLOAD_UPDATE, CC_CALLBACK_1(Plazz::notifyDownRefresh, this)), 1);
  
     
 }
@@ -550,9 +553,9 @@ void Plazz::onExit()
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_GROWLEVEL_PARAMETER);
     NetworkMgr::getInstance()->unregisteruserfunction(SUB_GP_GROWLEVEL_UPGRADE);
     
-    Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(whEvent_User_Data_Change);
+    Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(STR_EVENT_USER_DATA_CHANGE);
     
-    Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(whNd_Download_Update);
+    Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(STR_ND_DOWNLOAD_UPDATE);
     
     Layer::onExit();
 }

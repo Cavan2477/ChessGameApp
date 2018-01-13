@@ -15,7 +15,7 @@
 #include "../Public/Help.h"
 #include "../Plaza/Plaza/LoginScene.h"
 
-//Ê°åÂ≠ê‰ø°ÊÅØÁÆ°ÁêÜ
+//◊¿◊”–≈œ¢π‹¿Ì
 #include "TableMgr.h"
 #include "CocosHeader.h"
 #include "../Scene/ModeLayer.h"
@@ -27,23 +27,23 @@ static NetworkMgr *s_SharedNetwork = NULL;
 NetworkMgr::NetworkMgr()
 :m_pSocketData(nullptr)
 ,m_pSocketOnce(nullptr)
-,m_Userdelegate(nullptr)
-,m_GameScenecallback(nullptr)
+,m_pUseItemDelegate(nullptr)
+,m_msgCallbackGameScene(nullptr)
 {
     this->registerloadfunction(SUB_KN_DETECT_SOCKET, CC_CALLBACK_3(NetworkMgr::networkszCompilatioFalut, this));
-    //Áî®Êà∑ÊúçÂä°
+    //”√ªß∑˛ŒÒ
     this->registerloadfunction(MDM_GP_USER_SERVICE, CC_CALLBACK_3(NetworkMgr::networkUserService, this));
-    //Ê∏∏ÊàèÊàøÈó¥ÈÖçÁΩÆ
+    //”Œœ∑∑øº‰≈‰÷√
     this->registerroomfunction(MDM_GR_CONFIG, CC_CALLBACK_3(NetworkMgr::roomconfigResult, this));
-    //Áî®Êà∑Â§ÑÁêÜ
+    //”√ªß¥¶¿Ì
     this->registerroomfunction(MDM_GR_USER, CC_CALLBACK_3(NetworkMgr::networkGRUser, this));
-    //Ê°åÂ≠êÁä∂ÊÄÅ
+    //◊¿◊”◊¥Ã¨
     this->registerroomfunction(MDM_GR_STATUS, CC_CALLBACK_3(NetworkMgr::networkGRStatus, this));
-    //Ê°ÜÊû∂Ê∂àÊÅØ
+    //øÚº‹œ˚œ¢
     this->registerroomfunction(MDM_GF_FRAME, CC_CALLBACK_3(NetworkMgr::networkGRFrame, this));
-    //Ê∏∏ÊàèÊ∂àÊÅØ
+    //”Œœ∑œ˚œ¢
     //this->registerroomfunction(MDM_GF_GAME, CC_CALLBACK_3(NetworkMgr::networkGRGame, this));
-    //Á≥ªÁªüÊ∂àÊÅØ
+    //œµÕ≥œ˚œ¢
     this->registerroomfunction(MDM_CM_SYSTEM, CC_CALLBACK_3(NetworkMgr::networkGRSystem, this));
 }
 
@@ -122,12 +122,12 @@ void NetworkMgr::SocketDelegateWithRecvData(void *socket, void *pData, WORD wSiz
 {
     CTCPSocket* pScoket=(CTCPSocket*)socket;
     
-    //Êï∞ÊçÆËΩ¨Êç¢
+    // ˝æ›◊™ªª
     _stTcpBuffer tcpBuffer;
     memset(&tcpBuffer,0,sizeof(_stTcpBuffer));
     memcpy(&tcpBuffer,pData,wSize);
     
-    //ÂëΩ‰ª§Á†Å
+    //√¸¡Ó¬Î
     uint wMainCmdID = tcpBuffer.Head.stTCPCmd.wMainCmdID;
     uint wSubCmdID	= tcpBuffer.Head.stTCPCmd.wSubCmdID;
     void* buffer = tcpBuffer.cbBuffer;
@@ -137,7 +137,7 @@ void NetworkMgr::SocketDelegateWithRecvData(void *socket, void *pData, WORD wSiz
     switch (pScoket->getData())
     {
         case EM_DATA_TYPE_DEFAULT:
-            CCAssert(false,"Êó†ÊïàÁä∂ÊÄÅ");
+            CCAssert(false,"Œﬁ–ß◊¥Ã¨");
             break;
         case EM_DATA_TYPE_LOAD:
         {
@@ -162,7 +162,7 @@ void NetworkMgr::SocketDelegateWithRecvData(void *socket, void *pData, WORD wSiz
         }
             break;
         default:
-            //CCAssert(false, "Áä∂ÊÄÅÂàÜÁ±ª:Êú™Â§ÑÁêÜÁöÑcaseÁä∂ÊÄÅ");
+            //CCAssert(false, "◊¥Ã¨∑÷¿‡:Œ¥¥¶¿Ìµƒcase◊¥Ã¨");
             break;
     }
 }
@@ -229,7 +229,7 @@ void NetworkMgr::unregisterroomfunction(WORD wMainCmdID)
 
 void NetworkMgr::networkszCompilatioFalut(WORD wSubCmdID, void *pData, WORD wSize)
 {
-    HallDataMgr::getInstance()->AddpopLayer("Á≥ªÁªüÊèêÁ§∫", "ÊéàÊùÉÁ†ÅÈîôËØØ", Type_Ensure);
+    HallDataMgr::getInstance()->AddpopLayer("œµÕ≥Ã· æ", " ⁄»®¬Î¥ÌŒÛ", Type_Ensure);
     this->Disconnect(EM_DATA_TYPE_LOAD);
 }
 
@@ -279,33 +279,33 @@ void NetworkMgr::networkGRUser(WORD wSubCmdID, void *pData, WORD wSize)
             this->OnUserScore(pData, wSize);
         }
             break;
-        case SUB_GR_PROPERTY_TRUMPET:       //ÂñáÂè≠Ê∂àÊÅØ  305
+        case SUB_GR_PROPERTY_TRUMPET:       //¿Æ∞»œ˚œ¢  305
         {
             auto result = (ST_CMD_GR_SERVER_SEND_TRUMPET*)pData;
             TrumpetData *phorntext = new TrumpetData();
 
-			phorntext->sendnickname = WHConverUnicodeToUtf8WithArray((WORD*)result->szSendNickName) + ":";
-			phorntext->sendtext = WHConverUnicodeToUtf8WithArray((WORD*)result->szTrumpetContent);
+			phorntext->m_strSendNickname = WHConverUnicodeToUtf8WithArray((WORD*)result->szSendNickName) + ":";
+			phorntext->m_strSendMsg = WHConverUnicodeToUtf8WithArray((WORD*)result->szTrumpetContent);
 
-            //ÈáëÂ∏ÅÊõ¥Êñ∞
-            EventCustom event(whNd_Horn_Message);
+            //Ω±“∏¸–¬
+            EventCustom event(STR_ND_HORN_MSG);
             event.setUserData(phorntext);
             Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
             phorntext->autorelease();
         }
             break;
-        case SUB_GR_PROPERTY_FAILURE://ÈÅìÂÖ∑Â§±Ë¥•
+        case SUB_GR_PROPERTY_FAILURE://µ¿æﬂ ß∞‹
         {
             auto presult = (ST_CMD_GR_SERVER_PROPERTY_FAILURE*)pData;
             auto str = WHConverUnicodeToUtf8WithArray((WORD*)presult->szDes);
-            HallDataMgr::getInstance()->AddpopLayer("ÊèêÁ§∫", str, Type_Ensure);
+            HallDataMgr::getInstance()->AddpopLayer("Ã· æ", str, Type_Ensure);
         }
             break;
         case SUB_GR_REQ_FAILURE:
         {
             auto result = (ST_CMD_GR_REQ_FAILURE *)pData;
 			auto str = WHConverUnicodeToUtf8WithArray((WORD*)result->szDes);
-            HallDataMgr::getInstance()->AddpopLayer("ÊèêÁ§∫", str, Type_Ensure);
+            HallDataMgr::getInstance()->AddpopLayer("Ã· æ", str, Type_Ensure);
         }
             break;
             
@@ -321,7 +321,7 @@ void NetworkMgr::OnUserEnter(void *pData, WORD wSize)
 
     auto result = ( _stMobileUserHeadInfo*)pData;
 
-	//ÊóÅËßÇÊöÇ‰∏çÂ§ÑÁêÜ
+	//≈‘π€‘›≤ª¥¶¿Ì
     if (result->cbUserStatus == US_LOOKON)
         return;
 
@@ -343,7 +343,7 @@ void NetworkMgr::OnUserEnter(void *pData, WORD wSize)
         HallDataMgr::getInstance()->m_wCustom = result->dwCustomID;
         HallDataMgr::getInstance()->m_wFaceID = result->dwFaceID;
 
-        //ËøõÂÖ•ÁöÑÊàøÈó¥Á±ªÂûã(ÁßØÂàÜÊàø„ÄÅÁªÉ‰π†Êàø‰∏çÊõ¥Êñ∞Áé©ÂÆ∂ÂÆûÈôÖÁßØÂàÜ)
+        //Ω¯»Îµƒ∑øº‰¿‡–Õ(ª˝∑÷∑ø°¢¡∑œ∞∑ø≤ª∏¸–¬ÕÊº“ µº ª˝∑÷)
         int enterRoom = INSTANCE(GameDataMgr)->getEnterRoom();
 
         if (enterRoom >= 0 && enterRoom < HallDataMgr::getInstance()->m_subRoomList.size())
@@ -362,22 +362,24 @@ void NetworkMgr::OnUserEnter(void *pData, WORD wSize)
         HallDataMgr::getInstance()->m_llGold = result->llGold;
     }
     
-    //Êó†Ê°åÂ≠êÁïåÈù¢ÁöÑÊ∏∏Êàè
+    //Œﬁ◊¿◊”ΩÁ√Êµƒ”Œœ∑
     if (INSTANCE(TableMgr)->haveTableList())
     {
-        //Ê°åÊ§Ö‰ø°ÊÅØÊõ¥Êñ∞
-        tagTableUserInfo tagInfo = tagTableUserInfo();
-        tagInfo.wUserId = result->dwUserID;
-        tagInfo.tagStatus.cbUserStatus = result->cbUserStatus;
-        tagInfo.tagStatus.wTableID = result->wTableID;
-        tagInfo.tagStatus.wChairID = result->wChairID;
-        INSTANCE(TableMgr)->updateTableItem(tagInfo);
+        //◊¿“Œ–≈œ¢∏¸–¬
+        _stTableUserInfo stTableUserInfo = _stTableUserInfo();
+
+        stTableUserInfo.wUserId = result->dwUserID;
+        stTableUserInfo.tagStatus.cbUserStatus = result->cbUserStatus;
+        stTableUserInfo.tagStatus.wTableID = result->wTableID;
+        stTableUserInfo.tagStatus.wChairID = result->wChairID;
+
+        INSTANCE(TableMgr)->updateTableItem(stTableUserInfo);
     }
     
-    if (m_Userdelegate)
-        m_Userdelegate->OnUserEnter(puser);
+    if (m_pUseItemDelegate)
+        m_pUseItemDelegate->OnUserEnter(puser);
 
-    cocos2d::log("Áî®Êà∑ËøõÂÖ•%s", puser->m_nickname.c_str());
+    cocos2d::log("”√ªßΩ¯»Î%s", puser->m_nickname.c_str());
 }
 
 void NetworkMgr::OnUserStatus(void *pData, WORD wSize)
@@ -399,8 +401,8 @@ void NetworkMgr::OnUserStatus(void *pData, WORD wSize)
     
     if (INSTANCE(TableMgr)->haveTableList())
     {
-        //Ê°åÊ§Ö‰ø°ÊÅØÊõ¥Êñ∞
-        tagTableUserInfo tagInfo = tagTableUserInfo();
+        //◊¿“Œ–≈œ¢∏¸–¬
+        _stTableUserInfo tagInfo = _stTableUserInfo();
         tagInfo.wUserId = result->dwUserID;
         tagInfo.tagStatus = result->stUserStatus;
         INSTANCE(TableMgr)->updateTableItem(tagInfo);
@@ -412,12 +414,12 @@ void NetworkMgr::OnUserStatus(void *pData, WORD wSize)
         HallDataMgr::getInstance()->m_wChairID = result->stUserStatus.wChairID;
         HallDataMgr::getInstance()->m_wTableID = result->stUserStatus.wTableID;
         
-        //Á¶ªÂºÄÊ∏∏Êàè
+        //¿Îø™”Œœ∑
         if (result->stUserStatus.cbUserStatus==US_FREE && HallDataMgr::getInstance()->m_bStartGame) 
 		{
             HallDataMgr::getInstance()->m_bStartGame = false;
 
-             //Âú∫ÊôØÂàáÊç¢
+             //≥°æ∞«–ªª
             if (INSTANCE(GameDataMgr)->getIsChangeDesk())
             {
                 INSTANCE(GameDataMgr)->setIsChangeDesk(false);
@@ -428,14 +430,14 @@ void NetworkMgr::OnUserStatus(void *pData, WORD wSize)
             }
             else if(INSTANCE(GameDataMgr)->getEnterAntiCheat())
             {
-                log("Èò≤‰ΩúÂºäÊàøÈó¥");
+                log("∑¿◊˜±◊∑øº‰");
                 Scene *s = INSTANCE(SceneMgr)->getTempSceneByKind(HallDataMgr::getInstance()->m_dwKindID);
 
                 if (nullptr != s)
                     Director::getInstance()->replaceScene(s);
             }
             else
-                cocos2d::Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(whNd_Room_LeaveGame);
+                cocos2d::Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(STR_ND_ROOM_LEAVE_GAME);
         }
         
         if (result->stUserStatus.cbUserStatus>US_FREE && !HallDataMgr::getInstance()->m_bStartGame)
@@ -482,25 +484,25 @@ void NetworkMgr::OnUserStatus(void *pData, WORD wSize)
         }
     }
     
-    if (m_Userdelegate) {
-        m_Userdelegate->OnUserStatus(puser);
+    if (m_pUseItemDelegate) {
+        m_pUseItemDelegate->OnUserStatus(puser);
     }
-    cocos2d::log("Áî®Êà∑Áä∂ÊÄÅ%s", puser->m_nickname.c_str());
+    cocos2d::log("”√ªß◊¥Ã¨%s", puser->m_nickname.c_str());
 }
 
 void NetworkMgr::OnUserScore(void *pData, WORD wSize)
 {
-    //ÊØîËµõÁ±ªÂûã
+    //±»»¸¿‡–Õ
     if(wSize==sizeof(ST_CMD_GR_USER_SCORE))
     {
         
     }
-    //Ëá™Áî±Á±ªÂûã
+    //◊‘”…¿‡–Õ
     else if (wSize==sizeof(ST_CMD_GR_MOBILE_USER_GAME_COIN))
     {
         auto result = (ST_CMD_GR_MOBILE_USER_GAME_COIN *)pData;
         
-        //ËøõÂÖ•ÁöÑÊàøÈó¥Á±ªÂûã(ÁßØÂàÜÊàø„ÄÅÁªÉ‰π†Êàø‰∏çÊõ¥Êñ∞Áé©ÂÆ∂ÂÆûÈôÖÁßØÂàÜ)
+        //Ω¯»Îµƒ∑øº‰¿‡–Õ(ª˝∑÷∑ø°¢¡∑œ∞∑ø≤ª∏¸–¬ÕÊº“ µº ª˝∑÷)
         int enterRoom = INSTANCE(GameDataMgr)->getEnterRoom();
         if (enterRoom >= 0 && enterRoom < HallDataMgr::getInstance()->m_subRoomList.size())
         {
@@ -522,9 +524,9 @@ void NetworkMgr::OnUserScore(void *pData, WORD wSize)
         {
             puser->UpdateData(result);
             
-            if (result->dwUserID == HallDataMgr::getInstance()->m_dwUserID && nullptr != m_Userdelegate)
+            if (result->dwUserID == HallDataMgr::getInstance()->m_dwUserID && nullptr != m_pUseItemDelegate)
             {
-                m_Userdelegate->OnUserScore(puser);
+                m_pUseItemDelegate->OnUserScore(puser);
             }
         }
     }
@@ -540,7 +542,7 @@ void NetworkMgr::networkGRStatus(WORD wSubCmdID, void *pData, WORD wSize)
             for (int index=0; index<result->wTableCount; ++index) {
                 if (result->stTableStatusArray[index].cbTableLock) {
                     auto value = cocos2d::__Integer::create(index);
-                    cocos2d::__NotificationCenter::getInstance()->postNotification(whEvent_Desk_Status, value);
+                    cocos2d::__NotificationCenter::getInstance()->postNotification(STR_EVENT_DESK_STATUS, value);
                 }
             }
             
@@ -556,7 +558,7 @@ void NetworkMgr::networkGRStatus(WORD wSubCmdID, void *pData, WORD wSize)
                 {
                     INSTANCE(TableMgr)->addTableItem(&cmd->stTableStatusArray[i],i);
                 }
-                //Ê†πÊçÆÊ∏∏ÊàèÁ±ªÂûãËøõË°åÂàÜÁ±ª
+                //∏˘æ›”Œœ∑¿‡–ÕΩ¯––∑÷¿‡
                 INSTANCE(TableMgr)->grouping(HallDataMgr::getInstance()->m_dwKindID);
             }
         }
@@ -567,11 +569,11 @@ void NetworkMgr::networkGRStatus(WORD wSubCmdID, void *pData, WORD wSize)
             HallDataMgr::getInstance()->m_Tableinfo.stTableStatusArray[ptable->wTableID] = ptable->stTableStatus;
             
             auto value = cocos2d::__Integer::create(ptable->wTableID);
-            cocos2d::__NotificationCenter::getInstance()->postNotification(whEvent_Desk_Status, value);
+            cocos2d::__NotificationCenter::getInstance()->postNotification(STR_EVENT_DESK_STATUS, value);
             
             if (INSTANCE(TableMgr)->haveTableList())
             {
-                //Ê°åÊ§Ö‰ø°ÊÅØÊõ¥Êñ∞
+                //◊¿“Œ–≈œ¢∏¸–¬
                 INSTANCE(TableMgr)->updateTableItem(&ptable->stTableStatus,ptable->wTableID);
             } 
         }
@@ -594,24 +596,24 @@ void NetworkMgr::networkGRFrame(WORD wSubCmdID, void *pData, WORD wSize)
             this->OnGameScene(pData, wSize);
         }
             break;
-        case SUB_GF_SYSTEM_MESSAGE://Á≥ªÁªüÊ∂àÊÅØ
+        case SUB_GF_SYSTEM_MESSAGE://œµÕ≥œ˚œ¢
         {
             
         }
             break;
-        case SUB_GF_USER_CHAT://Áî®Êà∑ËÅäÂ§©
+        case SUB_GF_USER_CHAT://”√ªß¡ƒÃÏ
         {
-            if (m_Userdelegate)
+            if (m_pUseItemDelegate)
             {
-                m_Userdelegate->OnUserChat(wSubCmdID, pData, wSize);
+                m_pUseItemDelegate->OnUserChat(wSubCmdID, pData, wSize);
             }
         }
             break;
-        case SUB_GF_USER_EXPRESSION://Áî®Êà∑Ë°®ÊÉÖ
+        case SUB_GF_USER_EXPRESSION://”√ªß±Ì«È
         {
-            if (m_Userdelegate)
+            if (m_pUseItemDelegate)
             {
-                m_Userdelegate->OnUserChat(wSubCmdID, pData, wSize);
+                m_pUseItemDelegate->OnUserChat(wSubCmdID, pData, wSize);
             }
         }
             break;
@@ -628,7 +630,7 @@ void NetworkMgr::OnGameStatus(void *pData, WORD wSize)
     auto presult = (ST_CMD_GF_GAME_STATUS *)pData;
     HallDataMgr::getInstance()->m_cbGameStatus = presult->cbGameStatus;
     HallDataMgr::getInstance()->m_bOptionLookOn = presult->cbAllowLookon;
-    log("Ê∏∏ÊàèÂú∫ÊôØÁä∂ÊÄÅ%d",presult->cbGameStatus);
+    log("”Œœ∑≥°æ∞◊¥Ã¨%d",presult->cbGameStatus);
     switch (HallDataMgr::getInstance()->m_dwKindID)
     {
         case EM_GAME_BAIJIALE:
@@ -673,9 +675,9 @@ void NetworkMgr::OnGameStatus(void *pData, WORD wSize)
 
 void NetworkMgr::OnGameScene(void *pData, WORD wSize)
 {
-    if (m_GameScenecallback)
+    if (m_msgCallbackGameScene)
     {
-        m_GameScenecallback(pData, wSize);
+        m_msgCallbackGameScene(pData, wSize);
     }
     
 //    int nsize = sizeof(GameScene);
@@ -698,17 +700,17 @@ void NetworkMgr::networkGRGame(WORD wSubCmdID, void *pData, WORD wSize)
 void NetworkMgr::networkGRSystem(WORD wSubCmdID, void *pData, WORD wSize)
 {
     switch (wSubCmdID) {
-        case SUB_CM_MSG_SYS://Á≥ªÁªüÊ∂àÊÅØ
+        case SUB_CM_MSG_SYS://œµÕ≥œ˚œ¢
         {
             auto presult = (ST_CMD_SYS_MSG *)pData;
             if ((presult->wType&SMT_CLOSE_ROOM) || (presult->wType&SMT_CLOSE_GAME) || (presult->wType&SMT_CLOSE_LINK)) {
 				auto pstr = WHConverUnicodeToUtf8WithArray((WORD*)presult->szMsg);
-                auto player = static_cast<ModeLayer *>(HallDataMgr::getInstance()->AddpopLayer("Á≥ªÁªüÊèêÁ§∫", pstr, Type_Ensure));
+                auto player = static_cast<ModeLayer *>(HallDataMgr::getInstance()->AddpopLayer("œµÕ≥Ã· æ", pstr, Type_Ensure));
                 player->setEnsureCallback([=]{
                     if (!Director::getInstance()->getRunningScene()->getChildByTag(10)) {
                         Director::getInstance()->replaceScene(TransitionFade::create(0.3f, Login::createScene()));
                         this->Disconnect(EM_DATA_TYPE_ROOM);
-                        //Êí≠ÊîæÈÄöÁî®Â§ßÂéÖÈü≥‰πê
+                        //≤•∑≈Õ®”√¥ÛÃ¸“Ù¿÷
                         INSTANCE(AudioMgr)->playGeneralBackgroudAudio(true);
                     }
                 });
@@ -716,7 +718,7 @@ void NetworkMgr::networkGRSystem(WORD wSubCmdID, void *pData, WORD wSize)
             else if (presult->wType&SMT_EJECT)
             {
 				auto pstr = WHConverUnicodeToUtf8WithArray((WORD*)presult->szMsg);
-                HallDataMgr::getInstance()->AddpopLayer("Á≥ªÁªüÊèêÁ§∫", pstr, Type_Ensure);
+                HallDataMgr::getInstance()->AddpopLayer("œµÕ≥Ã· æ", pstr, Type_Ensure);
             }
             else if(presult->wType&SMT_CHAT)
             {
@@ -730,12 +732,12 @@ void NetworkMgr::networkGRSystem(WORD wSubCmdID, void *pData, WORD wSize)
                 if (HallDataMgr::getInstance()->m_chatlist.size()>5) {
                     HallDataMgr::getInstance()->m_chatlist.erase(0);
                 }
-                EventCustom event(whNd_Sys_Chat);
+                EventCustom event(STR_ND_SYS_MSG);
                 Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
             }
         }
             break;
-        case SUB_CM_SYS_DOWNLOAD_MODULE://‰∏ãËΩΩÊ∂àÊÅØ
+        case SUB_CM_SYS_DOWNLOAD_MODULE://œ¬‘ÿœ˚œ¢
             break;
             
         default:
@@ -751,12 +753,12 @@ void NetworkMgr::sendPacket_Compilatio(CTCPSocket *socket)
     
     this->sendData(MDM_KN_COMMAND, SUB_KN_VALIDATE_SOCKET, &validate, sizeof(_stTcpValidate),socket);
     
-    CCLOG("		ÂèëÈÄÅÈ™åËØÅ");
+    CCLOG("		∑¢ÀÕ—È÷§");
 }
 
 void NetworkMgr::sendAccountLogin()
 {
-    //ÂèòÈáèÂÆö‰πâ
+    //±‰¡ø∂®“Â
     ST_CMD_MB_LOGON_ACCOUNTS stCmdMbLogonAccounts;
     memset(&stCmdMbLogonAccounts,0,sizeof(ST_CMD_MB_LOGON_ACCOUNTS));
 
@@ -771,7 +773,7 @@ void NetworkMgr::sendAccountLogin()
 
     this->sendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &stCmdMbLogonAccounts, sizeof(ST_CMD_MB_LOGON_ACCOUNTS),this->m_pSocketOnce);
 
-    CCLOG("%s","ÂèëÈÄÅÂ∏êÂè∑ÁôªÂΩï");
+    CCLOG("%s","∑¢ÀÕ’ ∫≈µ«¬º");
 }
 
 void NetworkMgr::sendMethodLogin(int platform)
@@ -795,7 +797,7 @@ void NetworkMgr::sendMethodLogin(int platform)
 
 void NetworkMgr::sendRegister()
 {
-    //Â∏êÂè∑Ê≥®ÂÜå
+    //’ ∫≈◊¢≤·
     ST_CMD_MB_REG_ACCOUNTS stCmdMbRegAccounts;
     memset(&stCmdMbRegAccounts,0,sizeof(ST_CMD_MB_REG_ACCOUNTS));
 
@@ -831,7 +833,7 @@ void NetworkMgr::sendRoomLogin(const std::string &roompass)
 	Utf8ToUtf16(roompass, (WORD*)stCmdGrLogonMobile.szGameRoomPwd);
     
     NetworkMgr::getInstance()->sendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &stCmdGrLogonMobile, sizeof(stCmdGrLogonMobile));
-    log("%s","ÊàøÈó¥ÁôªÂΩï");
+    log("%s","∑øº‰µ«¬º");
 }
 
 void NetworkMgr::sendGameOption()

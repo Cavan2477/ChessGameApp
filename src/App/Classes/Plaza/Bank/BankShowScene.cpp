@@ -185,7 +185,7 @@ void BankShowScene::initApply()
     password->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     password->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     password->setPosition(cocos2d::Point(passwordText->getPositionX()+80, passwordText->getPositionY()));
-    password->setMaxLength(LEN_ACCOUNT);
+    password->setMaxLength(LEN_MAX_ACCOUNT);
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
     password->setFontSize(24);
     password->setTag(1);
@@ -201,7 +201,7 @@ void BankShowScene::initApply()
     confirm->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     confirm->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     confirm->setPosition(cocos2d::Point(confirmText->getPositionX()+80, confirmText->getPositionY()));
-    confirm->setMaxLength(LEN_ACCOUNT);
+    confirm->setMaxLength(LEN_MAX_ACCOUNT);
     confirm->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
     confirm->setFontSize(24);
     confirm->setTag(2);
@@ -238,7 +238,7 @@ void BankShowScene::initSaveTake()
     takeNum->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     takeNum->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     takeNum->setPosition(cocos2d::Point(saveText->getPositionX()+80, saveText->getPositionY()));
-    takeNum->setMaxLength(LEN_ACCOUNT);
+    takeNum->setMaxLength(LEN_MAX_ACCOUNT);
     takeNum->setFontSize(20);
     takeNum->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     takeNum->setPlaceHolder("请输入取款数目");
@@ -254,7 +254,7 @@ void BankShowScene::initSaveTake()
     password->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     password->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     password->setPosition(cocos2d::Point(passwordText->getPositionX()+80, passwordText->getPositionY()));
-    password->setMaxLength(LEN_ACCOUNT);
+    password->setMaxLength(LEN_MAX_ACCOUNT);
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
     password->setFontSize(20);
     password->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
@@ -333,7 +333,7 @@ void BankShowScene::initPresent()
     targetEdit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     targetEdit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     targetEdit->setPosition(cocos2d::Point(targetText->getPositionX()+80, targetText->getPositionY()));
-    targetEdit->setMaxLength(LEN_ACCOUNT);
+    targetEdit->setMaxLength(LEN_MAX_ACCOUNT);
     targetEdit->setFontSize(20);
     targetEdit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     targetEdit->setPlaceHolder("请输入接收目标");
@@ -349,7 +349,7 @@ void BankShowScene::initPresent()
     prentNum->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     prentNum->setPosition(cocos2d::Point(numText->getPositionX()+80, numText->getPositionY()));
     prentNum->setInputMode(cocos2d::ui::EditBox::InputMode::PHONE_NUMBER);
-    prentNum->setMaxLength(LEN_ACCOUNT);
+    prentNum->setMaxLength(LEN_MAX_ACCOUNT);
     prentNum->setFontSize(20);
     prentNum->setTag(1);
     prentNum->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
@@ -364,7 +364,7 @@ void BankShowScene::initPresent()
     password->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
     password->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     password->setPosition(cocos2d::Point(passwordText->getPositionX()+80, passwordText->getPositionY()));
-    password->setMaxLength(LEN_ACCOUNT);
+    password->setMaxLength(LEN_MAX_ACCOUNT);
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
     password->setFontSize(20);
     password->setTag(2);
@@ -544,7 +544,7 @@ void BankShowScene::updateScore()
                                          rec.dwRecUserId = info.dwReceiveUserId;
                                          rec.llSendCount = info.llSendCount;
                                          rec.dwSendUserId = HallDataMgr::getInstance()->m_dwGameID;
-                                         rec.strRecUserName = info.sReceiveUserName;
+                                         rec.strRecUserName = info.strReceiveUserName;
                                          rec.strSendUserName = HallDataMgr::getInstance()->m_strNickName;
                                          p->refreshReceipt(rec);
                                          
@@ -553,7 +553,7 @@ void BankShowScene::updateScore()
     }
     
     //大厅金币更新
-    EventCustom event(whEvent_User_Data_Change);
+    EventCustom event(STR_EVENT_USER_DATA_CHANGE);
     auto value = __Integer::create(User_Change_Score);
 
     event.setUserData(value);
@@ -588,7 +588,7 @@ void BankShowScene::updateScore()
 
     if (0 == HallDataMgr::getInstance()->m_tagBankSend.nSendType)       //id赠送
     {
-        HallDataMgr::getInstance()->m_tagBankSend.sReceiveUserName = nickname;
+        HallDataMgr::getInstance()->m_tagBankSend.strReceiveUserName = nickname;
         
         this->sendTransferScore(m_TransferScore, m_BankPass, 1, nickname);
     }
@@ -596,7 +596,7 @@ void BankShowScene::updateScore()
     {
         HallDataMgr::getInstance()->m_tagBankSend.dwReceiveUserId = result->dwTargetGameID;
         
-        this->sendTransferScore(m_TransferScore, m_BankPass, 0, HallDataMgr::getInstance()->m_tagBankSend.sReceiveUserName);
+        this->sendTransferScore(m_TransferScore, m_BankPass, 0, HallDataMgr::getInstance()->m_tagBankSend.strReceiveUserName);
     }
 }
 
@@ -980,7 +980,7 @@ void BankShowScene::buttonEventWithPresent(cocos2d::Ref *target, cocos2d::ui::Wi
           }
           else
           {
-              tagInfo.sReceiveUserName = target;
+              tagInfo.strReceiveUserName = target;
           }
           HallDataMgr::getInstance()->m_tagBankSend = tagInfo;
           

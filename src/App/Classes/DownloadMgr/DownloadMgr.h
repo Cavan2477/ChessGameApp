@@ -1,4 +1,4 @@
-/************************************************************************************
+﻿/************************************************************************************
  * file: 		DownloadMgr.h
  * copyright:	Cavan.Liu 2017
  * Author: 		Cavan.Liu
@@ -54,7 +54,7 @@ public:
     
     float                   m_fPercent;                     //下载进度
     
-    EM_GAME					m_emGameCurrent;				//当前游戏
+    EM_GAME					m_emGameCurr;				//当前游戏
 public:
     std::function<void(EM_GAME)>    onTaskSuccess;
     std::function<void(EM_GAME)>    ontaskError;

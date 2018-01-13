@@ -14,18 +14,18 @@
 
 #pragma pack(1)
 
-#define	BUILD_VER	0	//æˆæƒç‰ˆæœ¬
-#define PRODUCT_VER 6	//äº§å“ç‰ˆæœ¬
+#define	BUILD_VER	0	//ÊÚÈ¨°æ±¾
+#define PRODUCT_VER 6	//²úÆ·°æ±¾
 #define GAME_VER    7
 
-//å€Ÿå£ç‰ˆæœ¬
+//½è¿Ú°æ±¾
 #define INTERFACE_VERSION(cbMainVer,cbSubVer)			\
 	(((BYTE)(PRODUCT_VER)) << 24) +						\
 	(((BYTE)(cbMainVer)) << 16) +						\
 	((BYTE)(cbSubVer) << 8) +							\
 	(BYTE)(BUILD_VER))
 
-//æ¨¡å—ç‰ˆæœ¬
+//Ä£¿é°æ±¾
 #define PROCESS_VERSION(cbMainVer,cbSubVer,cbBuildVer)  \
 	(DWORD)(											\
 	(((BYTE)(PRODUCT_VER)) << 24) +						\
@@ -33,7 +33,7 @@
 	((BYTE)(cbSubVer) << 8) +							\
 	(BYTE)(cbBuildVer))
 
-//æ¸¸æˆç‰ˆæœ¬
+//ÓÎÏ·°æ±¾
 #define ROOM_VER(cbMainVer,cbSubVer,cbBuildVer)			\
 	(DWORD)(											\
 	(((BYTE)(GAME_VER)) << 24) +						\
@@ -41,19 +41,19 @@
 	((BYTE)(cbSubVer) << 8) +							\
 	(BYTE)(cbBuildVer))
 
-//ç¨‹åºç‰ˆæœ¬
-#define VERSION_FRAME			PROCESS_VERSION(7,0,1)				//æ¡†æ¶ç‰ˆæœ¬
-#define VERSION_PLAZA			ROOM_VER(7,0,1)                     //å¤§å…ç‰ˆæœ¬
-#define VERSION_MOBILE			PROCESS_VERSION(7,0,1)				//æ‰‹æœºç‰ˆæœ¬
-#define VERSION_RENYU           PROCESS_VERSION(6,0,3)              //äººé±¼
-#define VERSION_LKPY			PROCESS_VERSION(6,0,3)              //äººé±¼
-#define VERSION_GSWZ			PROCESS_VERSION(7,0,1)              //æ¸¯å¼äº”å¼ 
+//³ÌĞò°æ±¾
+#define VERSION_FRAME			PROCESS_VERSION(7,0,1)				//¿ò¼Ü°æ±¾
+#define VERSION_PLAZA			ROOM_VER(7,0,1)                     //´óÌü°æ±¾
+#define VERSION_MOBILE			PROCESS_VERSION(7,0,1)				//ÊÖ»ú°æ±¾
+#define VERSION_RENYU           PROCESS_VERSION(6,0,3)              //ÈËÓã
+#define VERSION_LKPY			PROCESS_VERSION(6,0,3)              //ÈËÓã
+#define VERSION_GSWZ			PROCESS_VERSION(7,0,1)              //¸ÛÊ½ÎåÕÅ
 
-//ç‰ˆæœ¬å®šä¹‰
-#define VERSION_EFFICACY		0									//æ•ˆéªŒç‰ˆæœ¬
-#define VERSION_FRAME_SDK		INTERFACE_VERSION(7,1)				//æ¡†æ¶ç‰ˆæœ¬
+//°æ±¾¶¨Òå
+#define VERSION_EFFICACY		0									//Ğ§Ñé°æ±¾
+#define VERSION_FRAME_SDK		INTERFACE_VERSION(7,1)				//¿ò¼Ü°æ±¾
 
-#define VERSION_APP             @"1.0.0"                            //å®¢æˆ·ç«¯ç‰ˆæœ¬
+#define VERSION_APP             @"1.0.0"                            //¿Í»§¶Ë°æ±¾
 
 #pragma pack()
 

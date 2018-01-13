@@ -16,31 +16,31 @@
 
 #include "cocos2d.h"
 
-typedef int RESULT_TYPE;            //ç»“æœå¤„ç†
+typedef int RESULT_TYPE;            //½á¹û´¦Àí
 
-#define RESULT_DEFAULT      0       //é»˜è®¤ç»“æœ
+#define RESULT_DEFAULT      0       //Ä¬ÈÏ½á¹û
 
-#define RESULT_SUCCESS      1       //å¤„ç†æˆåŠŸ
-#define RESULT_FAILURE      2       //å¤„ç†å¤±è´¥
+#define RESULT_SUCC			1       //´¦Àí³É¹¦
+#define RESULT_FAILURE      2       //´¦ÀíÊ§°Ü
 
-#define RESULT_BEGAN        3       //å¤„ç†å¼€å§‹
-#define RESULT_INGED        4       //å¤„ç†ä¸­
-#define RESULT_FINISH       5       //å¤„ç†å®Œæˆ
+#define RESULT_BEGAN        3       //´¦Àí¿ªÊ¼
+#define RESULT_INGED        4       //´¦ÀíÖĞ
+#define RESULT_FINISH       5       //´¦ÀíÍê³É
 
-#define RESULT_OTHER        10      //å…¶ä»–å¤„ç†
+#define RESULT_OTHER        10      //ÆäËû´¦Àí
 
-//ç”¨æˆ·é‡‘å¸æ”¹å˜é€šçŸ¥
-const std::string whEvent_User_Data_Change		= "whEvent_User_Data_Change";
-const std::string whEvent_Desk_Status			= "whEvent_Desk_Status";				//æ¡Œå­çŠ¶æ€å˜åŒ–ï¼Œæ˜¯å¦åŠ é”
-const std::string whEvent_Room_StartGame		= "whNd_Room_StartGame";				//å¯åŠ¨æ¸¸æˆ
-const std::string whNd_Room_LeaveGame			= "whNd_Room_LeaveGame";				//ç¦»å¼€æ¸¸æˆ
-const std::string whNd_Horn_Message				= "whNd_Horn_Message";					//å–‡å­æ¶ˆæ¯
-const std::string whNd_Sys_Chat					= "whNd_Sys_Chat";						//ç³»ç»Ÿæ¶ˆæ¯
-const std::string whNd_Socket_Connect_Failure	= "whNd_Socket_Connect_Failure";		//socketè¿æ¥å¤±è´¥
-const std::string whNd_EnterForeground			= "whNd_EnterForeground";				//åå°åˆ‡æ¢å›æ¥
-const std::string whNd_Socket_Disconnect		= "whNd_Socket_Disconnect";				//ç½‘ç»œæ–­å¼€
-const std::string whNd_Android_PhotoImage		= "whNd_Android_PhotoImage";			//androidç›¸å†Œå›¾ç‰‡é€‰æ‹©å®Œæˆ
-const std::string whNd_Download_Update			= "whNd_Download_Update";				//èµ„æºä¸‹è½½åˆ·æ–°
+//ÓÃ»§½ğ±Ò¸Ä±äÍ¨Öª
+const std::string STR_EVENT_USER_DATA_CHANGE	= "whEvent_User_Data_Change";
+const std::string STR_EVENT_DESK_STATUS			= "whEvent_Desk_Status";				//×À×Ó×´Ì¬±ä»¯£¬ÊÇ·ñ¼ÓËø
+const std::string STR_ND_ROOM_START_GAME		= "whNd_Room_StartGame";				//Æô¶¯ÓÎÏ·
+const std::string STR_ND_ROOM_LEAVE_GAME		= "whNd_Room_LeaveGame";				//Àë¿ªÓÎÏ·
+const std::string STR_ND_HORN_MSG				= "whNd_Horn_Message";					//À®°ÈÏûÏ¢
+const std::string STR_ND_SYS_MSG				= "whNd_Sys_Chat";						//ÏµÍ³ÏûÏ¢
+const std::string STR_ND_SOCKET_CONNECT_FAILURE	= "whNd_Socket_Connect_Failure";		//socketÁ¬½ÓÊ§°Ü
+const std::string STR_ND_ENTER_FOREGROUND		= "whNd_EnterForeground";				//ºóÌ¨ÇĞ»»»ØÀ´
+const std::string STR_ND_SOCKET_DISCONNECT		= "whNd_Socket_Disconnect";				//ÍøÂç¶Ï¿ª
+const std::string STR_ND_ANDROID_PHOTO_IMAGE	= "whNd_Android_PhotoImage";			//androidÏà²áÍ¼Æ¬Ñ¡ÔñÍê³É
+const std::string STR_ND_DOWNLOAD_UPDATE		= "whNd_Download_Update";				//×ÊÔ´ÏÂÔØË¢ĞÂ
 
 #pragma pack()
 

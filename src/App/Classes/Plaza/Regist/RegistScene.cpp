@@ -55,7 +55,7 @@ bool RegistScene::init()
     m_pAccountEdit = EditBox::create(Size(318, 58), "common_res/common_edit_textIcon.png");
     m_pAccountEdit->setAnchorPoint(cocos2d::Point(0.f,0.5f));
     m_pAccountEdit->setPosition(cocos2d::Point(account->getPositionX()+80, account->getPositionY()));
-    m_pAccountEdit->setMaxLength(LEN_ACCOUNT);
+    m_pAccountEdit->setMaxLength(LEN_MAX_ACCOUNT);
     m_pAccountEdit->setFontSize(28);
     m_pAccountEdit->setPlaceholderFont(FONT_TREBUCHET_MS_BOLD, 20);
     m_pAccountEdit->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
@@ -189,7 +189,7 @@ void RegistScene::buttonEventWithBack(Ref* target,cocos2d::ui::Widget::TouchEven
         NetworkMgr::getInstance()->unregisterloadfunction(MDM_MB_LOGON);
         NetworkMgr::getInstance()->unregisterloadfunction(MDM_MB_SERVER_LIST);
         
-        Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(whNd_Socket_Connect_Failure);
+        Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(STR_ND_SOCKET_CONNECT_FAILURE);
         
         Director::getInstance()->replaceScene(TransitionFade::create(0.3f, Login::createScene()));
     }
@@ -202,7 +202,7 @@ void RegistScene::buttonEventWithRegist(cocos2d::Ref *target, cocos2d::ui::Widge
     NetworkMgr::getInstance()->registerloadfunction(MDM_MB_LOGON, CC_CALLBACK_3(RegistScene::loginResult, this));
     NetworkMgr::getInstance()->registerloadfunction(MDM_MB_SERVER_LIST, CC_CALLBACK_3(RegistScene::roomlistResult, this));
     //联网失败通知
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(whNd_Socket_Connect_Failure, CC_CALLBACK_1(RegistScene::notifyConnectFailure, this)), 1);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListenerCustom::create(STR_ND_SOCKET_CONNECT_FAILURE, CC_CALLBACK_1(RegistScene::notifyConnectFailure, this)), 1);
     
     
     if (type == cocos2d::ui::Widget::TouchEventType::ENDED)

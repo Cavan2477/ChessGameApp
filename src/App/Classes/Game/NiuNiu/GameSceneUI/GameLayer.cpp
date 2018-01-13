@@ -235,7 +235,7 @@ bool GameLayer::uiMsg(const int &main, const int &sub, void *pData, const int &n
     return true;
 }
 
-void GameLayer::reSet()
+void GameLayer::Reset()
 {
     //重置准备布局
     reSetPreGameLayout();
@@ -249,7 +249,7 @@ void GameLayer::reSet()
     reSetGameEffect();
 }
 
-void GameLayer::reSetNewGame()
+void GameLayer::ResetNewGame()
 {
     //清理扑克
     reSetCards();
@@ -259,16 +259,16 @@ void GameLayer::reSetNewGame()
     reSetAddScoreResLayout();
 }
 
-void GameLayer::clearUser(bool bClear /*= true*/)
+void GameLayer::ClearUser(bool bClear /*= true*/)
 {
     reSetUserInfo(!bClear);
 }
 
-void GameLayer::updateOnGameStateFree()
+void GameLayer::UpdateOnGameStateFree()
 {
-    reSet();
-    reSetNewGame();
-    clearUser(false);
+    Reset();
+    ResetNewGame();
+    ClearUser(false);
     
     this->switchToBeReady(true);
     this->enableBtn(m_btnChangeDesk,true);
@@ -636,7 +636,7 @@ void GameLayer::updateGameOver()
     m_bDynamicJoin = false;
     m_bSuggestBtn = false;
     //游戏结束，重新开始
-    reSet();
+    Reset();
     bool bHideUser = !INSTANCE(GameDataMgr)->getEnterAntiCheat();
     //清理界面玩家
     reSetUserInfo(bHideUser);
@@ -792,7 +792,7 @@ void GameLayer::touchEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
 		case TAG_CHDESK_MENU:
 			{
                 INSTANCE(AudioMgr)->playClickAudio();
-                reSet();
+                Reset();
 				//换桌
 				INSTANCE(GameDataMgr)->requestChangeDesk();
                 this->enableBtn(m_btnChangeDesk, false);
