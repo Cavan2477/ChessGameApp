@@ -1,9 +1,20 @@
-﻿#ifndef __nn_GameClockNode_H__
-#define __nn_GameClockNode_H__
+﻿/************************************************************************************
+ * file: 		GameClockNode.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 21:44:13
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
+
+#ifndef __NN_GAME_CLOCK_NODE_H__
+#define __NN_GAME_CLOCK_NODE_H__
 
 //游戏倒计时
 #include "CocosHeader.h"
-#include "GameDefine.h"
+#include "../../../Common/GameDefine.h"
 
 NN_NAMESPACE_BEGIN
 

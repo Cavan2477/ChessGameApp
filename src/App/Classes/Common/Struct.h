@@ -76,14 +76,14 @@ typedef struct _stGameRoomServer
     WORD                wServerType;                //房间类型
     WORD                wServerLevel;               //房间等级
 	WORD				wServerPort;				//房间端口
-    LONGLONG               lCellScore;                 //单元积分
-    LONGLONG               lEnterScore;                //进入积分
+    LONGLONG            llCellScore;                //单元积分
+    LONGLONG            llEnterScore;               //进入积分
     DWORD				dwServerRule;               //房间规则
 	DWORD				dwOnlineCount;				//在线人数
     DWORD               dwAndroidCount;             //机器人数
 	DWORD				dwFullCount;				//满员人数
 	TCHAR				szServerAddr[32];			//房间地址
-	TCHAR				szServerName[LEN_GAME_ROOM];	//房间名称
+	TCHAR				szServerName[LEN_GAME_ROOM];//房间名称
 }ST_GAME_ROOM_SERVER, *PST_GAME_ROOM_SERVER;
 
 //比赛报名

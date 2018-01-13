@@ -1,9 +1,21 @@
-#ifndef __nn_GameLogicDefine_H__
-#define __nn_GameLogicDefine_H__
+/************************************************************************************
+ * file: 		NiuNiuLogicDefine.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 20:48:27
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
+
+#ifndef __NN_GAME_LOGIC_DEFINE_H__
+#define __NN_GAME_LOGIC_DEFINE_H__
 
 #include "cocos2d.h"
-#include "define.h"
 #include "CMD_Game.h"
+#include "../../../Common/PublicDefine.h"
+
 namespace nn_game{
 //排序类型
 #define ST_ORDER					1									//大小排序

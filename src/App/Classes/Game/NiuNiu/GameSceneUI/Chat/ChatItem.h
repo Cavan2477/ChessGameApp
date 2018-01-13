@@ -1,17 +1,20 @@
-//
-//  ChatItem.hpp
-//  NiuNiu
-//
-//  Created by zhong on 12/17/15.
-//
-//
+/************************************************************************************
+ * file: 		ChatItem.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 21:41:19
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
 
-#ifndef nn_ChatItem_hpp
-#define nn_ChatItem_hpp
+#ifndef __NN_CHAT_ITEM_HPP__
+#define __NN_CHAT_ITEM_HPP__
 
 #include <stdio.h>
 #include "CocosHeader.h"
-#include "define.h"
+#include "../../../../Common/PublicDefine.h"
 
 NN_NAMESPACE_BEGIN
 

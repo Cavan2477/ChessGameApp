@@ -1,18 +1,21 @@
-//
-//  GameChatLayer.hpp
-//  NiuNiu
-//
-//  Created by zhong on 12/16/15.
-//
-//
+/************************************************************************************
+ * file: 		GameChatLayer.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 21:45:01
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
 
-#ifndef nn_GameChatLayer_hpp
-#define nn_GameChatLayer_hpp
+#ifndef __NN_GAME_CHAT_LAYER_HPP__
+#define __NN_GAME_CHAT_LAYER_HPP__
 
 #include <stdio.h>
+#include "../../../../LibExt/ButtonGroup.h"
 #include "CocosHeader.h"
 #include "ChatTableView.h"
-#include "ButtonGroup.h"
 #include "BrowPanel.h"
 #include "ChatItem.h"
 

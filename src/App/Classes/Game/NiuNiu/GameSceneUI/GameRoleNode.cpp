@@ -110,18 +110,20 @@ void GameRoleNode::reSet(bool bShowSelf /*= true*/)
     m_spChatBg->setVisible(false);
 }
 
-void GameRoleNode::updateRoleInfo(const DWORD &nRoleId,const char *szName, const SCORE &lCoin,bool bLeave /*= false*/)
+void GameRoleNode::updateRoleInfo(const DWORD &nRoleId,const char *szName, const LONGLONG &llGameCoin,bool bLeave /*= false*/)
 {
     m_dwUserId = nRoleId;
+
 	//更新头像文件
     UserData *pUser = HallDataMgr::getInstance()->m_UserList.at(nRoleId);
+
     if (nullptr == m_pHead)
     {
         m_pHead = HeaderRequest::createwithFaceID(
-                                                  pUser->m_date.wFaceID,
-                                                  pUser->m_date.dwCustomID,
-                                                  pUser->m_date.dwUserID,
-                                                  pUser->m_date.cbGender);
+			pUser->m_stMobileUserHeadInfo.dwFaceID,
+			pUser->m_stMobileUserHeadInfo.dwCustomID,
+			pUser->m_stMobileUserHeadInfo.dwUserID,
+			pUser->m_stMobileUserHeadInfo.cbGender);
         //m_pHead->setHeadSize(80.0f);
         m_pHead->setPosition(0.0f,21.0f);
         m_root->addChild(m_pHead);
@@ -136,7 +138,7 @@ void GameRoleNode::updateRoleInfo(const DWORD &nRoleId,const char *szName, const
             m_pHead->setTextureRect(cocos2d::Rect(0, 0, FACE_CX, FACE_CY));
         }
          */
-        if (0 != pUser->m_date.dwCustomID)
+		if (0 != pUser->m_stMobileUserHeadInfo.dwCustomID)
         {
             auto ptexture = HallDataMgr::getInstance()->m_Headlist.at(nRoleId);
             if (ptexture)
@@ -147,8 +149,8 @@ void GameRoleNode::updateRoleInfo(const DWORD &nRoleId,const char *szName, const
         }
         else
         {
-            auto faceID = pUser->m_date.wFaceID%10;
-            std::string headstr = 1 == pUser->m_date.cbGender? "man" : "woman";
+			auto faceID = pUser->m_stMobileUserHeadInfo.dwFaceID % 10;
+			std::string headstr = 1 == pUser->m_stMobileUserHeadInfo.cbGender ? "man" : "woman";
             headstr = __String::createWithFormat("public_res/im_head_%s_%d.png", headstr.c_str(), faceID)->getCString();
             m_pHead->initWithFile(headstr);
         }
@@ -166,7 +168,7 @@ void GameRoleNode::updateRoleInfo(const DWORD &nRoleId,const char *szName, const
 
     char buf[64] = "";
 	//更新元宝
-	sprintf(buf,"%lld",lCoin);
+	sprintf(buf,"%lld",llGameCoin);
 	m_textCoin->setString(buf);
 
 	this->setVisible(!bLeave);

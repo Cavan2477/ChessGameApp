@@ -1,7 +1,20 @@
-﻿#include "NiuNiuScene.h"
+﻿/************************************************************************************
+ * file: 		nn_PlazaScene.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 20:49:39
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
+
+#include "nn_PlazaScene.h"
+#include "Header/NiuNiuScene.h"
 #include "PlazaSceneUI/PlazaLayer.h"
 
 USING_NN_NAMESPACE;
+
 PlazaScene::PlazaScene():
     m_bIsReEnter(false)
 {

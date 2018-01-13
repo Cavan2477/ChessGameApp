@@ -1,25 +1,29 @@
-//
-//  HelpLayer.cpp
-//  NiuNiu
-//
-//  Created by zhong on 12/24/15.
-//
-//
+/************************************************************************************
+ * file: 		nn_HelpLayer.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 20:52:32
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
 
 #include "nn_HelpLayer.h"
-#include "NiuNiuScene.h"
+#include "Header/NiuNiuScene.h"
+
 USING_NS_CC;
+
 using namespace ui;
+
 USING_NN_NAMESPACE;
 
 HelpLayer::HelpLayer()
 {
-    
 }
 
 HelpLayer::~HelpLayer()
 {
-    
 }
 
 Scene* HelpLayer::createScene()
@@ -33,6 +37,7 @@ Scene* HelpLayer::createScene()
 bool HelpLayer::init()
 {
     bool bRes = false;
+
     do
     {
         CC_BREAK_IF( !Layer::init() );
@@ -56,6 +61,7 @@ bool HelpLayer::init()
         csbBtn->addTouchEventListener(CC_CALLBACK_2(HelpLayer::touchEvent, this));
         bRes = true;
     } while (false);
+
     return bRes;
 }
 
@@ -67,6 +73,7 @@ void HelpLayer::touchEvent(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEven
         if (0 == strcmp("back_btn", nodename.c_str()))
         {
             INSTANCE(AudioMgr)->playClickAudio();
+
             //场景切换
             Scene *pScene = static_cast<Scene*>(PlazaScene::create());
             TransitionScene *reScene = TransitionSlideInR::create( TIME_SCENE_CHANGE, pScene);

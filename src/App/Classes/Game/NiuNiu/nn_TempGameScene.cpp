@@ -1,24 +1,29 @@
-//
-//  TempGameScene.cpp
-//  NiuNiu
-//
-//  Created by zhong on 12/29/15.
-//
-//
+/************************************************************************************
+ * file: 		nn_TempGameScene.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 20:37:35
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
 
-#include "NiuNiuScene.h"
+#include "nn_TempGameScene.h"
+#include "Header/NiuNiuScene.h"
+
 USING_NS_CC;
+
 using namespace ui;
+
 USING_NN_NAMESPACE;
 
 TempGameScene::TempGameScene()
-{
-    
+{ 
 }
 
 TempGameScene::~TempGameScene()
 {
-    
 }
 
 bool TempGameScene::init()
@@ -91,5 +96,6 @@ bool TempGameScene::init()
             }
         }
     } while (false);
+
     return bRes;
 }

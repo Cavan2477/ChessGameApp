@@ -1,9 +1,23 @@
-#ifndef __nn_CMD_Game_H__
-#define __nn_CMD_Game_H__
+/************************************************************************************
+ * file: 		CMD_Game.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 20:47:49
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
 
-#include "define.h"
+#ifndef __NN_CMD_GAME_H__
+#define __NN_CMD_GAME_H__
+
+#include "../../../Common/PublicDefine.h"
+
 #pragma pack(1)
-namespace nn_game{
+
+namespace nn_game
+{
 //////////////////////////////////////////////////////////////////////////
 //公共宏定义
     /*
@@ -219,5 +233,7 @@ typedef struct
 
 //////////////////////////////////////////////////////////////////////////
 }
+
 #pragma pack(0)
+
 #endif

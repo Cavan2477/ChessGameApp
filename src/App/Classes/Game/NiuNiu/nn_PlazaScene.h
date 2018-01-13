@@ -1,9 +1,20 @@
-﻿#ifndef __nn_PlazaScene_H__
-#define __nn_PlazaScene_H__
+﻿/************************************************************************************
+ * file: 		nn_PlazaScene.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 20:49:56
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
+
+#ifndef __NN_PLAZA_SCENE_H__
+#define __NN_PLAZA_SCENE_H__
 
 #include "CocosHeader.h"
-#include "NiuNiuScene.h"
-#include "TableMgr.h"
+#include "Header/NiuNiuScene.h"
+#include "../../DataMgr/TableMgr.h"
 
 NN_NAMESPACE_BEGIN
 

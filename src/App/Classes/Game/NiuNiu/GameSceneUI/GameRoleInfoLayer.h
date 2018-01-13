@@ -1,17 +1,20 @@
-//
-//  GameRoleInfoLayer.hpp
-//  NiuNiu
-//
-//  Created by zhong on 12/31/15.
-//
-//
+/************************************************************************************
+ * file: 		GameRoleInfoLayer.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 21:42:36
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
 
-#ifndef nn_GameRoleInfoLayer_hpp
-#define nn_GameRoleInfoLayer_hpp
+#ifndef __NN_GAME_ROLE_INFO_LAYER_HPP__
+#define __NN_GAME_ROLE_INFO_LAYER_HPP__
 
 #include <stdio.h>
 #include "CocosHeader.h"
-#include "HeaderRequest.h"
+#include "../../../Public/HeaderRequest.h"
 
 NN_NAMESPACE_BEGIN
 

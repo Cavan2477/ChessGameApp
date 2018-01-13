@@ -436,6 +436,108 @@
     <ClCompile Include="..\Classes\Game\NiuNiu\PlazaSceneUI\PlazaLayer.cpp">
       <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\tbnn_GameScene.cpp">
+      <Filter>src\Game\TongBiNiuNiu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\tbnn_PlazaScene.cpp">
+      <Filter>src\Game\TongBiNiuNiu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\tbnn_SettingLayer.cpp">
+      <Filter>src\Game\TongBiNiuNiu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\tbnn_TempGameScene.cpp">
+      <Filter>src\Game\TongBiNiuNiu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\PasswdLayer.cpp">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\PlazaLayer.cpp">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\RoomItemView.cpp">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\RoomListLayer.cpp">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\TableItemView.cpp">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\TableListLayer.cpp">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\TablePageItem.cpp">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\AntiCheatLayer.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameClockNode.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameEffectLayer.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameLayer.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameRoleInfoLayer.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameRoleNode.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\NiuNiuNode.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameCard\CardsNode.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\GameCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameCard\CardSprite.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\GameCard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\Chat\BrowPanel.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\Chat\ChatItem.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\Chat\ChatTableView.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\Chat\GameChatLayer.cpp">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\TongBiNiuNiu\DataMgr\GameLogic.cpp">
+      <Filter>src\Game\TongBiNiuNiu\DataMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\ZhaJinHua\Room\zjh_DeskCell.cpp">
+      <Filter>src\Game\ZhaJinHua\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\ZhaJinHua\Room\zjh_DeskLayer.cpp">
+      <Filter>src\Game\ZhaJinHua\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\ZhaJinHua\Room\zjh_DistributeLayer.cpp">
+      <Filter>src\Game\ZhaJinHua\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\ZhaJinHua\Room\zjh_RoomLayer.cpp">
+      <Filter>src\Game\ZhaJinHua\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\ZhaJinHua\Game\zjh_CardSprite.cpp">
+      <Filter>src\Game\ZhaJinHua\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\ZhaJinHua\Game\zjh_ChatLayer.cpp">
+      <Filter>src\Game\ZhaJinHua\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\ZhaJinHua\Game\zjh_GameLayer.cpp">
+      <Filter>src\Game\ZhaJinHua\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\ZhaJinHua\Game\zjh_GameLogic.cpp">
+      <Filter>src\Game\ZhaJinHua\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Game\ZhaJinHua\Game\zjh_GameSettingLayer.cpp">
+      <Filter>src\Game\ZhaJinHua\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -963,6 +1065,129 @@
     <ClInclude Include="..\Classes\Game\NiuNiu\PlazaSceneUI\PlazaLayer.h">
       <Filter>src\Game\NiuNiu\PlazaSceneUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\tbnn_GameScene.h">
+      <Filter>src\Game\TongBiNiuNiu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\tbnn_PlazaScene.h">
+      <Filter>src\Game\TongBiNiuNiu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\tbnn_SettingLayer.h">
+      <Filter>src\Game\TongBiNiuNiu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\tbnn_TempGameScene.h">
+      <Filter>src\Game\TongBiNiuNiu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\PasswdLayer.h">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\PlazaLayer.h">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\RoomItemView.h">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\RoomListLayer.h">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\TableItemView.h">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\TableListLayer.h">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\PlazaSceneUI\TablePageItem.h">
+      <Filter>src\Game\TongBiNiuNiu\PlazaSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\Header\cmd_game.h">
+      <Filter>src\Game\TongBiNiuNiu\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\Header\TBNNLogicDefine.h">
+      <Filter>src\Game\TongBiNiuNiu\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\Header\TBNNScene.h">
+      <Filter>src\Game\TongBiNiuNiu\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\AntiCheatLayer.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameClockNode.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameEffectLayer.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameLayer.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameRoleInfoLayer.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameRoleNode.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\NiuNiuNode.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameCard\CardsNode.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\GameCard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\GameCard\CardSprite.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\GameCard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\Chat\BrowPanel.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\Chat\ChatItem.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\Chat\ChatTableView.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\GameSceneUI\Chat\GameChatLayer.h">
+      <Filter>src\Game\TongBiNiuNiu\GameSceneUI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\TongBiNiuNiu\DataMgr\GameLogic.h">
+      <Filter>src\Game\TongBiNiuNiu\DataMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Room\zjh_DeskCell.h">
+      <Filter>src\Game\ZhaJinHua\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Room\zjh_DeskLayer.h">
+      <Filter>src\Game\ZhaJinHua\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Room\zjh_DistributeLayer.h">
+      <Filter>src\Game\ZhaJinHua\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Room\zjh_RoomLayer.h">
+      <Filter>src\Game\ZhaJinHua\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Header\ZjhScene.h">
+      <Filter>src\Game\ZhaJinHua\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Header\zjh_cmd_game.h">
+      <Filter>src\Game\ZhaJinHua\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Game\zjh_CardSprite.h">
+      <Filter>src\Game\ZhaJinHua\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Game\zjh_ChatLayer.h">
+      <Filter>src\Game\ZhaJinHua\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Game\zjh_GameDefine.h">
+      <Filter>src\Game\ZhaJinHua\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Game\zjh_GameLayer.h">
+      <Filter>src\Game\ZhaJinHua\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Game\zjh_GameLogic.h">
+      <Filter>src\Game\ZhaJinHua\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Game\ZhaJinHua\Game\zjh_GameSettingLayer.h">
+      <Filter>src\Game\ZhaJinHua\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\GameDefine.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resource">
@@ -1138,6 +1363,39 @@
     </Filter>
     <Filter Include="src\Game\NiuNiu\PlazaSceneUI">
       <UniqueIdentifier>{df8990ec-3a6d-4c05-867c-2972f3d3cdb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\TongBiNiuNiu">
+      <UniqueIdentifier>{889b0435-ae49-4129-8f68-82ac023ba570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\TongBiNiuNiu\DataMgr">
+      <UniqueIdentifier>{f9117e2c-45e2-478a-b3c9-2980301991ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\TongBiNiuNiu\GameSceneUI">
+      <UniqueIdentifier>{f0a1a115-77d1-43ec-886a-d21af05f5808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\TongBiNiuNiu\Header">
+      <UniqueIdentifier>{71d7dcfe-9383-44e2-b5a2-1691d141602a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\TongBiNiuNiu\PlazaSceneUI">
+      <UniqueIdentifier>{c7cffa89-1c09-4de6-a306-0e1882b9e9c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\TongBiNiuNiu\GameSceneUI\Chat">
+      <UniqueIdentifier>{85df0bfe-b2f4-4214-b3b5-5281c4ad69db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\TongBiNiuNiu\GameSceneUI\GameCard">
+      <UniqueIdentifier>{78b2bb5a-3ef7-4832-9a75-48b27fc42b2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\ZhaJinHua">
+      <UniqueIdentifier>{5a6c6683-2238-4cd6-a9bb-9f9b5831eb1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\ZhaJinHua\Game">
+      <UniqueIdentifier>{e7674af0-8053-4640-ae74-85134e0ceb0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\ZhaJinHua\Header">
+      <UniqueIdentifier>{2dbc697b-1d7b-408a-a0c4-f1c953a0a157}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\ZhaJinHua\Room">
+      <UniqueIdentifier>{aa02785e-b2a3-4637-86ad-1a3fcc3d54bf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

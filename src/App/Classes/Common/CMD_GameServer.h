@@ -339,7 +339,7 @@ typedef struct _stCmdGrUserClientChat
 {
 	WORD							wChatLength;						//信息长度
 	DWORD							dwChatColor;						//信息颜色
-	DWORD							dwTargerUserID;						//目标用户
+	DWORD							dwTargetUserID;						//目标用户
 	TCHAR							szChatMsg[LEN_USER_CHAT_MSG];		//聊天信息
 }ST_CMD_GR_USER_CLIENT_CHAT, *PST_CMD_GR_USER_CLIENT_CHAT;
 

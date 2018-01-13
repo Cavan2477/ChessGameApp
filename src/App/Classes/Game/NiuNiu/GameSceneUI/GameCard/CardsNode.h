@@ -1,14 +1,27 @@
-﻿#ifndef __nn_CardsNode_H__
-#define __nn_CardsNode_H__
+﻿/************************************************************************************
+ * file: 		CardsNode.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 21:41:56
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
+
+#ifndef __NN_CARDS_NODE_H__
+#define __NN_CARDS_NODE_H__
+
+#include <vector>
+#include <map>
 
 //扑克卡牌组节点
 #include "CocosHeader.h"
 #include "CardSprite.h"
-#include "GameDefine.h"
-#include <vector>
-#include <map>
+#include "../../../../Common/GameDefine.h"
 
 NN_NAMESPACE_BEGIN
+
 class SelectCardsListener
 {
 public:

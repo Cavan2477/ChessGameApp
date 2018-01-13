@@ -1,15 +1,28 @@
-﻿#include "NiuNiuScene.h"
-#include "GameDataMgr.h"
-#include "ModeLayer.h"
-#include "AnimationMgr.h"
+﻿/************************************************************************************
+ * file: 		nn_GameScene.cpp
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 20:33:04
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
+
+#include "Header/NiuNiuScene.h"
+#include "../../DataMgr/GameDataMgr.h"
+#include "../../Scene/ModeLayer.h"
+#include "../../Scene/AnimationMgr/AnimationMgr.h"
+
 USING_NN_NAMESPACE;
+
 static bool s_bReplace = false;
 
 GameScene::GameScene():
 	m_wGameChair(INVALID_CHAIR),
 	m_wGameTable(INVALID_TABLE),
 	m_bSitDown(false),
-    m_gameLayer(nullptr)
+    m_pGameLayer(nullptr)
 {
     loadRes();
 }
@@ -18,7 +31,7 @@ GameScene::~GameScene()
 {
     unloadRes();
     INSTANCE(GameDataMgr)->clearRecord();
-    m_gameLayer = nullptr;
+    m_pGameLayer = nullptr;
     GameLogic::destroy();
 }
 
@@ -65,10 +78,10 @@ bool GameScene::init()
         
         NetworkMgr::getInstance()->registerroomfunction(MDM_GF_GAME, CC_CALLBACK_3(GameScene::onGameMessage, this));
 
-		m_gameLayer = GameLayer::create();
-		CC_BREAK_IF(nullptr == m_gameLayer);
-		m_gameLayer->setNotifyScene(this);
-		this->addChild(m_gameLayer);
+		m_pGameLayer = GameLayer::create();
+		CC_BREAK_IF(nullptr == m_pGameLayer);
+		m_pGameLayer->setNotifyScene(this);
+		this->addChild(m_pGameLayer);
 
         m_bClickExit = false;
 		bRes = true;
@@ -195,7 +208,7 @@ bool GameScene::onGetGameUIMsg(const int &sub,void *pData,const int &nLen)
 
 void GameScene::onGameScene(void *pData, WORD wSize)
 {
-    if (nullptr == m_gameLayer)
+    if (nullptr == m_pGameLayer)
     {
         return;
     }
@@ -206,9 +219,9 @@ void GameScene::onGameScene(void *pData, WORD wSize)
         case nn_GS_TK_FREE:    //空闲状态
         {
             log("空闲");
-            m_gameLayer->setDynamicJoin(false);
-            m_gameLayer->setGameStatus(nn_GS_TK_FREE);            
-            m_gameLayer->updateOnGameStateFree();
+            m_pGameLayer->setDynamicJoin(false);
+            m_pGameLayer->setGameStatus(nn_GS_TK_FREE);            
+            m_pGameLayer->updateOnGameStateFree();
         }
             break;
         case nn_GS_TK_CALL:    //叫庄状态
@@ -220,10 +233,10 @@ void GameScene::onGameScene(void *pData, WORD wSize)
             enGameRoleDir dir = INSTANCE(GameDataMgr)->getRoleDir(cmd->wCallBanker);
             
             log("玩家:%d 叫庄; dir:%d",cmd->wCallBanker,dir);
-            m_gameLayer->setDynamicJoin(1 == cmd->cbDynamicJoin);
-            m_gameLayer->setGameStatus(nn_GS_TK_CALL);
-            m_gameLayer->updateOnGame(true);
-            m_gameLayer->updateCallBanker(dir);
+            m_pGameLayer->setDynamicJoin(1 == cmd->cbDynamicJoin);
+            m_pGameLayer->setGameStatus(nn_GS_TK_CALL);
+            m_pGameLayer->updateOnGame(true);
+            m_pGameLayer->updateCallBanker(dir);
         }
             break;
         case nn_GS_TK_SCORE:   //下注状态
@@ -235,24 +248,24 @@ void GameScene::onGameScene(void *pData, WORD wSize)
             enGameRoleDir dir = INSTANCE(GameDataMgr)->getRoleDir(cmd->wBankerUser);
             
             log("玩家:%d 庄家; dir:%d",cmd->wBankerUser,dir);
-            m_gameLayer->setDynamicJoin(1 == cmd->cbDynamicJoin);
-            m_gameLayer->setGameStatus(nn_GS_TK_SCORE);
-            m_gameLayer->updateOnGame(true);
+            m_pGameLayer->setDynamicJoin(1 == cmd->cbDynamicJoin);
+            m_pGameLayer->setGameStatus(nn_GS_TK_SCORE);
+            m_pGameLayer->updateOnGame(true);
             LONGLONG score = cmd->lTurnMaxScore;
-            m_gameLayer->updateGameBanker(dir,score);
+            m_pGameLayer->updateGameBanker(dir,score);
         }
             break;
         case nn_GS_TK_PLAYING: //进行状态
         {
             log("游戏场景:进行");
             CMD_S_StatusPlay *cmd = (CMD_S_StatusPlay*)pData;
-            m_gameLayer->setDynamicJoin(1 == cmd->cbDynamicJoin);
-            m_gameLayer->setGameStatus(nn_GS_TK_PLAYING);
-            m_gameLayer->updateOnGame(true);
+            m_pGameLayer->setDynamicJoin(1 == cmd->cbDynamicJoin);
+            m_pGameLayer->setGameStatus(nn_GS_TK_PLAYING);
+            m_pGameLayer->updateOnGame(true);
             
             //显示庄家用户
             enGameRoleDir dir = INSTANCE(GameDataMgr)->getRoleDir(cmd->wBankerUser);
-            m_gameLayer->reEnterShowGameBanker(dir);
+            m_pGameLayer->reEnterShowGameBanker(dir);
             
             //扑克卡牌
             tagCards cards = tagCards();
@@ -277,25 +290,25 @@ void GameScene::onGameScene(void *pData, WORD wSize)
                     bHaveUser = true;
                 }
                 
-                m_gameLayer->updateUserCards(dir,cards);
+                m_pGameLayer->updateUserCards(dir,cards);
                 
                 //下注数目
                 if (bHaveUser)
                 {
                     LONGLONG score = cmd->lTableScore[i];
-                    m_gameLayer->updateCallScoreResult(dir,score);
+                    m_pGameLayer->updateCallScoreResult(dir,score);
                 }
             }
-            m_gameLayer->updateCardsOver();
+            m_pGameLayer->updateCardsOver();
         }
             break;
         case nn_GS_TK_END:
         {
-            m_gameLayer->setDynamicJoin(false);
-            m_gameLayer->setGameStatus(nn_GS_TK_END);
-            m_gameLayer->reSet();
-            m_gameLayer->reSetNewGame();
-            m_gameLayer->clearUser();
+            m_pGameLayer->setDynamicJoin(false);
+            m_pGameLayer->setGameStatus(nn_GS_TK_END);
+            m_pGameLayer->reSet();
+            m_pGameLayer->reSetNewGame();
+            m_pGameLayer->clearUser();
         }
             break;
         default:
@@ -439,7 +452,7 @@ void GameScene::onHandleGameConfigMsg(const int &sub, BYTE *pBuffer, const int &
 
 void GameScene::onHandleUserMsg(const int &sub,BYTE *pBuffer, const int &size)
 {
-	if (nullptr == m_gameLayer)
+	if (nullptr == m_pGameLayer)
 	{
 		return;
 	}
@@ -488,17 +501,17 @@ void GameScene::onGetUserStatus(BYTE *pBuffer, const int &size)
 	}
 
 	//更新用户状态
-	m_gameLayer->updateUserStatus(pItem,dir);
+	m_pGameLayer->updateUserStatus(pItem,dir);
     
     //非自己桌不处理准备状态
     if (bMyDesk)
     {
         //更新准备标签
-        m_gameLayer->updateReadyDisplay(dir,bReady);
+        m_pGameLayer->updateReadyDisplay(dir,bReady);
         
         if (bOnGame)
         {
-            m_gameLayer->updateOnGame(true);
+            m_pGameLayer->updateOnGame(true);
         }
     }
 }
@@ -524,7 +537,7 @@ void GameScene::onGetUserTextChat(void *pBuffer)
     memset(szMsg, 0, LEN_USER_CHAT);
     memcpy(szMsg, cmd->szChatString, chatLen);
     std::string msg = WHConverUnicodeToUtf8WithArray(szMsg);
-    m_gameLayer->showGameTextChat(dir, msg.c_str());
+    m_pGameLayer->showGameTextChat(dir, msg.c_str());
     
     tagChatRecord record = {0};
     record.dwChatUserId = cmd->dwSendUserID;
@@ -556,7 +569,7 @@ void GameScene::onGetUserBrowChat(void *pBuffer)
         return; //收到自己的消息不处理
     }
     
-    m_gameLayer->showGameBrowChat(dir, cmd->wItemIndex + 1);
+    m_pGameLayer->showGameBrowChat(dir, cmd->wItemIndex + 1);
     
     tagChatRecord record = {0};
     record.dwChatUserId = cmd->dwSendUserID;
@@ -572,7 +585,7 @@ void GameScene::onHandleFrameMsg(const int &sub, BYTE *pBuffer, const int &size)
 
 void GameScene::onHandleGameMsg(const int &sub, BYTE *pBuffer,const int &size)
 {
-    if (nullptr == m_gameLayer)
+    if (nullptr == m_pGameLayer)
     {
         return;
     }
@@ -581,7 +594,7 @@ void GameScene::onHandleGameMsg(const int &sub, BYTE *pBuffer,const int &size)
             //case SUB_S_GAME_F
 	case NN_SUB_S_GAME_START:		//游戏开始
         {
-            m_gameLayer->setGameStatus(nn_GS_TK_SCORE);
+            m_pGameLayer->setGameStatus(nn_GS_TK_SCORE);
             this->onGetStartGame(pBuffer,size);
         }
 		break;
@@ -595,7 +608,7 @@ void GameScene::onHandleGameMsg(const int &sub, BYTE *pBuffer,const int &size)
 		break;
 	case NN_SUB_S_GAME_END:		//游戏结束
         {
-            m_gameLayer->setGameStatus(nn_GS_TK_END);
+            m_pGameLayer->setGameStatus(nn_GS_TK_END);
             this->onGetGameOver(pBuffer, size);
         }
 		break;
@@ -604,7 +617,7 @@ void GameScene::onHandleGameMsg(const int &sub, BYTE *pBuffer,const int &size)
 		break;
 	case NN_SUB_S_CALL_BANKER:		//用户叫庄
         {
-            m_gameLayer->setGameStatus(nn_GS_TK_CALL);
+            m_pGameLayer->setGameStatus(nn_GS_TK_CALL);
             this->onGetCallBanker(pBuffer,size);
         }
 		break;
@@ -624,7 +637,7 @@ void GameScene::onGetStartGame(BYTE *pBuffer,const int &size)
 	enGameRoleDir dir = INSTANCE(GameDataMgr)->getRoleDir(cmd->wBankerUser);
 
     log("玩家:%d 庄家; dir:%d",cmd->wBankerUser,dir);
-	m_gameLayer->updateGameBanker(dir,cmd->lTurnMaxScore);
+	m_pGameLayer->updateGameBanker(dir,cmd->lTurnMaxScore);
 }
 
 void GameScene::onGetCallBanker(BYTE *pBuffer,const int &size)
@@ -638,7 +651,7 @@ void GameScene::onGetCallBanker(BYTE *pBuffer,const int &size)
 	enGameRoleDir dir = INSTANCE(GameDataMgr)->getRoleDir(cmd->wCallBanker);
 
     log("玩家:%d 叫庄; dir:%d",cmd->wCallBanker,dir);
-	m_gameLayer->updateCallBanker(dir);
+	m_pGameLayer->updateCallBanker(dir);
 }
 
 void GameScene::onGetAddScore(BYTE *pBuffer,const int &size)
@@ -653,7 +666,7 @@ void GameScene::onGetAddScore(BYTE *pBuffer,const int &size)
 
     log("玩家:%d 下注; dir:%d",cmd->wAddScoreUser,dir);
     LONGLONG count = cmd->lAddScoreCount;
-	m_gameLayer->updateCallScoreResult(dir,count);
+	m_pGameLayer->updateCallScoreResult(dir,count);
 }
 
 void GameScene::onGetSendCard(BYTE *pBuffer,const int &size)
@@ -683,9 +696,9 @@ void GameScene::onGetSendCard(BYTE *pBuffer,const int &size)
             cards.m_cardCount = NN_MAXCOUNT;
         }
 		
-		m_gameLayer->updateUserCards(dir,cards);
+		m_pGameLayer->updateUserCards(dir,cards);
 	}
-    m_gameLayer->updateCardsOver();
+    m_pGameLayer->updateCardsOver();
 }
 
 void GameScene::onGetOpenCard(BYTE *pBuffer, const int &size)
@@ -698,7 +711,7 @@ void GameScene::onGetOpenCard(BYTE *pBuffer, const int &size)
     CMD_S_Open_Card *cmd = (CMD_S_Open_Card*)pBuffer;
     
     enGameRoleDir dir = INSTANCE(GameDataMgr)->getRoleDir(cmd->wPlayerID);
-    m_gameLayer->updateUserOpenCard(dir, cmd->bOpen == 1);
+    m_pGameLayer->updateUserOpenCard(dir, cmd->bOpen == 1);
 }
 
 void GameScene::onGetGameOver(BYTE *pBuffer, const int &size)
@@ -715,13 +728,13 @@ void GameScene::onGetGameOver(BYTE *pBuffer, const int &size)
         //玩家牌数据，以chair为下标
         enGameRoleDir dir = INSTANCE(GameDataMgr)->getRoleDir(i);
         LONGLONG score = cmd->lGameScore[i];
-        m_gameLayer->updateUserNiuNiuRes(dir,score);
+        m_pGameLayer->updateUserNiuNiuRes(dir,score);
         
         //五花牛
-        m_gameLayer->updateFiveKing(dir, cmd->bfiveking[i]);
+        m_pGameLayer->updateFiveKing(dir, cmd->bfiveking[i]);
     }
     //得分之类
-    m_gameLayer->updateGameOver();
+    m_pGameLayer->updateGameOver();
     
     //标记一局结束
     INSTANCE(GameDataMgr)->setIsRoundOver(true);
@@ -739,9 +752,9 @@ void GameScene::replaceScene()
         if (!m_bClickExit)
         {
             //界面清理（防作弊换桌）
-            m_gameLayer->reSet();
-            m_gameLayer->reSetNewGame();
-            m_gameLayer->clearUser();
+            m_pGameLayer->Reset();
+			m_pGameLayer->ResetNewGame();
+            m_pGameLayer->ClearUser();
             return;
         }
     }

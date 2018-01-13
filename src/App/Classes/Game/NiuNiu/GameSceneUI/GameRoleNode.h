@@ -1,21 +1,33 @@
-﻿#ifndef __nn_GameRoleNode_H__
-#define __nn_GameRoleNode_H__
+﻿/************************************************************************************
+ * file: 		GameRoleNode.h
+ * copyright:	Cavan.Liu 2017
+ * Author: 		Cavan.Liu
+ * Create: 		2018/01/13 20:41:09
+ * Description: 
+ * Version	Author		Time			Description
+ * V1.0    	Cavan.Liu	2018/01/13			
+ *
+ ************************************************************************************/
+
+#ifndef __NN_GAME_ROLE_NODE_H__
+#define __NN_GAME_ROLE_NODE_H__
 
 #include "CocosHeader.h"
-#include "define.h"
-#include "GameDefine.h"
-#include "HeaderRequest.h"
-#include "ClipText.h"
+#include "../../../Common/PublicDefine.h"
+#include "../../../Common/GameDefine.h"
+#include "../../../Public/HeaderRequest.h"
+#include "../../../LibExt/ClipText.h"
 
 NN_NAMESPACE_BEGIN
 
-class GameRoleNode:public UINode
+class GameRoleNode : public UINode
 {
 public:
 	GameRoleNode();
 	~GameRoleNode();
 
 	CREATE_FUNC(GameRoleNode);
+
 	virtual bool init() override;
     virtual void onEnterTransitionDidFinish() override;
     virtual void onExit() override;
@@ -29,7 +41,7 @@ public:
      * @param[lCoin] 金币
      * @param[bLeave] 是否离开
 	 */
-	void updateRoleInfo(const DWORD &nRoleId,const char *szName, const SCORE &lCoin,bool bLeave = false);
+	void updateRoleInfo(const DWORD &nRoleId,const char *szName, const LONGLONG &llGameCoin, bool bLeave = false);
 
 	/*
 	 * @brief 切换到庄家角色
@@ -82,6 +94,7 @@ private:
 	cocos2d::ui::Text *m_textName;*/
     //
     ClipText *m_clipNickName;
+
 	//元宝
 	cocos2d::ui::Text *m_textCoin;
 	//庄家

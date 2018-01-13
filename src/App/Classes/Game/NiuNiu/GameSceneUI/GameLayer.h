@@ -13,23 +13,20 @@
 #define __NN_GAME_LAYER_H__
 
 #include "CocosHeader.h"
-#include "../../DataMgr/GameDataMgr.h"
-#include "../../DataMgr/UserData.h"
-
-#include "GameRoleNode.h"
-#include "CMD_Game.h"
-#include "GameLogic.h"
+#include "../../../DataMgr/GameDataMgr.h"
+#include "../../../DataMgr/UserData.h"
+#include "../Header/CMD_Game.h"
+#include "../DataMgr/GameLogic.h"
+#include "../nn_SettingLayer.h"
 #include "GameCard/CardsNode.h"
+#include "GameRoleNode.h"
 #include "NiuNiuNode.h"
 #include "CalculateNiuItem.h"
 #include "GameClockNode.h"
-
 #include "GameEffectLayer.h"
 #include "Chat/GameChatLayer.h"
 #include "AntiCheatLayer.h"
 #include "GameRoleInfoLayer.h"
-
-#include "nn_SettingLayer.h"
 
 NN_NAMESPACE_BEGIN
 class GameLayer:public UILayer,

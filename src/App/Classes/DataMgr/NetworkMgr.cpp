@@ -81,25 +81,29 @@ CTCPSocket * NetworkMgr::getSocketOnce() const
     return  m_pSocketOnce;
 }
 
-void NetworkMgr::doConnect(const char *domain, WORD wPort, EM_DATA_TYPE type)
+void NetworkMgr::doConnect(const char *domain, WORD wPort, EM_DATA_TYPE emDataType)
 {
     CTCPSocket *socket = new CTCPSocket();
-    this->Disconnect(type);
-    if (type == EM_DATA_TYPE_ROOM) {
+    this->Disconnect(emDataType);
+
+    if (emDataType == EM_DATA_TYPE_ROOM)
         m_pSocketData = socket;
-    }
-    if (type == EM_DATA_TYPE_LOAD) {
+   
+    if (emDataType == EM_DATA_TYPE_LOAD)
         m_pSocketOnce = socket;
-    }
-    socket->socketConnect(domain, wPort, type);
+   
+    socket->socketConnect(domain, wPort, emDataType);
     socket->setSocketTarget(CC_CALLBACK_4(NetworkMgr::SocketDelegateWithRecvData, this));
+
     this->sendPacket_Compilatio(socket);
 }
 
 void NetworkMgr::Disconnect(EM_DATA_TYPE type)
 {
-    if (type == EM_DATA_TYPE_LOAD) {
-        if (m_pSocketOnce) {
+    if (type == EM_DATA_TYPE_LOAD) 
+	{
+        if (m_pSocketOnce) 
+		{
             m_pSocketOnce->socketClose();
             m_pSocketOnce->runAction(Sequence::createWithTwoActions(DelayTime::create(0.5f), CallFunc::create([=]{
                 m_pSocketOnce->autorelease();
@@ -107,13 +111,17 @@ void NetworkMgr::Disconnect(EM_DATA_TYPE type)
         }
         m_pSocketOnce = nullptr;
     }
-    if (type == EM_DATA_TYPE_ROOM) {
-        if (m_pSocketData) {
+
+    if (type == EM_DATA_TYPE_ROOM) 
+	{
+        if (m_pSocketData) 
+		{
             m_pSocketData->socketClose();
             m_pSocketData->runAction(Sequence::createWithTwoActions(DelayTime::create(0.5f), CallFunc::create([=]{
                 m_pSocketData->autorelease();
             })));
         }
+
         m_pSocketData = nullptr;
     }
 }
